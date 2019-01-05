@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4.1">
+  <!-- The master actor (with some arguments) -->
+  <actor host="host1" function="client">
+    <argument value="host2_nameNode"/>       
+  </actor>
+
+  <!-- The worker processes (with no argument) -->
+  <actor host="host2" function="nameNode" >
+<argument value="host2_nameNode"/>
+</actor>
+
+  <actor host="host1" function="dataNode"/>
+  <actor host="host2" function="dataNode"/>
+  <actor host="host3" function="dataNode"/>
+  <actor host="host4" function="dataNode"/>
+  <actor host="host5" function="dataNode"/>
+  <actor host="host6" function="dataNode"/>
+  <actor host="host7" function="dataNode"/>
+  <actor host="host8" function="dataNode"/>
+  <actor host="host9" function="dataNode"/>
+              
+</platform>

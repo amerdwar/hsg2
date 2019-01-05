@@ -1,0 +1,144 @@
+#This file was generated using SimGrid-3.21.0
+#[./hsg resources/small_platform2.xml resources/master-workers_d2.xml --cfg=tracing:yes --cfg=tracing/msg/process:1 --cfg=tracing/categorized:yes --cfg=tracing/filename:mytracefile.trace ]
+%EventDef PajeDefineContainerType 0
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineVariableType 1
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEventType 3
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineLinkType 4
+%       Alias string
+%       Type string
+%       StartContainerType string
+%       EndContainerType string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEntityValue 5
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Type string
+%       Container string
+%       Name string
+%EndEventDef
+%EventDef PajeDestroyContainer 7
+%       Time date
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeSetVariable 8
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeAddVariable 9
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSubVariable 10
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSetState 11
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePushState 12
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 13
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeResetState 14
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeStartLink 15
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       StartContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeEndLink 16
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       EndContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeNewEvent 17
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+0 1 0 L1
+6 0.000000 1 1 0 "my_cluster1"
+0 2 1 ROUTER
+6 0.000000 2 2 1 "router1"
+0 3 1 HOST
+6 0.000000 3 3 1 "host1"
+1 4 3 speed "1 1 1"
+1 5 3 core_count "1 1 1"
+0 6 1 LINK
+6 0.000000 4 6 1 "l1_UP"
+1 7 6 bandwidth "1 1 1"
+1 8 6 latency "1 1 1"
+6 0.000000 5 6 1 "l1_DOWN"
+6 0.000000 6 3 1 "host2"
+6 0.000000 7 6 1 "l2_UP"
+6 0.000000 8 6 1 "l2_DOWN"
+6 0.000000 9 3 1 "host3"
+6 0.000000 10 6 1 "l3"
+6 0.000000 11 6 1 "backbone1"
+6 0.000000 12 1 0 "my_cluster2"
+6 0.000000 13 2 12 "router2"
+6 0.000000 14 3 12 "host4"
+6 0.000000 15 6 12 "l4_UP"
+6 0.000000 16 6 12 "l4_DOWN"
+6 0.000000 17 3 12 "host5"
+6 0.000000 18 6 12 "l5_UP"
+6 0.000000 19 6 12 "l5_DOWN"
+6 0.000000 20 3 12 "host6"
+6 0.000000 21 6 12 "l6"
+6 0.000000 22 6 12 "backbone2"
+0 9 0 LINK
+6 0.000000 23 9 0 "link1-2"
+1 10 9 bandwidth "1 1 1"
+1 11 9 latency "1 1 1"

@@ -1,0 +1,3 @@
+/home/alpha/tuturial/hsg/CMakeFiles/rebuild_cache.dir
+/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir
+/home/alpha/tuturial/hsg/CMakeFiles/edit_cache.dir

@@ -1,0 +1,208 @@
+/*
+ * NameNode.cpp
+ *
+ *  Created on: Dec 27, 2018
+ *      Author: alpha
+ */
+
+#include "NameNode.h"
+XBT_LOG_NEW_DEFAULT_CATEGORY(hsg2, "Messages specific for this example");
+NameNode::NameNode(std::vector<std::string> args) {
+	// TODO Auto-generated constructor stub
+	nameNodeName=args[1];
+//mailbox=Mailbox::by_name(this_actor::get_host()->get_name()+nameNodeName);
+	Engine* e=simgrid::s4u::Engine::getInstance();
+
+	mailbox=Mailbox::by_name(nameNodeName);
+	XBT_INFO(" name node mail box name %s",mailbox->get_cname());
+racks=e->get_filtered_netzones<simgrid::kernel::routing::ClusterZone>();
+replicatinNum=10;
+allDires=new map <string,DirFiles *>();
+dataNodes=new map<MailboxPtr,vector<Chunk*>>;
+
+}
+
+
+
+ void NameNode::operator()(){//the simulation loop
+
+	Message * m=nullptr;
+do{
+	XBT_INFO(" name node before get");
+m=static_cast<Message*> (mailbox->get());
+	XBT_INFO(" name node after get %s",m->sender.c_str());
+
+switch (m->type){
+case msg_type::end_of_simulation :{  break;}
+case msg_type::cl_nn_wr_file :{
+	HdfsFile * f=static_cast<HdfsFile*>( m->payload);
+
+	hdfs_write(f->dir,f->name,f->size,Mailbox::by_name(m->sender));
+	XBT_INFO(" after write");
+
+	break;
+}
+}
+
+}while (m->type!=msg_type::end_of_simulation);
+
+}
+
+bool NameNode::hdfs_write(string dir,string file,int64_t file_size,simgrid::s4u::MailboxPtr sender){
+//add dir to dir victor
+//add file to dir file
+//filesize/chunksize
+//choose the datanode for the chnuk
+	//send the chnk for the first no
+xbt_assert(replicatinNum > 0,"replication num is 0");
+
+HdfsFile* f=new HdfsFile(dir,file,file_size);
+
+if(allDires->find(dir)==allDires->end()){//add dir if not exist
+DirFiles* d=new DirFiles(dir);
+
+	allDires->insert(std::pair<string,DirFiles*>(dir,d));
+
+}
+long int rackNums =racks.size();
+XBT_INFO("now %i",rackNums);
+xbt_assert(rackNums>0,"num of rack is 0");
+int64_t numCh=file_size/chunkSize;
+if (file_size%chunkSize!=0)
+	numCh++;
+
+
+for (int chindex=0;chindex<numCh;chindex++){
+
+	vector<simgrid::s4u::MailboxPtr>* hosts_to_write=new vector<simgrid::s4u::MailboxPtr> ();
+
+	//select random rack
+    int64_t rackId=RandClass::getRand(0,rackNums-1);
+
+   //first we have to write the chunk the random host in the selected rack
+    auto selectedRack=racks.at(rackId);
+    xbt_assert(selectedRack->get_all_hosts().size()>0,"num of host in rack %d is 0",rackId);
+simgrid::s4u::MailboxPtr h1
+=simgrid::s4u::Mailbox::by_name(this->randomHostInRack(selectedRack)->get_name()+"_dataNode");
+
+hosts_to_write->push_back(h1);
+simgrid::s4u::MailboxPtr h2=nullptr;
+if(replicatinNum > 1){//choose another host in another rack if exist
+	if (racks.size()>1){
+		//choose random rack !=rackid
+		int64_t	temId=0;
+		do{
+		    temId=RandClass::getRand(0,rackNums-1);
+		}while (rackId==temId);
+	//chose rand host != h1
+        xbt_assert(racks.at(temId)->get_all_hosts().size()>0,"num of host is 0");
+
+		if(racks.at(temId)->get_all_hosts().size()>1) {
+			h2
+			=simgrid::s4u::Mailbox::by_name(this->randomHostInRack(racks.at(temId))->get_name()+"_dataNode");}
+		else {//there is one host host
+			h2 =simgrid::s4u::Mailbox::by_name(racks.at(temId)->get_all_hosts().at(0)->get_name()+"_dataNode");}
+
+	}else {//racks size is 1
+		xbt_assert(racks.at(0)->get_all_hosts().size()>0,"num of host is 0");
+		if(racks.at(0)->get_all_hosts().size()>1) {
+			h2 =simgrid::s4u::Mailbox::by_name
+						        (this->randomHostInRackExceptHost
+						        		(racks.at(0),h1->get_name())->get_name()+"_dataNode");
+		}else{
+
+			h2 =simgrid::s4u::Mailbox::by_name(racks.at(0)->get_all_hosts().at(0)->get_name()+"_dataNode");
+		}
+
+	}
+
+hosts_to_write->push_back(h2);
+}
+simgrid::s4u::MailboxPtr h3=nullptr;
+if (replicatinNum>2){//third replication is in the same rack
+
+
+	if(racks.at(rackId)->get_all_hosts().size()>1) {
+				h3 =simgrid::s4u::Mailbox::by_name
+							        (this->randomHostInRackExceptHost
+							        		(selectedRack,h1->get_name())->get_name()+"_dataNode");
+			}else{
+
+				h3 =simgrid::s4u::Mailbox::by_name(selectedRack->get_all_hosts().at(0)->get_name()+"_dataNode");
+			}
+
+
+
+	hosts_to_write->push_back(h3);
+}
+if(replicatinNum>3){
+	for (int i =4;i<=replicatinNum;i++){
+
+		int64_t rackId1=RandClass::getRand(0,rackNums-1);
+		//first we have to write the chunk the random host in the selected rack
+		auto selectedRack1=racks.at(rackId1);
+        xbt_assert(selectedRack1->get_all_hosts().size()>0,"num host is 0 in rack num %i",rackId1);
+
+        simgrid::s4u::MailboxPtr tempHost=simgrid::s4u::Mailbox::by_name(this->randomHostInRack(selectedRack1)->get_name()+"_dataNode");
+		hosts_to_write->push_back(tempHost);
+	}
+
+}
+//now we have vector of hosts to write the chunk on it
+Chunk* ch=new Chunk(dir,f->name,f->id,f->size);
+ch->nodes=hosts_to_write;
+f->chunks->push_back(ch);
+for( int i=0;i<hosts_to_write->size();i++){
+	if(dataNodes->find(hosts_to_write->at(i))==dataNodes->end()){
+		vector <Chunk*> dnChunks;
+		dnChunks.push_back(ch);
+		dataNodes->insert(std::pair<MailboxPtr,vector<Chunk*>>(hosts_to_write->at(i),dnChunks));
+	}else{
+dataNodes->at(hosts_to_write->at(i)).push_back(ch);
+	}
+
+}
+
+}
+allDires->at(dir)->Files->insert(std::pair<string,HdfsFile *>(file,f));
+
+//send back to sender with the list of data nodes
+XBT_INFO(" yes it is ");
+Message *msg=new Message(msg_type::nn_cl_file_ch,nameNodeName,
+		sender->get_name(),1,allDires->at(dir)->Files->at(file));
+XBT_INFO(" yes it is 2 %s",sender->get_name().c_str());
+
+
+sender->put(msg,1024);
+XBT_INFO(" yes it is 3");
+
+
+
+return true;
+}
+NameNode::~NameNode() {
+	// TODO Auto-generated destructor stub
+}
+
+simgrid::s4u::Host* NameNode::randomHostInRack(simgrid::kernel::routing::ClusterZone* rack){
+	auto hosts=rack->get_all_hosts();
+
+	return  hosts.at(RandClass::getRand(0,hosts.size()-1));
+
+}
+
+simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(simgrid::kernel::routing::ClusterZone* rack,string host){
+	auto hosts=rack->get_all_hosts();
+	simgrid::s4u::Host* h;
+if(hosts.size()>1){//if we have more than one host return any random host in the rack except the host whose name is param host
+	do{
+	h=	 hosts.at(RandClass::getRand(0,hosts.size()-1));
+
+	}while (h->get_name().compare(host)==0);
+	return h;
+}
+else {//there is one host in the rack
+
+	return hosts.at(0);
+}
+}
