@@ -8,13 +8,17 @@
 #ifndef HDFS_DATANODE_H_
 #define HDFS_DATANODE_H_
 #include "NameNode.h"
+#include "../distributions/RandClass.h"
 class DataNode {
 public:
 	MailboxPtr mailbox;
     map<int64_t,Chunk*> chunks;
-
-	explicit DataNode(std::vector<std::string> args);
+    std::vector<string> *storage_list;
+    std::unordered_map<std::string, simgrid::s4u::Storage*> const&
+															sList=simgrid::s4u::Host::current()->get_mounted_storages();
+	explicit DataNode(std::vector<std::string > args);
 	virtual ~DataNode();
+	string getRandStorage();
 	void operator()();
 };
 

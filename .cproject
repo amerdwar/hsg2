@@ -37,7 +37,7 @@
                             							
                             <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.base.1439319675" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
                             							
-                            <builder id="cdt.managedbuild.target.gnu.builder.base.996873443" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+                            <builder command="cmake" id="cdt.managedbuild.target.gnu.builder.base.996873443" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
                             							
                             <tool id="cdt.managedbuild.tool.gnu.archiver.base.1532670017" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
                             							
@@ -73,7 +73,7 @@
                             							
                             <tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.1356315172" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
                                 								
-                                <option id="gnu.cpp.link.option.libs.872632989" superClass="gnu.cpp.link.option.libs" valueType="libs">
+                                <option id="gnu.cpp.link.option.libs.872632989" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
                                     									
                                     <listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="/usr/lib/x86_64-linux-gnu/libboost_system.so"/>
                                     									

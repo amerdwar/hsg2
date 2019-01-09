@@ -59,6 +59,8 @@ DataNode.h
 /home/alpha/tuturial/hsg/hdfs/DataNode.h
 NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
+../distributions/RandClass.h
+/home/alpha/tuturial/hsg/distributions/RandClass.h
 
 /home/alpha/tuturial/hsg/hdfs/DirFiles.cpp
 DirFiles.h

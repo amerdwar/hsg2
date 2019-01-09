@@ -15,7 +15,8 @@ public:
 string nameNode ;
 simgrid::s4u::MailboxPtr nnmb,thismb;
 	explicit Client(std::vector<std::string> args);
-
+	void write();
+	void read();
 	virtual ~Client();
 	void operator()();
 };

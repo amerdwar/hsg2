@@ -12,7 +12,7 @@ Message::Message(msg_type type,string s,string r,int returnTag,void* payload){
 this->type=type;
 this->payload=payload;
 this->sender=s;
-this->receiver=s;
+this->receiver=r;
 this->returnTag=returnTag;
 
 

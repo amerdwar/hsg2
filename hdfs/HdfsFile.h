@@ -22,7 +22,7 @@ vector<Chunk*> *chunks=new vector<Chunk*>();
 	virtual ~HdfsFile();
 
 	string dir;
-
+bool isAck=false;
 	string name;
 
 	int64_t size;
