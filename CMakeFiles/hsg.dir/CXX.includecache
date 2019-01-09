@@ -51,6 +51,8 @@ Client.h
 /home/alpha/tuturial/hsg/hdfs/Client.h
 NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
+HdfsClient.h
+/home/alpha/tuturial/hsg/hdfs/HdfsClient.h
 
 /home/alpha/tuturial/hsg/hdfs/DataNode.cpp
 DataNode.h
@@ -73,6 +75,20 @@ vector
 -
 HdfsFile.h
 /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+
+/home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp
+HdfsClient.h
+/home/alpha/tuturial/hsg/hdfs/HdfsClient.h
+
+/home/alpha/tuturial/hsg/hdfs/HdfsClient.h
+simgrid/s4u.hpp
+/home/alpha/tuturial/hsg/hdfs/simgrid/s4u.hpp
+DirFiles.h
+/home/alpha/tuturial/hsg/hdfs/DirFiles.h
+HdfsFile.h
+/home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+../messages/Message.h
+/home/alpha/tuturial/hsg/messages/Message.h
 
 /home/alpha/tuturial/hsg/hdfs/HdfsFile.cpp
 HdfsFile.h

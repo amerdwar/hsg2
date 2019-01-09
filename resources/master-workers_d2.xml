@@ -2,6 +2,7 @@
 <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
 <platform version="4.1">
   <!-- The master actor (with some arguments) -->
+
   <actor host="host1" function="client">
     <argument value="host2_nameNode"/>       
   </actor>

@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/Client.cpp.o"
+  "CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o"
   "CMakeFiles/hsg.dir/Main.cpp.o"

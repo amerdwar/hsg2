@@ -201,9 +201,33 @@ CMakeFiles/hsg.dir/hdfs/Client.cpp.o.provides: CMakeFiles/hsg.dir/hdfs/Client.cp
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o.provides.build: CMakeFiles/hsg.dir/hdfs/Client.cpp.o
 
 
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsClient.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o -c /home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp
+
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp > CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.i
+
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp -o CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.s
+
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.requires:
+
+.PHONY : CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.requires
+
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.provides: CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.requires
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.provides.build
+.PHONY : CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.provides
+
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.provides.build: CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
+
+
 CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o: hdfs/HdfsFile.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o -c /home/alpha/tuturial/hsg/hdfs/HdfsFile.cpp
 
 CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o.provides.build: CMakeFiles/hsg.dir/hdfs/H
 
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/DataNode.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o -c /home/alpha/tuturial/hsg/hdfs/DataNode.cpp
 
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.i: cmake_force
@@ -251,7 +275,7 @@ CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o.provides.build: CMakeFiles/hsg.dir/hdfs/D
 
 CMakeFiles/hsg.dir/Main.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/Main.cpp.o: Main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/Main.cpp.o -c /home/alpha/tuturial/hsg/Main.cpp
 
 CMakeFiles/hsg.dir/Main.cpp.i: cmake_force
@@ -281,6 +305,7 @@ hsg_OBJECTS = \
 "CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o" \
 "CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o" \
 "CMakeFiles/hsg.dir/hdfs/Client.cpp.o" \
+"CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o" \
 "CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o" \
 "CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o" \
 "CMakeFiles/hsg.dir/Main.cpp.o"
@@ -294,13 +319,14 @@ hsg: CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/Client.cpp.o
+hsg: CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o
 hsg: CMakeFiles/hsg.dir/Main.cpp.o
 hsg: CMakeFiles/hsg.dir/build.make
 hsg: /opt/simgrid/lib/libsimgrid.so
 hsg: CMakeFiles/hsg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable hsg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable hsg"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hsg.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -314,6 +340,7 @@ CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/Client.cpp.o.requires
+CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/Main.cpp.o.requires

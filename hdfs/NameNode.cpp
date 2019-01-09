@@ -40,7 +40,7 @@ void NameNode::operator()() { //the simulation loop
 		}
 		case msg_type::cl_nn_wr_file: {
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
-
+XBT_INFO("the sender is %s",m->sender.c_str());
 			hdfs_write(f->dir, f->name, f->size, Mailbox::by_name(m->sender));
 
 			break;
@@ -52,6 +52,7 @@ void NameNode::operator()() { //the simulation loop
 			break;
 		}
 		case msg_type::cl_nn_re_file: {
+			XBT_INFO("in read");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			Message *msg = new Message(msg_type::nn_cl_re_file, nameNodeName,
 					m->sender, 1, allDires->at(f->dir)->Files->at(f->name));
@@ -68,6 +69,7 @@ void NameNode::operator()() { //the simulation loop
 
 bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		simgrid::s4u::MailboxPtr sender) {
+	XBT_INFO("write");
 //add dir to dir victor
 //add file to dir file
 //filesize/chunksize
@@ -205,8 +207,9 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 	Message *msg = new Message(msg_type::nn_cl_file_ch, nameNodeName,
 			sender->get_name(), 1, allDires->at(dir)->Files->at(file));
 
+	XBT_INFO("before put");
 	sender->put(msg, 1024);
-
+	XBT_INFO("after that");
 	return true;
 }
 NameNode::~NameNode() {

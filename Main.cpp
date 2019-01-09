@@ -29,6 +29,9 @@ int main(int argc, char* argv[])
   e.load_deployment(argv[2]);
 
 
+
+  //simgrid::s4u::Actor::create("client", simgrid::s4u::Host::by_name("host1"), Client("host2_nameNode"));
+
   /* Run the simulation */
   e.run();
 

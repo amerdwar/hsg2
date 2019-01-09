@@ -18,6 +18,7 @@ hdfs/NameNode.cpp
 hdfs/Chunk.cpp
 hdfs/DirFiles.cpp
 hdfs/Client.cpp
+hdfs/HdfsClient.cpp
 hdfs/HdfsFile.cpp
 hdfs/DataNode.cpp
 Main.cpp

@@ -1,59 +1,24 @@
 /*
- * Client.cpp
+ * HdfsClient.cpp
  *
- *  Created on: Jan 3, 2019
+ *  Created on: Jan 9, 2019
  *      Author: alpha
  */
 
-#include "Client.h"
-XBT_LOG_NEW_DEFAULT_CATEGORY(hsg, "Messages specific for this example");
-  Client:: Client(std::vector<std::string> args){
+#include "HdfsClient.h"
+XBT_LOG_NEW_DEFAULT_CATEGORY(hdfsClient, "Messages specific for this example");
 
-	 xbt_assert(args.size()>0, "the arguments must be more than one");
-     this->nameNode=args[1];
+HdfsClient::HdfsClient(simgrid::s4u::MailboxPtr nnmb,simgrid::s4u::MailboxPtr thismb) {
 
-     nnmb=simgrid::s4u::Mailbox::by_name(nameNode);
-     thismb=simgrid::s4u::Mailbox::by_name(simgrid::s4u::this_actor::get_name());
-     thismb->set_receiver( Actor::self());
+this->nnmb=nnmb;
+this->nameNode=nnmb->get_name();
+this->thismb=thismb;
 
 }
-  Client:: Client(string arg){
+bool HdfsClient::writeFile(HdfsFile *h){
 
 
-     this->nameNode=arg;
-     XBT_INFO("name node is %s",nameNode.c_str());
-     nnmb=simgrid::s4u::Mailbox::by_name(nameNode);
-     thismb=simgrid::s4u::Mailbox::by_name(simgrid::s4u::this_actor::get_name());
-     thismb->set_receiver( Actor::self());
-
-}
-
-void Client::operator ()(){
-	HdfsClient* hd=new HdfsClient(nnmb,thismb);
-	HdfsFile * h=new HdfsFile(string("d1"),string("f1"),10737418240);
-	HdfsFile * h2=new HdfsFile(string("d1"),string("f2"),10737418240);
-	auto a=Engine::getClock();
-	hd->writeFile(h);
-	auto b=Engine::getClock();
-	hd->writeFile(h2);
-	auto c=Engine::getClock();
-hd->read(h);
-auto d=Engine::getClock();
-
-double wr1=b-a;
-double wr2=c-b;
-double re=d-c;
-XBT_INFO(" write in %d ",wr1);
-XBT_INFO(" write 2 in %d ",wr2);
-XBT_INFO(" read in %d ",re);
-
-
-}
-//tell now we have all chunks with the data nodes now we have to send them to data node only
-void Client::write(){
-
-
-	HdfsFile * h=new HdfsFile(string("d1"),string("f1"),10737418240);
+	//HdfsFile * h=new HdfsFile(string("d1"),string("f1"),10737418240);
 
 	Message *m =new Message(msg_type::cl_nn_wr_file,simgrid::s4u::this_actor::get_name(),nameNode,1,h);
 	XBT_INFO("message from client");
@@ -92,11 +57,11 @@ XBT_INFO("client send ack");
 
 }
 
-void Client::read(){
+bool HdfsClient::read(HdfsFile* hr){
 
 
 
-	HdfsFile * hr=new HdfsFile(string("d1"),string("f1"),10737418240);
+	//HdfsFile * hr=new HdfsFile(string("d1"),string("f1"),10737418240);
 	Message *mr =new Message(msg_type::cl_nn_re_file,simgrid::s4u::this_actor::get_name(),nameNode,1,hr);
 
 	nnmb->put(mr,2000);
@@ -130,7 +95,8 @@ void Client::read(){
 
 }
 
-Client::~Client() {
+
+HdfsClient::~HdfsClient() {
 	// TODO Auto-generated destructor stub
 }
 
