@@ -17,7 +17,7 @@ NameNode::NameNode(std::vector<std::string> args) {
 	mailbox->set_receiver(Actor::self());
 
 	racks = e->get_filtered_netzones<simgrid::kernel::routing::ClusterZone>();
-	replicatinNum = 10;
+	replicatinNum = 3;
 	allDires = new map<string, DirFiles *>();
 	dataNodes = new map<MailboxPtr, vector<Chunk*>>;
 
@@ -27,9 +27,7 @@ void NameNode::operator()() { //the simulation loop
 
 	Message * m = nullptr;
 	do {
-
 		m = static_cast<Message*>(mailbox->get());
-
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
 			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
@@ -40,7 +38,7 @@ void NameNode::operator()() { //the simulation loop
 		}
 		case msg_type::cl_nn_wr_file: {
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
-XBT_INFO("the sender is %s",m->sender.c_str());
+
 			hdfs_write(f->dir, f->name, f->size, Mailbox::by_name(m->sender));
 
 			break;
@@ -69,7 +67,7 @@ XBT_INFO("the sender is %s",m->sender.c_str());
 
 bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		simgrid::s4u::MailboxPtr sender) {
-	XBT_INFO("write");
+
 //add dir to dir victor
 //add file to dir file
 //filesize/chunksize
@@ -200,16 +198,23 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		}
 
 	}
-	allDires->at(dir)->Files->insert(std::pair<string, HdfsFile *>(file, f));
 
+
+	auto ret=allDires->at(dir)->Files->insert(std::pair<string, HdfsFile *>(file, f));
+
+	if(ret.second==false){
+XBT_INFO("file exist");
+return 0;
+
+	}
 //send back to sender with the list of data nodes
 
 	Message *msg = new Message(msg_type::nn_cl_file_ch, nameNodeName,
 			sender->get_name(), 1, allDires->at(dir)->Files->at(file));
 
-	XBT_INFO("before put");
+
 	sender->put(msg, 1024);
-	XBT_INFO("after that");
+
 	return true;
 }
 NameNode::~NameNode() {
