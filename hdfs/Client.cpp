@@ -6,6 +6,7 @@
  */
 
 #include "Client.h"
+
 XBT_LOG_NEW_DEFAULT_CATEGORY(hsg, "Messages specific for this example");
 Client::Client(std::vector<std::string> args) {
 
@@ -40,59 +41,55 @@ void Client::operator ()() {
 //	hd->read(h);
 
 //write 78 dataset  files from 0.25 mb to 320 mb each data set contains 500 file with the same size
-
+	ofstream myfile;
+	myfile.open("example.txt");
 	int smallSize = 367001; //this is 0.35 mb in bytes
 	int bigSize = 3145728; //this is 3 mb in bytes
-	double all[78];
+	int allSize = 335544320;
+	vector<double> med;
+	int64_t ss;
 	for (int i = 1; i < 40; i++) {
 		//start from 0.25 and increment with 0.35
-		vector<double>  medians;
-		int64_t ss=smallSize	 * i;
-		for (int j = 1; j < 501; j++) {
 
-			HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(j),
-					ss);
-			double a = Engine::get_clock();
-			hd->writeFile(h);
-			double b = Engine::get_clock();
-			medians.push_back(b-a);
+		ss = smallSize * i;
 
-		}
-	sort(medians.begin(),medians.end());
-all[i]=(medians.at(249)+medians.at(250))/2;
-XBT_INFO("the time to write s=%i is t=%g",ss,all[i]);
+		HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(i), ss);
+		double a = Engine::get_clock();
+		hd->writeFile(h);
+		double b = Engine::get_clock();
+		double c = b - a;
+
+		double median = c;
+
+		double sizeInMB = ((double) ss) / (1024 * 1024);
+		double throughput = sizeInMB / median;
+
+		myfile
+				<< boost::format("throughput tt=%1%  s=%2% is t=%3%") % median
+						% throughput % sizeInMB << "\n";
 	}
-	for (int i = 78; i > 39; i--) {
+	int temp = 0;
+	for (int i = 41; i < 200; i++) {
 		//start from 320 and decrease with 3
-		vector<double>  medians;
-		int64_t ss=bigSize	 * i;
-		for (int j = 1; j < 501; j++) {
+		temp++;
+		ss = ss + bigSize;
+		if (ss > 335544320)
+			break;
 
-			HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(j),
-	ss	);
-			double a = Engine::get_clock();
-			hd->writeFile(h);
-			double b = Engine::get_clock();
-			medians.push_back(b-a);
+		HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(i), ss);
 
-		}
-	sort(medians.begin(),medians.end());
-all[i]=(medians.at(249)+medians.at(250))/2;
-XBT_INFO("the time to write s=%i is t=%g",ss,all[i]);
+		double a = Engine::get_clock();
+		hd->writeFile(h);
+		double b = Engine::get_clock();
+		double c = b - a;
+		double median = c;
+		double sizeInMB = ((double) ss) / (1024 * 1024);
+		double throughput = sizeInMB / median;
+		myfile<< boost::format("throughput tt=%1%  s=%2% is t=%3%") % median
+						% throughput % sizeInMB << "\n";
+
 	}
-
-	//   0.25    0.25
-	//   0.35     0.6
-	//   0.4       0.65
-	//5   0.45      0.7
-	//5   0.5       0.75
-	//    1.25      2
-	//    1.5        3.5
-	//    2          5.5
-	//     3         8.5
-	//      3.5      12
-	//       5
-
+	myfile.close();
 }
 //tell now we have all chunks with the data nodes now we have to send them to data node only
 void Client::write() {
@@ -134,7 +131,6 @@ void Client::write() {
 	Message *mack = new Message(msg_type::cl_nn_ack_ch,
 			simgrid::s4u::this_actor::get_name(), nameNode, 1, f);
 	nnmb->put(mack, 1024);
-
 
 }
 

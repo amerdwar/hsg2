@@ -50,17 +50,20 @@ void DataNode::operator()() {
 			chunks.insert(std::pair<int64_t, Chunk*>(ch->chId, ch));
 
 			ch->writeIndex += 1;
-
-			Storage::by_name(ch->storage)->write(ch->size);
-
+//1048576 size take 1 ms to write ,some thing lime access time
+double a =Engine::get_clock();
+			auto aa=Storage::by_name(ch->storage)->write_async(ch->size*2);
+			//Storage::by_name(ch->storage)->write(ch->size);
 			if (ch->writeIndex < ch->nodes->size()) {
 				m->payload = ch;
 				m->sender = m->receiver;
 				m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
-
 				ch->nodes->at(ch->writeIndex)->put(m, ch->size);
-
+				aa->wait();
+				double b =Engine::get_clock();
+				XBT_INFO("the time is %f ",b-a);
 			} else { //this is the last node in the pipline
+				aa->wait();
 				ch->writeIndex -= 1; //the index of the last node
 				ch->writeIndex -= 1; //the index of the  previous node
 				m->payload = ch;
@@ -68,14 +71,15 @@ void DataNode::operator()() {
 				m->sender = m->receiver;
 				if (ch->writeIndex >= 0) {
 					m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
-					ch->nodes->at(ch->writeIndex)->put(m, 1024);
+					ch->nodes->at(ch->writeIndex)->put(m, 1522);
 				} else { //send the ack to client
 
 					m->receiver = ch->clinetMB->get_name();
-					ch->clinetMB->put(m, 1024);
+					ch->clinetMB->put(m, 1522);
 				}
 
 			}
+
 			break;
 		}
 		case msg_type::cl_dn_re_ch: {
@@ -95,11 +99,11 @@ void DataNode::operator()() {
 			m->sender = m->receiver;
 			if (ch->writeIndex >= 0) {
 				m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
-				ch->nodes->at(ch->writeIndex)->put(m, 1024);
+				ch->nodes->at(ch->writeIndex)->put(m, 1522);
 			} else { //send the ack to client
 
 				m->receiver = ch->clinetMB->get_name();
-				ch->clinetMB->put(m, 1024);
+				ch->clinetMB->put(m, 1522);
 			}
 
 		}

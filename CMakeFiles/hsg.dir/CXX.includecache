@@ -53,6 +53,10 @@ NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
 HdfsClient.h
 /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
+fstream
+-
+boost/format.hpp
+-
 
 /home/alpha/tuturial/hsg/hdfs/DataNode.cpp
 DataNode.h

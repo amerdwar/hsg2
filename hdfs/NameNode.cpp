@@ -180,7 +180,12 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 		}
 //now we have vector of hosts to write the chunk on it
-		Chunk* ch = new Chunk(dir, f->name, f->id, f->size);
+		Chunk *ch = new Chunk(dir, f->name, f->id, chunkSize);
+		if (chindex == (numCh - 1)) {
+			//if the chunk is the last chunk its size with pe the reminderof filesize/chunkSize
+			ch = new Chunk(dir, f->name, f->id, f->size % chunkSize);
+		}
+
 		ch->clinetMB = sender;
 		ch->nodes = hosts_to_write;
 		f->chunks->push_back(ch);
@@ -199,19 +204,17 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 	}
 
-
-	auto ret=allDires->at(dir)->Files->insert(std::pair<string, HdfsFile *>(file, f));
-
-	if(ret.second==false){
-XBT_INFO("file exist");
-return 0;
+	auto ret = allDires->at(dir)->Files->insert(
+			std::pair<string, HdfsFile *>(file, f));
+	if (ret.second == false) {
+		XBT_INFO("file exist");
+		return 0;
 
 	}
 //send back to sender with the list of data nodes
 
 	Message *msg = new Message(msg_type::nn_cl_file_ch, nameNodeName,
 			sender->get_name(), 1, allDires->at(dir)->Files->at(file));
-
 
 	sender->put(msg, 1024);
 

@@ -14,6 +14,7 @@
 using namespace simgrid::s4u;
 class HdfsClient {
 public:
+
 	simgrid::s4u::MailboxPtr nnmb;
 	simgrid::s4u::MailboxPtr thismb;
 	string nameNode;

@@ -9,6 +9,8 @@
 #define HDFS_CLIENT_H_
 #include "NameNode.h"
 #include "HdfsClient.h"
+#include <fstream>
+#include <boost/format.hpp>
 class Client {
 
 public:
