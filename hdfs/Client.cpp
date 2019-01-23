@@ -42,18 +42,19 @@ void Client::operator ()() {
 
 //write 78 dataset  files from 0.25 mb to 320 mb each data set contains 500 file with the same size
 	ofstream myfile;
+	double firstd=Engine::get_clock();
 	myfile.open("example.txt");
 	int smallSize = 367001; //this is 0.35 mb in bytes
-	int bigSize = 3145728; //this is 3 mb in bytes
+	int bigSize = 3195759; //this is 3 mb in bytes
 	int allSize = 335544320;
 	vector<double> med;
 	int64_t ss;
-	for (int i = 1; i < 40; i++) {
+	for (int i = 1; i < 100; i++) {
 		//start from 0.25 and increment with 0.35
-
-		ss = smallSize * i;
+		ss = bigSize * (double)i;
 
 		HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(i), ss);
+		XBT_INFO("berfore it");
 		double a = Engine::get_clock();
 		hd->writeFile(h);
 		double b = Engine::get_clock();
@@ -69,7 +70,7 @@ void Client::operator ()() {
 						% throughput % sizeInMB << "\n";
 	}
 	int temp = 0;
-	for (int i = 41; i < 200; i++) {
+	for (int i = 41; i <40; i++) {
 		//start from 320 and decrease with 3
 		temp++;
 		ss = ss + bigSize;
@@ -85,11 +86,14 @@ void Client::operator ()() {
 		double median = c;
 		double sizeInMB = ((double) ss) / (1024 * 1024);
 		double throughput = sizeInMB / median;
-		myfile<< boost::format("throughput tt=%1%  s=%2% is t=%3%") % median
+		myfile
+				<< boost::format("throughput tt=%1%  s=%2% is t=%3%") % median
 						% throughput % sizeInMB << "\n";
 
 	}
 	myfile.close();
+	double secondd=Engine::get_clock();
+	XBT_INFO("finish simulation in %f ",secondd-firstd);
 }
 //tell now we have all chunks with the data nodes now we have to send them to data node only
 void Client::write() {

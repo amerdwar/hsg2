@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alpha/tuturial/hsg/hdfs/Client.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/Client.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/DataNode.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/DirFiles.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o"
+  "/home/alpha/tuturial/hsg/hdfs/Hdd.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/HdfsFile.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/NameNode.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o"

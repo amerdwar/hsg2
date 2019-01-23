@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
   "CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o"
+  "CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o"
   "CMakeFiles/hsg.dir/Main.cpp.o"
   "hsg.pdb"
   "hsg"

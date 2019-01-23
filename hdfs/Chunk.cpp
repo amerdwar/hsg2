@@ -17,6 +17,15 @@ this->fileName=fileN;
 
 this->nodes=new  vector<simgrid::s4u::MailboxPtr>();
 }
+Chunk* Chunk::copy(){
+Chunk* cc=new Chunk(dirName,fileName,fileId,size);
+	cc->nodes=this->nodes;
+	cc->storage=storage;
+	cc->clinetMB=clinetMB;
+	cc->chId=chId;
+	cc->writeIndex=writeIndex;
+	return cc;
+}
  int64_t Chunk::chIds=0;
 Chunk::~Chunk() {
 	// TODO Auto-generated destructor stub

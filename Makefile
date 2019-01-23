@@ -285,6 +285,33 @@ hdfs/DirFiles.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.s
 .PHONY : hdfs/DirFiles.cpp.s
 
+hdfs/Hdd.o: hdfs/Hdd.cpp.o
+
+.PHONY : hdfs/Hdd.o
+
+# target to build an object file
+hdfs/Hdd.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
+.PHONY : hdfs/Hdd.cpp.o
+
+hdfs/Hdd.i: hdfs/Hdd.cpp.i
+
+.PHONY : hdfs/Hdd.i
+
+# target to preprocess a source file
+hdfs/Hdd.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/Hdd.cpp.i
+.PHONY : hdfs/Hdd.cpp.i
+
+hdfs/Hdd.s: hdfs/Hdd.cpp.s
+
+.PHONY : hdfs/Hdd.s
+
+# target to generate assembly for a file
+hdfs/Hdd.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/Hdd.cpp.s
+.PHONY : hdfs/Hdd.cpp.s
+
 hdfs/HdfsClient.o: hdfs/HdfsClient.cpp.o
 
 .PHONY : hdfs/HdfsClient.o
@@ -420,6 +447,9 @@ help:
 	@echo "... hdfs/DirFiles.o"
 	@echo "... hdfs/DirFiles.i"
 	@echo "... hdfs/DirFiles.s"
+	@echo "... hdfs/Hdd.o"
+	@echo "... hdfs/Hdd.i"
+	@echo "... hdfs/Hdd.s"
 	@echo "... hdfs/HdfsClient.o"
 	@echo "... hdfs/HdfsClient.i"
 	@echo "... hdfs/HdfsClient.s"

@@ -21,6 +21,7 @@ hdfs/Client.cpp
 hdfs/HdfsClient.cpp
 hdfs/HdfsFile.cpp
 hdfs/DataNode.cpp
+hdfs/Hdd.cpp
 Main.cpp
 )
 target_link_libraries(hsg ${SimGrid_LIBRARY})

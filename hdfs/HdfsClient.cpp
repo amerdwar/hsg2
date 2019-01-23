@@ -18,16 +18,11 @@ HdfsClient::HdfsClient(simgrid::s4u::MailboxPtr nnmb,
 }
 bool HdfsClient::writeFile(HdfsFile *h) {
 	std::vector<simgrid::s4u::CommPtr> pending_comms;
-
 	//HdfsFile * h=new HdfsFile(string("d1"),string("f1"),10737418240);
-
 	Message *m = new Message(msg_type::cl_nn_wr_file, thismb->get_name(),
 			nameNode, 1, h);
-
 	nnmb->put(m, 1024);
-
 	Message* m2 = static_cast<Message*>(thismb->get());
-
 	HdfsFile * f = static_cast<HdfsFile*>(m2->payload);
 
 /*	for (int i = 0; i < f->chunks->size(); i++) {
@@ -39,20 +34,24 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 
 	}*/
 
-
+XBT_INFO("chunks num is %i",f->chunks->size());
 	for (int i = 0; i < f->chunks->size(); i++) {
-double a=Engine::getClock();
+		double a=Engine::get_clock();
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
 				thismb->get_name(), f->chunks->at(i)->nodes->at(0)->get_name(),
 				1, f->chunks->at(i));
 		//f->chunks->at(i)->nodes->at(0)->put_init(writemsg,1024)->detach();
 	f->chunks->at(i)->nodes->at(0)->put(writemsg,f->chunks->at(i)->size);
-	double b=Engine::getClock();
+	double b=Engine::get_clock();
+
 	double c=b-a;
+
 	XBT_INFO("the time %f to send chunk size %i",c,f->chunks->at(i)->size);
+
 	}
 
 	for (int i = 0; i < f->chunks->size(); i++) {
+
 		Message* ackm = static_cast<Message*>(thismb->get());
 
 		delete ackm;

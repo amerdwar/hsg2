@@ -11,8 +11,7 @@ NameNode::NameNode(std::vector<std::string> args) {
 	// TODO Auto-generated constructor stub
 	nameNodeName = args[1];
 //mailbox=Mailbox::by_name(this_actor::get_host()->get_name()+nameNodeName);
-	Engine* e = simgrid::s4u::Engine::getInstance();
-
+	Engine* e = simgrid::s4u::Engine::get_instance();
 	mailbox = Mailbox::by_name(nameNodeName);
 	mailbox->set_receiver(Actor::self());
 
@@ -45,6 +44,7 @@ void NameNode::operator()() { //the simulation loop
 		}
 
 		case msg_type::cl_nn_ack_ch: {
+			XBT_INFO("ack from client");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			allDires->at(f->dir)->Files->at(f->name)->isAck = true;
 			break;
@@ -55,7 +55,7 @@ void NameNode::operator()() { //the simulation loop
 			Message *msg = new Message(msg_type::nn_cl_re_file, nameNodeName,
 					m->sender, 1, allDires->at(f->dir)->Files->at(f->name));
 
-			Mailbox::byName(m->sender)->put(msg, 1024);
+			Mailbox::by_name(m->sender)->put(msg, 1024);
 
 			break;
 		}
