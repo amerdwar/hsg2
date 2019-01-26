@@ -338,11 +338,13 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
  /home/alpha/tuturial/hsg/commons/Types.h
+ /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp
  /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+ /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /opt/simgrid/include/simgrid/Exception.hpp
  /opt/simgrid/include/simgrid/chrono.hpp
@@ -350,6 +352,8 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
  /opt/simgrid/include/simgrid/forward.h
  /opt/simgrid/include/simgrid/host.h
  /opt/simgrid/include/simgrid/kernel/resource/Action.hpp
+ /opt/simgrid/include/simgrid/kernel/routing/ClusterZone.hpp
+ /opt/simgrid/include/simgrid/kernel/routing/NetZoneImpl.hpp
  /opt/simgrid/include/simgrid/link.h
  /opt/simgrid/include/simgrid/s4u.hpp
  /opt/simgrid/include/simgrid/s4u/Activity.hpp
@@ -380,6 +384,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
  /opt/simgrid/include/xbt/function_types.h
  /opt/simgrid/include/xbt/functional.hpp
  /opt/simgrid/include/xbt/future.hpp
+ /opt/simgrid/include/xbt/graph.h
  /opt/simgrid/include/xbt/log.h
  /opt/simgrid/include/xbt/misc.h
  /opt/simgrid/include/xbt/parmap.h

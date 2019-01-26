@@ -26,11 +26,13 @@ public:
 	void* payload;
 	int64_t id;
 	int64_t genId=0;
-
+int cop_num;
+int ack_num;
 	Message(msg_type,string,string,int,void*);
 	Message* copy();
 	virtual ~Message();
 	void trace(string s);
+	string toString();
 private:
 	static int64_t allMid;
 };

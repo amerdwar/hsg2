@@ -14,8 +14,8 @@ class DataNode {
 public:
 	MailboxPtr mailbox;
     map<int64_t,Chunk*> chunks;
-    map<int64_t,Message *> hddPendings;
-    map<int64_t,Message *> ddPendings;
+    map<int64_t, std::map<int,int>> acksMap;
+
     std::vector<string> *storage_list;
     std::unordered_map<std::string, simgrid::s4u::Storage*> const&
 															sList=simgrid::s4u::Host::current()->get_mounted_storages();

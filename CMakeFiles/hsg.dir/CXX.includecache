@@ -115,6 +115,8 @@ DirFiles.h
 /home/alpha/tuturial/hsg/hdfs/DirFiles.h
 HdfsFile.h
 /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+NameNode.h
+/home/alpha/tuturial/hsg/hdfs/NameNode.h
 ../messages/Message.h
 /home/alpha/tuturial/hsg/messages/Message.h
 

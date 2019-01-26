@@ -21,41 +21,57 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 	//HdfsFile * h=new HdfsFile(string("d1"),string("f1"),10737418240);
 	Message *m = new Message(msg_type::cl_nn_wr_file, thismb->get_name(),
 			nameNode, 1, h);
-	nnmb->put(m, 1024);
+	nnmb->put(m, 1522);
 	Message* m2 = static_cast<Message*>(thismb->get());
 	HdfsFile * f = static_cast<HdfsFile*>(m2->payload);
 
-/*	for (int i = 0; i < f->chunks->size(); i++) {
-		for (int j=0;j<f->chunks->at(i)->nodes->size();j++){
-			Chunk *ccc=f->chunks->at(i);
-			XBT_INFO("dir %s  ,file %s chid  %i node %s size%i",ccc->dirName.c_str(),ccc->fileName.c_str(),ccc->chId,f->chunks->at(i)->nodes->at(j)->get_name().c_str(),ccc->size);
+	/*	for (int i = 0; i < f->chunks->size(); i++) {
+	 for (int j=0;j<f->chunks->at(i)->nodes->size();j++){
+	 Chunk *ccc=f->chunks->at(i);
+	 XBT_INFO("dir %s  ,file %s chid  %i node %s size%i",ccc->dirName.c_str(),ccc->fileName.c_str(),ccc->chId,f->chunks->at(i)->nodes->at(j)->get_name().c_str(),ccc->size);
+
+	 }
+
+	 }*/
+
+	XBT_INFO("chunks num is %i", f->chunks->size());
+	for (int i = 0; i < f->chunks->size(); i++) {
+
+		for (int j = 0; j < f->chunks->at(i)->nodes->size(); j++) {
+			Chunk *ccc = f->chunks->at(i);
+			XBT_INFO("dir %s  ,file %s chid  %i node %s size %i",
+					ccc->dirName.c_str(), ccc->fileName.c_str(), ccc->chId,
+					f->chunks->at(i)->nodes->at(j)->get_name().c_str(),
+					ccc->size);
 
 		}
 
-	}*/
-
-XBT_INFO("chunks num is %i",f->chunks->size());
-	for (int i = 0; i < f->chunks->size(); i++) {
-		double a=Engine::get_clock();
+		double a = Engine::get_clock();
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
 				thismb->get_name(), f->chunks->at(i)->nodes->at(0)->get_name(),
 				1, f->chunks->at(i));
+
 		//f->chunks->at(i)->nodes->at(0)->put_init(writemsg,1024)->detach();
-	f->chunks->at(i)->nodes->at(0)->put(writemsg,f->chunks->at(i)->size);
-	double b=Engine::get_clock();
 
-	double c=b-a;
+		f->chunks->at(i)->nodes->at(0)->put(writemsg, f->chunks->at(i)->size);
+		Message* ackm = static_cast<Message*>(thismb->get());
 
-	XBT_INFO("the time %f to send chunk size %i",c,f->chunks->at(i)->size);
+			delete ackm;
+		double b = Engine::get_clock();
+
+		double c = b - a;
+
+		XBT_INFO("the time %f to send chunk size %i", c,
+				f->chunks->at(i)->size);
 
 	}
-
+/*
 	for (int i = 0; i < f->chunks->size(); i++) {
 
 		Message* ackm = static_cast<Message*>(thismb->get());
 
 		delete ackm;
-	} //
+	} */
 	Message *mack = new Message(msg_type::cl_nn_ack_ch, thismb->get_name(),
 			nameNode, 1, f);
 	nnmb->put(mack, 1522);

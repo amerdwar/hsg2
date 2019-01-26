@@ -24,8 +24,8 @@ public:
 	MailboxPtr mailbox;
 	double readSpeed=0;
 	double writeSpeed=0;
-	double readAccess=0.001;
-	double writeAccess=0.001;
+	double readAccess=0.010;
+	double writeAccess=0.010;
 	double readAccessSize=0;
 	double writeAccessSize=0;
 int64_t numcompleteWrite=0,numWrite=0;

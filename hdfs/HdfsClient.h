@@ -10,6 +10,7 @@
 #include "simgrid/s4u.hpp"
 #include "DirFiles.h"
 #include "HdfsFile.h"
+#include  "NameNode.h"
 #include "../messages/Message.h"
 using namespace simgrid::s4u;
 class HdfsClient {

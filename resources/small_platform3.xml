@@ -12,8 +12,8 @@
 		<zone id="my_cluster1" routing="Cluster">
 			<router id="router3" />
 			<storage_type id="single_HDD" size="1024GiB">
-				<model_prop id="Bwrite" value="100MBps" />
-				<model_prop id="Bread" value="100MBps" />
+				<model_prop id="Bwrite" value="180MBps" />
+				<model_prop id="Bread" value="180MBps" />
 			</storage_type>
 
 			<storage_type id="single_SSD" size="146GiB">

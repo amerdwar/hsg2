@@ -337,11 +337,13 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: commons/Types.h
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsClient.cpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsFile.h
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/chrono.hpp
@@ -349,6 +351,8 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/config.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/forward.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/host.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/kernel/resource/Action.hpp
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/kernel/routing/ClusterZone.hpp
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/kernel/routing/NetZoneImpl.hpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/link.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/s4u.hpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/s4u/Activity.hpp
@@ -379,6 +383,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/ex.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/function_types.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/functional.hpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/future.hpp
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/graph.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/log.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/misc.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/xbt/parmap.h

@@ -52,16 +52,23 @@ void Client::operator ()() {
 	for (int i = 1; i < 100; i++) {
 		//start from 0.25 and increment with 0.35
 		ss = bigSize * (double)i;
+	//	ss=16*1024*1024;
+vector<double> all;
 
-		HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(i), ss);
-		XBT_INFO("berfore it");
+
+		double median ;
+		for(int j=1;j<52;j++){
+			HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(j), ss);
 		double a = Engine::get_clock();
 		hd->writeFile(h);
 		double b = Engine::get_clock();
 		double c = b - a;
 
-		double median = c;
-
+		all.push_back(c);
+		}
+		sort(all.begin(), all.end());
+		median=all.at(25);
+		all.clear();
 		double sizeInMB = ((double) ss) / (1024 * 1024);
 		double throughput = sizeInMB / median;
 

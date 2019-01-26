@@ -7,6 +7,10 @@
 
 #include "NameNode.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(hsg2, "Messages specific for this example");
+//16777216
+//134217728
+int64_t NameNode::chunkSize=16777216;
+
 NameNode::NameNode(std::vector<std::string> args) {
 	// TODO Auto-generated constructor stub
 	nameNodeName = args[1];
@@ -68,9 +72,6 @@ void NameNode::operator()() { //the simulation loop
 bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		simgrid::s4u::MailboxPtr sender) {
 
-//add dir to dir victor
-//add file to dir file
-//filesize/chunksize
 //choose the datanode for the chnuk
 	//send the chnk for the first no
 	xbt_assert(replicatinNum > 0, "replication num is 0");
@@ -87,8 +88,11 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 	xbt_assert(rackNums > 0, "num of rack is 0");
 	int64_t numCh = file_size / chunkSize;
-	if (file_size % chunkSize != 0)
+
+	if (file_size % chunkSize != 0){
+
 		numCh++;
+	}
 
 	for (int chindex = 0; chindex < numCh; chindex++) {
 
@@ -181,11 +185,12 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		}
 //now we have vector of hosts to write the chunk on it
 		Chunk *ch = new Chunk(dir, f->name, f->id, chunkSize);
+		if (file_size % chunkSize != 0){
 		if (chindex == (numCh - 1)) {
 			//if the chunk is the last chunk its size with pe the reminderof filesize/chunkSize
 			ch = new Chunk(dir, f->name, f->id, f->size % chunkSize);
 		}
-
+		}
 		ch->clinetMB = sender;
 		ch->nodes = hosts_to_write;
 		f->chunks->push_back(ch);
@@ -216,7 +221,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 	Message *msg = new Message(msg_type::nn_cl_file_ch, nameNodeName,
 			sender->get_name(), 1, allDires->at(dir)->Files->at(file));
 
-	sender->put(msg, 1024);
+	sender->put(msg, 1522);
 
 	return true;
 }

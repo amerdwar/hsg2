@@ -28,12 +28,13 @@ Hdd::Hdd(std::string argv) {
 	Storage::by_name(argv)->write(oneMB);
 	double w2 = Engine::get_clock();
 	writeSpeed = oneMB / (w2 - w1);
+XBT_INFO("write speed is %f ",writeSpeed);
 
 	double r1 = Engine::get_clock();
 	Storage::by_name(argv)->write(oneMB);
 	double r2 = Engine::get_clock();
 	readSpeed = oneMB / (r2 - r1);
-delta=0.1*writeSpeed;
+    delta=0.087*writeSpeed;
 	readAccessSize = readAccess * readSpeed; //the speed is in byte per second and the read access time in seconds
 	writeAccessSize = writeAccess * writeSpeed; //the speed is in byte per second and the read access time in seconds
 //XBT_INFO(" r %f w %f",readAccessSize,writeAccessSize);
@@ -60,7 +61,7 @@ void Hdd::operator()() {
 			//xbt_info("receive message hdd");
 			m->type = msg_type::hdd_added;
 			m->generator = m->sender;
-			m->genId = m->id;
+
 			m->sender = m->receiver = mailbox->getName();
 
 			//m->trace("from hdd -> added");
@@ -75,7 +76,7 @@ void Hdd::operator()() {
 
 				isIdle = false;
 				if (ch->size > 0) {
-
+					XBT_INFO(" hdd is idle");
 					double slice = this->decTimesAndGet(ch->size);
 
 					ch->size = ch->size - slice;
@@ -100,7 +101,7 @@ void Hdd::operator()() {
 				}
 
 			} else {
-				//xbt_info("the message is not idle");
+				XBT_INFO("add to Q");
 				m->type = hdd_check;
 				//m->trace(" add to jobs after arrive");
 				jobs.push(m);

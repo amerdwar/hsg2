@@ -27,7 +27,9 @@ public:
 	//the NameNode data members
 int replicatinNum;
 string nameNodeName;
-int64_t chunkSize=134217728;//the size in byte and this value equal to 128 mb
+//16777216 16mb
+//134217728 128mb
+static int64_t chunkSize;//the size in byte and this value equal to 128 mb
 map<string,DirFiles *>* allDires ;
 vector<simgrid::kernel::routing::ClusterZone*> racks;//this variable must be initialized in main and we can get the hosts like this     std::vector<simgrid::s4u::Host*> hosts = c->get_all_hosts();
 map<MailboxPtr,vector<Chunk *>>* dataNodes;//data nodes with their chunks
@@ -39,6 +41,7 @@ explicit	NameNode(std::vector<std::string> args);
 	void getFileChunks();
 	double hdfs_read();
 	void operator()();
+
 	virtual ~NameNode();
 private:
 	simgrid::s4u::MailboxPtr mailbox;
