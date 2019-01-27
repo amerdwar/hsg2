@@ -9,7 +9,9 @@
 XBT_LOG_NEW_DEFAULT_CATEGORY(hsg2, "Messages specific for this example");
 //16777216
 //134217728
-int64_t NameNode::chunkSize=16777216;
+//67108864
+//100663296
+int64_t NameNode::chunkSize=134217728;
 
 NameNode::NameNode(std::vector<std::string> args) {
 	// TODO Auto-generated constructor stub
@@ -153,10 +155,12 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		simgrid::s4u::MailboxPtr h3 = nullptr;
 		if (replicatinNum > 2) {	//third replication is in the same rack
 
-			if (racks.at(rackId)->get_all_hosts().size() > 1) {
-				h3 = simgrid::s4u::Mailbox::by_name(
-						this->randomHostInRackExceptHost(selectedRack,
-								h1->get_name())->get_name() + "_dataNode");
+			if (racks.at(rackId)->get_all_hosts().size() > 2) {
+				std::vector<string> s;
+						s.push_back(h1->get_name());
+						s.push_back(h2->get_name());
+						h3 = simgrid::s4u::Mailbox::by_name(
+								this->randHostExcept(selectedRack,s)->get_name()+"_dataNode");
 			} else {
 
 				h3 = simgrid::s4u::Mailbox::by_name(
@@ -251,4 +255,31 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 
 		return hosts.at(0);
 	}
+}
+simgrid::s4u::Host* NameNode::randHostExcept( simgrid::kernel::routing::ClusterZone* rack,std::vector<string > exc){
+	auto hosts = rack->get_all_hosts();
+	simgrid::s4u::Host* h;
+	if (hosts.size() > 1) {	//if we have more than one host return any random host in the rack except the host whose name is param host
+		bool reScan=false;
+		do {
+			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
+			reScan=false;
+for(auto ex:exc){
+	if(ex.compare(h->get_name()+"_dataNode")==0){
+	reScan=true;
+	XBT_INFO(" equal %s ,%s",ex.c_str(),h->get_name().c_str());
+	}else{
+		XBT_INFO(" not equal %s ,%s",ex.c_str(),h->get_name().c_str());
+
+	}
+}
+
+		} while (reScan);
+
+		return h;
+	} else {	//there is one host in the rack
+
+		return hosts.at(0);
+	}
+
 }

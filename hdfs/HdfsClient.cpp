@@ -25,14 +25,14 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 	Message* m2 = static_cast<Message*>(thismb->get());
 	HdfsFile * f = static_cast<HdfsFile*>(m2->payload);
 
-	/*	for (int i = 0; i < f->chunks->size(); i++) {
+		for (int i = 0; i < f->chunks->size(); i++) {
 	 for (int j=0;j<f->chunks->at(i)->nodes->size();j++){
 	 Chunk *ccc=f->chunks->at(i);
 	 XBT_INFO("dir %s  ,file %s chid  %i node %s size%i",ccc->dirName.c_str(),ccc->fileName.c_str(),ccc->chId,f->chunks->at(i)->nodes->at(j)->get_name().c_str(),ccc->size);
 
 	 }
 
-	 }*/
+	 }
 
 	XBT_INFO("chunks num is %i", f->chunks->size());
 	for (int i = 0; i < f->chunks->size(); i++) {
@@ -75,7 +75,7 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 	Message *mack = new Message(msg_type::cl_nn_ack_ch, thismb->get_name(),
 			nameNode, 1, f);
 	nnmb->put(mack, 1522);
-
+return true;
 }
 
 bool HdfsClient::read(HdfsFile* hr) {
@@ -109,7 +109,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 		//read();
 
 	}
-
+return true;
 }
 
 HdfsClient::~HdfsClient() {
