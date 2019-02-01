@@ -90,7 +90,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 	HdfsFile * fr = static_cast<HdfsFile*>(mr2->payload);
 	if (fr->isAck) {
 		for (int i = 0; i < fr->chunks->size(); i++) {
-
+XBT_INFO("the chunk size is %i ",	fr->chunks->at(i)->size);
 			Message *chReq = new Message(msg_type::cl_dn_re_ch,
 					thismb->get_name(),
 					fr->chunks->at(i)->nodes->at(0)->get_name(), 1,
@@ -99,7 +99,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 			//send the request of chunk to data node
 			fr->chunks->at(i)->nodes->at(0)->put(chReq, 1024);
 
-			//receive the chunk
+			//receive the ack
 			Message *mmm = static_cast<Message *>(thismb->get());
 
 		}

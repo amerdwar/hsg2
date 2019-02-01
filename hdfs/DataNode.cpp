@@ -15,8 +15,7 @@ DataNode::DataNode(std::vector<std::string> args) {
 	//sList =simgrid::s4u::Host::current()->get_mounted_storages();
 
 	for (auto const& a : sList) {
-		//xbt_info(" mount is %s attach is %s ", a.first.c_str(),
-		//	a.second->get_name().c_str());
+
 
 		string actorName = this_actor::get_host()->get_name() + "_"
 				+ a.second->get_name(); //the name of the hdd actor is hostname_hddname
@@ -48,10 +47,10 @@ void DataNode::operator()() {
 		}
 		case msg_type::cl_dn_wr_ch: {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
-
-			ch->storage = getRandStorage();				//select storage
-
-			chunks.insert(std::pair<int64_t, Chunk*>(ch->chId, ch));//add to chunks map
+			ch->storage = getRandStorage();		//select storage
+			Chunk *chToStore=ch->copy();
+XBT_INFO("this is the chunk size %i",chToStore->size);
+			chunks.insert(std::pair<int64_t, Chunk*>(chToStore->chGenId,chToStore));//add to chunks map
 
 			Message* ms = m->copy();				//copy message to send it//
 
@@ -73,7 +72,7 @@ void DataNode::operator()() {
 				acksMap.at(m->genId).insert(std::pair<int, int>(ch->writeIndex, 2));
 			}
 
-XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
+
 
 			Mailbox::by_name(ch->storage)->put(m, 0);
 
@@ -89,7 +88,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 				//		"send message to other and sizze pending is %i  next is %s",
 				//	ddPendings.size(),
 				//ch->nodes->at(ch->writeIndex)->get_name().c_str());
-				XBT_INFO("ms %s ", ms->toString().c_str());
+
 				chForSend->nodes->at(chForSend->writeIndex)->put(ms,
 						chForSend->size);
 
@@ -98,14 +97,14 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 				//send ack message to this_actor
 				//xbt_info(" after send ack ");
 				chForSend->writeIndex -= 1; //the index of the last node
-				XBT_INFO("the chunk index is last index %i ",
-						chForSend->writeIndex);
+				//XBT_INFO("the chunk index is last index %i ",
+					//	chForSend->writeIndex);
 				ms->payload = chForSend;
 				ms->type = msg_type::dn_ack_wr_ch;
 				ms->receiver = ms->sender = mailbox->get_name();
 
 				mailbox->put(ms, 0);
-				XBT_INFO("send message ack dd %s ", ms->toString().c_str());
+			//	XBT_INFO("send message ack dd %s ", ms->toString().c_str());
 				//xbt_info("send message to self and sizze pending is %i",
 				//	ddPendings.size());
 			}
@@ -114,11 +113,14 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 		}
 		case msg_type::cl_dn_re_ch: {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
-			string tem = m->sender;
+			m->generator = m->sender;
 			m->sender = m->receiver;
-			m->receiver = tem;
-			Storage::by_name(chunks.at(ch->chId)->storage)->read(ch->size);
-			Mailbox::by_name(m->receiver)->put(m, ch->size);
+			m->receiver=chunks.at(ch->chGenId)->storage;
+		m->type=msg_type::hdd;
+		m->payload=chunks.at(ch->chGenId)->copy();
+			Mailbox::by_name(chunks.at(ch->chGenId)->storage)->put(m,0);
+
+
 
 			break;
 		}
@@ -127,9 +129,8 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 
-			XBT_INFO("here %i   %i size  %i",m->genId,ch->writeIndex,acksMap.at(m->genId).size());
+
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
-			XBT_INFO("that");
 
 
 			if (acksMap.at(m->genId).at(ch->writeIndex) == 0) { //receive ack from hdd so send the ack to the previous node
@@ -138,7 +139,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 
 				//xbt_info(" yes it is  11");
 				ch->writeIndex -= 1; //the index of the  previous node
-				XBT_INFO("the chunk index  mmmmis %i ", ch->writeIndex);
+
 				m->payload = ch;
 				//m->type=msg_type::dn_ack_wr_ch;
 				m->sender = mailbox->get_name();
@@ -148,7 +149,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 					m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
 					//xbt_info(" yes it is 2");
 					ch->nodes->at(ch->writeIndex)->put(m, 1522);
-					XBT_INFO("send message ack dd %s ", m->toString().c_str());
+
 					//xbt_info(" yes it is 3");
 				} else { //send the ack to client
 					//xbt_info(" yes it is 4");
@@ -162,7 +163,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 			break;
 		}
 
-		case msg_type::hdd_ack: {
+		case msg_type::hdd_write_ack: {
 
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
@@ -173,7 +174,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 
 
 				ch->writeIndex -= 1; //the index of the  previous node
-				XBT_INFO("the chunk index is %i ", ch->writeIndex);
+
 				m->payload = ch;
 				m->type = msg_type::dn_ack_wr_ch;
 				m->sender = m->receiver;
@@ -184,7 +185,7 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 					m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
 					//xbt_info("in if  2 %i ", m->genId);
 					ch->nodes->at(ch->writeIndex)->put(m, 1522);
-					XBT_INFO("send message ack hdd %s ", m->toString().c_str());
+
 				} else { //send the ack to client
 					//xbt_info("in else %i ", m->genId);
 					m->receiver = ch->clinetMB->get_name();
@@ -196,7 +197,17 @@ XBT_INFO("insert id %i  ch %i",m->genId,ch->writeIndex);
 			}
 			break;
 		}
+		case msg_type::hdd_read_ack: {
+			Chunk * ch = static_cast<Chunk*>(m->payload);
 
+						m->type = msg_type::dn_cl_re_ack_ch;
+						m->sender = mailbox->get_name();
+
+						m->receiver = 	ch->clinetMB->get_name();
+						XBT_INFO("in ack %s ", m->toString().c_str());
+						ch->clinetMB->put(m, 1522);
+					break;
+				}
 		}
 
 	} while (ty != msg_type::end_of_simulation);

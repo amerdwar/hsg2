@@ -43,7 +43,7 @@ void Client::operator ()() {
 //write 78 dataset  files from 0.25 mb to 320 mb each data set contains 500 file with the same size
 	ofstream myfile;
 	double firstd = Engine::get_clock();
-	myfile.open("write.txt");
+	myfile.open("example.txt");
 	int smallSize = 367001; //this is 0.35 mb in bytes
 	int bigSize = 3195759; //this is 3 mb in bytes
 	int allSize = 335544320;
@@ -61,7 +61,7 @@ void Client::operator ()() {
 			HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(j),
 					ss);
 			double a = Engine::get_clock();
-			hd->writeFile(h);
+			hd->read(h);
 			double b = Engine::get_clock();
 			double c = b - a;
 
@@ -83,7 +83,6 @@ void Client::operator ()() {
 	double secondd = Engine::get_clock();
 	XBT_INFO("finish simulation in %f ", secondd - firstd);
 
-	this->read();
 }
 //tell now we have all chunks with the data nodes now we have to send them to data node only
 void Client::write() {
@@ -126,55 +125,40 @@ void Client::write() {
 			simgrid::s4u::this_actor::get_name(), nameNode, 1, f);
 	nnmb->put(mack, 1024);
 
-
-	this->read();
 }
 
 void Client::read() {
 
+	HdfsFile * hr = new HdfsFile(string("d1"), string("f1"), 10737418240);
+	Message *mr = new Message(msg_type::cl_nn_re_file,
+			simgrid::s4u::this_actor::get_name(), nameNode, 1, hr);
 
-	HdfsClient* hd = new HdfsClient(nnmb, thismb);
-	ofstream myfile;
-		double firstd = Engine::get_clock();
-		myfile.open("read.txt");
-		int smallSize = 367001; //this is 0.35 mb in bytes
-		int bigSize = 3195759; //this is 3 mb in bytes
-		int allSize = 335544320;
-		vector<double> med;
-		int64_t ss;
-		for (int i = 1; i < 140; i++) {
-			if(i<40)
-				ss = smallSize * (double) i;
-				else
-			ss += bigSize;
+	nnmb->put(mr, 2000);
 
-			vector<double> all;
-			double median;
-			for (int j = 1; j < 52; j++) {
-				HdfsFile * h = new HdfsFile(std::to_string(i), std::to_string(j),
-						ss);
-				double a = Engine::get_clock();
-				hd->read(h);
-				double b = Engine::get_clock();
-				double c = b - a;
+	Message* mr2 = static_cast<Message*>(thismb->get());
+	HdfsFile * fr = static_cast<HdfsFile*>(mr2->payload);
+	if (fr->isAck) {
+		for (int i = 0; i < fr->chunks->size(); i++) {
+			XBT_INFO("ch id %i    num ch is %i ", fr->chunks->at(i)->chId,
+					fr->chunks->size());
+			Message *chReq = new Message(msg_type::cl_dn_re_ch,
+					this_actor::get_name(),
+					fr->chunks->at(i)->nodes->at(0)->get_name(), 1,
+					fr->chunks->at(i));
 
-				all.push_back(c);
-			}
-			sort(all.begin(), all.end());
-			median = all.at(25);
-			all.clear();
-			double sizeInMB = ((double) ss) / (1024 * 1024);
-			double throughput = sizeInMB / median;
+			//send the request of chunk to data node
+			fr->chunks->at(i)->nodes->at(0)->put(chReq, 1024);
 
-			myfile
-					<< boost::format("throughput tt=%1%  s=%2% is t=%3%") % median
-							% throughput % sizeInMB << "\n";
+			//receive the chunk
+			Message *mmm = static_cast<Message *>(thismb->get());
+
 		}
-		int temp = 0;
+	} else {
+		XBT_INFO("not ready i will sleep and return");
+		//this_actor::sleep_for(1);
+		//read();
 
-		myfile.close();
-		double secondd = Engine::get_clock();
-		XBT_INFO("finish read simulation in %f ", secondd - firstd);
+	}
 
 }
 

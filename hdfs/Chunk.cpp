@@ -14,7 +14,7 @@ this->size=fileSize;
 this->fileId=fileId;
 this->dirName=dirN;
 this->fileName=fileN;
-
+this->chGenId=this->chId;
 this->nodes=new  vector<simgrid::s4u::MailboxPtr>();
 }
 Chunk* Chunk::copy(){
@@ -24,6 +24,7 @@ Chunk* cc=new Chunk(dirName,fileName,fileId,size);
 	cc->clinetMB=clinetMB;
 	cc->chId=chId;
 	cc->writeIndex=writeIndex;
+	cc->chGenId=this->chId;
 	return cc;
 }
  int64_t Chunk::chIds=0;

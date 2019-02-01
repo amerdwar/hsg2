@@ -12,8 +12,8 @@
 		<zone id="my_cluster1" routing="Cluster">
 			<router id="router3" />
 			<storage_type id="single_HDD" size="1024GiB">
-				<model_prop id="Bwrite" value="180MBps" />
-				<model_prop id="Bread" value="180MBps" />
+				<model_prop id="Bwrite" value="130MBps" />
+				<model_prop id="Bread" value="130MBps" />
 			</storage_type>
 
 			<storage_type id="single_SSD" size="146GiB">
@@ -39,8 +39,8 @@
 		
 
 			</host>
-			<link id="l1_UP" bandwidth="1GBps" latency="75us" />
-			<link id="l1_DOWN" bandwidth="1GBps" latency="75us" />
+			<link id="l1_UP" bandwidth="1GBps" latency="50us" />
+			<link id="l1_DOWN" bandwidth="1GBps" latency="50us" />
 			<host_link id="host1" up="l1_UP" down="l1_DOWN" />
 
 	
@@ -51,7 +51,7 @@
 			
 
 			</host>
-			<link id="l3" bandwidth="1GBps" latency="75us" />
+			<link id="l3" bandwidth="1GBps" latency="50us" />
 			<host_link id="host3" up="l3" down="l3" />
 
 
@@ -68,15 +68,15 @@
 				<mount storageId="host4_disk1" name="/h4d1" />
 		
 			</host>
-			<link id="l4_UP" bandwidth="1GBps" latency="75us" />
-			<link id="l4_DOWN" bandwidth="1GBps" latency="75us" />
+			<link id="l4_UP" bandwidth="1GBps" latency="50us" />
+			<link id="l4_DOWN" bandwidth="1GBps" latency="50us" />
 			<host_link id="host4" up="l4_UP" down="l4_DOWN" />
 
 			<host id="host5" speed="2.67Gf" core="4">
 				<mount storageId="host5_disk1" name="/h5d1" />
 		
 			</host>
-			<link id="l5" bandwidth="1GBps" latency="75us"
+			<link id="l5" bandwidth="1GBps" latency="50us"
 				sharing_policy="SPLITDUPLEX" />
 			<host_link id="host5" up="l5_UP" down="l5_DOWN" />
 
@@ -84,7 +84,7 @@
 				<mount storageId="host6_disk1" name="/h6d1" />
 		
 			</host>
-			<link id="l6" bandwidth="1GBps" latency="75us" />
+			<link id="l6" bandwidth="1GBps" latency="50us" />
 			<host_link id="host6" up="l6" down="l6" />
 
 
@@ -99,15 +99,15 @@
 				<mount storageId="host7_disk1" name="/h7d1" />
 	
 			</host>
-			<link id="l41_UP" bandwidth="1GBps" latency="75us" />
-			<link id="l41_DOWN" bandwidth="1GBps" latency="75us" />
+			<link id="l41_UP" bandwidth="1GBps" latency="50us" />
+			<link id="l41_DOWN" bandwidth="1GBps" latency="50us" />
 			<host_link id="host7" up="l41_UP" down="l41_DOWN" />
 
 			<host id="host8" speed="2.67Gf" core="4">
 				<mount storageId="host8_disk1" name="/h8d1" />
 
 			</host>
-			<link id="l51" bandwidth="1GBps" latency="75us"
+			<link id="l51" bandwidth="1GBps" latency="50us"
 				sharing_policy="SPLITDUPLEX" />
 			<host_link id="host8" up="l51_UP" down="l51_DOWN" />
 
@@ -115,11 +115,11 @@
 				<mount storageId="host9_disk1" name="/h9d1" />
 
 			</host>
-			<link id="l61" bandwidth="1GBps" latency="75us" />
+			<link id="l61" bandwidth="1GBps" latency="50us" />
 			<host_link id="host9" up="l61" down="l61" />
 
 			<backbone id="backbone3" bandwidth="52GBps"
-				latency="500us" />
+				latency="300us" />
 		</zone>
 
 
@@ -132,7 +132,7 @@
 			</host>
 		</zone>
 
-		<link id="link1" bandwidth="1GBps" latency="75us" />
+		<link id="link1" bandwidth="1GBps" latency="50us" />
 
 		<zoneRoute src="my_cluster1" dst="AS1" gw_src="router3"
 			gw_dst="host2">

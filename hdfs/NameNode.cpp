@@ -17,6 +17,8 @@ NameNode::NameNode(std::vector<std::string> args) {
 	// TODO Auto-generated constructor stub
 	nameNodeName = args[1];
 //mailbox=Mailbox::by_name(this_actor::get_host()->get_name()+nameNodeName);
+	if(args.size()>1)
+	NameNode::chunkSize=std::stoi(args[2])*1024*1024;
 	Engine* e = simgrid::s4u::Engine::get_instance();
 	mailbox = Mailbox::by_name(nameNodeName);
 	mailbox->set_receiver(Actor::self());
@@ -32,6 +34,7 @@ void NameNode::operator()() { //the simulation loop
 
 	Message * m = nullptr;
 	do {
+
 		m = static_cast<Message*>(mailbox->get());
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
@@ -192,7 +195,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		if (file_size % chunkSize != 0){
 		if (chindex == (numCh - 1)) {
 			//if the chunk is the last chunk its size with pe the reminderof filesize/chunkSize
-			ch = new Chunk(dir, f->name, f->id, f->size % chunkSize);
+			ch ->size= f->size % chunkSize;
 		}
 		}
 		ch->clinetMB = sender;

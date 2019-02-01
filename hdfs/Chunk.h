@@ -17,6 +17,7 @@ public:
 
 int chRepNum=0;//this number will increment whene send the chunk from one data node to another
 	int64_t chId;
+	int64_t chGenId;
 	int64_t fileId;
 	int64_t size;
 	int writeIndex=0;// for node vector

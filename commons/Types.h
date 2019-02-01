@@ -6,14 +6,17 @@ enum msg_type {
 	cl_dn_wr_ch,
 	cl_nn_re_file,
 	nn_cl_re_file,
-	cl_dn_re_ch, //client send read chunk to data node
+	cl_dn_re_ch,
+	dn_cl_re_ack_ch,
+	//client send read chunk to data node
 	dn_ack_wr_ch,
 	cl_nn_ack_ch,
 	any,
 	hdd,
 	hdd_added,
 	hdd_check,
-hdd_ack,
+hdd_read_ack,
+hdd_write_ack,
 	end_of_simulation
 };
 

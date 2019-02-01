@@ -1,7 +1,9 @@
-ruby ru.rb example.txt > example.res
+ruby ru.rb write.txt > write.res
+ruby ru.rb read.txt > read.res
 
-gnuplot 
-
-gnuplot set terminal wxt
-
-gnuplot plot "example.res" using 2:1
+gnuplot -persist <<-EOFMarker
+ set terminal wxt
+set multiplot layout 2,1
+ plot "write.res" using 2:1
+ plot "read.res" using 2:1
+EOFMarker
