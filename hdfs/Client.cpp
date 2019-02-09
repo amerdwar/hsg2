@@ -49,7 +49,7 @@ void Client::operator ()() {
 	int allSize = 335544320;
 	vector<double> med;
 	int64_t ss;
-	for (int i = 1; i < 140; i++) {
+	for (int i = 1; i < 2; i++) {
 		if(i<40)
 			ss = smallSize * (double) i;
 			else
@@ -84,6 +84,14 @@ void Client::operator ()() {
 	XBT_INFO("finish simulation in %f ", secondd - firstd);
 
 	this->read();
+
+	Message *ends = new Message(msg_type::end_of_simulation,
+			simgrid::s4u::this_actor::get_name(),
+		nameNode,0,nullptr);
+	nnmb->put (ends,1522);
+	XBT_INFO("client end simulatoin");
+
+
 }
 //tell now we have all chunks with the data nodes now we have to send them to data node only
 void Client::write() {
@@ -91,7 +99,7 @@ void Client::write() {
 	HdfsFile * h = new HdfsFile(string("d1"), string("f1"), 10737418240);
 
 	Message *m = new Message(msg_type::cl_nn_wr_file,
-			simgrid::s4u::this_actor::get_name(), nameNode, 1, h);
+			simgrid::s4u::this_actor::get_name(), nameNode, 0, h);
 
 	nnmb->put(m, 2000);
 
@@ -103,7 +111,7 @@ void Client::write() {
 
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
 				simgrid::s4u::this_actor::get_name(),
-				f->chunks->at(i)->nodes->at(0)->get_name(), 1,
+				f->chunks->at(i)->nodes->at(0)->get_name(), 0,
 				f->chunks->at(i));
 		f->chunks->at(i)->nodes->at(0)->put(writemsg, f->chunks->at(i)->size);
 
@@ -123,11 +131,13 @@ void Client::write() {
 		delete ackm;
 	} //
 	Message *mack = new Message(msg_type::cl_nn_ack_ch,
-			simgrid::s4u::this_actor::get_name(), nameNode, 1, f);
+			simgrid::s4u::this_actor::get_name(), nameNode, 0, f);
 	nnmb->put(mack, 1024);
 
 
 	this->read();
+//end simulation so end name node --->end data nodes --> end hdd
+
 }
 
 void Client::read() {
@@ -142,7 +152,7 @@ void Client::read() {
 		int allSize = 335544320;
 		vector<double> med;
 		int64_t ss;
-		for (int i = 1; i < 140; i++) {
+		for (int i = 1; i < 2; i++) {
 			if(i<40)
 				ss = smallSize * (double) i;
 				else
@@ -175,6 +185,8 @@ void Client::read() {
 		myfile.close();
 		double secondd = Engine::get_clock();
 		XBT_INFO("finish read simulation in %f ", secondd - firstd);
+
+
 
 }
 

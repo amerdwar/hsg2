@@ -17,6 +17,8 @@ enum msg_type {
 	hdd_check,
 hdd_read_ack,
 hdd_write_ack,
+cl_rm_send_job,
+heart_beat,
 	end_of_simulation
 };
 

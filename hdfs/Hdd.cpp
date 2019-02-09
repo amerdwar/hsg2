@@ -51,10 +51,16 @@ void Hdd::operator()() {
 		void *t;
 
 		m = static_cast<Message*>(mailbox->get());
-
+ty=m->type;
 //m=static_cast<Message*> (mailbox->get());
 
 		switch (m->type) {
+
+		case msg_type::end_of_simulation: {
+			XBT_INFO("hdd end simulation ");
+
+			break;
+		}
 		case msg_type::hdd: { //new write message so scheduale the process
 			numWrite++;
 			XBT_INFO(" in hdd %s", m->toString().c_str());
@@ -207,6 +213,7 @@ void Hdd::operator()() {
 		}
 		}
 	} while (ty != msg_type::end_of_simulation);
+XBT_INFO("after while");
 }
 double Hdd::decTimesAndGet(double size) {
 

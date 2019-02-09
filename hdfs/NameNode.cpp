@@ -11,19 +11,22 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(hsg2, "Messages specific for this example");
 //134217728
 //67108864
 //100663296
-int64_t NameNode::chunkSize=134217728;
+int64_t NameNode::chunkSize = 134217728;
 
 NameNode::NameNode(std::vector<std::string> args) {
-	// TODO Auto-generated constructor stub
+
+
 	nameNodeName = args[1];
 //mailbox=Mailbox::by_name(this_actor::get_host()->get_name()+nameNodeName);
-	if(args.size()>1)
-	NameNode::chunkSize=std::stoi(args[2])*1024*1024;
+	if (args.size() > 1)
+		NameNode::chunkSize = std::stoi(args[2]) * 1024 * 1024;
 	Engine* e = simgrid::s4u::Engine::get_instance();
+
 	mailbox = Mailbox::by_name(nameNodeName);
 	mailbox->set_receiver(Actor::self());
 
 	racks = e->get_filtered_netzones<simgrid::kernel::routing::ClusterZone>();
+
 	replicatinNum = 3;
 	allDires = new map<string, DirFiles *>();
 	dataNodes = new map<MailboxPtr, vector<Chunk*>>;
@@ -37,11 +40,13 @@ void NameNode::operator()() { //the simulation loop
 
 		m = static_cast<Message*>(mailbox->get());
 		switch (m->type) {
-		case msg_type::end_of_simulation: {
-			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
-				a->first->put(m, 2000);
-			}
 
+		case msg_type::end_of_simulation: {
+			XBT_INFO("end name node");
+			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
+				a->first->put(m, 1522);
+			}
+			XBT_INFO("end name node");
 			break;
 		}
 		case msg_type::cl_nn_wr_file: {
@@ -62,7 +67,7 @@ void NameNode::operator()() { //the simulation loop
 			XBT_INFO("in read");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			Message *msg = new Message(msg_type::nn_cl_re_file, nameNodeName,
-					m->sender, 1, allDires->at(f->dir)->Files->at(f->name));
+					m->sender, 0, allDires->at(f->dir)->Files->at(f->name));
 
 			Mailbox::by_name(m->sender)->put(msg, 1024);
 
@@ -94,7 +99,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 	xbt_assert(rackNums > 0, "num of rack is 0");
 	int64_t numCh = file_size / chunkSize;
 
-	if (file_size % chunkSize != 0){
+	if (file_size % chunkSize != 0) {
 
 		numCh++;
 	}
@@ -160,10 +165,11 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 			if (racks.at(rackId)->get_all_hosts().size() > 2) {
 				std::vector<string> s;
-						s.push_back(h1->get_name());
-						s.push_back(h2->get_name());
-						h3 = simgrid::s4u::Mailbox::by_name(
-								this->randHostExcept(selectedRack,s)->get_name()+"_dataNode");
+				s.push_back(h1->get_name());
+				s.push_back(h2->get_name());
+				h3 = simgrid::s4u::Mailbox::by_name(
+						this->randHostExcept(selectedRack, s)->get_name()
+								+ "_dataNode");
 			} else {
 
 				h3 = simgrid::s4u::Mailbox::by_name(
@@ -192,11 +198,11 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		}
 //now we have vector of hosts to write the chunk on it
 		Chunk *ch = new Chunk(dir, f->name, f->id, chunkSize);
-		if (file_size % chunkSize != 0){
-		if (chindex == (numCh - 1)) {
-			//if the chunk is the last chunk its size with pe the reminderof filesize/chunkSize
-			ch ->size= f->size % chunkSize;
-		}
+		if (file_size % chunkSize != 0) {
+			if (chindex == (numCh - 1)) {
+				//if the chunk is the last chunk its size with pe the reminderof filesize/chunkSize
+				ch->size = f->size % chunkSize;
+			}
 		}
 		ch->clinetMB = sender;
 		ch->nodes = hosts_to_write;
@@ -226,7 +232,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 //send back to sender with the list of data nodes
 
 	Message *msg = new Message(msg_type::nn_cl_file_ch, nameNodeName,
-			sender->get_name(), 1, allDires->at(dir)->Files->at(file));
+			sender->get_name(), 0, allDires->at(dir)->Files->at(file));
 
 	sender->put(msg, 1522);
 
@@ -259,23 +265,26 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 		return hosts.at(0);
 	}
 }
-simgrid::s4u::Host* NameNode::randHostExcept( simgrid::kernel::routing::ClusterZone* rack,std::vector<string > exc){
+simgrid::s4u::Host* NameNode::randHostExcept(
+		simgrid::kernel::routing::ClusterZone* rack, std::vector<string> exc) {
 	auto hosts = rack->get_all_hosts();
 	simgrid::s4u::Host* h;
 	if (hosts.size() > 1) {	//if we have more than one host return any random host in the rack except the host whose name is param host
-		bool reScan=false;
+		bool reScan = false;
 		do {
 			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
-			reScan=false;
-for(auto ex:exc){
-	if(ex.compare(h->get_name()+"_dataNode")==0){
-	reScan=true;
-	XBT_INFO(" equal %s ,%s",ex.c_str(),h->get_name().c_str());
-	}else{
-		XBT_INFO(" not equal %s ,%s",ex.c_str(),h->get_name().c_str());
+			reScan = false;
+			for (auto ex : exc) {
+				if (ex.compare(h->get_name() + "_dataNode") == 0) {
+					reScan = true;
+					XBT_INFO(" equal %s ,%s", ex.c_str(),
+							h->get_name().c_str());
+				} else {
+					XBT_INFO(" not equal %s ,%s", ex.c_str(),
+							h->get_name().c_str());
 
-	}
-}
+				}
+			}
 
 		} while (reScan);
 

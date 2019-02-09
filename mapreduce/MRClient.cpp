@@ -10,11 +10,11 @@
 MRClient::MRClient(std::vector<std::string> args) {
 	job = new JobInfo();
 	initJob();
-
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
 	this->rMangerName = args[2];
 	rManager = Mailbox::by_name(rMangerName);
+
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
 	thismb = simgrid::s4u::Mailbox::by_name(
 			simgrid::s4u::this_actor::get_host()->get_name() + "_"
@@ -33,8 +33,9 @@ void MRClient::sendJob(JobInfo* j) {
 void MRClient::operator()() {
 this->writeDate();
 //send request to rManager
-
-
+Message *m=new Message(msg_type::cl_rm_send_job,thismb->get_name(),rMangerName,1,job);
+rManager->put(m,1522);
+//TODO receive ack from client that the job is complete
 }
 void MRClient::initJob() {
 	job->jobStatus = "waiting";
