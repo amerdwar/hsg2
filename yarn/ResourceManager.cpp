@@ -10,19 +10,52 @@
 XBT_LOG_NEW_DEFAULT_CATEGORY(ResourceManager,
 		"Messages specific for this example");
 ResourceManager::ResourceManager(std::vector<std::string> args) {
-
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
-
 	thismb = simgrid::s4u::Mailbox::by_name(
 			simgrid::s4u::this_actor::get_host()->get_name() + "_"
 					+ simgrid::s4u::this_actor::get_name());
 	thismb->set_receiver(Actor::self());
+	numFreeContainers = numAllContainers; //on create all the containers are free
+//run heart beater
+	heartBeater = this_actor::get_host()->get_name() + "_heartBeater";
+	Actor::create(heartBeater, this_actor::get_host(), thismb->get_name());
 
 }
 
 void ResourceManager::operator()() {
+
+	Message* m = nullptr;
+	do {
+		//sleep and send heart beat to parent
+		m = static_cast<Message*>(thismb->get());
+		switch (m->type) {
+		case msg_type::end_of_simulation: {
+			XBT_INFO("resource manager end of simulation end simulation ");
+			//send this message to heart beater
+			Mailbox::by_name(heartBeater)->put(m, 0);
+			//TODO send this message to all node managers
+			break;
+		}
+		case msg_type::cl_rm_send_job: {
+			JobInfo * j = static_cast<JobInfo*>(m->payload);
+			waitingJobs.push_back(j); //add the job to waiting jobs
+//TODO make allocation requests
+
+
+			break;
+		}
+
+		case msg_type::heart_beat: {
+			//TODO update stat and jobs
+			//take job
+			break;
+		}
+
+		}
+
+	} while (m->type != msg_type::end_of_simulation);
 
 }
 
@@ -37,11 +70,11 @@ void ResourceManager::initNodeManagers() {
 			host->set_property("rack", rack->get_name());
 			XBT_INFO("pro  %s", host->get_property("rack"));
 			int numCon = host->get_core_count() / this->numCorePerContainer; //num containers = num cores per host/num core per container
-		containers.insert(std::pair<string,int>(host->get_name(),numCon));
+			numAllContainers += numCon;
+			containers.insert(std::pair<string, int>(host->get_name(), numCon));
+		} //until here we have map of hosts and how many container they have
 
-	}//until here we have map of hosts and how many container they have
-
-}
+	}
 
 }
 

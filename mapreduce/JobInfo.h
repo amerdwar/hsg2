@@ -59,6 +59,7 @@ public:
 	bool useCompression = false;
 
 	JobInfo();
+	JobInfo *copy();
 	virtual ~JobInfo();
 };
 

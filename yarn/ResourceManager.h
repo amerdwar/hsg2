@@ -14,13 +14,16 @@
 class ResourceManager {
 public:
 	string nameNodeName;
+	string heartBeater;
 	MailboxPtr nnmb;
 	MailboxPtr thismb;
 	int numCorePerContainer = 1;//to specify the containers number on each host
-	std::map<string,int>containers;
-	std::vector<JobInfo> waitingJobs;
-	std::vector<JobInfo> finishedJobs;
-	std::vector<JobInfo> runningJobs;
+	int numAllContainers=0;
+	int numFreeContainers=0;
+	std::map<string,int> containers;
+	std::vector<JobInfo*> waitingJobs;
+	std::vector<JobInfo*> finishedJobs;
+	std::vector<JobInfo*> runningJobs;
 
 	explicit ResourceManager(std::vector<std::string> args);
 	ResourceManager();
