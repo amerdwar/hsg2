@@ -26,7 +26,6 @@ public:
 	std::vector<JobInfo> runningJobs;
 	std::vector<JobInfo> finishedJobs;
 
-
 	std::map<string,int> containers;
 	YarnScheduler(int numAllCon,	std::map<string,int> containers);
 	void addJob(JobInfo job);
@@ -35,6 +34,11 @@ public:
 	std::vector<allocateRes> fifo();
 	std::vector<allocateRes> fair();
 	std::vector<allocateRes> capacity();
+
+	string getRandCon();
+	std::vector<allocateRes>  serveMap();
+	std::vector<allocateRes>  serveReduce();
+	allocateRes getContForCh(Chunk* ch);
 	void freeCon(string host);
 	virtual ~YarnScheduler();
 };
