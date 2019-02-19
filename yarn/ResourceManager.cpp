@@ -12,12 +12,15 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(ResourceManager,
 ResourceManager::ResourceManager(std::vector<std::string> args) {
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
+
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
-	thismb = simgrid::s4u::Mailbox::by_name(
-			simgrid::s4u::this_actor::get_host()->get_name() + "_"
-					+ simgrid::s4u::this_actor::get_name());
+	thismb = Mailbox::by_name(
+			this_actor::get_host()->get_name() + "_" + this_actor::get_name());
 	thismb->set_receiver(Actor::self());
+	initNodeManagers();
 	numFreeContainers = numAllContainers; //on create all the containers are free
+	scheduler=new YarnScheduler(numAllContainers,containers);
+
 //run heart beater
 	heartBeater = this_actor::get_host()->get_name() + "_heartBeater";
 	Actor::create(heartBeater, this_actor::get_host(), thismb->get_name());
@@ -40,17 +43,28 @@ void ResourceManager::operator()() {
 		}
 		case msg_type::cl_rm_send_job: {
 			JobInfo * j = static_cast<JobInfo*>(m->payload);
-			waitingJobs.push_back(j); //add the job to waiting jobs
+			scheduler->waitingJobs.push_back(j);
 //TODO make allocation requests
-
 
 			break;
 		}
 
 		case msg_type::heart_beat: {
 			//TODO update stat and jobs
+			std::vector<allocateRes>resV =scheduler->allocate();
+			for(auto resp:resV){
+//TODO send resp to requester
+			}
 			//take job
 			break;
+		}
+		case msg_type::free_con:{
+//TODO free con by call scheduler.freeCon
+			break;
+		}
+		case msg_type::finish_job:{
+			//TODO print result of job
+
 		}
 
 		}

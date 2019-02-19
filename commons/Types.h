@@ -22,6 +22,8 @@ enum msg_type {
 	hdd_write_ack,
 	cl_rm_send_job,
 	heart_beat,
+	free_con,
+	finish_job,
 	end_of_simulation
 };
 

@@ -39,7 +39,9 @@ std::vector<allocateRes> YarnScheduler::allocate() {
 	}
 }
 void YarnScheduler::freeCon(string host) {
-	containers.at(host)++;}
+	containers.at(host)++;this
+	->numAllCon++;
+}
 std::vector<allocateRes> YarnScheduler::fifo() {
 	std::vector<allocateRes> resV;
 
@@ -51,15 +53,27 @@ std::vector<allocateRes> YarnScheduler::fifo() {
 				break;
 			}
 			case allocate_type::reduce_all: {
-				serveMap();
+				serveReduce();
 				break;
 			}
 			case allocate_type::app_master_all: {
+				serveAppMaster();
 				break;
 			}
 			}
 		}
 	} //end
+
+	while (waitingJobs.size() > 0) {
+//TODO move waiting jobs to running and schedule app master allocate
+		allocateReq jobReq;
+		jobReq.type = allocate_type::app_master_all;
+		jobReq.dir = waitingJobs.at(0)->dirName;
+		allReq.push_back(jobReq);
+		runningJobs.push_back(waitingJobs.at(0));
+		waitingJobs.erase(waitingJobs.begin());
+	}
+
 	end: return resV;
 
 }
@@ -73,7 +87,7 @@ std::vector<allocateRes> YarnScheduler::capacity() {
 
 	return a;
 }
-void YarnScheduler::addJob(JobInfo job) {
+void YarnScheduler::addJob(JobInfo* job) {
 	waitingJobs.push_back(job);
 
 }
@@ -94,6 +108,7 @@ allocateRes YarnScheduler::getContForCh(Chunk* ch) {
 		string hostName = dnName.substr(0, dnName.find("_"));
 		if (containers.at(hostName) > 0) {
 			containers.at(hostName) -= 1;
+			this->numAllCon--;
 			//add allocatte res
 
 			re.chIndex = allReq.at(0).chIndex;
@@ -128,7 +143,7 @@ string YarnScheduler::getRandCon() {
 	for (auto tem : containers) {
 		if (tem.second > 0) {
 			containers.at(tem.first) -= 1;
-			numAllCon--;
+			this->numAllCon--;
 			ra = tem.first;
 			break;
 		}
@@ -178,7 +193,7 @@ std::vector<allocateRes> YarnScheduler::serveMap() {
 std::vector<allocateRes> YarnScheduler::serveReduce() {
 	std::vector<allocateRes> resV;
 	allocateRes re;
-	int reducersNum=allReq.at(0).reducersNum;
+	int reducersNum = allReq.at(0).reducersNum;
 	for (int i = 0; i < reducersNum; i++) {
 		if (this->numAllCon > 0) {
 			re.chIndex = allReq.at(0).chIndex;
@@ -187,17 +202,33 @@ std::vector<allocateRes> YarnScheduler::serveReduce() {
 			re.nodeManager = getRandCon();
 			re.requester = allReq.at(0).requester;
 			re.type = allReq.at(0).type;
-			allReq.at(0).reducersNum-=1;
+			allReq.at(0).reducersNum -= 1;
 			resV.push_back(re);
 		} else {
 			break;
 		}
 
 	}
-	if(allReq.at(0).reducersNum==0){
+	if (allReq.at(0).reducersNum == 0) {
 		allReq.erase(allReq.begin());
 	}
 
 	return resV;
 
 }
+std::vector<allocateRes> YarnScheduler::serveAppMaster() {
+	std::vector<allocateRes> resV;
+	allocateRes re;
+	re.dir = allReq.at(0).dir;
+	re.nodeManager = getRandCon();
+	re.requester = allReq.at(0).requester;
+	re.type = allReq.at(0).type;
+
+	resV.push_back(re);
+
+	//delete the req after serve it
+	allReq.erase(allReq.begin());
+
+	return resV;
+}
+
