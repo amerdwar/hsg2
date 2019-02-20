@@ -1,0 +1,33 @@
+you have to 
+to run update
+then install 
+g++
+then install cmake
+then install libboost all
+then install doxgen
+
+
+
+
+XBT_LOG_NEW_DEFAULT_CATEGORY(hsg, "Messages specific for this example");
+int main(int argc, char* argv[])
+{
+  simgrid::s4u::Engine e(&argc, argv);
+  xbt_assert(argc > 2, "Usage: %s platform_file deployment_file\n", argv[0]);
+
+  /* Register the classes representing the actors */
+  e.register_actor<NameNode>("nameNode");
+  e.register_actor<Client>("client");
+
+  /* Load the platform description and then deploy the application */
+  e.load_platform(argv[1]);
+  e.load_deployment(argv[2]);
+
+  /* Run the simulation */
+  e.run();
+
+  XBT_INFO("Simulation is over");
+
+  return 0;
+}
+
