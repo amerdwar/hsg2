@@ -35,7 +35,7 @@ Mapper::~Mapper() {
 	// TODO Auto-generated destructor stub
 }
 
-void Mapper::init(){
+void Mapper::init() {
 	for (auto const& a : sList) {
 
 		string actorName = this_actor::get_host()->get_name() + "_"
@@ -47,4 +47,25 @@ void Mapper::init(){
 string Mapper::getRandStorage() {
 	return storage_list->at(RandClass::getRand(0, storage_list->size() - 1));
 
+}
+void Mapper::WriteToHdd(int64_t si) {
+	string storage = getRandStorage();
+	Chunk *ch = new Chunk("default", "def", 0, si);
+	Message *m = new Message(msg_type::hdd, thisName, storage,
+			hdd_Access::hdd_write, ch);
+	m->generator = m->sender;
+	Mailbox::by_name(storage)->put(m, 0);
+ acksMap.insert(std::pair<int64_t, int >(m->genId, 1));
+
+
+}
+
+void Mapper::readFromHdd(int64_t si) {
+	string storage = getRandStorage();
+	Chunk *ch = new Chunk("default", "def", 0, si);
+	Message *m = new Message(msg_type::hdd, thisName, storage,
+			hdd_Access::hdd_read, ch);
+	m->generator = m->sender;
+	Mailbox::by_name(storage)->put(m, 0);
+	acksMap.insert(std::pair<int64_t, int >(m->genId, 1));
 }

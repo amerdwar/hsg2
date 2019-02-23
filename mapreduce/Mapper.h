@@ -17,6 +17,9 @@ public:
 	std::unordered_map<std::string, simgrid::s4u::Storage*> const& sList =
 			simgrid::s4u::Host::current()->get_mounted_storages();
 	std::vector<string> *storage_list=new 	std::vector<string>();
+	map<int64_t,int> acksMap;
+
+
 	allocateRes* res;
 	string appMasterName;
 	string nameNodeName;
@@ -26,6 +29,8 @@ public:
 	explicit Mapper(string thisName, string appMas, string NameNode,
 			allocateRes * res);
 	string getRandStorage();
+	void WriteToHdd(int64_t si);
+	void readFromHdd(int64_t si);
 	void operator()();
 	void init();
 
