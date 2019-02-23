@@ -2,13 +2,16 @@
 //
 #include <string.h>
 #include "../hdfs/DirFiles.h"
+#include "../mapreduce/JobInfo.h"
 using namespace std;
 enum msg_type {
 	cl_nn_wr_file = 1, //client nameNode write file;
 	nn_cl_file_ch, //nameNode client file chunks
 	cl_dn_wr_ch,
 	cl_nn_re_file,
+	cl_nn_re_dir,
 	nn_cl_re_file,
+	nn_cl_re_dir,
 	cl_dn_re_ch,
 	dn_cl_re_ack_ch,
 	//client send read chunk to data node
@@ -24,7 +27,9 @@ enum msg_type {
 	heart_beat,
 	free_con,
 	finish_job,
-	end_of_simulation
+	end_of_simulation,
+	allocate_res,
+	allocate_req
 };
 
 enum hdd_Access {
@@ -38,8 +43,8 @@ enum allocate_type {
 struct allocateReq { //the number of mappers equal to num of ch
 	allocate_type type;
 	string requester; //
-	DirFiles dir;
-
+	DirFiles* dir;
+JobInfo* job;
 	int reducersNum = 1; //these for reducer
 	int64_t fIndex = 0; //need for map
 	int64_t chIndex = 0; //need for map
@@ -50,7 +55,8 @@ struct allocateRes {
 	allocate_type type;
 	string requester;
 	string nodeManager;
-	DirFiles dir;
+	DirFiles* dir;
+	JobInfo* job;
 	int64_t fIndex = 0;
 	int64_t chIndex = 0;
 };

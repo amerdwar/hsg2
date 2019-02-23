@@ -73,6 +73,16 @@ void NameNode::operator()() { //the simulation loop
 
 			break;
 		}
+		case msg_type::cl_nn_re_dir: {
+					XBT_INFO("in read dir");
+					string * dd = static_cast<string*>(m->payload);
+					Message *msg = new Message(msg_type::nn_cl_re_dir, nameNodeName,
+							m->sender, 0, allDires->at(*dd));
+
+					Mailbox::by_name(m->sender)->put(msg, 1024);
+
+					break;
+				}
 		}
 
 	} while (m->type != msg_type::end_of_simulation);

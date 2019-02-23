@@ -8,12 +8,13 @@
 #ifndef MAPREDUCE_JOBINFO_H_
 #define MAPREDUCE_JOBINFO_H_
 #include <string>
+#include "../hdfs/DirFiles.h"
 using namespace std;
 class JobInfo {
 public:
-	string jobStatus="waiting";
+	string jobStatus = "waiting";
 	string jobName = "job";
-
+	string user;
 //algorithm
 	double compressionCost = 1.0;
 	double uncompressionCost = 1.0;
@@ -32,11 +33,11 @@ public:
 	double reduceRecords = 0.001235;
 	double reduceOutAvRecordSize = 9.8889;
 //data
-	string dirName;
-	double recordsNumPerChunk;
-	int numOfFiles;
-	int64_t maxFileSize;
-	int64_t minFileSize;
+	DirFiles* dir=nullptr;
+	double recordsNumPerChunk=100;
+	int numOfFiles=10;
+	int64_t maxFileSize= 1*1024*1024;
+	int64_t minFileSize =1*1024;
 
 //other
 	double ioSortFactor = 10;

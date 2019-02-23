@@ -9,8 +9,8 @@
 #include "hdfs/NameNode.h"
 #include "hdfs/DataNode.h"
 #include "hdfs/Client.h"
-
-
+#include "yarn/ResourceManager.h"
+#include "mapreduce/MRClient.h"
 
 int main(int argc, char* argv[])
 {
@@ -22,6 +22,8 @@ int main(int argc, char* argv[])
   e.register_actor<NameNode>("nameNode");
   e.register_actor<Client>("client");
   e.register_actor<DataNode>("dataNode");
+  e.register_actor<ResourceManager>("ResourceManager");
+  e.register_actor<MRClient>("mrclient");
 
 
   /* Load the platform description and then deploy the application */

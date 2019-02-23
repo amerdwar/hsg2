@@ -22,6 +22,11 @@ hdfs/HdfsClient.cpp
 hdfs/HdfsFile.cpp
 hdfs/DataNode.cpp
 hdfs/Hdd.cpp
+yarn/HeartBeater.cpp
+yarn/YarnScheduler.cpp
+yarn/ResourceManager.cpp
+mapreduce/MRClient.cpp
+mapreduce/JobInfo.cpp
 Main.cpp
 )
 target_link_libraries(hsg ${SimGrid_LIBRARY})

@@ -11,6 +11,7 @@
 #include "../hdfs/NameNode.h"
 #include "../mapreduce/JobInfo.h"
 #include "YarnScheduler.h"
+#include "HeartBeater.h"
 
 class ResourceManager {
 public:

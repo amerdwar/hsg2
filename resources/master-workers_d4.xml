@@ -1,0 +1,75 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4.1">
+	<!-- The master actor (with some arguments) -->
+
+
+	<actor host="host1" function="mrclient">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+
+	</actor>
+
+	<actor host="host3" function="ResourceManager">
+		<argument value="host2_nameNode" />
+
+	</actor>
+
+	<!-- The worker processes (with no argument) -->
+	<actor host="host2" function="nameNode">
+		<argument value="host2_nameNode" />
+		<argument value="128" />
+	</actor>
+
+	<actor host="host1" function="dataNode" />
+	<actor host="host3" function="dataNode" />
+	<actor host="host4" function="dataNode" />
+	<actor host="host5" function="dataNode" />
+	<actor host="host6" function="dataNode" />
+	<actor host="host7" function="dataNode" />
+	<actor host="host8" function="dataNode" />
+	<actor host="host9" function="dataNode" />
+
+
+	<actor host="host1" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host3" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host4" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host5" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host6" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+
+	<actor host="host7" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host8" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+	<actor host="host9" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
+
+</platform>

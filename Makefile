@@ -393,6 +393,60 @@ hdfs/NameNode.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/NameNode.cpp.s
 .PHONY : hdfs/NameNode.cpp.s
 
+mapreduce/JobInfo.o: mapreduce/JobInfo.cpp.o
+
+.PHONY : mapreduce/JobInfo.o
+
+# target to build an object file
+mapreduce/JobInfo.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
+.PHONY : mapreduce/JobInfo.cpp.o
+
+mapreduce/JobInfo.i: mapreduce/JobInfo.cpp.i
+
+.PHONY : mapreduce/JobInfo.i
+
+# target to preprocess a source file
+mapreduce/JobInfo.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.i
+.PHONY : mapreduce/JobInfo.cpp.i
+
+mapreduce/JobInfo.s: mapreduce/JobInfo.cpp.s
+
+.PHONY : mapreduce/JobInfo.s
+
+# target to generate assembly for a file
+mapreduce/JobInfo.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.s
+.PHONY : mapreduce/JobInfo.cpp.s
+
+mapreduce/MRClient.o: mapreduce/MRClient.cpp.o
+
+.PHONY : mapreduce/MRClient.o
+
+# target to build an object file
+mapreduce/MRClient.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
+.PHONY : mapreduce/MRClient.cpp.o
+
+mapreduce/MRClient.i: mapreduce/MRClient.cpp.i
+
+.PHONY : mapreduce/MRClient.i
+
+# target to preprocess a source file
+mapreduce/MRClient.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.i
+.PHONY : mapreduce/MRClient.cpp.i
+
+mapreduce/MRClient.s: mapreduce/MRClient.cpp.s
+
+.PHONY : mapreduce/MRClient.s
+
+# target to generate assembly for a file
+mapreduce/MRClient.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.s
+.PHONY : mapreduce/MRClient.cpp.s
+
 messages/Message.o: messages/Message.cpp.o
 
 .PHONY : messages/Message.o
@@ -419,6 +473,87 @@ messages/Message.s: messages/Message.cpp.s
 messages/Message.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/messages/Message.cpp.s
 .PHONY : messages/Message.cpp.s
+
+yarn/HeartBeater.o: yarn/HeartBeater.cpp.o
+
+.PHONY : yarn/HeartBeater.o
+
+# target to build an object file
+yarn/HeartBeater.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o
+.PHONY : yarn/HeartBeater.cpp.o
+
+yarn/HeartBeater.i: yarn/HeartBeater.cpp.i
+
+.PHONY : yarn/HeartBeater.i
+
+# target to preprocess a source file
+yarn/HeartBeater.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.i
+.PHONY : yarn/HeartBeater.cpp.i
+
+yarn/HeartBeater.s: yarn/HeartBeater.cpp.s
+
+.PHONY : yarn/HeartBeater.s
+
+# target to generate assembly for a file
+yarn/HeartBeater.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.s
+.PHONY : yarn/HeartBeater.cpp.s
+
+yarn/ResourceManager.o: yarn/ResourceManager.cpp.o
+
+.PHONY : yarn/ResourceManager.o
+
+# target to build an object file
+yarn/ResourceManager.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
+.PHONY : yarn/ResourceManager.cpp.o
+
+yarn/ResourceManager.i: yarn/ResourceManager.cpp.i
+
+.PHONY : yarn/ResourceManager.i
+
+# target to preprocess a source file
+yarn/ResourceManager.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.i
+.PHONY : yarn/ResourceManager.cpp.i
+
+yarn/ResourceManager.s: yarn/ResourceManager.cpp.s
+
+.PHONY : yarn/ResourceManager.s
+
+# target to generate assembly for a file
+yarn/ResourceManager.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.s
+.PHONY : yarn/ResourceManager.cpp.s
+
+yarn/YarnScheduler.o: yarn/YarnScheduler.cpp.o
+
+.PHONY : yarn/YarnScheduler.o
+
+# target to build an object file
+yarn/YarnScheduler.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
+.PHONY : yarn/YarnScheduler.cpp.o
+
+yarn/YarnScheduler.i: yarn/YarnScheduler.cpp.i
+
+.PHONY : yarn/YarnScheduler.i
+
+# target to preprocess a source file
+yarn/YarnScheduler.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.i
+.PHONY : yarn/YarnScheduler.cpp.i
+
+yarn/YarnScheduler.s: yarn/YarnScheduler.cpp.s
+
+.PHONY : yarn/YarnScheduler.s
+
+# target to generate assembly for a file
+yarn/YarnScheduler.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.s
+.PHONY : yarn/YarnScheduler.cpp.s
 
 # Help Target
 help:
@@ -459,9 +594,24 @@ help:
 	@echo "... hdfs/NameNode.o"
 	@echo "... hdfs/NameNode.i"
 	@echo "... hdfs/NameNode.s"
+	@echo "... mapreduce/JobInfo.o"
+	@echo "... mapreduce/JobInfo.i"
+	@echo "... mapreduce/JobInfo.s"
+	@echo "... mapreduce/MRClient.o"
+	@echo "... mapreduce/MRClient.i"
+	@echo "... mapreduce/MRClient.s"
 	@echo "... messages/Message.o"
 	@echo "... messages/Message.i"
 	@echo "... messages/Message.s"
+	@echo "... yarn/HeartBeater.o"
+	@echo "... yarn/HeartBeater.i"
+	@echo "... yarn/HeartBeater.s"
+	@echo "... yarn/ResourceManager.o"
+	@echo "... yarn/ResourceManager.i"
+	@echo "... yarn/ResourceManager.s"
+	@echo "... yarn/YarnScheduler.o"
+	@echo "... yarn/YarnScheduler.i"
+	@echo "... yarn/YarnScheduler.s"
 .PHONY : help
 
 

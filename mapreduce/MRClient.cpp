@@ -6,9 +6,12 @@
  */
 
 #include "MRClient.h"
-
+XBT_LOG_NEW_DEFAULT_CATEGORY(mrclient, "Messages specific for this example");
 MRClient::MRClient(std::vector<std::string> args) {
 	job = new JobInfo();
+	thisName=
+				simgrid::s4u::this_actor::get_host()->get_name() + "_"
+						+ simgrid::s4u::this_actor::get_name();
 	initJob();
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
@@ -16,14 +19,13 @@ MRClient::MRClient(std::vector<std::string> args) {
 	rManager = Mailbox::by_name(rMangerName);
 
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
-	thismb = simgrid::s4u::Mailbox::by_name(
-			simgrid::s4u::this_actor::get_host()->get_name() + "_"
-					+ simgrid::s4u::this_actor::get_name());
+
+	thismb = simgrid::s4u::Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
 
 }
 MRClient::MRClient(string argv) {
-	// TODO Auto-generated constructor stub
+
 	job = new JobInfo();
 }
 
@@ -31,13 +33,29 @@ void MRClient::sendJob(JobInfo* j) {
 
 }
 void MRClient::operator()() {
-this->writeDate();
+
+	this->writeDate();
 //send request to rManager
-Message *m=new Message(msg_type::cl_rm_send_job,thismb->get_name(),rMangerName,1,job);
-rManager->put(m,1522);
+	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
+			rMangerName, 1, job);
+	XBT_INFO("send job mssage %s",rManager->get_name().c_str());
+	rManager->put(m, 1522);
+
+	XBT_INFO("send job mssage");
+
 //TODO receive ack from client that the job is complete
+
+
+	//Message *ends = new Message(msg_type::end_of_simulation,
+		//	simgrid::s4u::this_actor::get_name(),
+	//	rManager->get_name(),0,nullptr);
+//	rManager->put(ends, 1522);
 }
 void MRClient::initJob() {
+	string s;
+
+	job->user=thisName;
+
 	job->jobStatus = "waiting";
 	job->jobName = "job";
 
@@ -59,11 +77,11 @@ void MRClient::initJob() {
 	job->reduceRecords = 0.001235;
 	job->reduceOutAvRecordSize = 9.8889;
 	//data
-	job->dirName = "dir1";
+
 	job->recordsNumPerChunk = 2500;
 	job->numOfFiles = 25;
-	job->maxFileSize = 1 * 1024 * 1024 * 1024;
-	job->minFileSize = 7 * 1024 * 1024 * 1024;
+	job->maxFileSize = 7 * 1024 * 1024 * 1024;
+	job->minFileSize = 1 * 1024 * 1024 * 1024;
 
 	//other
 	job->ioSortFactor = 10;
@@ -87,12 +105,24 @@ void MRClient::initJob() {
 }
 void MRClient::writeDate() {
 	HdfsClient* hd = new HdfsClient(nnmb, thismb);
-	for (auto i : job->numOfFiles) {
+	string dirStr = "dir1";
+	for (int i=0 ;i< job->numOfFiles;i++) {
 
-		HdfsFile* fi = new HdfsFile(job->dirName, "file" + i,
+		HdfsFile* fi = new HdfsFile(dirStr, std::to_string(i),
 				RandClass::getRand(job->minFileSize, job->maxFileSize));
 		hd->writeFile(fi);
 	}
+	string* payload = &dirStr;
+	Message *ms = new Message(msg_type::cl_nn_re_dir, thismb->get_name(),
+			nameNodeName, 0, payload);
+	nnmb->put(ms, 1522);
+	XBT_INFO("before get dir");
+	Message * res = static_cast<Message*>(thismb->get());
+	XBT_INFO("after get dir");
+	DirFiles *dirF = static_cast<DirFiles *>(res->payload);
+	job->dir = dirF;
+
+	delete ms;
 }
 MRClient::~MRClient() {
 	// TODO Auto-generated destructor stub

@@ -15,7 +15,7 @@ JobInfo * JobInfo::copy(){
 	JobInfo *j=new JobInfo();
 	j-> jobStatus=this->jobStatus;
 	j-> jobName = this->jobName;
-
+j->user=this->user;
 //algorithm
 	j-> compressionCost = this->compressionCost;
 	j-> uncompressionCost = this->uncompressionCost;
@@ -34,7 +34,7 @@ JobInfo * JobInfo::copy(){
 	j-> reduceRecords = this->reduceRecords;
 	j-> reduceOutAvRecordSize = this->reduceOutAvRecordSize;
 //data
-	j-> dirName=this->dirName;
+	j-> dir=this->dir;
 	j-> recordsNumPerChunk=this->recordsNumPerChunk;
 	j-> numOfFiles=this->numOfFiles;
 	j-> maxFileSize=this->maxFileSize;

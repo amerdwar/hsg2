@@ -1,3 +1,3 @@
 cmake .
 make
-./hsg resources/small_platform2.xml   resources/master-workers_d2.xml 
+./hsg resources/small_platform4.xml   resources/master-workers_d4.xml 

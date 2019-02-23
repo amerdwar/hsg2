@@ -13,7 +13,7 @@
 #include "../hdfs/HdfsFile.h"
 #include "../distributions/RandClass.h"
 #include "../messages/Message.h"
-#include "../commons/Types.h"
+
 
 
 using namespace simgrid::s4u;

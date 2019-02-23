@@ -14,7 +14,7 @@ class HeartBeater {
 public:
 	string parentName ;
 	simgrid::s4u::MailboxPtr parentMb,thismb;
-	explicit HeartBeater(string args);
+	explicit HeartBeater(string args,string hb);
 	void operator()();
 	virtual ~HeartBeater();
 };

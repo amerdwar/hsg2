@@ -17,13 +17,15 @@ ResourceManager::ResourceManager(std::vector<std::string> args) {
 	thismb = Mailbox::by_name(
 			this_actor::get_host()->get_name() + "_" + this_actor::get_name());
 	thismb->set_receiver(Actor::self());
+
 	initNodeManagers();
 	numFreeContainers = numAllContainers; //on create all the containers are free
-	scheduler=new YarnScheduler(numAllContainers,containers);
+	scheduler = new YarnScheduler(numAllContainers, containers);
 
 //run heart beater
 	heartBeater = this_actor::get_host()->get_name() + "_heartBeater";
-	Actor::create(heartBeater, this_actor::get_host(), thismb->get_name());
+	ActorPtr beater = Actor::create(heartBeater, this_actor::get_host(),
+			HeartBeater(thismb->get_name(), heartBeater));
 
 }
 
@@ -32,7 +34,9 @@ void ResourceManager::operator()() {
 	Message* m = nullptr;
 	do {
 		//sleep and send heart beat to parent
+
 		m = static_cast<Message*>(thismb->get());
+
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
 			XBT_INFO("resource manager end of simulation end simulation ");
@@ -42,29 +46,37 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::cl_rm_send_job: {
+			XBT_INFO("receive job name 1 ");
 			JobInfo * j = static_cast<JobInfo*>(m->payload);
+
 			scheduler->waitingJobs.push_back(j);
-//TODO make allocation requests
 
 			break;
 		}
 
 		case msg_type::heart_beat: {
 			//TODO update stat and jobs
-			std::vector<allocateRes>resV =scheduler->allocate();
-			for(auto resp:resV){
-//TODO send resp to requester
+			//XBT_INFO("HEART BE ");
+			std::vector<allocateRes> resV = scheduler->allocate();
+			for (auto resp : resV) {
+				allocateRes *rePtr = &resp;
+				Message* resMSg = new Message(msg_type::allocate_res,
+						thismb->get_name(), rePtr->nodeManager+"_nodeManager", 0, rePtr);
+				thismb->put(resMSg,1522);
+
 			}
+
 			//take job
+
 			break;
 		}
-		case msg_type::free_con:{
+		case msg_type::free_con: {
 //TODO free con by call scheduler.freeCon
 			break;
 		}
-		case msg_type::finish_job:{
+		case msg_type::finish_job: {
 			//TODO print result of job
-
+			break;
 		}
 
 		}
@@ -86,6 +98,8 @@ void ResourceManager::initNodeManagers() {
 			int numCon = host->get_core_count() / this->numCorePerContainer; //num containers = num cores per host/num core per container
 			numAllContainers += numCon;
 			containers.insert(std::pair<string, int>(host->get_name(), numCon));
+			//create node manager actor on each host
+
 		} //until here we have map of hosts and how many container they have
 
 	}
