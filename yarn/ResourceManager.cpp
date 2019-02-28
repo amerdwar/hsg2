@@ -12,8 +12,8 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(ResourceManager,
 ResourceManager::ResourceManager(std::vector<std::string> args) {
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
-this->thisName=
-		this_actor::get_host()->get_name() + "_" + this_actor::get_name();
+	this->thisName = this_actor::get_host()->get_name() + "_"
+			+ this_actor::get_name();
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
 	thismb = Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
@@ -21,7 +21,6 @@ this->thisName=
 	initNodeManagers();
 	numFreeContainers = numAllContainers; //on create all the containers are free
 	scheduler = new YarnScheduler(numAllContainers, containers);
-
 //run heart beater
 	heartBeater = this_actor::get_host()->get_name() + "_heartBeater";
 	ActorPtr beater = Actor::create(heartBeater, this_actor::get_host(),
@@ -62,31 +61,33 @@ void ResourceManager::operator()() {
 			for (auto resp : resV) {
 				endCounter = 0;
 				allocateRes *rePtr = &resp;
+				MailboxPtr nodeManmb = Mailbox::by_name(
+						rePtr->nodeManager + "_nodeManager");
 				Message* resMSg = new Message(msg_type::allocate_res,
-						thismb->get_name(), rePtr->nodeManager + "_nodeManager",
-						0, rePtr);
-				thismb->put(resMSg, 1522);
+						thismb->get_name(), nodeManmb->get_name(), 0, rePtr);
+				nodeManmb->put(resMSg, 1522);
+
 
 			}
 			if (endCounter == 1000) {
-			XBT_INFO("end simulation resource after 100 ");
-Message *endM=new Message(msg_type::end_of_simulation,thisName,thisName,0,nullptr);
+				XBT_INFO("end simulation resource after 100 ");
+				Message *endM = new Message(msg_type::end_of_simulation,
+						thisName, thisName, 0, nullptr);
 
-thismb->put(endM,0);
+				thismb->put(endM, 0);
 //ToDO end simulation
+			}
+			//take job
+			break;
 		}
-		//take job
-
-		break;
-	}
-	case msg_type::free_con: {
+		case msg_type::free_con: {
 //TODO free con by call scheduler.freeCon
-		break;
-	}
-	case msg_type::finish_job: {
-		//TODO print result of job
-		break;
-	}
+			break;
+		}
+		case msg_type::finish_job: {
+			//TODO print result of job
+			break;
+		}
 
 		}
 

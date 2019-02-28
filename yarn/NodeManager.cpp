@@ -77,11 +77,15 @@ void NodeManager::doAllocate(Message* m) {
 	}
 }
 void NodeManager::allocateAppMaster(allocateRes* res) {
-	XBT_INFO("in do app master");
+	XBT_INFO("in do app master job name is %s",res->job->jobName.c_str());
 	string appm = this_actor::get_host()->get_name() + "_AppMaster";
 	// AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
+	XBT_INFO("the name of app master is %s",appm.c_str());
 	ActorPtr appMaster = Actor::create(appm, this_actor::get_host(),
 			AppMaster(res->job, thisName, appm, nameNodeName, rMangerName));
+	XBT_INFO("created app mas");
 	apps.push_back(appm);
+
+
 
 }

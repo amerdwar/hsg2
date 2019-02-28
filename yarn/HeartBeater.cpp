@@ -17,7 +17,7 @@ HeartBeater::HeartBeater(string args,string hb) {
 }
 
 void HeartBeater::operator ()() {
-	thismb->setReceiver(Actor::self());
+	thismb->set_receiver(Actor::self());
 	XBT_INFO(" heart is : %s", thismb->get_name().c_str());
 
 	Message *ms = new Message(msg_type::heart_beat, thismb->get_name(),

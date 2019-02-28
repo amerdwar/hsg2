@@ -11,7 +11,7 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(AppMaster, "Messages specific for this example");
 AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 		string rManager) {
 	this->parent = parent;
-	this->job = job;
+	this->job = j;
 	this->self = self;
 	this->nameNode = namenode;
 	this->rManager = rManager;
@@ -19,11 +19,13 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	nameNodeMb = Mailbox::by_name(namenode);
 	rManagerMb = Mailbox::by_name(rManager);
 	thisMb = Mailbox::by_name(self);
-
+	XBT_INFO("create app master for job name:%s",job->jobName.c_str());
 }
 
 void AppMaster::operator ()() {
+
 	thisMb->set_receiver(Actor::self());
+	XBT_INFO("in operator app master");
 	sendMapRequest();
 
 	Message* m = nullptr;
@@ -55,14 +57,16 @@ AppMaster::~AppMaster() {
 
 void AppMaster::sendMapRequest() {
 
-	allocateReq* mapReq;
+	allocateReq* mapReq=new allocateReq;
 	mapReq->type = allocate_type::map_all;
 	mapReq->dir = job->dir;
 	mapReq->job = job;
 	mapReq->requester = self;
 	Message* mapReqMsg = new Message(msg_type::allocate_req, self, rManager, 0,
 			mapReq);
+	XBT_INFO("before send map req");
 	rManagerMb->put(mapReqMsg, 1522);
+	XBT_INFO("after send map req");
 }
 void AppMaster::sendAllocationFromAppMasterToNodeManager(allocateRes* res) {
 	res->requester = self;
