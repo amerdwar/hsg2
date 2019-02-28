@@ -60,7 +60,7 @@ NodeManager::~NodeManager() {
 }
 
 void NodeManager::doAllocate(Message* m) {
-	allocateRes * res = static_cast<allocateRes>(m->payload);
+	allocateRes * res = static_cast<allocateRes*>(m->payload);
 	switch (res->type) {
 	case allocate_type::app_master_all: {
 		allocateAppMaster(res);
@@ -77,6 +77,7 @@ void NodeManager::doAllocate(Message* m) {
 	}
 }
 void NodeManager::allocateAppMaster(allocateRes* res) {
+	XBT_INFO("in do app master");
 	string appm = this_actor::get_host()->get_name() + "_AppMaster";
 	// AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
 	ActorPtr appMaster = Actor::create(appm, this_actor::get_host(),

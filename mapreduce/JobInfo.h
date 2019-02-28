@@ -14,6 +14,7 @@ class JobInfo {
 public:
 	string jobStatus = "waiting";
 	string jobName = "job";
+	int64_t jid;
 	string user;
 //algorithm
 	double compressionCost = 1.0;
@@ -62,6 +63,8 @@ public:
 	JobInfo();
 	JobInfo *copy();
 	virtual ~JobInfo();
+private:
+	static int64_t jobIds;
 };
 
 #endif /* MAPREDUCE_JOBINFO_H_ */

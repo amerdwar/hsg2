@@ -13,6 +13,7 @@ enum msg_type {
 	nn_cl_re_file,
 	nn_cl_re_dir,
 	cl_dn_re_ch,
+	cl_dn_del_ch,
 	dn_cl_re_ack_ch,
 	//client send read chunk to data node
 	dn_ack_wr_ch,

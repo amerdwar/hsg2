@@ -42,7 +42,7 @@ void DataNode::operator()() {
 		ty = m->type;
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
-			for (auto ss: *storage_list){
+			for (auto ss : *storage_list) {
 				Mailbox::by_name(ss)->put(m, 1522);
 			}
 			XBT_INFO("end data node");
@@ -202,6 +202,14 @@ void DataNode::operator()() {
 			m->receiver = ch->clinetMB->get_name();
 			XBT_INFO("in ack %s ", m->toString().c_str());
 			ch->clinetMB->put(m, 1522);
+			break;
+		}
+		case msg_type::cl_dn_del_ch: {
+			Chunk * ch = static_cast<Chunk*>(m->payload);
+			auto it = chunks.find(ch->chId);
+			XBT_INFO("size before erase %s", chunks.size());
+			chunks.erase(it);
+			XBT_INFO("size after erase %s", chunks.size());
 			break;
 		}
 		}

@@ -14,10 +14,13 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alpha/tuturial/hsg/hdfs/HdfsClient.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/HdfsFile.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o"
   "/home/alpha/tuturial/hsg/hdfs/NameNode.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o"
+  "/home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/MRClient.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
+  "/home/alpha/tuturial/hsg/mapreduce/Mapper.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
   "/home/alpha/tuturial/hsg/messages/Message.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/messages/Message.cpp.o"
   "/home/alpha/tuturial/hsg/yarn/HeartBeater.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o"
+  "/home/alpha/tuturial/hsg/yarn/NodeManager.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o"
   "/home/alpha/tuturial/hsg/yarn/ResourceManager.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o"
   "/home/alpha/tuturial/hsg/yarn/YarnScheduler.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o"
   )

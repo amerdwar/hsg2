@@ -25,14 +25,17 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 	Message* m2 = static_cast<Message*>(thismb->get());
 	HdfsFile * f = static_cast<HdfsFile*>(m2->payload);
 
-		for (int i = 0; i < f->chunks->size(); i++) {
-	 for (int j=0;j<f->chunks->at(i)->nodes->size();j++){
-	 Chunk *ccc=f->chunks->at(i);
-	 XBT_INFO("dir %s  ,file %s chid  %i node %s size%i",ccc->dirName.c_str(),ccc->fileName.c_str(),ccc->chId,f->chunks->at(i)->nodes->at(j)->get_name().c_str(),ccc->size);
+	for (int i = 0; i < f->chunks->size(); i++) {
+		for (int j = 0; j < f->chunks->at(i)->nodes->size(); j++) {
+			Chunk *ccc = f->chunks->at(i);
+			XBT_INFO("dir %s  ,file %s chid  %i node %s size%i",
+					ccc->dirName.c_str(), ccc->fileName.c_str(), ccc->chId,
+					f->chunks->at(i)->nodes->at(j)->get_name().c_str(),
+					ccc->size);
 
-	 }
+		}
 
-	 }
+	}
 
 	XBT_INFO("chunks num is %i", f->chunks->size());
 	for (int i = 0; i < f->chunks->size(); i++) {
@@ -50,13 +53,11 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
 				thismb->get_name(), f->chunks->at(i)->nodes->at(0)->get_name(),
 				1, f->chunks->at(i));
-
 		//f->chunks->at(i)->nodes->at(0)->put_init(writemsg,1024)->detach();
-
 		f->chunks->at(i)->nodes->at(0)->put(writemsg, f->chunks->at(i)->size);
 		Message* ackm = static_cast<Message*>(thismb->get());
 
-			delete ackm;
+		delete ackm;
 		double b = Engine::get_clock();
 
 		double c = b - a;
@@ -65,17 +66,17 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 				f->chunks->at(i)->size);
 
 	}
-/*
-	for (int i = 0; i < f->chunks->size(); i++) {
+	/*
+	 for (int i = 0; i < f->chunks->size(); i++) {
 
-		Message* ackm = static_cast<Message*>(thismb->get());
+	 Message* ackm = static_cast<Message*>(thismb->get());
 
-		delete ackm;
-	} */
+	 delete ackm;
+	 } */
 	Message *mack = new Message(msg_type::cl_nn_ack_ch, thismb->get_name(),
 			nameNode, 1, f);
 	nnmb->put(mack, 1522);
-return true;
+	return true;
 }
 
 bool HdfsClient::read(HdfsFile* hr) {
@@ -90,7 +91,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 	HdfsFile * fr = static_cast<HdfsFile*>(mr2->payload);
 	if (fr->isAck) {
 		for (int i = 0; i < fr->chunks->size(); i++) {
-XBT_INFO("the chunk size is %i ",	fr->chunks->at(i)->size);
+			XBT_INFO("the chunk size is %i ", fr->chunks->at(i)->size);
 			Message *chReq = new Message(msg_type::cl_dn_re_ch,
 					thismb->get_name(),
 					fr->chunks->at(i)->nodes->at(0)->get_name(), 1,
@@ -109,7 +110,7 @@ XBT_INFO("the chunk size is %i ",	fr->chunks->at(i)->size);
 		//read();
 
 	}
-return true;
+	return true;
 }
 
 HdfsClient::~HdfsClient() {

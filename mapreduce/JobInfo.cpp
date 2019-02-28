@@ -9,10 +9,12 @@
 
 JobInfo::JobInfo() {
 	// TODO Auto-generated constructor stub
+	this->jid=jobIds++;
 
 }
 JobInfo * JobInfo::copy(){
 	JobInfo *j=new JobInfo();
+	j->jid=this->jid;
 	j-> jobStatus=this->jobStatus;
 	j-> jobName = this->jobName;
 j->user=this->user;
@@ -63,7 +65,7 @@ j->user=this->user;
 
 return j;
 }
-
+int64_t JobInfo::jobIds=0;
 JobInfo::~JobInfo() {
 	// TODO Auto-generated destructor stub
 }

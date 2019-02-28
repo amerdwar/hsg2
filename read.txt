@@ -1,1 +1,1 @@
-throughput tt=0.106792  s=3.2774 is t=0.349999
+throughput tt=0.058461  s=5.98689 is t=0.349999

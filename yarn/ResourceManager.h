@@ -15,7 +15,8 @@
 
 class ResourceManager {
 public:
-	string nameNodeName;
+	int endCounter=0;
+	string nameNodeName,thisName;
 	string heartBeater;
 	MailboxPtr nnmb;
 	MailboxPtr thismb;

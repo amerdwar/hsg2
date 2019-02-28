@@ -393,6 +393,33 @@ hdfs/NameNode.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/NameNode.cpp.s
 .PHONY : hdfs/NameNode.cpp.s
 
+mapreduce/AppMaster.o: mapreduce/AppMaster.cpp.o
+
+.PHONY : mapreduce/AppMaster.o
+
+# target to build an object file
+mapreduce/AppMaster.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
+.PHONY : mapreduce/AppMaster.cpp.o
+
+mapreduce/AppMaster.i: mapreduce/AppMaster.cpp.i
+
+.PHONY : mapreduce/AppMaster.i
+
+# target to preprocess a source file
+mapreduce/AppMaster.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.i
+.PHONY : mapreduce/AppMaster.cpp.i
+
+mapreduce/AppMaster.s: mapreduce/AppMaster.cpp.s
+
+.PHONY : mapreduce/AppMaster.s
+
+# target to generate assembly for a file
+mapreduce/AppMaster.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.s
+.PHONY : mapreduce/AppMaster.cpp.s
+
 mapreduce/JobInfo.o: mapreduce/JobInfo.cpp.o
 
 .PHONY : mapreduce/JobInfo.o
@@ -447,6 +474,33 @@ mapreduce/MRClient.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.s
 .PHONY : mapreduce/MRClient.cpp.s
 
+mapreduce/Mapper.o: mapreduce/Mapper.cpp.o
+
+.PHONY : mapreduce/Mapper.o
+
+# target to build an object file
+mapreduce/Mapper.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o
+.PHONY : mapreduce/Mapper.cpp.o
+
+mapreduce/Mapper.i: mapreduce/Mapper.cpp.i
+
+.PHONY : mapreduce/Mapper.i
+
+# target to preprocess a source file
+mapreduce/Mapper.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.i
+.PHONY : mapreduce/Mapper.cpp.i
+
+mapreduce/Mapper.s: mapreduce/Mapper.cpp.s
+
+.PHONY : mapreduce/Mapper.s
+
+# target to generate assembly for a file
+mapreduce/Mapper.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.s
+.PHONY : mapreduce/Mapper.cpp.s
+
 messages/Message.o: messages/Message.cpp.o
 
 .PHONY : messages/Message.o
@@ -500,6 +554,33 @@ yarn/HeartBeater.s: yarn/HeartBeater.cpp.s
 yarn/HeartBeater.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.s
 .PHONY : yarn/HeartBeater.cpp.s
+
+yarn/NodeManager.o: yarn/NodeManager.cpp.o
+
+.PHONY : yarn/NodeManager.o
+
+# target to build an object file
+yarn/NodeManager.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
+.PHONY : yarn/NodeManager.cpp.o
+
+yarn/NodeManager.i: yarn/NodeManager.cpp.i
+
+.PHONY : yarn/NodeManager.i
+
+# target to preprocess a source file
+yarn/NodeManager.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/NodeManager.cpp.i
+.PHONY : yarn/NodeManager.cpp.i
+
+yarn/NodeManager.s: yarn/NodeManager.cpp.s
+
+.PHONY : yarn/NodeManager.s
+
+# target to generate assembly for a file
+yarn/NodeManager.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/NodeManager.cpp.s
+.PHONY : yarn/NodeManager.cpp.s
 
 yarn/ResourceManager.o: yarn/ResourceManager.cpp.o
 
@@ -594,18 +675,27 @@ help:
 	@echo "... hdfs/NameNode.o"
 	@echo "... hdfs/NameNode.i"
 	@echo "... hdfs/NameNode.s"
+	@echo "... mapreduce/AppMaster.o"
+	@echo "... mapreduce/AppMaster.i"
+	@echo "... mapreduce/AppMaster.s"
 	@echo "... mapreduce/JobInfo.o"
 	@echo "... mapreduce/JobInfo.i"
 	@echo "... mapreduce/JobInfo.s"
 	@echo "... mapreduce/MRClient.o"
 	@echo "... mapreduce/MRClient.i"
 	@echo "... mapreduce/MRClient.s"
+	@echo "... mapreduce/Mapper.o"
+	@echo "... mapreduce/Mapper.i"
+	@echo "... mapreduce/Mapper.s"
 	@echo "... messages/Message.o"
 	@echo "... messages/Message.i"
 	@echo "... messages/Message.s"
 	@echo "... yarn/HeartBeater.o"
 	@echo "... yarn/HeartBeater.i"
 	@echo "... yarn/HeartBeater.s"
+	@echo "... yarn/NodeManager.o"
+	@echo "... yarn/NodeManager.i"
+	@echo "... yarn/NodeManager.s"
 	@echo "... yarn/ResourceManager.o"
 	@echo "... yarn/ResourceManager.i"
 	@echo "... yarn/ResourceManager.s"

@@ -17,6 +17,8 @@ hdfs/Client.h
 /home/alpha/tuturial/hsg/hdfs/Client.h
 yarn/ResourceManager.h
 /home/alpha/tuturial/hsg/yarn/ResourceManager.h
+yarn/NodeManager.h
+/home/alpha/tuturial/hsg/yarn/NodeManager.h
 mapreduce/MRClient.h
 /home/alpha/tuturial/hsg/mapreduce/MRClient.h
 
@@ -25,6 +27,8 @@ string.h
 -
 ../hdfs/DirFiles.h
 /home/alpha/tuturial/hsg/hdfs/DirFiles.h
+../mapreduce/JobInfo.h
+/home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 
 /home/alpha/tuturial/hsg/distributions/RandClass.cpp
 RandClass.h
@@ -166,6 +170,18 @@ DirFiles.h
 HdfsFile.h
 /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
 
+/home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp
+AppMaster.h
+/home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+
+/home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+simgrid/s4u.hpp
+/home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
+../messages/Message.h
+/home/alpha/tuturial/hsg/messages/Message.h
+JobInfo.h
+/home/alpha/tuturial/hsg/mapreduce/JobInfo.h
+
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
@@ -193,6 +209,20 @@ simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/distributions/RandClass.h
 ../messages/Message.h
 /home/alpha/tuturial/hsg/messages/Message.h
+
+/home/alpha/tuturial/hsg/mapreduce/Mapper.cpp
+Mapper.h
+/home/alpha/tuturial/hsg/mapreduce/Mapper.h
+
+/home/alpha/tuturial/hsg/mapreduce/Mapper.h
+simgrid/s4u.hpp
+/home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
+../messages/Message.h
+/home/alpha/tuturial/hsg/messages/Message.h
+JobInfo.h
+/home/alpha/tuturial/hsg/mapreduce/JobInfo.h
+../distributions/RandClass.h
+/home/alpha/tuturial/hsg/distributions/RandClass.h
 
 /home/alpha/tuturial/hsg/messages/HddMsg.h
 ../hdfs/NameNode.h
@@ -223,6 +253,22 @@ simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/yarn/simgrid/s4u.hpp
 ../messages/Message.h
 /home/alpha/tuturial/hsg/messages/Message.h
+
+/home/alpha/tuturial/hsg/yarn/NodeManager.cpp
+NodeManager.h
+/home/alpha/tuturial/hsg/yarn/NodeManager.h
+
+/home/alpha/tuturial/hsg/yarn/NodeManager.h
+simgrid/s4u.hpp
+/home/alpha/tuturial/hsg/yarn/simgrid/s4u.hpp
+../hdfs/NameNode.h
+/home/alpha/tuturial/hsg/hdfs/NameNode.h
+../mapreduce/JobInfo.h
+/home/alpha/tuturial/hsg/mapreduce/JobInfo.h
+HeartBeater.h
+/home/alpha/tuturial/hsg/yarn/HeartBeater.h
+../mapreduce/AppMaster.h
+/home/alpha/tuturial/hsg/mapreduce/AppMaster.h
 
 /home/alpha/tuturial/hsg/yarn/ResourceManager.cpp
 ResourceManager.h

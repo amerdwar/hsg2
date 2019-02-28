@@ -12,10 +12,10 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(ResourceManager,
 ResourceManager::ResourceManager(std::vector<std::string> args) {
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
-
+this->thisName=
+		this_actor::get_host()->get_name() + "_" + this_actor::get_name();
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
-	thismb = Mailbox::by_name(
-			this_actor::get_host()->get_name() + "_" + this_actor::get_name());
+	thismb = Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
 
 	initNodeManagers();
@@ -56,28 +56,37 @@ void ResourceManager::operator()() {
 
 		case msg_type::heart_beat: {
 			//TODO update stat and jobs
-			//XBT_INFO("HEART BE ");
+
+			endCounter++;
 			std::vector<allocateRes> resV = scheduler->allocate();
 			for (auto resp : resV) {
+				endCounter = 0;
 				allocateRes *rePtr = &resp;
 				Message* resMSg = new Message(msg_type::allocate_res,
-						thismb->get_name(), rePtr->nodeManager+"_nodeManager", 0, rePtr);
-				thismb->put(resMSg,1522);
+						thismb->get_name(), rePtr->nodeManager + "_nodeManager",
+						0, rePtr);
+				thismb->put(resMSg, 1522);
 
 			}
+			if (endCounter == 1000) {
+			XBT_INFO("end simulation resource after 100 ");
+Message *endM=new Message(msg_type::end_of_simulation,thisName,thisName,0,nullptr);
 
-			//take job
-
-			break;
+thismb->put(endM,0);
+//ToDO end simulation
 		}
-		case msg_type::free_con: {
+		//take job
+
+		break;
+	}
+	case msg_type::free_con: {
 //TODO free con by call scheduler.freeCon
-			break;
-		}
-		case msg_type::finish_job: {
-			//TODO print result of job
-			break;
-		}
+		break;
+	}
+	case msg_type::finish_job: {
+		//TODO print result of job
+		break;
+	}
 
 		}
 

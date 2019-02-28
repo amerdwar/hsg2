@@ -14,27 +14,23 @@
 using namespace simgrid::s4u;
 class Mapper {
 public:
-	std::unordered_map<std::string, simgrid::s4u::Storage*> const& sList =
-			simgrid::s4u::Host::current()->get_mounted_storages();
-	std::vector<string> *storage_list=new 	std::vector<string>();
-	map<int64_t,int> acksMap;
-
-
+int64_t mid;
 	allocateRes* res;
+	vector<int64_t> spilles;
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
+	string dataNodeName;
 	JobInfo *job;
-	MailboxPtr nnmb, thismb, appMasterMb;
-	explicit Mapper(string thisName, string appMas, string NameNode,
+	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb;
+	explicit Mapper(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);
-	string getRandStorage();
-	void WriteToHdd(int64_t si);
-	void readFromHdd(int64_t si);
+
 	void operator()();
 	void init();
-
 	virtual ~Mapper();
+private:
+	static int64_t mapIds;
 };
 
 #endif /* MAPREDUCE_MAPPER_H_ */
