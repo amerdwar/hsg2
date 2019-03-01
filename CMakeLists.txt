@@ -26,6 +26,7 @@ yarn/HeartBeater.cpp
 yarn/YarnScheduler.cpp
 yarn/ResourceManager.cpp
 yarn/NodeManager.cpp
+yarn/HddMediator.cpp
 mapreduce/MRClient.cpp
 mapreduce/JobInfo.cpp
 mapreduce/AppMaster.cpp

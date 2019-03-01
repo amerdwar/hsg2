@@ -12,8 +12,10 @@ NodeManager::NodeManager(std::vector<std::string> args) {
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
 	this->rMangerName = args[2];
+	this->dataNode = simgrid::s4u::this_actor::get_host()->get_name()
+			+ "_dataNode";
+	this->dataNodemb = Mailbox::by_name(this->dataNode);
 	rManager = Mailbox::by_name(rMangerName);
-
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
 	thisName = simgrid::s4u::this_actor::get_host()->get_name() + "_"
 			+ simgrid::s4u::this_actor::get_name();
@@ -60,32 +62,47 @@ NodeManager::~NodeManager() {
 }
 
 void NodeManager::doAllocate(Message* m) {
+
 	allocateRes * res = static_cast<allocateRes*>(m->payload);
+	XBT_INFO("in do allocate  %i", res->type);
 	switch (res->type) {
 	case allocate_type::app_master_all: {
 		allocateAppMaster(res);
 		break;
 	}
-	case allocate_type::reduce_all: {
-
+	case allocate_type::map_all:{
+		allocateMapper(res);
 		break;
 	}
-	case allocate_type::map_all: {
-
+	case allocate_type::reduce_all: {
+		XBT_INFO("in switch reduce");
+		allocateReducer1(res);
 		break;
 	}
 	}
 }
 void NodeManager::allocateAppMaster(allocateRes* res) {
-	XBT_INFO("in do app master job name is %s",res->job->jobName.c_str());
+	XBT_INFO("in do app master job name is %s", res->job->jobName.c_str());
 	string appm = this_actor::get_host()->get_name() + "_AppMaster";
 	// AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
-	XBT_INFO("the name of app master is %s",appm.c_str());
+	XBT_INFO("the name of app master is %s", appm.c_str());
 	ActorPtr appMaster = Actor::create(appm, this_actor::get_host(),
 			AppMaster(res->job, thisName, appm, nameNodeName, rMangerName));
 	XBT_INFO("created app mas");
 	apps.push_back(appm);
+}
 
+void NodeManager::allocateMapper(allocateRes* res) {
+	//the map name is m_jobid_fileindex_chunkIndex
+	string mapName="m_"+to_string(res->job->jid)
+			+"_"+to_string(res->fIndex)+"_"+to_string(res->chIndex);
+	ActorPtr beater = Actor::create(mapName, this_actor::get_host(),
+			Mapper(mapName, res->requester, nameNodeName, dataNode, res));
+	XBT_INFO("allocate   map %s",mapName.c_str());
+	mappers.push_back(mapName);
+}
 
-
+void NodeManager::allocateReducer1(allocateRes* res) {
+//TODO create reduser
+	XBT_INFO("allocate reduceeeeeeeeeeeeeeeeee");
 }

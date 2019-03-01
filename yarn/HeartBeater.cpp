@@ -39,7 +39,7 @@ void HeartBeater::operator ()() {
 					parentName, 0, nullptr);
 			parentMb->put(ms, 0);
 			thismb->put(ms, 0);
-			this_actor::sleep_for(1);
+			this_actor::sleep_for(3);
 			break;
 		}
 

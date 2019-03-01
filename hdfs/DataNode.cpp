@@ -118,9 +118,14 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->generator = m->sender;
 			m->sender = m->receiver;
+
 			m->receiver = chunks.at(ch->chGenId)->storage;
+
 			m->type = msg_type::hdd;
+
+
 			m->payload = chunks.at(ch->chGenId)->copy();
+
 			Mailbox::by_name(chunks.at(ch->chGenId)->storage)->put(m, 0);
 
 			break;
@@ -162,7 +167,7 @@ void DataNode::operator()() {
 		}
 
 		case msg_type::hdd_write_ack: {
-
+			XBT_INFO("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
 

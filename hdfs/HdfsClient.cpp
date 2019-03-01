@@ -52,7 +52,7 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 		double a = Engine::get_clock();
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
 				thismb->get_name(), f->chunks->at(i)->nodes->at(0)->get_name(),
-				1, f->chunks->at(i));
+				 hdd_Access::hdd_write, f->chunks->at(i));
 		//f->chunks->at(i)->nodes->at(0)->put_init(writemsg,1024)->detach();
 		f->chunks->at(i)->nodes->at(0)->put(writemsg, f->chunks->at(i)->size);
 		Message* ackm = static_cast<Message*>(thismb->get());

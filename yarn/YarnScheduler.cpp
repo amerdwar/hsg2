@@ -12,12 +12,14 @@ YarnScheduler::YarnScheduler(int numAllCon, std::map<string, int> con) {
 	this->numAllCon = numAllCon;
 	this->containers = con;
 
+
 }
-void YarnScheduler::addReq(allocateReq allr) {
+void YarnScheduler::addReq(allocateReq* allr) {
+XBT_INFO("add req");
 	allReq.push_back(allr); //all req is vector so we push back and serve first then erase first
 
 }
-std::vector<allocateRes> YarnScheduler::allocate() {
+std::vector<allocateRes*> YarnScheduler::allocate() {
 	switch (this->type) {
 	case sch_type::fifo: {
 		return this->fifo();
@@ -43,29 +45,29 @@ void YarnScheduler::freeCon(string host) {
 	containers.at(host)++;this
 	->numAllCon++;
 }
-std::vector<allocateRes> YarnScheduler::fifo() {
-	std::vector<allocateRes> resV;
-	XBT_INFO("in fifo");
-	while (allReq.size() > 0 && numAllCon > 0) { // start serve allocation requests from the first one
+std::vector<allocateRes*> YarnScheduler::fifo() {
+	std::vector<allocateRes*> resV;
 
-		switch (allReq.at(0).type) {
+	while (allReq.size() > 0 && numAllCon > 0) { // start serve allocation requests from the first one
+		switch (allReq.at(0)->type) {
 		case allocate_type::map_all: {
-			std::vector<allocateRes> tem = serveMap();
+			std::vector<allocateRes*> tem = serveMap();
 			for (auto item : tem) {
 				resV.push_back(item);
+
 			}
 			break;
 		}
 		case allocate_type::reduce_all: {
-
-			std::vector<allocateRes> tem = serveReduce();
+XBT_INFO("reduce in scheeeerwerwerwerwerwerwer");
+			std::vector<allocateRes*> tem = serveReduce();
 			for (auto item : tem) {
 				resV.push_back(item);
 			}
 			break;
 		}
 		case allocate_type::app_master_all: {
-			std::vector<allocateRes> tem = serveAppMaster();
+			std::vector<allocateRes*> tem = serveAppMaster();
 			for (auto item : tem) {
 				resV.push_back(item);
 			}
@@ -78,11 +80,11 @@ std::vector<allocateRes> YarnScheduler::fifo() {
 	while (waitingJobs.size() > 0) {
 
 //waiting jobs to running and schedule app master container
-		allocateReq jobReq;
-		jobReq.type = allocate_type::app_master_all;
-		jobReq.dir = waitingJobs.at(0)->dir;
-		jobReq.job = waitingJobs.at(0);
-		jobReq.requester = waitingJobs.at(0)->user;
+		allocateReq* jobReq=new allocateReq();
+		jobReq->type = allocate_type::app_master_all;
+		jobReq->dir = waitingJobs.at(0)->dir;
+		jobReq->job = waitingJobs.at(0);
+		jobReq->requester = waitingJobs.at(0)->user;
 
 		allReq.push_back(jobReq);
 		runningJobs.push_back(waitingJobs.at(0));
@@ -92,13 +94,13 @@ std::vector<allocateRes> YarnScheduler::fifo() {
 	end: return resV;
 
 }
-std::vector<allocateRes> YarnScheduler::fair() {
-	std::vector<allocateRes> a;
+std::vector<allocateRes*> YarnScheduler::fair() {
+	std::vector<allocateRes*> a;
 
 	return a;
 }
-std::vector<allocateRes> YarnScheduler::capacity() {
-	std::vector<allocateRes> a;
+std::vector<allocateRes*> YarnScheduler::capacity() {
+	std::vector<allocateRes*> a;
 
 	return a;
 }
@@ -110,8 +112,8 @@ YarnScheduler::~YarnScheduler() {
 // TODO Auto-generated destructor stub
 }
 
-allocateRes YarnScheduler::getContForCh(Chunk* ch) {
-	allocateRes re;
+allocateRes* YarnScheduler::getContForCh(Chunk* ch) {
+	allocateRes* re=new allocateRes();
 
 //num of nodes that the chunk on them
 	int numNode = ch->nodes->size();
@@ -126,13 +128,13 @@ allocateRes YarnScheduler::getContForCh(Chunk* ch) {
 			this->numAllCon--;
 			//add allocatte res
 
-			re.chIndex = allReq.at(0).chIndex;
-			re.fIndex = allReq.at(0).fIndex;
-			re.dir = allReq.at(0).dir;
-			re.nodeManager = hostName + "_nodeManager";
-			re.requester = allReq.at(0).requester;
-			re.type = allReq.at(0).type;
-			re.job=allReq.at(0).job;
+			re->chIndex = allReq.at(0)->chIndex;
+			re->fIndex = allReq.at(0)->fIndex;
+			re->dir = allReq.at(0)->dir;
+			re->nodeManager = hostName + "_nodeManager";
+			re->requester = allReq.at(0)->requester;
+			re->type = allReq.at(0)->type;
+			re->job=allReq.at(0)->job;
 			isLocality = true;
 			break;
 		}
@@ -140,13 +142,13 @@ allocateRes YarnScheduler::getContForCh(Chunk* ch) {
 	if (!isLocality) {
 //TODO select random container if exist and send response
 
-		re.chIndex = allReq.at(0).chIndex;
-		re.fIndex = allReq.at(0).fIndex;
-		re.dir = allReq.at(0).dir;
-		re.nodeManager = getRandCon();
-		re.requester = allReq.at(0).requester;
-		re.type = allReq.at(0).type;
-		re.job=allReq.at(0).job;
+		re->chIndex = allReq.at(0)->chIndex;
+		re->fIndex = allReq.at(0)->fIndex;
+		re->dir = allReq.at(0)->dir;
+		re->nodeManager = getRandCon();
+		re->requester = allReq.at(0)->requester;
+		re->type = allReq.at(0)->type;
+		re->job=allReq.at(0)->job;
 	}
 
 	return re;
@@ -161,89 +163,91 @@ string YarnScheduler::getRandCon() {
 
 			containers.at(tem.first) -= 1;
 			this->numAllCon--;
-			ra = tem.first;
+			ra = tem.first+"_nodeManager";
 
 			break;
 		}
 	}
-	XBT_INFO("in if %s", ra.c_str());
+	//XBT_INFO("in if %s", ra.c_str());
 	return ra;
 }
-std::vector<allocateRes> YarnScheduler::serveMap() {
-	std::vector<allocateRes> resV;
+std::vector<allocateRes*> YarnScheduler::serveMap() {
+	std::vector<allocateRes*> resV;
 
-	int fnum = allReq.at(0).dir->Files->size();
-	for (int fi = allReq.at(0).fIndex; fi < fnum; fi++) {
+	int fnum = allReq.at(0)->dir->Files->size();
+	for (int fi = allReq.at(0)->fIndex; fi < fnum; fi++) {
 		int fchNum =
-				allReq.at(0).dir->Files->at(std::to_string(fi))->chunks->size();
-		for (int c = allReq.at(0).chIndex; c < fchNum; c++) {
+				allReq.at(0)->dir->Files->at(std::to_string(fi))->chunks->size();
+		for (int c = allReq.at(0)->chIndex; c < fchNum; c++) {
 			Chunk* ch =
-					allReq.at(0).dir->Files->at(std::to_string(fi))->chunks->at(
+					allReq.at(0)->dir->Files->at(std::to_string(fi))->chunks->at(
 							c);
-			allocateRes re = getContForCh(ch);
+			allocateRes* re = getContForCh(ch);
+
 			resV.push_back(re);
-			allReq.at(0).chIndex++;
+			allReq.at(0)->chIndex++;
 			if (this->numAllCon == 0) {
 				//there is no more free containers so end allocation but go to end
 				int chSize =
-						allReq.at(0).dir->Files->at(std::to_string(fi))->chunks->size();
-				if (allReq.at(0).chIndex == chSize) {
-					allReq.at(0).chIndex = 0;
-					allReq.at(0).fIndex++;
-					int fSize = allReq.at(0).dir->Files->size();
-					if (allReq.at(0).fIndex == fSize) //if we serve all files  req
+						allReq.at(0)->dir->Files->at(std::to_string(fi))->chunks->size();
+				if (allReq.at(0)->chIndex == chSize) {
+					allReq.at(0)->chIndex = 0;
+					allReq.at(0)->fIndex++;
+					int fSize = allReq.at(0)->dir->Files->size();
+					if (allReq.at(0)->fIndex == fSize) //if we serve all files  req
 						allReq.erase(allReq.begin()); //sign the req to deque
 				}
 				goto end;
 			}
 
 		} //end for (ch
-		allReq.at(0).chIndex = 0;
-		allReq.at(0).fIndex++;
-		int fSize = allReq.at(0).dir->Files->size();
-		if (allReq.at(0).fIndex == fSize) //if we serve all files  req
+		allReq.at(0)->chIndex = 0;
+		allReq.at(0)->fIndex++;
+		int fSize = allReq.at(0)->dir->Files->size();
+		if (allReq.at(0)->fIndex == fSize) //if we serve all files  req
 			allReq.erase(allReq.begin()); //sign the req to deque
 
 	}
 
 	end: return resV;
 }
-std::vector<allocateRes> YarnScheduler::serveReduce() {
-	std::vector<allocateRes> resV;
-	allocateRes re;
-	int reducersNum = allReq.at(0).reducersNum;
+std::vector<allocateRes*> YarnScheduler::serveReduce() {
+	std::vector<allocateRes*> resV;
+	allocateRes* re=new allocateRes();
+	int reducersNum = allReq.at(0)->reducersNum;
 	for (int i = 0; i < reducersNum; i++) {
 		if (this->numAllCon > 0) {
-			re.chIndex = allReq.at(0).chIndex;
-			re.fIndex = allReq.at(0).fIndex;
-			re.dir = allReq.at(0).dir;
-			re.nodeManager = getRandCon();
-			re.requester = allReq.at(0).requester;
-			re.type = allReq.at(0).type;
-			re.job=allReq.at(0).job;
-			allReq.at(0).reducersNum -= 1;
+			re->chIndex = allReq.at(0)->chIndex;
+			re->fIndex = allReq.at(0)->fIndex;
+			re->dir = allReq.at(0)->dir;
+			re->nodeManager = getRandCon();
+			re->requester = allReq.at(0)->requester;
+			XBT_INFO("type is %i",allReq.at(0)->type);
+			re->type = allReq.at(0)->type;
+			re->job=allReq.at(0)->job;
+			allReq.at(0)->reducersNum -= 1;
 			resV.push_back(re);
 		} else {
 			break;
 		}
 
 	}
-	if (allReq.at(0).reducersNum == 0) {
+	if (allReq.at(0)->reducersNum == 0) {
 		allReq.erase(allReq.begin());
 	}
 
 	return resV;
 
 }
-std::vector<allocateRes> YarnScheduler::serveAppMaster() {
+std::vector<allocateRes*> YarnScheduler::serveAppMaster() {
 	XBT_INFO("in app master");
-	std::vector<allocateRes> resV;
-	allocateRes re;
-	re.dir = allReq.at(0).dir;
-	re.nodeManager = getRandCon();
-	re.requester = allReq.at(0).requester;
-	re.type = allReq.at(0).type;
-re.job=allReq.at(0).job;
+	std::vector<allocateRes*> resV;
+	allocateRes* re=new allocateRes();
+	re->dir = allReq.at(0)->dir;
+	re->nodeManager = getRandCon();
+	re->requester = allReq.at(0)->requester;
+	re->type = allReq.at(0)->type;
+re->job=allReq.at(0)->job;
 	resV.push_back(re);
 
 	//delete the req after serve it
@@ -252,3 +256,11 @@ re.job=allReq.at(0).job;
 	return resV;
 }
 
+void YarnScheduler::printRes(allocateRes* res){
+
+XBT_INFO(" fi=%i ch=%i ty=%i requester=%s",res->fIndex,res->chIndex,res->type,res->requester.c_str());
+}
+void YarnScheduler::printReq(allocateReq* res){
+
+XBT_INFO(" fi=%i ch=%i ty=%i requester=%s",res->fIndex,res->chIndex,res->type,res->requester.c_str());
+}

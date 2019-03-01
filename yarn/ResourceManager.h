@@ -32,6 +32,7 @@ public:
 	ResourceManager();
 	void operator()();
 	void initNodeManagers();
+
 	virtual ~ResourceManager();
 };
 

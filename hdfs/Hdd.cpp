@@ -21,7 +21,7 @@ Hdd::Hdd(std::string argv) {
 	string actorName = this_actor::get_host()->get_name() + "_" + storageName;
 
 	mailbox = Mailbox::by_name(actorName);
-	mailbox->set_receiver(Actor::self());
+
 
 	double oneMB = 1024 * 1024;
 	double w1 = Engine::get_clock();
@@ -42,7 +42,7 @@ Hdd::Hdd(std::string argv) {
 }
 
 void Hdd::operator()() {
-
+	mailbox->set_receiver(Actor::self());
 	Message * m = nullptr;
 
 	msg_type ty = msg_type::any;

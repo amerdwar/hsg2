@@ -13,6 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o"
   "CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o"
   "CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o"
+  "CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"

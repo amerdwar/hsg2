@@ -528,6 +528,33 @@ messages/Message.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/messages/Message.cpp.s
 .PHONY : messages/Message.cpp.s
 
+yarn/HddMediator.o: yarn/HddMediator.cpp.o
+
+.PHONY : yarn/HddMediator.o
+
+# target to build an object file
+yarn/HddMediator.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
+.PHONY : yarn/HddMediator.cpp.o
+
+yarn/HddMediator.i: yarn/HddMediator.cpp.i
+
+.PHONY : yarn/HddMediator.i
+
+# target to preprocess a source file
+yarn/HddMediator.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HddMediator.cpp.i
+.PHONY : yarn/HddMediator.cpp.i
+
+yarn/HddMediator.s: yarn/HddMediator.cpp.s
+
+.PHONY : yarn/HddMediator.s
+
+# target to generate assembly for a file
+yarn/HddMediator.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s
+.PHONY : yarn/HddMediator.cpp.s
+
 yarn/HeartBeater.o: yarn/HeartBeater.cpp.o
 
 .PHONY : yarn/HeartBeater.o
@@ -690,6 +717,9 @@ help:
 	@echo "... messages/Message.o"
 	@echo "... messages/Message.i"
 	@echo "... messages/Message.s"
+	@echo "... yarn/HddMediator.o"
+	@echo "... yarn/HddMediator.i"
+	@echo "... yarn/HddMediator.s"
 	@echo "... yarn/HeartBeater.o"
 	@echo "... yarn/HeartBeater.i"
 	@echo "... yarn/HeartBeater.s"

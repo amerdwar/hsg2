@@ -37,8 +37,8 @@ public:
 	DirFiles* dir=nullptr;
 	double recordsNumPerChunk=100;
 	int numOfFiles=10;
-	int64_t maxFileSize= 1*1024*1024;
-	int64_t minFileSize =1*1024;
+	int64_t maxFileSize= 1*1024*1024*128;
+	int64_t minFileSize =1*1024*1024*128;
 
 //other
 	double ioSortFactor = 10;

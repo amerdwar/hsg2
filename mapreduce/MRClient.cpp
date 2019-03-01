@@ -79,9 +79,9 @@ void MRClient::initJob() {
 	//data
 
 	job->recordsNumPerChunk = 2500;
-	job->numOfFiles = 25;
-	job->maxFileSize = 7 * 1024 * 1024 * 1024;
-	job->minFileSize = 1 * 1024 * 1024 * 1024;
+	job->numOfFiles = 5;
+	job->maxFileSize = 128 * 1024 * 1024;
+	job->minFileSize =  128* 1024 * 1024;
 
 	//other
 	job->ioSortFactor = 10;

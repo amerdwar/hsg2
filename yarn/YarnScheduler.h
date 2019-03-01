@@ -19,8 +19,8 @@ class YarnScheduler {
 public:
 	sch_type type = sch_type::fifo;
 	int numAllCon;
-	std::vector<allocateReq> allReq;
-	std::vector<allocateRes> allRes;
+	std::vector<allocateReq*> allReq;
+	std::vector<allocateRes*> allRes;
 
 	std::vector<JobInfo *> waitingJobs;
 	std::vector<JobInfo *> runningJobs;
@@ -29,17 +29,19 @@ public:
 	std::map<string,int> containers;
 	YarnScheduler(int numAllCon,	std::map<string,int> containers);
 	void addJob(JobInfo* job);
-	void addReq(allocateReq allr);
-	std::vector<allocateRes> allocate();
-	std::vector<allocateRes> fifo();
-	std::vector<allocateRes> fair();
-	std::vector<allocateRes> capacity();
+	void addReq(allocateReq* allr);
+	std::vector<allocateRes*> allocate();
+	std::vector<allocateRes*> fifo();
+	std::vector<allocateRes*> fair();
+	std::vector<allocateRes*> capacity();
 
 	string getRandCon();
-	std::vector<allocateRes>  serveMap();
-	std::vector<allocateRes>  serveReduce();
-	std::vector<allocateRes>  serveAppMaster();
-	allocateRes getContForCh(Chunk* ch);
+	std::vector<allocateRes*>  serveMap();
+	std::vector<allocateRes*>  serveReduce();
+	std::vector<allocateRes*>  serveAppMaster();
+	allocateRes* getContForCh(Chunk* ch);
+	void printRes(allocateRes*);
+	void printReq(allocateReq*);
 	void freeCon(string host);
 	virtual ~YarnScheduler();
 };

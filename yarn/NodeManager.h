@@ -12,23 +12,28 @@
 #include "../mapreduce/JobInfo.h"
 #include "HeartBeater.h"
 #include "../mapreduce/AppMaster.h"
+#include "../mapreduce/Mapper.h"
 
 
 class NodeManager {
 public:
-	string heartBeater;
+	string heartBeater,dataNode;
 	string rMangerName;
 	string nameNodeName;
 	string thisName;
-	MailboxPtr nnmb;
+	MailboxPtr nnmb,dataNodemb;
 	vector<string> apps;
+	vector<string> mappers;
+	vector<string> reducers;
 	MailboxPtr thismb;
 	MailboxPtr rManager; //resource manager mailbox
 
 	explicit NodeManager(std::vector<std::string> args);
 	void operator()();
 	void doAllocate(Message *m);
-	void allocateAppMaster(allocateRes* allReq);
+	void allocateAppMaster(allocateRes* res);
+	void allocateMapper(allocateRes* res);
+	void allocateReducer1(allocateRes* res);
 	virtual ~NodeManager();
 };
 

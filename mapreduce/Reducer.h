@@ -1,0 +1,37 @@
+/*
+ * Reducer.h
+ *
+ *  Created on: Mar 1, 2019
+ *      Author: alpha
+ */
+
+#ifndef MAPREDUCE_REDUCER_H_
+#define MAPREDUCE_REDUCER_H_
+#include "simgrid/s4u.hpp"
+#include "../messages/Message.h"
+#include "JobInfo.h"
+#include "../distributions/RandClass.h"
+#include "../yarn/HddMediator.h"
+
+class Reducer {
+public:
+	int64_t mid;
+	allocateRes* res;
+	vector<Chunk*>* spilles = new vector<Chunk*>();
+	string appMasterName;
+	string nameNodeName;
+	string thisName;
+	string dataNodeName;
+	JobInfo *job;
+	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb;
+	HddMediator *hddm;
+	explicit Reducer(string thisName, string appMas, string NameNode,string dataNodeName,
+			allocateRes * res);
+
+	void operator()();
+
+	Reducer();
+	virtual ~Reducer();
+};
+
+#endif /* MAPREDUCE_REDUCER_H_ */

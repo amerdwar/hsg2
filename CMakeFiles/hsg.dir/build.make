@@ -393,9 +393,33 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o.provides: CMakeFiles/hsg.dir/yarn/Node
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o.provides.build: CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
 
 
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: yarn/HddMediator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o -c /home/alpha/tuturial/hsg/yarn/HddMediator.cpp
+
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/HddMediator.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alpha/tuturial/hsg/yarn/HddMediator.cpp > CMakeFiles/hsg.dir/yarn/HddMediator.cpp.i
+
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alpha/tuturial/hsg/yarn/HddMediator.cpp -o CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s
+
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.requires:
+
+.PHONY : CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.requires
+
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.provides: CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.requires
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.provides.build
+.PHONY : CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.provides
+
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.provides.build: CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
+
+
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/MRClient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o -c /home/alpha/tuturial/hsg/mapreduce/MRClient.cpp
 
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.i: cmake_force
@@ -419,7 +443,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o.provides.build: CMakeFiles/hsg.dir/m
 
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: mapreduce/JobInfo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o -c /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
 
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.i: cmake_force
@@ -443,7 +467,7 @@ CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o.provides.build: CMakeFiles/hsg.dir/ma
 
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/AppMaster.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o -c /home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp
 
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.i: cmake_force
@@ -467,7 +491,7 @@ CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o.provides.build: CMakeFiles/hsg.dir/
 
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Mapper.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o -c /home/alpha/tuturial/hsg/mapreduce/Mapper.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.i: cmake_force
@@ -491,7 +515,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o.provides.build: CMakeFiles/hsg.dir/map
 
 CMakeFiles/hsg.dir/Main.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/Main.cpp.o: Main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/Main.cpp.o -c /home/alpha/tuturial/hsg/Main.cpp
 
 CMakeFiles/hsg.dir/Main.cpp.i: cmake_force
@@ -529,6 +553,7 @@ hsg_OBJECTS = \
 "CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o" \
@@ -552,6 +577,7 @@ hsg: CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
@@ -560,7 +586,7 @@ hsg: CMakeFiles/hsg.dir/Main.cpp.o
 hsg: CMakeFiles/hsg.dir/build.make
 hsg: /opt/simgrid/lib/libsimgrid.so
 hsg: CMakeFiles/hsg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking CXX executable hsg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable hsg"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hsg.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -582,6 +608,7 @@ CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o.requires
+CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o.requires

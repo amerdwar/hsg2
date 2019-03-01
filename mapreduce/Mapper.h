@@ -11,18 +11,20 @@
 #include "../messages/Message.h"
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
+#include "../yarn/HddMediator.h"
 using namespace simgrid::s4u;
 class Mapper {
 public:
 int64_t mid;
 	allocateRes* res;
-	vector<int64_t> spilles;
+	vector<Chunk*>* spilles=new vector<Chunk*>();
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
 	string dataNodeName;
 	JobInfo *job;
 	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb;
+	HddMediator *hddm;
 	explicit Mapper(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);
 

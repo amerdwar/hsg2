@@ -57,20 +57,34 @@ void ResourceManager::operator()() {
 			//TODO update stat and jobs
 
 			endCounter++;
-			std::vector<allocateRes> resV = scheduler->allocate();
+			std::vector<allocateRes*> resV = scheduler->allocate();
 			for (auto resp : resV) {
 				endCounter = 0;
-				allocateRes *rePtr = &resp;
-				MailboxPtr nodeManmb = Mailbox::by_name(
-						rePtr->nodeManager + "_nodeManager");
-				Message* resMSg = new Message(msg_type::allocate_res,
-						thismb->get_name(), nodeManmb->get_name(), 0, rePtr);
-				nodeManmb->put(resMSg, 1522);
 
+
+				if (resp->type == allocate_type::app_master_all) {
+					MailboxPtr nodeManmb = Mailbox::by_name(resp->nodeManager);
+					Message* resMSg = new Message(msg_type::allocate_res,
+							thismb->get_name(), nodeManmb->get_name(), 0,
+							resp);
+					XBT_INFO("allocate on node  %s",
+							nodeManmb->get_name().c_str());
+					nodeManmb->put(resMSg, 1522);
+
+
+				} else {
+					MailboxPtr reMb = Mailbox::by_name(resp->requester);
+					Message* resMSg = new Message(msg_type::allocate_res,
+							thismb->get_name(), resp->requester, 0,
+							resp);
+					reMb->put(resMSg, 1522);
+
+					scheduler->printRes(resp);
+				}
 
 			}
 			if (endCounter == 1000) {
-				XBT_INFO("end simulation resource after 100 ");
+				XBT_INFO("end simulation resource after 1000 ");
 				Message *endM = new Message(msg_type::end_of_simulation,
 						thisName, thisName, 0, nullptr);
 
@@ -86,6 +100,11 @@ void ResourceManager::operator()() {
 		}
 		case msg_type::finish_job: {
 			//TODO print result of job
+			break;
+		}
+		case msg_type::allocate_req: {
+			allocateReq * reqall = static_cast<allocateReq*>(m->payload);
+			scheduler->addReq(reqall);
 			break;
 		}
 
@@ -119,4 +138,5 @@ void ResourceManager::initNodeManagers() {
 ResourceManager::~ResourceManager() {
 // TODO Auto-generated destructor stub
 }
+
 

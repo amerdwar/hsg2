@@ -8,9 +8,9 @@
 #ifndef YARN_HDDMEDIATOR_H_
 #define YARN_HDDMEDIATOR_H_
 #include "simgrid/s4u.hpp"
-#include "DirFiles.h"
-#include "HdfsFile.h"
-#include  "NameNode.h"
+#include "../hdfs/DirFiles.h"
+#include "../hdfs/HdfsFile.h"
+#include  "../hdfs/NameNode.h"
 #include "../messages/Message.h"
 using namespace simgrid::s4u;
 class HddMediator {
