@@ -95,7 +95,9 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::free_con: {
-//TODO free con by call scheduler.freeCon
+			string * str = static_cast<string*>(m->payload);
+			scheduler->freeCon(*str);
+
 			break;
 		}
 		case msg_type::finish_job: {

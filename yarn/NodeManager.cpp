@@ -51,6 +51,14 @@ void NodeManager::operator ()() {
 
 			break;
 		}
+		case msg_type::map_finish: {
+			auto it = std::find(mappers.begin(), mappers.end(), m->sender);
+			XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
+					mappers.size());
+			mappers.erase(it);
+			XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
+					mappers.size());
+		}
 
 		}
 
@@ -70,7 +78,7 @@ void NodeManager::doAllocate(Message* m) {
 		allocateAppMaster(res);
 		break;
 	}
-	case allocate_type::map_all:{
+	case allocate_type::map_all: {
 		allocateMapper(res);
 		break;
 	}
@@ -93,12 +101,12 @@ void NodeManager::allocateAppMaster(allocateRes* res) {
 }
 
 void NodeManager::allocateMapper(allocateRes* res) {
-	//the map name is m_jobid_fileindex_chunkIndex
-	string mapName="m_"+to_string(res->job->jid)
-			+"_"+to_string(res->fIndex)+"_"+to_string(res->chIndex);
+	//the map name is hostname_nodemanager_m_jobid_fileindex_chunkIndex
+	string mapName = res->nodeManager + "_m_" + to_string(res->job->jid) + "_"
+			+ to_string(res->fIndex) + "_" + to_string(res->chIndex);
 	ActorPtr beater = Actor::create(mapName, this_actor::get_host(),
 			Mapper(mapName, res->requester, nameNodeName, dataNode, res));
-	XBT_INFO("allocate   map %s",mapName.c_str());
+	XBT_INFO("allocate   map %s", mapName.c_str());
 	mappers.push_back(mapName);
 }
 

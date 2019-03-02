@@ -42,8 +42,9 @@ std::vector<allocateRes*> YarnScheduler::allocate() {
 
 }
 void YarnScheduler::freeCon(string host) {
-	containers.at(host)++;this
-	->numAllCon++;
+	containers.at(host)++;
+	this->numAllCon++;
+	XBT_INFO("free container %s",host.c_str());
 }
 std::vector<allocateRes*> YarnScheduler::fifo() {
 	std::vector<allocateRes*> resV;

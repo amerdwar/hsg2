@@ -58,11 +58,13 @@ void AppMaster::operator ()() {
 			break;
 		}
 		case msg_type::map_finish: {
-			//TODO get map out put and recored it
-			numFinishedMappers++;
-			requestReducers();
-			XBT_INFO("finish maper");
-//freeContainer();
+			mapFinished();
+
+			break;
+		}
+		case msg_type::map_output_req: {
+
+			break;
 		}
 
 		}
@@ -92,6 +94,7 @@ void AppMaster::sendReduceRequest() {
 
 	allocateReq* reduceReq = new allocateReq;
 	reduceReq->type = allocate_type::reduce_all;
+	reduceReq->reducersNum = job->numberOfReducers;
 	reduceReq->dir = job->dir;
 	reduceReq->job = job;
 	reduceReq->requester = self;
@@ -109,26 +112,69 @@ void AppMaster::sendAllocationFromAppMasterToNodeManager(allocateRes* res) {
 	nMan->put(mapResMsg, 1522);
 
 	//the map name is m_jobid_fileindex_chunkIndex
-	string mapName = "m_" + to_string(res->job->jid) + "_"
-			+ to_string(res->fIndex) + "_" + to_string(res->chIndex);
-	mappers.push_back(mapName);
-
-
-}
-void AppMaster::requestReducers() {
-if(!reduceReqIsSent){
-	double d = ((double) numFinishedMappers / (double) numAllMappers) * 100.0;
-	if (d > 5.0) {
-		sendReduceRequest();
-		reduceReqIsSent=true;
+	if (res->type == allocate_type::map_all) {
+		string mapName = res->nodeManager + "_m_" + to_string(res->job->jid)
+				+ "_" + to_string(res->fIndex) + "_" + to_string(res->chIndex);
+		mappers.push_back(mapName);
+	} else {
+//wait to get map out put request and then add it to reducers
 	}
 
 }
+void AppMaster::requestReducers() {
+	if (!reduceReqIsSent) {
+		double d = ((double) numFinishedMappers / (double) numAllMappers)
+				* 100.0;
+		if (d > 5.0) {
+			sendReduceRequest();
+			reduceReqIsSent = true;
+		}
+
+	}
 }
 void AppMaster::freeContainer(string* con) {
+
 	Message* freeConMsg = new Message(msg_type::free_con, self, rManager, 0,
 			con);
 
 	rManagerMb->put(freeConMsg, 1522);
+
+}
+void AppMaster::sendOutTellNow(string reducer) {
+	vector<HdfsFile*>* outRes = new vector<HdfsFile*>();
+	if (mapOutV.size() > 0) {
+		for (auto a : mapOutV) {
+			outRes->push_back(a);
+
+		}
+	}
+	reducers.push_back(reducer);
+	Message* outResMsg = new Message(msg_type::map_output_res, self, reducer, 0,
+			outRes);
+
+	Mailbox::by_name(reducer)->put(outResMsg, 1522);
+
+}
+void AppMaster::mapFinished(Message * m) {
+
+	this->numFinishedMappers++;
+	requestReducers();
+	HdfsFile* res = static_cast<HdfsFile*>(m->payload);
+	mapOutV.push_back(res);
+
+	//free map container
+	string s = m->sender.substr(0, m->sender.find('_'));
+	freeContainer(&s);
+
+	//send out put to all available reducers
+	for (auto a : reducers) {
+
+		vector<HdfsFile*>* outRes = new vector<HdfsFile*>();
+		outRes->push_back(res);
+		Message* outResMsg = new Message(msg_type::map_output_res, self, a, 0,
+				outRes);
+		Mailbox::by_name(a)->put(outResMsg, 1522);
+
+	}
 
 }

@@ -15,6 +15,8 @@ Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 	this->appMasterName = appMas;
 	this->nameNodeName = nameNode;
 	this->res = res;
+	nodeManagerName=res->nodeManager;
+	nodeManagerMb=Mailbox::by_name(nodeManagerName);
 	this->job = res->job;
 	nnmb = Mailbox::by_name(nameNodeName);
 	hddm=new HddMediator(dataNodeName,thisName,thisName);
@@ -48,13 +50,14 @@ hddm->readCh(c1);
 
 hddm->readCh(c1);
 		HdfsFile * hd = new HdfsFile(thisName,thisName, 0);//the file is for encapsulate the output
-
+hd->chunks=spilles;
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, hd);
 
 	XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
-	//TODO send finish message to datanode to free container
+Message * finishMsg2=new Message(msg_type::map_finish, thisName,nodeManagerName, 0, nullptr);
+nodeManagerMb->put(finishMsg2,1522);
 	XBT_INFO("after send finish");
 
 }

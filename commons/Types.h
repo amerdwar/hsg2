@@ -31,7 +31,10 @@ enum msg_type {
 	end_of_simulation,
 	allocate_res,
 	allocate_req,
-	map_finish
+	map_finish,
+	map_output_req,
+	map_output_res,
+	reducer_finish
 };
 
 enum hdd_Access {

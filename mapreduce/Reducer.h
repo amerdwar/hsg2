@@ -15,16 +15,18 @@
 
 class Reducer {
 public:
-	int64_t mid;
+	int64_t rid;
 	allocateRes* res;
 	vector<Chunk*>* spilles = new vector<Chunk*>();
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
-	string dataNodeName;
+	string dataNodeName,nodeManagerName;
 	JobInfo *job;
-	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb;
+	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb,nodeManagerMb;
 	HddMediator *hddm;
+	vector<HdfsFile*> inputs=new vector <HdfsFile*>();
+	HdfsFile* outputf;
 	explicit Reducer(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);
 
@@ -32,6 +34,8 @@ public:
 
 	Reducer();
 	virtual ~Reducer();
+private:
+	static int64_t reduceIds;
 };
 
 #endif /* MAPREDUCE_REDUCER_H_ */

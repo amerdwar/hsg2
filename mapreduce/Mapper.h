@@ -21,9 +21,9 @@ int64_t mid;
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
-	string dataNodeName;
+	string dataNodeName,nodeManagerName;
 	JobInfo *job;
-	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb;
+	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb,nodeManagerMb;
 	HddMediator *hddm;
 	explicit Mapper(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);
