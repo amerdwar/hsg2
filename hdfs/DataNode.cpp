@@ -118,13 +118,11 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->generator = m->sender;
 			m->sender = m->receiver;
-
 			m->receiver = chunks.at(ch->chGenId)->storage;
-
 			m->type = msg_type::hdd;
-
-
-			m->payload = chunks.at(ch->chGenId)->copy();
+			Chunk* cc=chunks.at(ch->chGenId)->copy();
+			cc->clinetMB=Mailbox::by_name(m->generator);
+			m->payload = cc;
 
 			Mailbox::by_name(chunks.at(ch->chGenId)->storage)->put(m, 0);
 
@@ -205,7 +203,7 @@ void DataNode::operator()() {
 			m->sender = mailbox->get_name();
 
 			m->receiver = ch->clinetMB->get_name();
-			XBT_INFO("in ack %s ", m->toString().c_str());
+			XBT_INFO("in ack  tt %s ", m->receiver.c_str());
 			ch->clinetMB->put(m, 1522);
 			break;
 		}

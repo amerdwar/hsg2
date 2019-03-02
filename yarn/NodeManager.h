@@ -13,15 +13,16 @@
 #include "HeartBeater.h"
 #include "../mapreduce/AppMaster.h"
 #include "../mapreduce/Mapper.h"
-
+#include "../mapreduce/Reducer.h"
 
 class NodeManager {
 public:
-	string heartBeater,dataNode;
+
+	string heartBeater, dataNode;
 	string rMangerName;
 	string nameNodeName;
 	string thisName;
-	MailboxPtr nnmb,dataNodemb;
+	MailboxPtr nnmb, dataNodemb;
 	vector<string> apps;
 	vector<string> mappers;
 	vector<string> reducers;
@@ -34,6 +35,7 @@ public:
 	void allocateAppMaster(allocateRes* res);
 	void allocateMapper(allocateRes* res);
 	void allocateReducer1(allocateRes* res);
+	int64_t static reid;
 	virtual ~NodeManager();
 };
 

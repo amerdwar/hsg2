@@ -35,30 +35,40 @@ void Reducer::operator()() {
 	appMasterMb->put(mapOutReqMsg, 1522);
 	while (true) {
 		Message* ms = static_cast<Message*>(thismb->get());
-		if(ms->type!=msg_type::map_output_res){
+		if (ms->type != msg_type::map_output_res) {
 			XBT_INFO("error reducer <msg type");
 			exit(1);
 		}
 
-		vector<HdfsFile*>* resv = static_cast<vector<HdfsFile*>* >(ms->payload);
+		vector<HdfsFile*>* resv = static_cast<vector<HdfsFile*>*>(ms->payload);
+		for (int i = 0; i < resv->size(); i++) {
+			inputs->push_back(resv->at(i));
 
-	}
-
-	Message* m = nullptr;
-	do {
-		//sleep and send heart beat to parent
-		m = static_cast<Message*>(thismb->get());
-		switch (m->type) {
-		case msg_type::end_of_simulation: {
-			XBT_INFO("reducer manager end of simulation end simulation ");
+		}
+		if (inputs->size() == job->numberOfMappers) {
+			XBT_INFO(" get all map outputs go %i", inputs->size());
 			break;
 		}
+	}
+	for (int i = 0; i < inputs->size(); i++) {
 
+		string temNodeMan =
+				inputs->at(i)->chunks->at(0)->nodes->at(0)->get_name();
+
+		HddMediator *hdtem = new HddMediator(temNodeMan, thisName, thisName);
+		for (int k = 0; k < inputs->at(i)->chunks->size(); k++) {
+
+			XBT_INFO("before read chunk %s  %s",inputs->at(i)->name.c_str(),thisName.c_str());
+			hdtem->readCh(inputs->at(i)->chunks->at(k));
+			XBT_INFO("after rea  %i  %i",i,k);
 		}
-	} while (m->type != msg_type::end_of_simulation);
+	}
+	//TODO ex and write to hdfs and then send finish to appmaster and node manager
+
+
 
 }
 Reducer::~Reducer() {
 	// TODO Auto-generated destructor stub
 }
-
+int64_t Reducer::reduceIds = 0;

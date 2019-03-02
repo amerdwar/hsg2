@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/MRClient.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Mapper.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
+  "/home/alpha/tuturial/hsg/mapreduce/Reducer.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
   "/home/alpha/tuturial/hsg/messages/Message.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/messages/Message.cpp.o"
   "/home/alpha/tuturial/hsg/yarn/HddMediator.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
   "/home/alpha/tuturial/hsg/yarn/HeartBeater.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o"

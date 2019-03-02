@@ -23,7 +23,7 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	}
 	XBT_INFO("num all mappers %i", numAllMappers);
 	numFinishedMappers = numFinishedReducers = 0;
-
+	this->job->numberOfMappers = numAllMappers;
 	this->self = self;
 	this->nameNode = namenode;
 	this->rManager = rManager;
@@ -58,12 +58,12 @@ void AppMaster::operator ()() {
 			break;
 		}
 		case msg_type::map_finish: {
-			mapFinished();
+			mapFinished(m);
 
 			break;
 		}
 		case msg_type::map_output_req: {
-
+			sendOutTellNow(m->sender);
 			break;
 		}
 
@@ -164,7 +164,10 @@ void AppMaster::mapFinished(Message * m) {
 
 	//free map container
 	string s = m->sender.substr(0, m->sender.find('_'));
-	freeContainer(&s);
+
+string* mm=new string;
+*mm=s;
+	freeContainer(mm);
 
 	//send out put to all available reducers
 	for (auto a : reducers) {

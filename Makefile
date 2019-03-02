@@ -501,6 +501,33 @@ mapreduce/Mapper.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.s
 .PHONY : mapreduce/Mapper.cpp.s
 
+mapreduce/Reducer.o: mapreduce/Reducer.cpp.o
+
+.PHONY : mapreduce/Reducer.o
+
+# target to build an object file
+mapreduce/Reducer.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
+.PHONY : mapreduce/Reducer.cpp.o
+
+mapreduce/Reducer.i: mapreduce/Reducer.cpp.i
+
+.PHONY : mapreduce/Reducer.i
+
+# target to preprocess a source file
+mapreduce/Reducer.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.i
+.PHONY : mapreduce/Reducer.cpp.i
+
+mapreduce/Reducer.s: mapreduce/Reducer.cpp.s
+
+.PHONY : mapreduce/Reducer.s
+
+# target to generate assembly for a file
+mapreduce/Reducer.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.s
+.PHONY : mapreduce/Reducer.cpp.s
+
 messages/Message.o: messages/Message.cpp.o
 
 .PHONY : messages/Message.o
@@ -714,6 +741,9 @@ help:
 	@echo "... mapreduce/Mapper.o"
 	@echo "... mapreduce/Mapper.i"
 	@echo "... mapreduce/Mapper.s"
+	@echo "... mapreduce/Reducer.o"
+	@echo "... mapreduce/Reducer.i"
+	@echo "... mapreduce/Reducer.s"
 	@echo "... messages/Message.o"
 	@echo "... messages/Message.i"
 	@echo "... messages/Message.s"

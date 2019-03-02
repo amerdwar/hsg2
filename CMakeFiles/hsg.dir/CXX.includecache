@@ -226,6 +226,22 @@ JobInfo.h
 ../yarn/HddMediator.h
 /home/alpha/tuturial/hsg/yarn/HddMediator.h
 
+/home/alpha/tuturial/hsg/mapreduce/Reducer.cpp
+Reducer.h
+/home/alpha/tuturial/hsg/mapreduce/Reducer.h
+
+/home/alpha/tuturial/hsg/mapreduce/Reducer.h
+simgrid/s4u.hpp
+/home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
+../messages/Message.h
+/home/alpha/tuturial/hsg/messages/Message.h
+JobInfo.h
+/home/alpha/tuturial/hsg/mapreduce/JobInfo.h
+../distributions/RandClass.h
+/home/alpha/tuturial/hsg/distributions/RandClass.h
+../yarn/HddMediator.h
+/home/alpha/tuturial/hsg/yarn/HddMediator.h
+
 /home/alpha/tuturial/hsg/messages/HddMsg.h
 ../hdfs/NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
@@ -289,6 +305,8 @@ HeartBeater.h
 /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
 ../mapreduce/Mapper.h
 /home/alpha/tuturial/hsg/mapreduce/Mapper.h
+../mapreduce/Reducer.h
+/home/alpha/tuturial/hsg/mapreduce/Reducer.h
 
 /home/alpha/tuturial/hsg/yarn/ResourceManager.cpp
 ResourceManager.h
