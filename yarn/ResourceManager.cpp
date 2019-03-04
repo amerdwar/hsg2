@@ -41,7 +41,12 @@ void ResourceManager::operator()() {
 			XBT_INFO("resource manager end of simulation end simulation ");
 			//send this message to heart beater
 			Mailbox::by_name(heartBeater)->put(m, 0);
-			//TODO send this message to all node managers
+			for (auto a : containers) {
+				string nodm=a.first+"_nodeManager";
+				Message *m = new Message(msg_type::end_of_simulation, thisName,
+						nodm, 1, job);
+			}
+
 			break;
 		}
 		case msg_type::cl_rm_send_job: {
@@ -61,22 +66,18 @@ void ResourceManager::operator()() {
 			for (auto resp : resV) {
 				endCounter = 0;
 
-
 				if (resp->type == allocate_type::app_master_all) {
 					MailboxPtr nodeManmb = Mailbox::by_name(resp->nodeManager);
 					Message* resMSg = new Message(msg_type::allocate_res,
-							thismb->get_name(), nodeManmb->get_name(), 0,
-							resp);
+							thismb->get_name(), nodeManmb->get_name(), 0, resp);
 					XBT_INFO("allocate on node  %s",
 							nodeManmb->get_name().c_str());
 					nodeManmb->put(resMSg, 1522);
 
-
 				} else {
 					MailboxPtr reMb = Mailbox::by_name(resp->requester);
 					Message* resMSg = new Message(msg_type::allocate_res,
-							thismb->get_name(), resp->requester, 0,
-							resp);
+							thismb->get_name(), resp->requester, 0, resp);
 					reMb->put(resMSg, 1522);
 
 					scheduler->printRes(resp);
@@ -101,7 +102,14 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::finish_job: {
-			//TODO print result of job
+			//send finish to client
+
+			JobInfo * jj = static_cast<JobInfo*>(m->payload);
+			Message * finishMsg3 = new Message(msg_type::finish_job, thisName,
+					jj->user, 0, nullptr);
+			Mailbox::by_name(jj->user)->put(finishMsg3, 1522);
+			//send message to client finish job
+
 			break;
 		}
 		case msg_type::allocate_req: {
@@ -140,5 +148,4 @@ void ResourceManager::initNodeManagers() {
 ResourceManager::~ResourceManager() {
 // TODO Auto-generated destructor stub
 }
-
 

@@ -65,6 +65,17 @@ void Reducer::operator()() {
 	}
 	//TODO ex and write to hdfs and then send finish to appmaster and node manager
 
+	Message* finishMsg = new Message(msg_type::reducer_finish, thisName,
+			appMasterName, 0, nullptr);
+
+	XBT_INFO("before send finish");
+	appMasterMb->put(finishMsg, 1522);
+
+Message * finishMsg2=new Message(msg_type::map_finish, thisName,nodeManagerName, 0, nullptr);
+nodeManagerMb->put(finishMsg2,1522);
+	XBT_INFO("after send finish");
+
+
 
 
 }

@@ -27,6 +27,8 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	this->self = self;
 	this->nameNode = namenode;
 	this->rManager = rManager;
+	nodeManager = self.substr(0, self.find('_'));
+	nodeManagerMb = Mailbox::by_name(nodeManager);
 	parentMb = Mailbox::by_name(parent);
 	nameNodeMb = Mailbox::by_name(namenode);
 	rManagerMb = Mailbox::by_name(rManager);
@@ -62,6 +64,12 @@ void AppMaster::operator ()() {
 
 			break;
 		}
+		case msg_type::reducer_finish: {
+			bool res = reduceFinished(m);
+			if (res)
+				goto end;
+			break;
+		}
 		case msg_type::map_output_req: {
 			sendOutTellNow(m->sender);
 			break;
@@ -69,7 +77,7 @@ void AppMaster::operator ()() {
 
 		}
 	} while (m->type != msg_type::end_of_simulation);
-
+	end: XBT_INFO("all reducers finished");
 }
 
 AppMaster::~AppMaster() {
@@ -165,8 +173,8 @@ void AppMaster::mapFinished(Message * m) {
 	//free map container
 	string s = m->sender.substr(0, m->sender.find('_'));
 
-string* mm=new string;
-*mm=s;
+	string* mm = new string;
+	*mm = s;
 	freeContainer(mm);
 
 	//send out put to all available reducers
@@ -180,4 +188,36 @@ string* mm=new string;
 
 	}
 
+}
+bool AppMaster::reduceFinished(Message *m) {
+	bool isFinished = false;
+	this->numFinishedReducers++;
+	//free map container
+	string s = m->sender.substr(0, m->sender.find('_'));
+	string* mm = new string;
+	*mm = s;
+	freeContainer(mm);
+	if (numFinishedReducers == numAllReducers) {
+		XBT_INFO("this is the last reducer send finish back");
+		string st = m->sender.substr(0, self.find('_'));
+		string* mmm = new string;
+		*mmm = s;
+		freeContainer(mmm);
+		//to do send finish to node manager
+
+		Message * finishMsg2 = new Message(msg_type::reducer_finish, self,
+				nodeManager, 0, nullptr);
+		nodeManagerMb->put(finishMsg2, 1522);
+
+
+		Message * finishMsg3 = new Message(msg_type::finish_job, self,
+					rManager, 0, job);
+			rManagerMb->put(finishMsg3, 1522);
+
+
+		XBT_INFO("after send reduce finish");
+
+		isFinished = true;
+	}
+	return isFinished;
 }

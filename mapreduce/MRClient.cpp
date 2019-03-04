@@ -42,6 +42,22 @@ void MRClient::operator()() {
 	rManager->put(m, 1522);
 
 	XBT_INFO("send job mssage");
+	Message*m2 = static_cast<Message*>(thismb->get());
+	if(m2->type!=msg_type::finish_job){
+		XBT_INFO("error client mapreduce finish job");
+	}
+
+	XBT_INFO("finish job message send end of simul mssage");
+	Message *endm = new Message(msg_type::end_of_simulation, thismb->get_name(),
+			nameNodeName, 1, nullptr);
+
+nnmb->put (endm,1522);
+rManager->put(endm,1522);
+
+
+
+
+
 
 //TODO receive ack from client that the job is complete
 

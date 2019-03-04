@@ -16,8 +16,8 @@ public:
 	bool reduceReqIsSent=false;
 	JobInfo* job;
 int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
-	string parent,self,nameNode,rManager;
-	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb;
+	string parent,self,nameNode,rManager,nodeManager;
+	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb,nodeManagerMb;
 	vector<string> mappers;
 	vector<string> reducers;
 vector<HdfsFile*> mapOutV ;
@@ -29,6 +29,7 @@ vector<HdfsFile*> mapOutV ;
 	void sendReduceRequest();
 	void sendOutTellNow(string reducer);
 	void mapFinished(Message *m);
+	bool reduceFinished(Message *m);
  void freeContainer(string *con);
 	virtual ~AppMaster();
 };

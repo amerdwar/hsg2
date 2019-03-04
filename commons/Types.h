@@ -34,7 +34,8 @@ enum msg_type {
 	map_finish,
 	map_output_req,
 	map_output_res,
-	reducer_finish
+	reducer_finish,
+	app_master_finish
 };
 
 enum hdd_Access {

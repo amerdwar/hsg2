@@ -53,11 +53,30 @@ void NodeManager::operator ()() {
 		}
 		case msg_type::map_finish: {
 			auto it = std::find(mappers.begin(), mappers.end(), m->sender);
-			XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
+			XBT_INFO("size before erase mapper %s %i", m->sender.c_str(),
 					mappers.size());
 			mappers.erase(it);
-			XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
+			XBT_INFO("size after erase mapper %s %i", m->sender.c_str(),
 					mappers.size());
+			break;
+		}
+		case msg_type::reducer_finish: {
+			auto it = std::find(reducers.begin(), reducers.end(), m->sender);
+			XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
+					reducers.size());
+			mappers.erase(it);
+			XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
+					reducers.size());
+			break;
+		}
+		case msg_type::app_master_finish: {
+			auto it = std::find(apps.begin(), apps.end(), m->sender);
+			XBT_INFO("size before erase app %s %i", m->sender.c_str(),
+					apps.size());
+			apps.erase(it);
+			XBT_INFO("size after erase app %s %i", m->sender.c_str(),
+					apps.size());
+			break;
 		}
 
 		}
@@ -114,14 +133,13 @@ void NodeManager::allocateReducer1(allocateRes* res) {
 	//the map name is hostname_nodemanager_r_jobid_fileindex_chunkIndex
 	XBT_INFO("   ****allocate reduceeeeeeeeeeeeeeeeee");
 	this->reid++;
-		string reduceName = res->nodeManager + "_r_" + to_string(res->job->jid) + "_"
-				+to_string(this->reid);
-		ActorPtr rer = Actor::create(reduceName, this_actor::get_host(),
-				Reducer(reduceName, res->requester, nameNodeName, dataNode, res));
-		XBT_INFO("allocate   reduceName %s", reduceName.c_str());
-		reducers.push_back(reduceName);
+	string reduceName = res->nodeManager + "_r_" + to_string(res->job->jid)
+			+ "_" + to_string(this->reid);
+	ActorPtr rer = Actor::create(reduceName, this_actor::get_host(),
+			Reducer(reduceName, res->requester, nameNodeName, dataNode, res));
+	XBT_INFO("allocate   reduceName %s", reduceName.c_str());
+	reducers.push_back(reduceName);
 	XBT_INFO("allocate reduceeeeeeeeeeeeeeeeee");
 }
-int64_t NodeManager::reid=0;
-
+int64_t NodeManager::reid = 0;
 
