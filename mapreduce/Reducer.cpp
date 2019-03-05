@@ -63,7 +63,13 @@ void Reducer::operator()() {
 			XBT_INFO("after rea  %i  %i",i,k);
 		}
 	}
-	//TODO ex and write to hdfs and then send finish to appmaster and node manager
+
+	HddMediator *hdtem = new HddMediator(dataNodeName, thisName, thisName);
+	XBT_INFO("berfore write output to hdfs");
+	hdtem->writeCh(200*1024);
+
+	XBT_INFO("after write output to hdfs");
+
 
 	Message* finishMsg = new Message(msg_type::reducer_finish, thisName,
 			appMasterName, 0, nullptr);
@@ -71,7 +77,7 @@ void Reducer::operator()() {
 	XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
 
-Message * finishMsg2=new Message(msg_type::map_finish, thisName,nodeManagerName, 0, nullptr);
+Message * finishMsg2=new Message(msg_type::reducer_finish, thisName,nodeManagerName, 0, nullptr);
 nodeManagerMb->put(finishMsg2,1522);
 	XBT_INFO("after send finish");
 

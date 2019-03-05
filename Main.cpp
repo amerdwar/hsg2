@@ -12,7 +12,7 @@
 #include "yarn/ResourceManager.h"
 #include "yarn/NodeManager.h"
 #include "mapreduce/MRClient.h"
-
+XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
 int main(int argc, char* argv[]) {
 	simgrid::s4u::Engine e(&argc, argv);
 	xbt_assert(argc > 2, "Usage: %s platform_file deployment_file\n", argv[0]);
@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
 
 	/* Run the simulation */
 	e.run();
+	XBT_INFO("**************END OF SIMULATION  ****************");
 
 	return 0;
 }

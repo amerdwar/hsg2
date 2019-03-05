@@ -44,7 +44,8 @@ void ResourceManager::operator()() {
 			for (auto a : containers) {
 				string nodm=a.first+"_nodeManager";
 				Message *m = new Message(msg_type::end_of_simulation, thisName,
-						nodm, 1, job);
+						nodm, 1, nullptr);
+				Mailbox::by_name(nodm)->put(m,1522);
 			}
 
 			break;
@@ -61,7 +62,7 @@ void ResourceManager::operator()() {
 		case msg_type::heart_beat: {
 			//TODO update stat and jobs
 
-			endCounter++;
+
 			std::vector<allocateRes*> resV = scheduler->allocate();
 			for (auto resp : resV) {
 				endCounter = 0;
@@ -84,15 +85,8 @@ void ResourceManager::operator()() {
 				}
 
 			}
-			if (endCounter == 1000) {
-				XBT_INFO("end simulation resource after 1000 ");
-				Message *endM = new Message(msg_type::end_of_simulation,
-						thisName, thisName, 0, nullptr);
 
-				thismb->put(endM, 0);
-//ToDO end simulation
-			}
-			//take job
+
 			break;
 		}
 		case msg_type::free_con: {
@@ -102,7 +96,7 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::finish_job: {
-			//send finish to client
+XBT_INFO("job is finished");
 
 			JobInfo * jj = static_cast<JobInfo*>(m->payload);
 			Message * finishMsg3 = new Message(msg_type::finish_job, thisName,

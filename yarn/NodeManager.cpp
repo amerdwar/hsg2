@@ -40,6 +40,7 @@ void NodeManager::operator ()() {
 			XBT_INFO("resource manager end of simulation end simulation ");
 			//send this message to heart beater
 			Mailbox::by_name(heartBeater)->put(m, 0);
+			XBT_INFO("node manager end of sim ");
 			//TODO send this message to all containers if exists
 			break;
 		}
@@ -64,7 +65,7 @@ void NodeManager::operator ()() {
 			auto it = std::find(reducers.begin(), reducers.end(), m->sender);
 			XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
 					reducers.size());
-			mappers.erase(it);
+			reducers.erase(it);
 			XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
 					reducers.size());
 			break;
@@ -110,7 +111,7 @@ void NodeManager::doAllocate(Message* m) {
 }
 void NodeManager::allocateAppMaster(allocateRes* res) {
 	XBT_INFO("in do app master job name is %s", res->job->jobName.c_str());
-	string appm = this_actor::get_host()->get_name() + "_AppMaster";
+	string appm = thisName + "_AppMaster";
 	// AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
 	XBT_INFO("the name of app master is %s", appm.c_str());
 	ActorPtr appMaster = Actor::create(appm, this_actor::get_host(),

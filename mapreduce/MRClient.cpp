@@ -9,9 +9,8 @@
 XBT_LOG_NEW_DEFAULT_CATEGORY(mrclient, "Messages specific for this example");
 MRClient::MRClient(std::vector<std::string> args) {
 	job = new JobInfo();
-	thisName=
-				simgrid::s4u::this_actor::get_host()->get_name() + "_"
-						+ simgrid::s4u::this_actor::get_name();
+	thisName = simgrid::s4u::this_actor::get_host()->get_name() + "_"
+			+ simgrid::s4u::this_actor::get_name();
 	initJob();
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
@@ -38,39 +37,36 @@ void MRClient::operator()() {
 //send request to rManager
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
 			rMangerName, 1, job);
-	XBT_INFO("send job mssage %s",rManager->get_name().c_str());
+	XBT_INFO("send job mssage %s", rManager->get_name().c_str());
 	rManager->put(m, 1522);
-
 	XBT_INFO("send job mssage");
+
 	Message*m2 = static_cast<Message*>(thismb->get());
-	if(m2->type!=msg_type::finish_job){
+	if (m2->type != msg_type::finish_job) {
 		XBT_INFO("error client mapreduce finish job");
+		exit(1);
 	}
 
 	XBT_INFO("finish job message send end of simul mssage");
 	Message *endm = new Message(msg_type::end_of_simulation, thismb->get_name(),
 			nameNodeName, 1, nullptr);
 
-nnmb->put (endm,1522);
-rManager->put(endm,1522);
-
-
-
-
-
+	nnmb->put(endm, 1522);
+	Message *endm2 = new Message(msg_type::end_of_simulation, thismb->get_name(),
+			rMangerName, 1, nullptr);
+	rManager->put(endm2, 1522);
 
 //TODO receive ack from client that the job is complete
 
-
-	//Message *ends = new Message(msg_type::end_of_simulation,
-		//	simgrid::s4u::this_actor::get_name(),
+//Message *ends = new Message(msg_type::end_of_simulation,
+//	simgrid::s4u::this_actor::get_name(),
 	//	rManager->get_name(),0,nullptr);
 //	rManager->put(ends, 1522);
 }
 void MRClient::initJob() {
 	string s;
 
-	job->user=thisName;
+	job->user = thisName;
 
 	job->jobStatus = "waiting";
 	job->jobName = "job";
@@ -97,7 +93,7 @@ void MRClient::initJob() {
 	job->recordsNumPerChunk = 2500;
 	job->numOfFiles = 100;
 	job->maxFileSize = 256 * 1024 * 1024;
-	job->minFileSize =  128* 1024 * 1024;
+	job->minFileSize = 128 * 1024 * 1024;
 
 	//other
 	job->ioSortFactor = 10;
@@ -114,7 +110,7 @@ void MRClient::initJob() {
 	job->memoryLimit = 1.4138736E8;
 
 	job->numberOfMappers = 60;
-	job->numberOfReducers = 1;
+	job->numberOfReducers = 3;
 
 	job->useCombiner = false;
 	job->useCompression = false;
@@ -122,7 +118,7 @@ void MRClient::initJob() {
 void MRClient::writeDate() {
 	HdfsClient* hd = new HdfsClient(nnmb, thismb);
 	string dirStr = "dir1";
-	for (int i=0 ;i< job->numOfFiles;i++) {
+	for (int i = 0; i < job->numOfFiles; i++) {
 
 		HdfsFile* fi = new HdfsFile(dirStr, std::to_string(i),
 				RandClass::getRand(job->minFileSize, job->maxFileSize));

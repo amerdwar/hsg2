@@ -27,7 +27,7 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	this->self = self;
 	this->nameNode = namenode;
 	this->rManager = rManager;
-	nodeManager = self.substr(0, self.find('_'));
+	nodeManager = parent;
 	nodeManagerMb = Mailbox::by_name(nodeManager);
 	parentMb = Mailbox::by_name(parent);
 	nameNodeMb = Mailbox::by_name(namenode);
@@ -192,7 +192,7 @@ void AppMaster::mapFinished(Message * m) {
 bool AppMaster::reduceFinished(Message *m) {
 	bool isFinished = false;
 	this->numFinishedReducers++;
-	//free map container
+	//free reducer container
 	string s = m->sender.substr(0, m->sender.find('_'));
 	string* mm = new string;
 	*mm = s;
@@ -204,11 +204,11 @@ bool AppMaster::reduceFinished(Message *m) {
 		*mmm = s;
 		freeContainer(mmm);
 		//to do send finish to node manager
-
-		Message * finishMsg2 = new Message(msg_type::reducer_finish, self,
+XBT_INFO("after send free con reducer");
+		Message * finishMsg2 = new Message(msg_type::app_master_finish, self,
 				nodeManager, 0, nullptr);
 		nodeManagerMb->put(finishMsg2, 1522);
-
+		XBT_INFO("after send free con reducer after node manager");
 
 		Message * finishMsg3 = new Message(msg_type::finish_job, self,
 					rManager, 0, job);
