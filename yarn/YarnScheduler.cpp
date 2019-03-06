@@ -62,6 +62,8 @@ std::vector<allocateRes*> YarnScheduler::fifo() {
 		case allocate_type::reduce_all: {
 			XBT_INFO("reduce in scheeeerwerwerwerwerwerwer");
 			std::vector<allocateRes*> tem = fifoServeReduce();
+			auto a=this_actor::exec_async(222);
+
 			for (auto item : tem) {
 				resV.push_back(item);
 			}
@@ -99,7 +101,7 @@ std::vector<allocateRes*> YarnScheduler::fair() {
 		}
 		case allocate_type::reduce_all: {
 			XBT_INFO("reduce in scheeeerwerwerwerwerwerwer");
-			allocateRes* tem = fairServeMap();
+			allocateRes* tem = fairServeReduce();
 
 			resV.push_back(tem);
 
@@ -177,7 +179,7 @@ allocateRes* YarnScheduler::getContForCh(Chunk* ch,int index) {
 
 }
 string YarnScheduler::getRandCon() {
-	string ra;
+	string ra="";
 	//iterate over all containers to get free con
 	for (auto tem : containers) {
 		XBT_INFO("inf for con");
@@ -191,6 +193,11 @@ string YarnScheduler::getRandCon() {
 		}
 	}
 	//XBT_INFO("in if %s", ra.c_str());
+	if(ra.compare("")==0){
+
+		XBT_INFO("exit empty container");
+		exit(0);
+	}
 	return ra;
 }
 std::vector<allocateRes*> YarnScheduler::fifoServeMap() {
@@ -327,9 +334,10 @@ allocateRes* YarnScheduler::fairServeMap() {
 		allReq.at(fairIndex)->chIndex = 0;
 		allReq.at(fairIndex)->fIndex++;
 		int fSize = allReq.at(fairIndex)->dir->Files->size();
-		if (allReq.at(fairIndex)->fIndex == fSize) //if we serve all files  req
+		if (allReq.at(fairIndex)->fIndex == fSize){ //if we serve all files  req
 			allReq.erase(allReq.begin() + fairIndex); //sign the req to deque
-		fairIndex--;
+		    fairIndex--;
+		}
 	}
 
 return re;
