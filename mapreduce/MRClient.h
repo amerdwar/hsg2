@@ -24,13 +24,14 @@ public:
 	string thisName;
 	MailboxPtr nnmb;
 	MailboxPtr thismb;
-	JobInfo *job;
+
 	MailboxPtr rManager; //resource manager mailbox
+vector<int64_t> jobs;
 	explicit MRClient(std::vector<std::string> args);
 	explicit MRClient(string arg);
-	void initJob();
+	void initJob(JobInfo* job);
 	void sendJob(JobInfo* j);
-	void writeDate();
+	void writeDate(JobInfo* j);
 	void operator()();
 	~MRClient();
 

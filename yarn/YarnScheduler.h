@@ -17,8 +17,9 @@ enum sch_type{
 };
 class YarnScheduler {
 public:
-	sch_type type = sch_type::fifo;
+	sch_type type = sch_type::fair;
 	int numAllCon;
+	int fairIndex;
 	std::vector<allocateReq*> allReq;
 	std::vector<allocateRes*> allRes;
 
@@ -36,10 +37,16 @@ public:
 	std::vector<allocateRes*> capacity();
 
 	string getRandCon();
-	std::vector<allocateRes*>  serveMap();
-	std::vector<allocateRes*>  serveReduce();
-	std::vector<allocateRes*>  serveAppMaster();
-	allocateRes* getContForCh(Chunk* ch);
+	void addWaitingJobs();
+	std::vector<allocateRes*>  fifoServeMap();
+	std::vector<allocateRes*>  fifoServeReduce();
+	std::vector<allocateRes*>  fifoServeAppMaster();
+
+	allocateRes* fairServeMap();
+	allocateRes*  fairServeReduce();
+	allocateRes*  fairServeAppMaster();
+
+	allocateRes* getContForCh(Chunk* ch,int index);
 	void printRes(allocateRes*);
 	void printReq(allocateReq*);
 	void freeCon(string host);
