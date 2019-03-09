@@ -24,6 +24,7 @@ Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 	appMasterMb = Mailbox::by_name(appMasterName);
 	thismb = Mailbox::by_name(thisName);
 	XBT_INFO("create map task");
+
 }
 
 void Mapper::operator ()() {
@@ -33,6 +34,13 @@ void Mapper::operator ()() {
 				this_actor::get_name().c_str());
 		exit(1);
 	}
+
+	string inputDN = selectInputDataNode();
+	HddMediator* inputHDDM = new HddMediator(inputDN, thisName, thisName);
+	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
+			res->chIndex);
+	inputHDDM->readCh(ch);
+	ch->size
 
 //TODO execute map and write data to hdd
 //TODO add while loop and receive heart beats and execute in steps
@@ -69,5 +77,47 @@ Mapper::~Mapper() {
 int64_t Mapper::mapIds = 0;
 
 void Mapper::init() {
+
+}
+string Mapper::selectInputDataNode() {
+	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
+			res->chIndex);
+	string inputdataNode = "";
+	int numNode = ch->nodes->size();
+	bool isLocality = false;
+	for (int n = 0; n < numNode; n++) { //check if the chunk node is this datanode
+		MailboxPtr dataNode = ch->nodes->at(n);
+		string dnName = dataNode->get_name();
+		if (this->dataNodeName.compare(dnName) == 0) {
+			isLocality = true;
+			inputdataNode = dataNodeName;
+			break;
+		}
+	}
+	if (!isLocality) { //find data node in the same rack
+		string thisRack = this_actor::get_host()->get_property("rack");
+		Engine* e = simgrid::s4u::Engine::get_instance();
+
+		auto hosts = e->get_all_hosts();
+		for (int n = 0; n < numNode; n++) {
+			MailboxPtr dataNode = ch->nodes->at(n);
+			string dnName = dataNode->get_name();
+			string hostn = dnName.substr(0, dnName.find("_"));
+			auto host = e->host_by_name(hostn);
+			if (thisRack.compare(host->get_property("rack")) == 0) {
+				inputdataNode = dnName;
+				isLocality = true;
+				break;
+			}
+
+		}
+		if (!isLocality) { //return rand datanode
+			int nodeIndex = RandClass::getRand(0, numNode - 1);
+			inputdataNode = ch->nodes->at(nodeIndex)->get_name();
+		}
+
+		return inputdataNode;
+
+	}
 
 }

@@ -8,6 +8,7 @@
 #ifndef MAPREDUCE_MAPPER_H_
 #define MAPREDUCE_MAPPER_H_
 #include "simgrid/s4u.hpp"
+
 #include "../messages/Message.h"
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
@@ -23,6 +24,10 @@ int64_t mid;
 	string thisName;
 	string dataNodeName,nodeManagerName;
 	JobInfo *job;
+	//mapper variables
+
+	//end mapper variables
+
 	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb,nodeManagerMb;
 	HddMediator *hddm;
 	explicit Mapper(string thisName, string appMas, string NameNode,string dataNodeName,
@@ -30,6 +35,7 @@ int64_t mid;
 
 	void operator()();
 	void init();
+	string selectInputDataNode();
 	virtual ~Mapper();
 private:
 	static int64_t mapIds;

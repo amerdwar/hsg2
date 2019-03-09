@@ -6,7 +6,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 find_package(SimGrid 3.21 REQUIRED) # This template requires SimGrid v3.21
-
+# Locate GTest
+find_package(GTest REQUIRED)
 include_directories(${SimGrid_INCLUDE_DIR})
 
 
@@ -32,6 +33,7 @@ mapreduce/JobInfo.cpp
 mapreduce/AppMaster.cpp
 mapreduce/Mapper.cpp
 mapreduce/Reducer.cpp
+
 Main.cpp
 )
 target_link_libraries(hsg ${SimGrid_LIBRARY})
