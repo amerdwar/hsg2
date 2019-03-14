@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/opt/simgrid/include 
+CXX_INCLUDES = -I/opt/simgrid/include -I/usr/local/include 
 

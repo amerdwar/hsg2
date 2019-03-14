@@ -41,10 +41,11 @@ public:
 	int64_t minFileSize =1*1024*1024*128;
 
 //other
-	double ioSortFactor = 10;
-	double ioSortMb = 100.0;
+	double ioSortFactor = 10;//numb of spill to be merge in single step
+	double ioSortMb = 100.0;//size of map buffer in mb
+	double ioSortSpillPercent = 0.8;//the threshold to trigger spilling
+	int mapCombineMinspills=3;//if the spill number less than this var so we do not need to run compiner
 	double ioSortRecordPercent = 0.05;
-	double ioSortSpillPercent = 0.8;
 
 	double mapredChildJavaOpts = 200;
 	int mapredInmemMergeThreshold = 1000;

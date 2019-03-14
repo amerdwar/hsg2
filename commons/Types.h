@@ -66,3 +66,8 @@ struct allocateRes {
 	int64_t fIndex = 0;
 	int64_t chIndex = 0;
 };
+
+struct spill{
+Chunk* ch;
+int records;
+};

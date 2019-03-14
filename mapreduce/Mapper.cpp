@@ -40,7 +40,7 @@ void Mapper::operator ()() {
 	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
 			res->chIndex);
 	inputHDDM->readCh(ch);
-	ch->size
+
 
 //TODO execute map and write data to hdd
 //TODO add while loop and receive heart beats and execute in steps

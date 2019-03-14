@@ -611,6 +611,7 @@ hsg: CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
 hsg: CMakeFiles/hsg.dir/Main.cpp.o
 hsg: CMakeFiles/hsg.dir/build.make
 hsg: /opt/simgrid/lib/libsimgrid.so
+hsg: /usr/local/lib/libgtest.a
 hsg: CMakeFiles/hsg.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX executable hsg"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hsg.dir/link.txt --verbose=$(VERBOSE)
