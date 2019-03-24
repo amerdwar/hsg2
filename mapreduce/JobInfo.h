@@ -20,9 +20,14 @@ public:
 	double compressionCost = 1.0;
 	double uncompressionCost = 1.0;
 	double compressionSize = 1.0;
+int64_t chunkSize=128*1024*1024;
+int64_t recordSize=100;
+
 	double mapCost = 10000.0;
 	double mapSize = 5.769283;
 	double mapRecord = 50.0;
+	double mapOutRecord=500;
+
 	double mapOutAvRecordSize = 12.0;
 	double combineCost = 1.0;
 	double combineSize = 1.0;

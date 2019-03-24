@@ -69,5 +69,6 @@ struct allocateRes {
 
 struct spill{
 Chunk* ch;
+bool isInMem=false;
 int records;
 };

@@ -36,6 +36,7 @@ int64_t mid;
 	void operator()();
 	void init();
 	string selectInputDataNode();
+	vector<spill*>*  writeSpilles(int64_t taskSize,int64_t spillSize);
 	virtual ~Mapper();
 private:
 	static int64_t mapIds;

@@ -41,23 +41,16 @@ void Mapper::operator ()() {
 			res->chIndex);
 	inputHDDM->readCh(ch);
 
+	int64_t spillSize = int(
+			job->ioSortMb * 1024 * 1024 * job->ioSortSpillPercent);
+	int64_t taskSize = ch->size * 1024 * 1024;
+   this_actor::execute(job->mapCost);
+	vector<spill*>* allspilles= this->writeSpilles(taskSize,spillSize);
+//TODO call combiner if exist
+//else call merger only
 
-//TODO execute map and write data to hdd
-//TODO add while loop and receive heart beats and execute in steps
-//the final message contains hdfs file as payload which is ath map output
-	Chunk* c1 = hddm->writeCh(100 * 1024 * 1024);
-	Chunk* c2 = hddm->writeCh(100 * 1024 * 1024);
-	Chunk* c3 = hddm->writeCh(100 * 1024 * 1024);
-	Chunk* c4 = hddm->writeCh(100 * 1024 * 1024);
 
-	spilles->push_back(c1);
-	spilles->push_back(c2);
-	spilles->push_back(c3);
-	spilles->push_back(c4);
 
-	hddm->readCh(c1);
-
-	hddm->readCh(c1);
 	HdfsFile * hd = new HdfsFile(thisName, thisName, 0); //the file is for encapsulate the output
 	hd->chunks = spilles;
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
@@ -120,4 +113,26 @@ string Mapper::selectInputDataNode() {
 
 	}
 
+}
+vector<spill*>*  Mapper::writeSpilles(int64_t taskSize, int64_t spillSize) {
+	vector<spill*>* spilles = new vector<spill*>();
+	int64_t spillNum = taskSize / spillSize;
+	for (int i = 0; i < spillNum; i++) {
+		spill* tem = new spill();
+	 Chunk* temC=this->hddm->writeCh(spillSize);
+	 tem->ch=temC;
+	 tem->records=spillSize/job->recordSize;
+spilles->push_back(tem);
+	}
+if(taskSize%spillSize!=0){
+	int64_t reminderSize=taskSize -(spillSize*spillNum);
+	Chunk* memch=new Chunk(thisName,thisName,0,reminderSize);
+	spill* temM = new spill();
+	temM->records=reminderSize/job->recordSize;
+	temM->isInMem=true;
+	spilles->push_back(temM);
+
+}
+
+return spilles;
 }

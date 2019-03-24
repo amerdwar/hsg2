@@ -14,8 +14,8 @@
 #include "yarn/NodeManager.h"
 #include "mapreduce/MRClient.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
-int main(int argc, char* argv[]) {
-	testing::InitGoogleTest(&argc, argv);
+
+void doSim(int argc, char* argv[]) {
 
 	simgrid::s4u::Engine e(&argc, argv);
 	xbt_assert(argc > 2, "Usage: %s platform_file deployment_file\n", argv[0]);
@@ -40,13 +40,21 @@ int main(int argc, char* argv[]) {
 
 	XBT_INFO("**************END OF SIMULATION  ****************");
 
-    return RUN_ALL_TESTS();
-}
-TEST(aa, PositiveNos) {
-    ASSERT_EQ(6, 36.0);
 }
 
-TEST(aa, NegativeNos) {
-    ASSERT_EQ(-1, 2);
+int main(int argc, char* argv[]) {
+	testing::InitGoogleTest(&argc, argv);
+//	doSim(argc, argv);
+	RUN_ALL_TESTS();
+	return 0;
+}
+
+TEST(Compiner, ShowldPass) {
+	ASSERT_EQ(36.0, 36.0);
+
+}
+
+TEST(Com, notp) {
+	ASSERT_EQ(-1, 2);
 }
 

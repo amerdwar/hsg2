@@ -14,6 +14,9 @@ JobInfo::JobInfo() {
 }
 JobInfo * JobInfo::copy(){
 	JobInfo *j=new JobInfo();
+	j->mapOutRecord=this->mapOutRecord;
+	j->recordSize=this->recordSize;
+	j->chunkSize=this->chunkSize;
 	j->jid=this->jid;
 	j-> jobStatus=this->jobStatus;
 	j-> jobName = this->jobName;

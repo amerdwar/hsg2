@@ -85,14 +85,24 @@ void MRClient::initJob(JobInfo* job) {
 	job->compressionCost = 1.0;
 	job->uncompressionCost = 1.0;
 	job->compressionSize = 1.0;
-	job->mapCost = 10000.0;
-	job->mapSize = 5.769283;
-	job->mapRecord = 50.0;
+
+
+	//map cost for tera sort equal to number of record in chnk
+	job->chunkSize=128*1024*1024;
+	job->recordSize=100;
+	job->mapRecord = job->chunkSize/job->recordSize;
+
+	job->mapCost = job->mapRecord*10;//10 is num keys per record so the cost is num record * num keys ber record
+	job->mapSize = job->chunkSize;
+
 	job->mapOutAvRecordSize = 12.0;
+	job->mapOutRecord=job->mapRecord*10;
+
+
 	job->combineCost = 1.0;
 	job->combineSize = 1.0;
 	job->combineRecords = 1.0;
-	job->combineGroups = 1.0;
+	job->combineGroups = 28.0;
 	job->combineOutAvRecordSize = 1.0;
 	job->combineOutAvRecordSize_add = 0.0;
 	job->reduceCost = 80.0;
