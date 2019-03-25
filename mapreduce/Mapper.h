@@ -13,10 +13,12 @@
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
 #include "../yarn/HddMediator.h"
+#include "Combiner.h"
 using namespace simgrid::s4u;
 class Mapper {
 public:
 int64_t mid;
+Combiner* combiner;
 	allocateRes* res;
 	vector<Chunk*>* spilles=new vector<Chunk*>();
 	string appMasterName;

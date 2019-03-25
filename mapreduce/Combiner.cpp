@@ -13,7 +13,7 @@ void Combiner::combine(vector<spill*>* v) {
 
 	int num = v->size();
 	if (num < mapCombineMinspills)
-		return ;
+		return;
 
 	int n = num;
 	while (true) {
@@ -34,20 +34,16 @@ void Combiner::combine(vector<spill*>* v) {
 
 	}
 
-
-
-
 }
-Combiner::Combiner(int groups, double ioSortFacter, double ioSortMb,
-		double ioSortSpillPercent, string dataNode, double combineCost,
-		spill inMem, string taskName) {
-	this->groups = groups;
-	this->ioSortFactor = ioSortFacter;
-	this->ioSortMb = ioSortMb;
-	this->ioSortSpillPercent = ioSortSpillPercent;
+Combiner::Combiner(JobInfo* job, string dataNode, string taskName) {
+	this->job = job;
+	this->groups = job->combineGroups;
+	this->ioSortFactor = job->ioSortFactor;
+	this->ioSortMb = job->ioSortMb;
+	this->ioSortSpillPercent = job->ioSortSpillPercent;
 	this->dataNode = dataNode;
-	this->combineCost = combineCost;
-	this->inMem = inMem;
+	this->combineCost = job->combineCost;
+
 	this->taskName = taskName;
 
 	this->hddM = new HddMediator(dataNode, taskName, taskName);
@@ -70,7 +66,12 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 		v->erase(v->begin() + i);
 		recNum += v->at(i)->records;
 	}
-	int combinedRecs = getNumCombinedRecordes(groups, recNum);
+	int combinedRecs = 0;
+	if (job->useCombiner)
+		combinedRecs = getNumCombinedRecordes(groups, recNum);
+	else
+		combinedRecs = recNum;
+
 	this_actor::execute((double) recNum * combineCost);
 	int64_t lastSize = combinedRecs * combineOutAvRecordSize;
 	Chunk* lastCh = hddM->writeCh(lastSize);

@@ -60,8 +60,8 @@ int64_t recordSize=100;
 	double mapReduceParallelCopies = 5;
 	double memoryLimit = 1.4138736E8;
 
-	double numberOfMappers = 60;
-	double numberOfReducers = 1;
+	int numberOfMappers = 60;
+	int numberOfReducers = 1;
 
 	bool useCombiner = false;
 	bool useCompression = false;

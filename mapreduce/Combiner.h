@@ -15,6 +15,7 @@
 using namespace simgrid::s4u;
 class Combiner {
 public:
+	JobInfo* job;
 	int groups;
 	double ioSortFactor = 10; //numb of spill to be merge in single step
 	double ioSortMb = 100.0; //size of map buffer in mb
@@ -33,14 +34,12 @@ public:
 
 	HddMediator* hddM;
 	string taskName;
-	spill* inMem;
+
 
 void combine(vector<spill*>* v);
 	void merge(vector<spill*>* v,int fIndex,int lIndex);
 	int getNumCombinedRecordes(int groups, int recordes);
-	Combiner(int groups, double ioSortFacter, double ioSortMb,
-			double ioSortSpillPercent, string dataNode, double combineCost,
-			spill inMem, string taskName);
+Combiner(JobInfo* job,string dataNode,string taskName) ;
 	virtual ~Combiner();
 };
 
