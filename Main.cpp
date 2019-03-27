@@ -27,6 +27,7 @@ void doSim(int argc, char* argv[]) {
 	e.register_actor<DataNode>("dataNode");
 	e.register_actor<ResourceManager>("ResourceManager");
 	e.register_actor<MRClient>("mrclient");
+
 	e.register_actor<NodeManager>("nodeManager");
 
 	/* Load the platform description and then deploy the application */
@@ -44,17 +45,14 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-//	doSim(argc, argv);
+	doSim(argc, argv);
 	RUN_ALL_TESTS();
+
 	return 0;
 }
 
-TEST(Compiner, ShowldPass) {
-	ASSERT_EQ(36.0, 36.0);
 
+TEST(hddm,true){
+
+//ASSERT_EQ(36.0, 36.0);
 }
-
-TEST(Com, notp) {
-	ASSERT_EQ(-1, 2);
-}
-

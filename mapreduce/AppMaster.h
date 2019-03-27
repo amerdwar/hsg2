@@ -20,7 +20,7 @@ int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb,nodeManagerMb;
 	vector<string> mappers;
 	vector<string> reducers;
-vector<HdfsFile*> mapOutV ;
+	map<int,vector<spill*>*>*  mapOutV ;
 	explicit AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
 	void operator()();
 	void sendMapRequest();

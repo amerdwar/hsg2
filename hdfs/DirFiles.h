@@ -14,14 +14,15 @@
 using namespace std;
 class DirFiles {
 public:
-static	int64_t dirIds;
+static	int64_t dirIds,chunkSize=128*1024*1024;
 	string dirName;
+
 	map<string,HdfsFile *>* Files;
 
 	int64_t id;
 
 	DirFiles(string dir);
-
+	DirFiles(string dir,int64_t chSize) ;
 	virtual ~DirFiles();
 };
 

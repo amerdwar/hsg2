@@ -203,16 +203,15 @@ void DataNode::operator()() {
 			m->sender = mailbox->get_name();
 
 			m->receiver = ch->clinetMB->get_name();
-			XBT_INFO("in ack  tt %s ", m->receiver.c_str());
+			XBT_INFO("hdd datanode read ack %s ");
 			ch->clinetMB->put(m, 1522);
 			break;
 		}
 		case msg_type::cl_dn_del_ch: {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
-			auto it = chunks.find(ch->chId);
-			XBT_INFO("size before erase %s", chunks.size());
-			chunks.erase(it);
-			XBT_INFO("size after erase %s", chunks.size());
+
+			chunks.erase(ch->chId);
+
 			break;
 		}
 		}

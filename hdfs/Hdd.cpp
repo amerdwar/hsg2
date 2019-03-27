@@ -28,7 +28,7 @@ Hdd::Hdd(std::string argv) {
 	Storage::by_name(argv)->write(oneMB);
 	double w2 = Engine::get_clock();
 	writeSpeed = oneMB / (w2 - w1);
-	XBT_INFO("write speed is %f ", writeSpeed);
+	//XBT_INFO("write speed is %f ", writeSpeed);
 
 	double r1 = Engine::get_clock();
 	Storage::by_name(argv)->write(oneMB);
@@ -37,7 +37,7 @@ Hdd::Hdd(std::string argv) {
 	delta = 0.087 * writeSpeed;
 	readAccessSize = readAccess * readSpeed; //the speed is in byte per second and the read access time in seconds
 	writeAccessSize = writeAccess * writeSpeed; //the speed is in byte per second and the read access time in seconds
-//XBT_INFO(" r %f w %f",readAccessSize,writeAccessSize);
+////XBT_INFO(" r %f w %f",readAccessSize,writeAccessSize);
 
 }
 
@@ -57,13 +57,13 @@ ty=m->type;
 		switch (m->type) {
 
 		case msg_type::end_of_simulation: {
-			XBT_INFO("hdd end simulation ");
+			//XBT_INFO("hdd end simulation ");
 
 			break;
 		}
 		case msg_type::hdd: { //new write message so scheduale the process
 			numWrite++;
-			XBT_INFO(" in hdd %s", m->toString().c_str());
+			//XBT_INFO(" in hdd %s", m->toString().c_str());
 			m->type = msg_type::hdd_added;
 			m->generator = m->sender;
 			m->sender = m->receiver = mailbox->get_name();
@@ -72,10 +72,10 @@ ty=m->type;
 		}
 
 		case msg_type::hdd_added: {
-			XBT_INFO("in added");
+			//XBT_INFO("in added");
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			if (isIdle) {
-				XBT_INFO("is idle %i",ch->size);
+				//XBT_INFO("is idle %i",ch->size);
 				isIdle = false;
 				if (ch->size > 0) {
 
@@ -83,11 +83,11 @@ ty=m->type;
 
 					ch->size = ch->size - slice;
 					if (m->returnTag == hdd_Access::hdd_read) {
-						XBT_INFO("before read");
+						//XBT_INFO("before read");
 						Storage::by_name(storageName)->read(
 								slice + readAccessSize);
 
-						XBT_INFO("in read access");	//xbt_info("read slice ");
+						//XBT_INFO("in read access");	////XBT_INFO("read slice ");
 					} else {
 						double a = Engine::get_clock();
 						Storage::by_name(storageName)->write(
@@ -113,18 +113,18 @@ ty=m->type;
 			break;
 		}
 		case msg_type::hdd_check: {
-			XBT_INFO("in checked");
+			//XBT_INFO("in checked");
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			if (ch->size == 0) { //the job is complete
 				numcompleteWrite++;
-				XBT_INFO(
+				//XBT_INFO(
 						"the job complete send it pack ,all req is %i, complete is %i",
 						numWrite, numcompleteWrite);
-				//m->trace(" finish ");
-				//	//xbt_info(//m->traceStr.c_str());
+				m->trace(" finish ");
+					//XBT_INFO(m->traceStr.c_str());
 				if (m->returnTag == hdd_Access::hdd_read) {
 					m->type = msg_type::hdd_read_ack;
-					XBT_INFO("read ack");
+					//XBT_INFO("read ack");
 				} else {
 					m->type = msg_type::hdd_write_ack;
 
@@ -133,9 +133,9 @@ ty=m->type;
 				m->sender = mailbox->get_name();
 				m->receiver = m->generator;
 				Mailbox::by_name(m->generator)->put(m, 0); //send the message pack to client
-				//xbt_info("from hdd");
+				////XBT_INFO("from hdd");
 				if (!jobs.empty()) {
-					//xbt_info("pop new job ");
+					////XBT_INFO("pop new job ");
 					Message *msg = (Message *) jobs.front();
 					jobs.pop();
 					Chunk * payload = static_cast<Chunk*>(msg->payload);
@@ -143,7 +143,7 @@ ty=m->type;
 					double slice1 = this->decTimesAndGet(payload->size);
 					payload->size = payload->size - slice1;
 					if (slice1 > 0) {
-						//xbt_info("the slice %f is and ch is %f sender %s",
+						////XBT_INFO("the slice %f is and ch is %f sender %s",
 						//		slice1, *payload, msg->sender.c_str());
 						if (m->returnTag == hdd_Access::hdd_read) {
 							Storage::by_name(storageName)->read(
@@ -160,15 +160,15 @@ ty=m->type;
 					mailbox->put(msg, 0);
 
 				} else {
-					//xbt_info("the hdd is idle");
+					////XBT_INFO("the hdd is idle");
 					this->isIdle = true;
 
 				}
 
 			} else { //pop the Q if not empty else go idle
-				////xbt_info("jobs eqUAL");
+				//////XBT_INFO("jobs eqUAL");
 				if (jobs.size() > 0) {
-					//m->trace(" push to que");
+					m->trace(" push to que");
 					jobs.push(m);
 					Message *msg = (Message *) jobs.front();
 					msg->trace(" pop the q");
@@ -177,7 +177,7 @@ ty=m->type;
 					double slice1 = this->decTimesAndGet(payload->size);
 					payload->size = payload->size - slice1;
 					//double* newSize = *size - slice1;
-					////xbt_info("the slice %f is and size is %f sender %s", slice1, *payload,msg->sender.c_str());
+					//////XBT_INFO("the slice %f is and size is %f sender %s", slice1, *payload,msg->sender.c_str());
 					if (m->returnTag == hdd_Access::hdd_read) {
 						Storage::by_name(storageName)->read(
 								slice1 + readAccessSize);
@@ -203,7 +203,7 @@ ty=m->type;
 
 					}
 					m->payload = ch;
-					//m->trace(" exe slice without accesstime");
+					m->trace(" exe slice without accesstime");
 					mailbox->put(m, 0);
 				}
 
@@ -213,7 +213,7 @@ ty=m->type;
 		}
 		}
 	} while (ty != msg_type::end_of_simulation);
-XBT_INFO("after while");
+//XBT_INFO("after while");
 }
 double Hdd::decTimesAndGet(double size) {
 

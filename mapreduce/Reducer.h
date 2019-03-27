@@ -8,7 +8,7 @@
 #ifndef MAPREDUCE_REDUCER_H_
 #define MAPREDUCE_REDUCER_H_
 #include "simgrid/s4u.hpp"
-#include "../messages/Message.h"
+//#include "../messages/Message.h"
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
 #include "../yarn/HddMediator.h"

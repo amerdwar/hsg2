@@ -62,4 +62,5 @@ void HddMediator::deleteCh(Chunk* ch){
 
 		//send the request of chunk to data node
 		dataNode->put(chReq, 1522);
+
 }

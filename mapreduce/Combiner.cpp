@@ -7,7 +7,7 @@
 
 #include "Combiner.h"
 
-void Combiner::combine(vector<spill*>* v) {
+void Combiner::mergeSpilles(vector<spill*>* v) {
 
 	vector<spill*>* resV = new vector<spill*>();
 
@@ -15,8 +15,9 @@ void Combiner::combine(vector<spill*>* v) {
 	if (num < mapCombineMinspills)
 		return;
 
-	int n = num;
+	int n = 0;
 	while (true) {
+		n = v->size();
 		int l = n - ioSortFactor;
 		if (l <= 0) {
 			//TODO merge from 0 to factor; and return one spill in resV
@@ -66,19 +67,28 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 		v->erase(v->begin() + i);
 		recNum += v->at(i)->records;
 	}
-	int combinedRecs = 0;
-	if (job->useCombiner)
-		combinedRecs = getNumCombinedRecordes(groups, recNum);
-	else
-		combinedRecs = recNum;
+	for (int i = fIndex; i <= lIndex; i++) {
+		v->erase(v->begin() + i);
+	}
+	int64_t recSize = 0;
 
-	this_actor::execute((double) recNum * combineCost);
-	int64_t lastSize = combinedRecs * combineOutAvRecordSize;
+	if (job->useCombiner)
+		recSize = job->combineOutAvRecordSize;
+	else
+		recSize = job->mapOutAvRecordSize;
+
+
+
+	int64_t lastSize = recNum * recSize;
 	Chunk* lastCh = hddM->writeCh(lastSize);
 
-	spill* lastSpill = new spill;
+	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
-	lastSpill->records = combinedRecs;
+	lastSpill->records = recNum;
+
 	v->push_back(lastSpill);
 
+}
+Combiner::~Combiner() {
+	// TODO Auto-generated destructor stub
 }

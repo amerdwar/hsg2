@@ -20,6 +20,14 @@ DirFiles::DirFiles(string dir) {
 this->id=++DirFiles::dirIds;
 }
 
+DirFiles::DirFiles(string dir,int64_t chSize) {
+this->chunkSize=chSize;
+
+this->dirName=dir;
+Files =new map<string,HdfsFile*>();
+this->id=++DirFiles::dirIds;
+}
+
 DirFiles::~DirFiles() {
 	// TODO Auto-generated destructor stub
 	delete Files;

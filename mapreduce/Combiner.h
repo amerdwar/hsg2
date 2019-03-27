@@ -7,7 +7,7 @@
 
 #ifndef MAPREDUCE_COMBINER_H_
 #define MAPREDUCE_COMBINER_H_
-#include  "../commons/Types.h"
+//#include  "../commons/Types.h"
 #include <simgrid/s4u.hpp>
 #include <math.h>
 #include "../yarn/HddMediator.h"
@@ -36,7 +36,7 @@ public:
 	string taskName;
 
 
-void combine(vector<spill*>* v);
+void mergeSpilles(vector<spill*>* v);
 	void merge(vector<spill*>* v,int fIndex,int lIndex);
 	int getNumCombinedRecordes(int groups, int recordes);
 Combiner(JobInfo* job,string dataNode,string taskName) ;

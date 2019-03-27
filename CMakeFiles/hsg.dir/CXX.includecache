@@ -184,6 +184,18 @@ simgrid/s4u.hpp
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 
+/home/alpha/tuturial/hsg/mapreduce/Combiner.cpp
+Combiner.h
+/home/alpha/tuturial/hsg/mapreduce/Combiner.h
+
+/home/alpha/tuturial/hsg/mapreduce/Combiner.h
+simgrid/s4u.hpp
+-
+math.h
+-
+../yarn/HddMediator.h
+/home/alpha/tuturial/hsg/yarn/HddMediator.h
+
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
@@ -211,6 +223,8 @@ simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/distributions/RandClass.h
 ../messages/Message.h
 /home/alpha/tuturial/hsg/messages/Message.h
+../yarn/HddMediator.h
+/home/alpha/tuturial/hsg/yarn/HddMediator.h
 
 /home/alpha/tuturial/hsg/mapreduce/Mapper.cpp
 Mapper.h
@@ -219,14 +233,14 @@ Mapper.h
 /home/alpha/tuturial/hsg/mapreduce/Mapper.h
 simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
-../messages/Message.h
-/home/alpha/tuturial/hsg/messages/Message.h
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 ../distributions/RandClass.h
 /home/alpha/tuturial/hsg/distributions/RandClass.h
 ../yarn/HddMediator.h
 /home/alpha/tuturial/hsg/yarn/HddMediator.h
+Combiner.h
+/home/alpha/tuturial/hsg/mapreduce/Combiner.h
 
 /home/alpha/tuturial/hsg/mapreduce/Reducer.cpp
 Reducer.h
@@ -235,8 +249,6 @@ Reducer.h
 /home/alpha/tuturial/hsg/mapreduce/Reducer.h
 simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
-../messages/Message.h
-/home/alpha/tuturial/hsg/messages/Message.h
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 ../distributions/RandClass.h

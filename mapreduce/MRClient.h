@@ -13,6 +13,7 @@
 #include "../hdfs/HdfsFile.h"
 #include "../distributions/RandClass.h"
 #include "../messages/Message.h"
+#include "../yarn/HddMediator.h"
 
 
 

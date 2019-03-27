@@ -9,7 +9,7 @@
 #define MAPREDUCE_MAPPER_H_
 #include "simgrid/s4u.hpp"
 
-#include "../messages/Message.h"
+//#include "../messages/Message.h"
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
 #include "../yarn/HddMediator.h"
@@ -18,9 +18,9 @@ using namespace simgrid::s4u;
 class Mapper {
 public:
 int64_t mid;
-Combiner* combiner;
+Combiner* merger;
 	allocateRes* res;
-	vector<Chunk*>* spilles=new vector<Chunk*>();
+
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
@@ -38,7 +38,9 @@ Combiner* combiner;
 	void operator()();
 	void init();
 	string selectInputDataNode();
-	vector<spill*>*  writeSpilles(int64_t taskSize,int64_t spillSize);
+	map<int, vector<spill*>*>*    writeSpilles(int64_t taskSize,int64_t spillSize);
+	int64_t combine(int64_t recNum);
+	spill* exeAndWrPart(int64_t partsize1);
 	virtual ~Mapper();
 private:
 	static int64_t mapIds;

@@ -25,7 +25,7 @@ Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 	appMasterMb = Mailbox::by_name(appMasterName);
 	thismb = Mailbox::by_name(thisName);
 	XBT_INFO("create map task");
-	combiner = new Combiner(job, dataNodeName, thisName);
+	merger = new Combiner(job, dataNodeName, thisName);
 }
 
 void Mapper::operator ()() {
@@ -42,19 +42,27 @@ void Mapper::operator ()() {
 	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
 			res->chIndex);
 	inputHDDM->readCh(ch);
+////// untill now we read the chunk from data node
 
-	int64_t spillSize = int64_t(
-			job->ioSortMb * 1024 * 1024 * job->ioSortSpillPercent);
-	int64_t taskSize = ch->size * 1024 * 1024;
-	this_actor::execute(job->mapCost);
-	vector<spill*>* allspilles = this->writeSpilles(taskSize, spillSize);
+	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
+	int64_t taskSize = job->mapOutRecord * job->mapOutAvRecordSize;
 
-	combiner->combine(allspilles);
+	auto exePtr = this_actor::exec_async(job->mapCost);//here we exe the map
 
-	HdfsFile * hd = new HdfsFile(thisName, thisName, 0); //the file is for encapsulate the output
-	hd->chunks = spilles;
+	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
+			spillSize);//here we use partitioner and combiner and write spilles to localhdd
+
+	exePtr->wait();
+
+	for(int i =0;i<allspilles->size();i++){
+	merger->mergeSpilles(allspilles->at(i));
+	}
+
+
+
+
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
-			appMasterName, 0, hd);
+			appMasterName, 0, allspilles);
 
 	XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
@@ -114,30 +122,77 @@ string Mapper::selectInputDataNode() {
 	}
 
 }
-vector<spill*>* Mapper::writeSpilles(int64_t taskSize, int64_t spillSize) {
-	vector<spill*>* spilles = new vector<spill*>();
-	int64_t spillNum = taskSize / spillSize;
-	for (int i = 0; i < spillNum; i++) {
-		for (int j = 0; j < job->numberOfReducers; j++) {
-			spill* tem = new spill();
-			int partSize=	spillSize /  job->numberOfReducers;
-			Chunk* temC = this->hddm->writeCh(partSize);
+map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
+		int64_t spillSize) {
+	map<int, vector<spill*>*>* spilles = new map<int, vector<spill*>*>();
 
-			tem->ch = temC;
-			tem->records = partSize / job->recordSize;
-			spilles->push_back(tem);
+	int64_t spillNum = taskSize / spillSize;
+	int i = 0;
+	for (; i < spillNum; i++) {
+		vector<spill*>* vectorSpill = new vector<spill*>();
+		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
+		for (int j = 0; j < job->numberOfReducers; j++) {
+
+			int64_t partsize = spillSize / job->numberOfReducers;
+			spill* tem = exeAndWrPart(partsize);
+			spilles->at(i)->push_back(tem);
+
 		}
 
 	}
 	if (taskSize % spillSize != 0) {
 
 		int64_t reminderSize = taskSize - (spillSize * spillNum);
-		spill* tem = new spill();
-		Chunk* temC = this->hddm->writeCh(reminderSize);
-		tem->ch = temC;
-		tem->records = spillSize / job->recordSize;
-		spilles->push_back(tem);
+		vector<spill*>* vectorSpill = new vector<spill*>();
+		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
+
+		for (int j = 0; j < job->numberOfReducers; j++) {
+
+			int64_t partsize = reminderSize / job->numberOfReducers;
+			spill* tem = exeAndWrPart(partsize);
+			spilles->at(i)->push_back(tem);
+
+		}
+
 	}
 
 	return spilles;
+}
+int64_t Mapper::combine(int64_t recNum) {
+	int64_t combinedRecs = 0;
+	if (job->useCombiner) {
+
+		combinedRecs = merger->getNumCombinedRecordes(job->combineGroups,
+				recNum);
+
+	} else {
+		combinedRecs = recNum;
+	}
+	return combinedRecs;
+
+}
+
+spill* Mapper::exeAndWrPart(int64_t partsize1) {
+
+	int64_t partsize = 0;
+	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
+	int64_t combinedRecs = combine(partrecNum);
+	ExecPtr ptrE;
+	if (partrecNum == combinedRecs) {
+		ptrE = this_actor::exec_async(0);
+		partsize = combinedRecs * job->mapOutAvRecordSize;
+
+	} else {
+		partsize = combinedRecs * job->combineOutAvRecordSize;
+		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost); //the cost of combination = combine rec cost * map recs
+	}
+
+	Chunk* temC = this->hddm->writeCh(partsize);
+	ptrE->wait();
+	//untill now we write spill after partition it and execute it
+
+	spill* tem = new spill();
+	tem->ch = temC;
+	tem->records = combinedRecs;
+	return tem;
 }

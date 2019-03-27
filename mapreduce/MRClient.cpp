@@ -36,6 +36,7 @@ void MRClient::sendJob(JobInfo* job) {
 	XBT_INFO("send job mssage");
 }
 void MRClient::operator()() {
+
 	int jobsNum=4;
 	vector<JobInfo*> jVector;
 	for (int i = 0; i < jobsNum; i++) {
@@ -72,6 +73,10 @@ void MRClient::operator()() {
 //	simgrid::s4u::this_actor::get_name(),
 	//	rManager->get_name(),0,nullptr);
 //	rManager->put(ends, 1522);
+
+
+
+
 }
 void MRClient::initJob(JobInfo* job) {
 	string s;
@@ -88,26 +93,26 @@ void MRClient::initJob(JobInfo* job) {
 
 
 	//map cost for tera sort equal to number of record in chnk
-	job->chunkSize=128*1024*1024;
+	job->chunkSize=NameNode::chunkSize;
 	job->recordSize=100;
 	job->mapRecord = job->chunkSize/job->recordSize;
 
 	job->mapCost = job->mapRecord*10;//10 is num keys per record so the cost is num record * num keys ber record
 	job->mapSize = job->chunkSize;
 
-	job->mapOutAvRecordSize = 12.0;
+	job->mapOutAvRecordSize = 12;
 	job->mapOutRecord=job->mapRecord*10;
 
 
-	job->combineCost = 1.0;
-	job->combineSize = 1.0;
-	job->combineRecords = 1.0;
-	job->combineGroups = 28.0;
-	job->combineOutAvRecordSize = 1.0;
-	job->combineOutAvRecordSize_add = 0.0;
-	job->reduceCost = 80.0;
-	job->reduceRecords = 0.001235;
-	job->reduceOutAvRecordSize = 9.8889;
+	job->combineCost = 1;
+	job->combineSize = 1;
+	job->combineRecords = 1;
+	job->combineGroups = 28;
+	job->combineOutAvRecordSize = 1;
+	job->combineOutAvRecordSize_add = 0;
+	job->reduceCost = 80;
+	job->reduceRecords = 0;
+	job->reduceOutAvRecordSize = 9;
 	//data
 
 	job->recordsNumPerChunk = 2500;
@@ -117,7 +122,7 @@ void MRClient::initJob(JobInfo* job) {
 
 	//other
 	job->ioSortFactor = 10;
-	job->ioSortMb = 100.0;
+	job->ioSortMb = 100;
 	job->ioSortRecordPercent = 0.05;
 	job->ioSortSpillPercent = 0.8;
 
@@ -132,7 +137,7 @@ void MRClient::initJob(JobInfo* job) {
 	job->numberOfMappers = 60;
 	job->numberOfReducers = 3;
 
-	job->useCombiner = false;
+	job->useCombiner = true;
 	job->useCompression = false;
 }
 void MRClient::writeDate(JobInfo *job) {

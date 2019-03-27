@@ -34,6 +34,12 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	rManagerMb = Mailbox::by_name(rManager);
 	thisMb = Mailbox::by_name(self);
 	XBT_INFO("create app master for job name:%s", job->jobName.c_str());
+	mapOutV = new map<int, vector<spill*>*>();
+	for (int i = 0; i < job->numberOfReducers; i++) {
+		vector<spill*>* t = new vector<spill*>();
+		mapOutV->insert(std::pair<int, vector<spill*>*>(i, t));
+	}
+
 }
 
 void AppMaster::operator ()() {
@@ -149,75 +155,79 @@ void AppMaster::freeContainer(string* con) {
 
 }
 void AppMaster::sendOutTellNow(string reducer) {
-	vector<HdfsFile*>* outRes = new vector<HdfsFile*>();
-	if (mapOutV.size() > 0) {
-		for (auto a : mapOutV) {
-			outRes->push_back(a);
+	vector<vector<spill*>*>* outRes = new vector<vector<spill*>*>();
+	if (mapOutV->size() > 0) {
+		for (int a=0;a<mapOutV->size(); a++) {
+
 
 		}
-	}
-	reducers.push_back(reducer);
-	Message* outResMsg = new Message(msg_type::map_output_res, self, reducer, 0,
-			outRes);
+		reducers.push_back(reducer);
+		Message* outResMsg = new Message(msg_type::map_output_res, self,
+				reducer, 0, outRes);
 
-	Mailbox::by_name(reducer)->put(outResMsg, 1522);
-
-}
-void AppMaster::mapFinished(Message * m) {
-
-	this->numFinishedMappers++;
-	requestReducers();
-	HdfsFile* res = static_cast<HdfsFile*>(m->payload);
-	mapOutV.push_back(res);
-
-	//free map container
-	string s = m->sender.substr(0, m->sender.find('_'));
-
-	string* mm = new string;
-	*mm = s;
-	freeContainer(mm);
-
-	//send out put to all available reducers
-	for (auto a : reducers) {
-
-		vector<HdfsFile*>* outRes = new vector<HdfsFile*>();
-		outRes->push_back(res);
-		Message* outResMsg = new Message(msg_type::map_output_res, self, a, 0,
-				outRes);
-		Mailbox::by_name(a)->put(outResMsg, 1522);
+		Mailbox::by_name(reducer)->put(outResMsg, 1522);
 
 	}
+	void AppMaster::mapFinished(Message * m) {
 
-}
-bool AppMaster::reduceFinished(Message *m) {
-	bool isFinished = false;
-	this->numFinishedReducers++;
-	//free reducer container
-	string s = m->sender.substr(0, m->sender.find('_'));
-	string* mm = new string;
-	*mm = s;
-	freeContainer(mm);
-	if (numFinishedReducers == numAllReducers) {
-		XBT_INFO("this is the last reducer send finish back");
-		string st = m->sender.substr(0, self.find('_'));
-		string* mmm = new string;
-		*mmm = s;
-		freeContainer(mmm);
-		//to do send finish to node manager
-XBT_INFO("after send free con reducer");
-		Message * finishMsg2 = new Message(msg_type::app_master_finish, self,
-				nodeManager, 0, nullptr);
-		nodeManagerMb->put(finishMsg2, 1522);
-		XBT_INFO("after send free con reducer after node manager");
+		this->numFinishedMappers++;
+		requestReducers();
+		map<int, vector<spill*>*>* res =
+				static_cast<map<int, vector<spill*>*>*>(m->payload);
 
-		Message * finishMsg3 = new Message(msg_type::finish_job, self,
+		for (int i = 0; i < job->numberOfReducers; i++) {
+			for (int j = 0; j < res->at(i)->size(); j++) {
+				mapOutV->at(i)->push_back(res->at(i)->at(j)); //here we push the partitions for each reducer
+			}
+		}
+
+		//free map container
+		string s = m->sender.substr(0, m->sender.find('_'));
+
+		string* mm = new string;
+		*mm = s;
+		freeContainer(mm);
+
+		//send output to all available reducers
+		for (int i = 0; i < reducers.size(); i++) {
+
+			//outRes->push_back(res);
+			Message* outResMsg = new Message(msg_type::map_output_res, self,
+					reducers.at(i), 0, res->at(i));
+
+			Mailbox::by_name(reducers.at(i))->put(outResMsg, 1522);
+
+		}
+
+	}
+	bool AppMaster::reduceFinished(Message *m) {
+		bool isFinished = false;
+		this->numFinishedReducers++;
+		//free reducer container
+		string s = m->sender.substr(0, m->sender.find('_'));
+		string* mm = new string;
+		*mm = s;
+		freeContainer(mm);
+		if (numFinishedReducers == numAllReducers) {
+			XBT_INFO("this is the last reducer send finish back");
+			string st = m->sender.substr(0, self.find('_'));
+			string* mmm = new string;
+			*mmm = s;
+			freeContainer(mmm);
+			//to do send finish to node manager
+			XBT_INFO("after send free con reducer");
+			Message * finishMsg2 = new Message(msg_type::app_master_finish,
+					self, nodeManager, 0, nullptr);
+			nodeManagerMb->put(finishMsg2, 1522);
+			XBT_INFO("after send free con reducer after node manager");
+
+			Message * finishMsg3 = new Message(msg_type::finish_job, self,
 					rManager, 0, job);
 			rManagerMb->put(finishMsg3, 1522);
 
+			XBT_INFO("after send reduce finish");
 
-		XBT_INFO("after send reduce finish");
-
-		isFinished = true;
+			isFinished = true;
+		}
+		return isFinished;
 	}
-	return isFinished;
-}

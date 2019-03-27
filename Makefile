@@ -420,6 +420,33 @@ mapreduce/AppMaster.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.s
 .PHONY : mapreduce/AppMaster.cpp.s
 
+mapreduce/Combiner.o: mapreduce/Combiner.cpp.o
+
+.PHONY : mapreduce/Combiner.o
+
+# target to build an object file
+mapreduce/Combiner.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o
+.PHONY : mapreduce/Combiner.cpp.o
+
+mapreduce/Combiner.i: mapreduce/Combiner.cpp.i
+
+.PHONY : mapreduce/Combiner.i
+
+# target to preprocess a source file
+mapreduce/Combiner.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.i
+.PHONY : mapreduce/Combiner.cpp.i
+
+mapreduce/Combiner.s: mapreduce/Combiner.cpp.s
+
+.PHONY : mapreduce/Combiner.s
+
+# target to generate assembly for a file
+mapreduce/Combiner.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.s
+.PHONY : mapreduce/Combiner.cpp.s
+
 mapreduce/JobInfo.o: mapreduce/JobInfo.cpp.o
 
 .PHONY : mapreduce/JobInfo.o
@@ -732,6 +759,9 @@ help:
 	@echo "... mapreduce/AppMaster.o"
 	@echo "... mapreduce/AppMaster.i"
 	@echo "... mapreduce/AppMaster.s"
+	@echo "... mapreduce/Combiner.o"
+	@echo "... mapreduce/Combiner.i"
+	@echo "... mapreduce/Combiner.s"
 	@echo "... mapreduce/JobInfo.o"
 	@echo "... mapreduce/JobInfo.i"
 	@echo "... mapreduce/JobInfo.s"
