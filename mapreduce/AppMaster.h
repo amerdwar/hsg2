@@ -15,11 +15,12 @@ class AppMaster {
 public:
 	bool reduceReqIsSent=false;
 	JobInfo* job;
+
 int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	string parent,self,nameNode,rManager,nodeManager;
 	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb,nodeManagerMb;
 	vector<string> mappers;
-	vector<string> reducers;
+	map<int,string> reducers;
 	map<int,vector<spill*>*>*  mapOutV ;
 	explicit AppMaster(JobInfo* j,string parent,string self,string namenode,string rManager);
 	void operator()();
@@ -30,6 +31,7 @@ int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	void sendOutTellNow(string reducer);
 	void mapFinished(Message *m);
 	bool reduceFinished(Message *m);
+	int reducerId(string reducer);
  void freeContainer(string *con);
 	virtual ~AppMaster();
 };

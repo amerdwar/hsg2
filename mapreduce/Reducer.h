@@ -25,7 +25,7 @@ public:
 	JobInfo *job;
 	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb,nodeManagerMb;
 	HddMediator *hddm;
-	vector<HdfsFile*>* inputs=new vector <HdfsFile*>();
+	vector<spill*>* inputs=new vector <spill*>();
 	HdfsFile* outputf;
 	explicit Reducer(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);

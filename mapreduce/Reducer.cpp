@@ -40,7 +40,7 @@ void Reducer::operator()() {
 			exit(1);
 		}
 
-		vector<HdfsFile*>* resv = static_cast<vector<HdfsFile*>*>(ms->payload);
+		vector<spill*>* resv = static_cast<vector<spill*>*>(ms->payload);
 		for (int i = 0; i < resv->size(); i++) {
 			inputs->push_back(resv->at(i));
 

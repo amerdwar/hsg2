@@ -52,6 +52,7 @@ struct allocateReq { //the number of mappers equal to num of ch
 	DirFiles* dir;
 JobInfo* job;
 	int reducersNum = 1; //these for reducer
+	int redId=0;
 	int64_t fIndex = 0; //need for map
 	int64_t chIndex = 0; //need for map
 
@@ -65,6 +66,8 @@ struct allocateRes {
 	JobInfo* job;
 	int64_t fIndex = 0;
 	int64_t chIndex = 0;
+
+	int reducerId=0;
 };
 
 struct spill{

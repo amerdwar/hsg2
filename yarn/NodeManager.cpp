@@ -133,14 +133,15 @@ void NodeManager::allocateMapper(allocateRes* res) {
 void NodeManager::allocateReducer1(allocateRes* res) {
 	//the map name is hostname_nodemanager_r_jobid_fileindex_chunkIndex
 	XBT_INFO("   ****allocate reduceeeeeeeeeeeeeeeeee");
-	this->reid++;
+
+
 	string reduceName = res->nodeManager + "_r_" + to_string(res->job->jid)
-			+ "_" + to_string(this->reid);
+			+ "_" + to_string(res->reducerId);
 	ActorPtr rer = Actor::create(reduceName, this_actor::get_host(),
 			Reducer(reduceName, res->requester, nameNodeName, dataNode, res));
 	XBT_INFO("allocate   reduceName %s", reduceName.c_str());
 	reducers.push_back(reduceName);
 	XBT_INFO("allocate reduceeeeeeeeeeeeeeeeee");
 }
-int64_t NodeManager::reid = 0;
+
 

@@ -155,19 +155,25 @@ void AppMaster::freeContainer(string* con) {
 
 }
 void AppMaster::sendOutTellNow(string reducer) {
-	vector<vector<spill*>*>* outRes = new vector<vector<spill*>*>();
+	int redId=this->reducerId(reducer);
+	vector<spill*>* outRes = new vector<spill*>();
 	if (mapOutV->size() > 0) {
-		for (int a=0;a<mapOutV->size(); a++) {
+		for (int a=0;a<mapOutV->at(redId)->size(); a++) {
 
-
+outRes->push_back(mapOutV->at(redId)->at(a));
 		}
-		reducers.push_back(reducer);
+
+
+		reducers.insert(std::pair<int,string>(redId,reducer));
+
+
 		Message* outResMsg = new Message(msg_type::map_output_res, self,
 				reducer, 0, outRes);
 
 		Mailbox::by_name(reducer)->put(outResMsg, 1522);
 
 	}
+}
 	void AppMaster::mapFinished(Message * m) {
 
 		this->numFinishedMappers++;
@@ -191,7 +197,7 @@ void AppMaster::sendOutTellNow(string reducer) {
 		//send output to all available reducers
 		for (int i = 0; i < reducers.size(); i++) {
 
-			//outRes->push_back(res);
+
 			Message* outResMsg = new Message(msg_type::map_output_res, self,
 					reducers.at(i), 0, res->at(i));
 
@@ -200,6 +206,7 @@ void AppMaster::sendOutTellNow(string reducer) {
 		}
 
 	}
+
 	bool AppMaster::reduceFinished(Message *m) {
 		bool isFinished = false;
 		this->numFinishedReducers++;
@@ -230,4 +237,11 @@ void AppMaster::sendOutTellNow(string reducer) {
 			isFinished = true;
 		}
 		return isFinished;
+	}
+
+	int AppMaster::reducerId(string reducer){
+		auto pos=reducer.find_last_of('_');
+		string reducerId=reducer.substr(pos+1);
+		return std::stoi(reducerId);
+
 	}

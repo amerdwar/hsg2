@@ -254,6 +254,7 @@ std::vector<allocateRes*> YarnScheduler::fifoServeReduce() {
 			XBT_INFO("type is %i", allReq.at(0)->type);
 			re->type = allReq.at(0)->type;
 			re->job = allReq.at(0)->job;
+			re->reducerId=allReq.at(0)->redId++;
 			allReq.at(0)->reducersNum -= 1;
 			resV.push_back(re);
 		} else {
@@ -356,6 +357,7 @@ allocateRes* YarnScheduler::fairServeReduce() {
 		XBT_INFO("type is %i", allReq.at(fairIndex)->type);
 		re->type = allReq.at(fairIndex)->type;
 		re->job = allReq.at(fairIndex)->job;
+		re->reducerId=allReq.at(fairIndex)->redId++;
 		allReq.at(fairIndex)->reducersNum -= 1;
 	}
 	if (allReq.at(fairIndex)->reducersNum == 0) {

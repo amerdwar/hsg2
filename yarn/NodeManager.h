@@ -35,7 +35,7 @@ public:
 	void allocateAppMaster(allocateRes* res);
 	void allocateMapper(allocateRes* res);
 	void allocateReducer1(allocateRes* res);
-	int64_t static reid;
+
 	virtual ~NodeManager();
 };
 
