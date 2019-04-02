@@ -36,6 +36,7 @@ mapreduce/AppMaster.cpp
 mapreduce/Mapper.cpp
 mapreduce/Reducer.cpp
 mapreduce/Combiner.cpp
+mapreduce/Copier.cpp
 Main.cpp
 )
 target_link_libraries(hsg ${SimGrid_LIBRARY}

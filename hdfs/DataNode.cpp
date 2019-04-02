@@ -52,7 +52,7 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			ch->storage = getRandStorage();		//select storage
 			Chunk *chToStore = ch->copy();
-			XBT_INFO("this is the chunk size %i", chToStore->size);
+
 			chunks.insert(
 					std::pair<int64_t, Chunk*>(chToStore->chGenId, chToStore));	//add to chunks map
 
@@ -63,7 +63,7 @@ void DataNode::operator()() {
 			m->generator = m->sender;
 			m->receiver = ch->storage;
 			m->returnTag = hdd_Access::hdd_write;
-			m->payload = ch;
+			m->payload = ch->copy();
 
 			Chunk* chForSend = ch->copy();
 
@@ -78,6 +78,8 @@ void DataNode::operator()() {
 			}
 
 			Mailbox::by_name(ch->storage)->put(m, 0);
+
+
 
 			chForSend->writeIndex += 1;
 			if (chForSend->writeIndex < chForSend->nodes->size()) {
@@ -165,8 +167,9 @@ void DataNode::operator()() {
 		}
 
 		case msg_type::hdd_write_ack: {
-			XBT_INFO("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
 			Chunk * ch = static_cast<Chunk*>(m->payload);
+			//XBT_INFO("this ****** is the chunk size  from achnol %i", ch->size);
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
 
 			//	m->sender.c_str(), m->receiver.c_str());
@@ -197,14 +200,16 @@ void DataNode::operator()() {
 			break;
 		}
 		case msg_type::hdd_read_ack: {
-			Chunk * ch = static_cast<Chunk*>(m->payload);
 
+			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->type = msg_type::dn_cl_re_ack_ch;
 			m->sender = mailbox->get_name();
 
 			m->receiver = ch->clinetMB->get_name();
-			XBT_INFO("hdd datanode read ack %s ");
+
 			ch->clinetMB->put(m, 1522);
+
+			XBT_INFO("hdd datanode read ack  ");
 			break;
 		}
 		case msg_type::cl_dn_del_ch: {

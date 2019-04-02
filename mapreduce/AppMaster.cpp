@@ -21,7 +21,7 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 
 		}
 	}
-	XBT_INFO("num all mappers %i", numAllMappers);
+	//XBT_INFO("num all mappers %i", numAllMappers);
 	numFinishedMappers = numFinishedReducers = 0;
 	this->job->numberOfMappers = numAllMappers;
 	this->self = self;
@@ -155,17 +155,16 @@ void AppMaster::freeContainer(string* con) {
 
 }
 void AppMaster::sendOutTellNow(string reducer) {
-	int redId=this->reducerId(reducer);
+	int redId = this->reducerId(reducer);
+
 	vector<spill*>* outRes = new vector<spill*>();
 	if (mapOutV->size() > 0) {
-		for (int a=0;a<mapOutV->at(redId)->size(); a++) {
-
-outRes->push_back(mapOutV->at(redId)->at(a));
+		XBT_INFO("the is red id %i", redId);
+		for (int a = 0; a < mapOutV->at(redId)->size(); a++) {
+			outRes->push_back(mapOutV->at(redId)->at(a));
 		}
 
-
-		reducers.insert(std::pair<int,string>(redId,reducer));
-
+		reducers.insert(std::pair<int, string>(redId, reducer));
 
 		Message* outResMsg = new Message(msg_type::map_output_res, self,
 				reducer, 0, outRes);
@@ -174,74 +173,115 @@ outRes->push_back(mapOutV->at(redId)->at(a));
 
 	}
 }
-	void AppMaster::mapFinished(Message * m) {
+void AppMaster::mapFinished(Message * m) {
 
-		this->numFinishedMappers++;
-		requestReducers();
-		map<int, vector<spill*>*>* res =
-				static_cast<map<int, vector<spill*>*>*>(m->payload);
-
-		for (int i = 0; i < job->numberOfReducers; i++) {
-			for (int j = 0; j < res->at(i)->size(); j++) {
-				mapOutV->at(i)->push_back(res->at(i)->at(j)); //here we push the partitions for each reducer
-			}
+	this->numFinishedMappers++;
+	requestReducers();
+	map<int, vector<spill*>*>* res =
+			static_cast<map<int, vector<spill*>*>*>(m->payload);
+	XBT_INFO(printMapOut(mapOutV).c_str());
+	for (int i = 0; i < job->numberOfReducers; i++) {
+		//XBT_INFO("map out v size before %i  %i", mapOutV->at(i)->size(), i);
+		for (int j = 0; j < res->at(i)->size(); j++) {
+			mapOutV->at(i)->push_back(res->at(i)->at(j)); //here we push the partitions for each reducer
 		}
 
-		//free map container
-		string s = m->sender.substr(0, m->sender.find('_'));
-
-		string* mm = new string;
-		*mm = s;
-		freeContainer(mm);
-
-		//send output to all available reducers
-		for (int i = 0; i < reducers.size(); i++) {
-
-
-			Message* outResMsg = new Message(msg_type::map_output_res, self,
-					reducers.at(i), 0, res->at(i));
-
-			Mailbox::by_name(reducers.at(i))->put(outResMsg, 1522);
-
+		if (this->numFinishedMappers == job->numberOfMappers) {
+			spill *lastOne = new spill();
+			lastOne->isLast = true;
+			mapOutV->at(i)->push_back(lastOne);
 		}
-
+	//	XBT_INFO("map out v size after %i  %i", mapOutV->at(i)->size(), i);
 	}
 
-	bool AppMaster::reduceFinished(Message *m) {
-		bool isFinished = false;
-		this->numFinishedReducers++;
-		//free reducer container
-		string s = m->sender.substr(0, m->sender.find('_'));
-		string* mm = new string;
-		*mm = s;
-		freeContainer(mm);
-		if (numFinishedReducers == numAllReducers) {
-			XBT_INFO("this is the last reducer send finish back");
-			string st = m->sender.substr(0, self.find('_'));
-			string* mmm = new string;
-			*mmm = s;
-			freeContainer(mmm);
-			//to do send finish to node manager
-			XBT_INFO("after send free con reducer");
-			Message * finishMsg2 = new Message(msg_type::app_master_finish,
-					self, nodeManager, 0, nullptr);
-			nodeManagerMb->put(finishMsg2, 1522);
-			XBT_INFO("after send free con reducer after node manager");
+	//free map container
+	string s = m->sender.substr(0, m->sender.find('_'));
 
-			Message * finishMsg3 = new Message(msg_type::finish_job, self,
-					rManager, 0, job);
-			rManagerMb->put(finishMsg3, 1522);
+	string* mm = new string;
+	*mm = s;
+	freeContainer(mm);
 
-			XBT_INFO("after send reduce finish");
-
-			isFinished = true;
+	//send output to all available reducers
+	for (int i = 0; i < reducers.size(); i++) {
+		if (this->numFinishedMappers == job->numberOfMappers) {
+			spill *lastOne = new spill();
+			lastOne->isLast = true;
+			res->at(i)->push_back(lastOne);
 		}
-		return isFinished;
-	}
-
-	int AppMaster::reducerId(string reducer){
-		auto pos=reducer.find_last_of('_');
-		string reducerId=reducer.substr(pos+1);
-		return std::stoi(reducerId);
+		Message* outResMsg = new Message(msg_type::map_output_res, self,
+				reducers.at(i), 0, res->at(i));
+		Mailbox::by_name(reducers.at(i))->put(outResMsg, 1522);
 
 	}
+XBT_INFO(printMapOut(mapOutV).c_str());
+}
+
+bool AppMaster::reduceFinished(Message *m) {
+	bool isFinished = false;
+	this->numFinishedReducers++;
+	//free reducer container
+	string s = m->sender.substr(0, m->sender.find('_'));
+	string* mm = new string;
+	*mm = s;
+	freeContainer(mm);
+	if (numFinishedReducers == numAllReducers) {
+		XBT_INFO("this is the last reducer send finish back");
+		string st = m->sender.substr(0, self.find('_'));
+		string* mmm = new string;
+		*mmm = s;
+		freeContainer(mmm);
+		//to do send finish to node manager
+		XBT_INFO("after send free con reducer");
+		Message * finishMsg2 = new Message(msg_type::app_master_finish, self,
+				nodeManager, 0, nullptr);
+		nodeManagerMb->put(finishMsg2, 1522);
+		XBT_INFO("after send free con reducer after node manager");
+
+		Message * finishMsg3 = new Message(msg_type::finish_job, self, rManager,
+				0, job);
+		rManagerMb->put(finishMsg3, 1522);
+
+		XBT_INFO("after send reduce finish");
+
+		isFinished = true;
+	}
+	return isFinished;
+}
+
+int AppMaster::reducerId(string reducer) {
+	auto pos = reducer.find_last_of('_');
+	string reducerId = reducer.substr(pos + 1);
+	return std::stoi(reducerId);
+
+}
+
+string AppMaster::printSpill(spill* sp) {
+	string s = "";
+	if(!sp->isLast){
+	s += "spill size is " + to_string(sp->ch->size);
+	s += "num rec  is " + to_string(sp->records);
+	s += "is last  one  " + to_string(sp->isLast);
+	}
+	else
+		s+="this finish spill ";
+	return s;
+}
+
+string AppMaster::printMapOut(map<int, vector<spill*>*>*a) {
+
+	string s = "this is the output of job  \n";
+
+for(int i=0;i<a->size();i++){
+
+	s+="the spilles of reducer number "+to_string(i)+"\n";
+
+	for(int j=0;j<a->at(i)->size();j++){
+
+		s+=printSpill(a->at(i)->at(j))+"\n";
+
+	}
+}
+
+	s+="\n";
+	return s;
+}

@@ -41,35 +41,34 @@ void Mapper::operator ()() {
 	HddMediator* inputHDDM = new HddMediator(inputDN, thisName, thisName);
 	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
 			res->chIndex);
+
 	inputHDDM->readCh(ch);
+
 ////// untill now we read the chunk from data node
 
 	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
-	int64_t taskSize = job->mapOutRecord * job->mapOutAvRecordSize;
+	int64_t taskSize = ch->size;
 
-	auto exePtr = this_actor::exec_async(job->mapCost);//here we exe the map
+	auto exePtr = this_actor::exec_async(job->mapCost); //here we exe the map
 
 	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
-			spillSize);//here we use partitioner and combiner and write spilles to localhdd
-
+			spillSize); //here we use partitioner and combiner and write spilles to localhdd
+XBT_INFO(printMapOut(allspilles).c_str());
 	exePtr->wait();
 
-	for(int i =0;i<allspilles->size();i++){
-	merger->mergeSpilles(allspilles->at(i));
+	for (int i = 0; i < allspilles->size(); i++) {
+		merger->mergeSpilles(allspilles->at(i));
 	}
-
-
-
 
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, allspilles);
 
-	XBT_INFO("before send finish");
+//	XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
 	Message * finishMsg2 = new Message(msg_type::map_finish, thisName,
 			nodeManagerName, 0, nullptr);
 	nodeManagerMb->put(finishMsg2, 1522);
-	XBT_INFO("after send finish");
+	//XBT_INFO("after send finish");
 
 }
 Mapper::~Mapper() {
@@ -127,28 +126,29 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
 	map<int, vector<spill*>*>* spilles = new map<int, vector<spill*>*>();
 
 	int64_t spillNum = taskSize / spillSize;
-	int i = 0;
-	for (; i < spillNum; i++) {
+	//XBT_INFO("spill size %i spill num %i task size %i", spillSize, spillNum,
+		//	taskSize);
+	for (int i = 0; i < job->numberOfReducers; i++) {
 		vector<spill*>* vectorSpill = new vector<spill*>();
 		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
-		for (int j = 0; j < job->numberOfReducers; j++) {
+		for (int j = 0; j < spillNum; j++) {
 
 			int64_t partsize = spillSize / job->numberOfReducers;
 			spill* tem = exeAndWrPart(partsize);
 			spilles->at(i)->push_back(tem);
-
+			//XBT_INFO("push spill so size is %i ", spilles->size());
 		}
 
 	}
+
 	if (taskSize % spillSize != 0) {
-
 		int64_t reminderSize = taskSize - (spillSize * spillNum);
-		vector<spill*>* vectorSpill = new vector<spill*>();
-		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
 
-		for (int j = 0; j < job->numberOfReducers; j++) {
+		vector<spill*>* vectorSpill = new vector<spill*>();
+		for (int i = 0; i < job->numberOfReducers; i++) {
 
 			int64_t partsize = reminderSize / job->numberOfReducers;
+			XBT_INFO("remender size is %i part %i", reminderSize, partsize);
 			spill* tem = exeAndWrPart(partsize);
 			spilles->at(i)->push_back(tem);
 
@@ -164,9 +164,11 @@ int64_t Mapper::combine(int64_t recNum) {
 
 		combinedRecs = merger->getNumCombinedRecordes(job->combineGroups,
 				recNum);
+		//XBT_INFO("in compiner ,num rec is %i old is %i", combinedRecs,recNum);
 
 	} else {
 		combinedRecs = recNum;
+	//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
 	}
 	return combinedRecs;
 
@@ -175,16 +177,25 @@ int64_t Mapper::combine(int64_t recNum) {
 spill* Mapper::exeAndWrPart(int64_t partsize1) {
 
 	int64_t partsize = 0;
-	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
+	int64_t partrecNum = partsize1 / job->recordSize;
+
+	//XBT_INFO("part size %i, record size %i, num rec per part %i", partsize1,
+			//job->recordSize, partrecNum);
+
+	partrecNum = partrecNum * job->mapOutRecord;
+	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
+		//	job->recordSize, partrecNum,partrecNum);
 	int64_t combinedRecs = combine(partrecNum);
 	ExecPtr ptrE;
 	if (partrecNum == combinedRecs) {
 		ptrE = this_actor::exec_async(0);
 		partsize = combinedRecs * job->mapOutAvRecordSize;
+		//XBT_INFO("no compiiner so size is %i", partsize);
 
 	} else {
 		partsize = combinedRecs * job->combineOutAvRecordSize;
 		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost); //the cost of combination = combine rec cost * map recs
+		//XBT_INFO("yes compiiner so size is %i", partsize);
 	}
 
 	Chunk* temC = this->hddm->writeCh(partsize);
@@ -195,4 +206,25 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 	tem->ch = temC;
 	tem->records = combinedRecs;
 	return tem;
+}
+
+string Mapper::printSpill(spill* sp) {
+	string s = "";
+	s += "spill size is " + to_string(sp->ch->size);
+	s += "num rec  is " + to_string(sp->records);
+	s += "is last  one  " + to_string(sp->isLast);
+	return s;
+}
+
+string Mapper::printMapOut(map<int, vector<spill*>*>*a) {
+	string s = "this is the output of mapper "+thisName+" \n";
+for(int i=0;i<a->size();i++){
+	s+="the spiller of reducer number "+to_string(i)+"\n";
+	for(int j=0;j<a->at(i)->size();j++){
+		s+=printSpill(a->at(i)->at(j))+"\n";
+	}
+}
+
+	s+="\n";
+	return s;
 }

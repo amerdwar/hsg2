@@ -16,9 +16,14 @@ using namespace simgrid::s4u;
 class HddMediator {
 public:
 	string dataNodeName;
+
 	string task,sender;
 	MailboxPtr dataNode,thismb;
+	int parallelCopiers=5;
+	int freeCopiers;
+	int numReadReq=0;
 	HddMediator(string dataNodeName,string sender,string task);
+
 	Chunk*  writeCh(int64_t size);
 	void readCh(Chunk* ch);
 	void deleteCh(Chunk*ch);

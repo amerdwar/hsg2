@@ -45,6 +45,7 @@ void NameNode::operator()() { //the simulation loop
 			XBT_INFO("end name node");
 			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
 				a->first->put(m, 1522);
+				XBT_INFO("end name node   send to node %s",a->first->get_name().c_str());
 			}
 			XBT_INFO("end name node");
 			break;

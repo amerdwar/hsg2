@@ -34,7 +34,7 @@ public:
 	int64_t combineSize = 1;
 	int64_t combineRecords = 1;
 	int64_t combineGroups = 1;
-	int64_t combineOutAvRecordSize = 1;
+	int64_t combineOutAvRecordSize = 12;
 	int64_t combineOutAvRecordSize_add = 0;
 	int64_t reduceCost = 80;
 	int64_t reduceRecords = 0;
@@ -58,7 +58,7 @@ public:
 	double mapredJobReduceInputBufferPercent = 0.0;
 	double mapredJobShuffleInputBufferPercent = 0.7;
 	double mapredJobShuffleMergePercent = 0.66;
-	double mapReduceParallelCopies = 5;
+	int mapReduceParallelCopies = 5;
 	double memoryLimit = 1.4138736E8;
 
 	int numberOfMappers = 60;

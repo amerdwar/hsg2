@@ -31,13 +31,13 @@ MRClient::MRClient(string argv) {
 void MRClient::sendJob(JobInfo* job) {
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
 			rMangerName, 1, job);
-	XBT_INFO("send job mssage %s", rManager->get_name().c_str());
+	//XBT_INFO("send job mssage %s", rManager->get_name().c_str());
 	rManager->put(m, 1522);
-	XBT_INFO("send job mssage");
+	//XBT_INFO("send job mssage");
 }
 void MRClient::operator()() {
 
-	int jobsNum=4;
+	int jobsNum=1;
 	vector<JobInfo*> jVector;
 	for (int i = 0; i < jobsNum; i++) {
 		JobInfo*job = new JobInfo();
@@ -91,8 +91,7 @@ void MRClient::initJob(JobInfo* job) {
 	job->uncompressionCost = 1.0;
 	job->compressionSize = 1.0;
 
-
-	//map cost for tera sort equal to number of record in chnk
+	//map cost for tera sort equal to number of record in chunk
 	job->chunkSize=NameNode::chunkSize;
 	job->recordSize=100;
 	job->mapRecord = job->chunkSize/job->recordSize;
@@ -101,14 +100,16 @@ void MRClient::initJob(JobInfo* job) {
 	job->mapSize = job->chunkSize;
 
 	job->mapOutAvRecordSize = 12;
-	job->mapOutRecord=job->mapRecord*10;
+	job->mapOutRecord=10; //there is out record per input record
 
 
 	job->combineCost = 1;
 	job->combineSize = 1;
 	job->combineRecords = 1;
 	job->combineGroups = 28;
-	job->combineOutAvRecordSize = 1;
+	job->combineOutAvRecordSize = 1000;
+
+
 	job->combineOutAvRecordSize_add = 0;
 	job->reduceCost = 80;
 	job->reduceRecords = 0;
@@ -116,9 +117,9 @@ void MRClient::initJob(JobInfo* job) {
 	//data
 
 	job->recordsNumPerChunk = 2500;
-	job->numOfFiles = 100;
-	job->maxFileSize = 256 * 1024 * 1024;
-	job->minFileSize = 128 * 1024 * 1024;
+	job->numOfFiles = 1;
+	job->maxFileSize = 196 * 1024 * 1024;
+	job->minFileSize = 196 * 1024 * 1024;
 
 	//other
 	job->ioSortFactor = 10;
@@ -134,10 +135,10 @@ void MRClient::initJob(JobInfo* job) {
 	job->mapReduceParallelCopies = 5;
 	job->memoryLimit = 1.4138736E8;
 
-	job->numberOfMappers = 60;
-	job->numberOfReducers = 3;
+	job->numberOfMappers = 1;
+	job->numberOfReducers = 2;
 
-	job->useCombiner = true;
+	job->useCombiner = false;
 	job->useCompression = false;
 }
 void MRClient::writeDate(JobInfo *job) {
@@ -153,11 +154,13 @@ void MRClient::writeDate(JobInfo *job) {
 	Message *ms = new Message(msg_type::cl_nn_re_dir, thismb->get_name(),
 			nameNodeName, 0, payload);
 	nnmb->put(ms, 1522);
-	XBT_INFO("before get dir");
+	//XBT_INFO("before get dir");
 	Message * res = static_cast<Message*>(thismb->get());
-	XBT_INFO("after get dir");
+	//XBT_INFO("after get dir");
 	DirFiles *dirF = static_cast<DirFiles *>(res->payload);
 	job->dir = dirF;
+
+
 
 	delete ms;
 }

@@ -14,6 +14,8 @@ HddMediator::HddMediator(string dataNodeName, string sender, string task) {
 	this->thismb = Mailbox::by_name(sender);
 	this->dataNodeName = dataNodeName;
 	this->dataNode = Mailbox::by_name(dataNodeName);
+	freeCopiers = parallelCopiers;
+
 }
 
 HddMediator::~HddMediator() {
@@ -29,38 +31,44 @@ Chunk* HddMediator::writeCh(int64_t size) {
 	ch->nodes = hosts_to_write;
 
 	Message *writemsg = new Message(msg_type::cl_dn_wr_ch, sender, dataNodeName,
-			 hdd_Access::hdd_write, ch);
-	XBT_INFO("before si=%i,re=%s chid=%i",ch->size,ch->clinetMB->get_name().c_str(),ch->chGenId);
+			hdd_Access::hdd_write, ch);
+	XBT_INFO("before si=%i,re=%s chid=%i", ch->size,
+			ch->clinetMB->get_name().c_str(), ch->chGenId);
 	dataNode->put(writemsg, size);
 	Message* ackm = static_cast<Message*>(thismb->get());
 
-	if (ackm->type != msg_type::dn_ack_wr_ch){
+	if (ackm->type != msg_type::dn_ack_wr_ch) {
 		XBT_INFO("error write chunk return tag ,hddmediator");
 		exit(1);
 	}
-	XBT_INFO("after si=%i,re=%s,chid=%i",ch->size,ch->clinetMB->get_name().c_str(),ch->chGenId);
+	XBT_INFO("after si=%i,re=%s,chid=%i", ch->size,
+			ch->clinetMB->get_name().c_str(), ch->chGenId);
 	return ch;
 }
-void HddMediator::readCh(Chunk*  ch) {
+void HddMediator::readCh(Chunk* ch) {
 	Message *chReq = new Message(msg_type::cl_dn_re_ch, thismb->get_name(),
-			dataNodeName,  hdd_Access::hdd_read, ch);
+			dataNodeName, hdd_Access::hdd_read, ch);
 
 	//send the request of chunk to data node
 	dataNode->put(chReq, 1522);
 	//receive the ack
 
 	Message *mmm = static_cast<Message *>(thismb->get());
-	if(mmm->type!=msg_type::dn_cl_re_ack_ch){
+	XBT_INFO("mapper read chunk finished");
+	if (mmm->type != msg_type::dn_cl_re_ack_ch) {
 		XBT_INFO("error read chunk hdd mediator <type mismatch");
 		exit(1);
 	}
 
 }
-void HddMediator::deleteCh(Chunk* ch){
-	Message *chReq = new Message(msg_type::cl_dn_del_ch, thismb->get_name(),
-				dataNodeName, 0, ch);
 
-		//send the request of chunk to data node
-		dataNode->put(chReq, 1522);
+
+void HddMediator::deleteCh(Chunk* ch) {
+	Message *chReq = new Message(msg_type::cl_dn_del_ch, thismb->get_name(),
+			dataNodeName, 0, ch);
+
+	//send the request of chunk to data node
+	dataNode->put(chReq, 1522);
 
 }
+

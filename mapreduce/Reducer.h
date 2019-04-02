@@ -12,27 +12,35 @@
 #include "JobInfo.h"
 #include "../distributions/RandClass.h"
 #include "../yarn/HddMediator.h"
+#include "Copier.h"
 
 class Reducer {
 public:
 	int64_t rid;
 	allocateRes* res;
 	vector<Chunk*>* spilles = new vector<Chunk*>();
-	string appMasterName;
+	string appMasterName,	 coName ;
 	string nameNodeName;
 	string thisName;
-	string dataNodeName,nodeManagerName;
+	string dataNodeName, nodeManagerName;
 	JobInfo *job;
-	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb,nodeManagerMb;
+	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb, nodeManagerMb;
 	HddMediator *hddm;
-	vector<spill*>* inputs=new vector <spill*>();
+	vector<spill*>* inputs;
+
 	HdfsFile* outputf;
-	explicit Reducer(string thisName, string appMas, string NameNode,string dataNodeName,
-			allocateRes * res);
+	explicit Reducer(string thisName, string appMas, string NameNode,
+			string dataNodeName, allocateRes * res);
 
 	void operator()();
+	void copyOutPut();
+	string printSpill(spill* sp) ;
+	string printMapOut( vector<spill*>* a) ;
 
-	Reducer();
+	bool sendMapToCopier( vector<spill*>* payload);
+
+
+
 	virtual ~Reducer();
 private:
 	static int64_t reduceIds;

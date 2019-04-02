@@ -41,6 +41,8 @@ Combiner* merger;
 	map<int, vector<spill*>*>*    writeSpilles(int64_t taskSize,int64_t spillSize);
 	int64_t combine(int64_t recNum);
 	spill* exeAndWrPart(int64_t partsize1);
+	string printSpill(spill* sp);
+	string printMapOut(map<int,vector<spill*>*>*a);
 	virtual ~Mapper();
 private:
 	static int64_t mapIds;

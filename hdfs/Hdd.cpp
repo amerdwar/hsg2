@@ -118,8 +118,8 @@ ty=m->type;
 			if (ch->size == 0) { //the job is complete
 				numcompleteWrite++;
 				//XBT_INFO(
-						"the job complete send it pack ,all req is %i, complete is %i",
-						numWrite, numcompleteWrite);
+					//	"the job complete send it pack ,all req is %i, complete is %i",
+						//numWrite, numcompleteWrite);
 				m->trace(" finish ");
 					//XBT_INFO(m->traceStr.c_str());
 				if (m->returnTag == hdd_Access::hdd_read) {
@@ -127,13 +127,14 @@ ty=m->type;
 					//XBT_INFO("read ack");
 				} else {
 					m->type = msg_type::hdd_write_ack;
-
+					//XBT_INFO("write ack");
 				}
 
 				m->sender = mailbox->get_name();
 				m->receiver = m->generator;
+				XBT_INFO("from hdd %s",m->generator.c_str());
 				Mailbox::by_name(m->generator)->put(m, 0); //send the message pack to client
-				////XBT_INFO("from hdd");
+				XBT_INFO("from hdd2");
 				if (!jobs.empty()) {
 					////XBT_INFO("pop new job ");
 					Message *msg = (Message *) jobs.front();

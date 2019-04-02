@@ -51,7 +51,7 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::cl_rm_send_job: {
-			XBT_INFO("receive job name 1 ");
+			XBT_INFO("receive job name  ");
 			JobInfo * j = static_cast<JobInfo*>(m->payload);
 
 			scheduler->waitingJobs.push_back(j);
@@ -71,8 +71,8 @@ void ResourceManager::operator()() {
 					MailboxPtr nodeManmb = Mailbox::by_name(resp->nodeManager);
 					Message* resMSg = new Message(msg_type::allocate_res,
 							thismb->get_name(), nodeManmb->get_name(), 0, resp);
-					XBT_INFO("allocate on node  %s",
-							nodeManmb->get_name().c_str());
+				//	XBT_INFO("allocate on node  %s",
+							//nodeManmb->get_name().c_str());
 					nodeManmb->put(resMSg, 1522);
 
 				} else {
@@ -127,7 +127,7 @@ void ResourceManager::initNodeManagers() {
 	for (auto rack : racks) {
 		for (auto host : rack->get_all_hosts()) {
 			host->set_property("rack", rack->get_name());
-			XBT_INFO("pro  %s", host->get_property("rack"));
+		//	XBT_INFO("pro  %s", host->get_property("rack"));
 			int numCon = host->get_core_count() / this->numCorePerContainer; //num containers = num cores per host/num core per container
 			numAllContainers += numCon;
 			containers.insert(std::pair<string, int>(host->get_name(), numCon));

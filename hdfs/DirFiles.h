@@ -14,7 +14,8 @@
 using namespace std;
 class DirFiles {
 public:
-static	int64_t dirIds,chunkSize=128*1024*1024;
+static	int64_t dirIds;
+int64_t chunkSize=128*1024*1024;
 	string dirName;
 
 	map<string,HdfsFile *>* Files;

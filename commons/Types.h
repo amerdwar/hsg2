@@ -35,7 +35,8 @@ enum msg_type {
 	map_output_req,
 	map_output_res,
 	reducer_finish,
-	app_master_finish
+	app_master_finish,
+	finish_copier
 };
 
 enum hdd_Access {
@@ -73,5 +74,6 @@ struct allocateRes {
 struct spill{
 Chunk* ch;
 bool isInMem=false;
+bool isLast=false;
 int records;
 };

@@ -18,7 +18,7 @@
 class NodeManager {
 public:
 
-	string heartBeater, dataNode;
+	string  dataNode;
 	string rMangerName;
 	string nameNodeName;
 	string thisName;

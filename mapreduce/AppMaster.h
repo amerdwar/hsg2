@@ -33,6 +33,9 @@ int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	bool reduceFinished(Message *m);
 	int reducerId(string reducer);
  void freeContainer(string *con);
+ string printSpill(spill* sp) ;
+
+ string printMapOut(map<int, vector<spill*>*>*a) ;
 	virtual ~AppMaster();
 };
 

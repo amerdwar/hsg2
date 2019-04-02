@@ -447,6 +447,33 @@ mapreduce/Combiner.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.s
 .PHONY : mapreduce/Combiner.cpp.s
 
+mapreduce/Copier.o: mapreduce/Copier.cpp.o
+
+.PHONY : mapreduce/Copier.o
+
+# target to build an object file
+mapreduce/Copier.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
+.PHONY : mapreduce/Copier.cpp.o
+
+mapreduce/Copier.i: mapreduce/Copier.cpp.i
+
+.PHONY : mapreduce/Copier.i
+
+# target to preprocess a source file
+mapreduce/Copier.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Copier.cpp.i
+.PHONY : mapreduce/Copier.cpp.i
+
+mapreduce/Copier.s: mapreduce/Copier.cpp.s
+
+.PHONY : mapreduce/Copier.s
+
+# target to generate assembly for a file
+mapreduce/Copier.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/Copier.cpp.s
+.PHONY : mapreduce/Copier.cpp.s
+
 mapreduce/JobInfo.o: mapreduce/JobInfo.cpp.o
 
 .PHONY : mapreduce/JobInfo.o
@@ -762,6 +789,9 @@ help:
 	@echo "... mapreduce/Combiner.o"
 	@echo "... mapreduce/Combiner.i"
 	@echo "... mapreduce/Combiner.s"
+	@echo "... mapreduce/Copier.o"
+	@echo "... mapreduce/Copier.i"
+	@echo "... mapreduce/Copier.s"
 	@echo "... mapreduce/JobInfo.o"
 	@echo "... mapreduce/JobInfo.i"
 	@echo "... mapreduce/JobInfo.s"

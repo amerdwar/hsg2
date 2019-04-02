@@ -20,6 +20,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o"
+  "CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
   "CMakeFiles/hsg.dir/Main.cpp.o"
   "hsg.pdb"
   "hsg"
