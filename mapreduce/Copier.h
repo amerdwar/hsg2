@@ -10,18 +10,25 @@
 #include "simgrid/s4u.hpp"
 #include "../messages/Message.h"
 #include "JobInfo.h"
+#include "Combiner.h"
 #include <queue>
 using namespace simgrid::s4u;
 class Copier {
 public:
+	Combiner* merger;
 	queue<Message*>* q;
 	int nCopiers, nFreeCopiers;
-	string thisName, parent;
+	string thisName, parent,dataNode;
 	MailboxPtr thismb, parentMb;
 	JobInfo* job;
-	explicit Copier(string thisName, string parent, int nCopiers, JobInfo *job);
-	void sendReadReg(Message *m);
+	int64_t memBytes;
+    std::vector<simgrid::s4u::ExecPtr> pending_comms;
+	explicit Copier(string thisName, string parent, int nCopiers, JobInfo *job,string dataNode);
+	void sendReadReg(Message *m);//send read request and start exec on this chunk to merge
+	spill* exe(Message* m);
+	void writeSpill(spill* sp);
 	void operator()();
+
 	virtual ~Copier();
 };
 

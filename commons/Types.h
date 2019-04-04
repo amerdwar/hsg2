@@ -36,7 +36,8 @@ enum msg_type {
 	map_output_res,
 	reducer_finish,
 	app_master_finish,
-	finish_copier
+	finish_copier,
+	ack_out_copy
 };
 
 enum hdd_Access {

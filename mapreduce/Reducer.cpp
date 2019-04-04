@@ -41,7 +41,7 @@ void Reducer::operator()() {
 	int copiers = job->mapReduceParallelCopies;
 	coName = thisName + "_co";
 	ActorPtr copier = Actor::create(coName, this_actor::get_host(),
-			Copier(coName, thisName, copiers, job));
+			Copier(coName, thisName, copiers, job,dataNodeName));
 
 	copyOutPut();//here we copy output using copier <the out put is in inputs vector
 
@@ -80,14 +80,18 @@ void Reducer::copyOutPut() {
 
 		vector<spill*>* payload = static_cast<vector<spill*>*>(m->payload);
 		XBT_INFO("get payload");
+
 		if (sendMapToCopier(payload)){
+
 			break;
 		}
 
 	}
-	Message *minishMsg = new Message(msg_type::finish_copier, this->thisName,
+	Message *finishMsg = new Message(msg_type::finish_copier, this->thisName,
 			coName, 0, nullptr);
-	Mailbox::by_name(coName)->put(minishMsg, 0);
+	Mailbox::by_name(coName)->put(finishMsg, 0);
+
+
 
 }
 
@@ -99,7 +103,7 @@ bool Reducer::sendMapToCopier(vector<spill*>* payload) {
 			inputs->push_back(payload->at(j));
 			Message *chReadReq = new Message(msg_type::cl_dn_re_ch,
 					this->thisName, coName, hdd_Access::hdd_read,
-					payload->at(j)->ch);
+					payload->at(j));
 			Mailbox::by_name(coName)->put(chReadReq, 0);
 			XBT_INFO("after read chunk size %i",payload->at(j)->ch->size);
 		} else {

@@ -128,12 +128,12 @@ void MRClient::initJob(JobInfo* job) {
 	job->ioSortSpillPercent = 0.8;
 
 	job->mapredChildJavaOpts = 200;
-	job->mapredInmemMergeThreshold = 1000;
+	job->mapredInmemMergeThreshold = 1000;//amount of memory to spill after <not used
 	job->mapredJobReduceInputBufferPercent = 0.0;
-	job->mapredJobShuffleInputBufferPercent = 0.7;
-	job->mapredJobShuffleMergePercent = 0.66;
+	job->mapredJobShuffleInputBufferPercent = 0.7;//the percent of heap used for copy map output
+	job->mapredJobShuffleMergePercent = 0.66;//the threshold to spill
 	job->mapReduceParallelCopies = 5;
-	job->memoryLimit = 1.4138736E8;
+	job->memoryLimit = 1024*1024*1024//1 GB of memory for reducer
 
 	job->numberOfMappers = 1;
 	job->numberOfReducers = 2;

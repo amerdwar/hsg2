@@ -40,7 +40,9 @@ void mergeSpilles(vector<spill*>* v);
 	void merge(vector<spill*>* v,int fIndex,int lIndex);
 	int getNumCombinedRecordes(int groups, int recordes);
 Combiner(JobInfo* job,string dataNode,string taskName) ;
-	virtual ~Combiner();
+
+int64_t combine(int64_t recNum);
+virtual ~Combiner();
 };
 
 #endif /* MAPREDUCE_COMBINER_H_ */

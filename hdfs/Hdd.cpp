@@ -132,6 +132,7 @@ ty=m->type;
 
 				m->sender = mailbox->get_name();
 				m->receiver = m->generator;
+
 				XBT_INFO("from hdd %s",m->generator.c_str());
 				Mailbox::by_name(m->generator)->put(m, 0); //send the message pack to client
 				XBT_INFO("from hdd2");

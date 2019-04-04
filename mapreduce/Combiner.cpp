@@ -92,3 +92,20 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 Combiner::~Combiner() {
 	// TODO Auto-generated destructor stub
 }
+
+int64_t Combiner::combine(int64_t recNum) {
+	int64_t combinedRecs = 0;
+	if (job->useCombiner) {
+
+		combinedRecs = getNumCombinedRecordes(job->combineGroups,
+				recNum);
+		//XBT_INFO("in compiner ,num rec is %i old is %i", combinedRecs,recNum);
+
+	} else {
+		combinedRecs = recNum;
+	//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
+	}
+	return combinedRecs;
+
+}
+
