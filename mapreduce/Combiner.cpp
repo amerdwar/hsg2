@@ -109,3 +109,66 @@ int64_t Combiner::combine(int64_t recNum) {
 
 }
 
+
+
+void Combiner::mergeReduceSpilles(vector<spill*>* v) {
+
+	vector<spill*>* resV = new vector<spill*>();
+
+	int num = v->size();
+
+
+	int n = 0;
+	while (true) {
+		n = v->size();
+		int l = n - ioSortFactor;
+		if (l <= 0) {
+			//TODO merge from 0 to factor; and return one spill in resV
+			merge(v, 0, l - 1);
+			return;
+		} else if (l < ioSortFactor) {
+			int t = n - l;
+			l = n - t + 1;
+//TODO mege from 0 to l-1 erase and push one spill
+			merge(v, 0, l - 1);
+		} else {
+//TODO merge from 0 to iosortfactor and push one spill
+			merge(v, 0, ioSortFactor - 1);
+		}
+
+	}
+
+}
+
+
+void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
+	int recNum = 0;
+
+	for (int i = fIndex; i <= lIndex; i++) {
+		hddM->readCh(v->at(i)->ch);
+		hddM->deleteCh(v->at(i)->ch);
+		v->erase(v->begin() + i);
+		recNum += v->at(i)->records;
+	}
+	for (int i = fIndex; i <= lIndex; i++) {
+		v->erase(v->begin() + i);
+	}
+	int64_t recSize = 0;
+
+	if (job->useCombiner)
+		recSize = job->combineOutAvRecordSize;
+	else
+		recSize = job->mapOutAvRecordSize;
+
+
+
+	int64_t lastSize = recNum * recSize;
+	Chunk* lastCh = hddM->writeCh(lastSize);
+
+	spill* lastSpill = new spill();
+	lastSpill->ch = lastCh;
+	lastSpill->records = recNum;
+
+	v->push_back(lastSpill);
+
+}

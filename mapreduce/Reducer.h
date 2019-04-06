@@ -19,7 +19,7 @@ public:
 	int64_t rid;
 	allocateRes* res;
 	vector<Chunk*>* spilles = new vector<Chunk*>();
-	string appMasterName,	 coName ;
+	string appMasterName, coName;
 	string nameNodeName;
 	string thisName;
 	string dataNodeName, nodeManagerName;
@@ -27,19 +27,17 @@ public:
 	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb, nodeManagerMb;
 	HddMediator *hddm;
 	vector<spill*>* inputs;
-
+	vector<spill*>* inputsMem;
 	HdfsFile* outputf;
 	explicit Reducer(string thisName, string appMas, string NameNode,
 			string dataNodeName, allocateRes * res);
 
 	void operator()();
 	void copyOutPut();
-	string printSpill(spill* sp) ;
-	string printMapOut( vector<spill*>* a) ;
-
-	bool sendMapToCopier( vector<spill*>* payload);
-
-
+	string printSpill(spill* sp);
+	string printMapOut(vector<spill*>* a);
+	void exeReduce();
+	bool sendMapToCopier(vector<spill*>* payload);
 
 	virtual ~Reducer();
 private:

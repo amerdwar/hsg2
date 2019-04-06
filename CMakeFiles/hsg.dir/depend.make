@@ -649,19 +649,25 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: /opt/simgrid/include/xbt/utility.hp
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: commons/Types.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/HdfsFile.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.cpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: messages/Message.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: yarn/HddMediator.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/chrono.hpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/config.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/forward.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/host.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/kernel/resource/Action.hpp
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/kernel/routing/ClusterZone.hpp
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/kernel/routing/NetZoneImpl.hpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/link.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/s4u.hpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/simgrid/s4u/Activity.hpp
@@ -692,6 +698,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/ex.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/function_types.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/functional.hpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/future.hpp
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/graph.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/log.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/misc.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/parmap.h
@@ -877,6 +884,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.cpp

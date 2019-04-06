@@ -37,7 +37,11 @@ public:
 
 
 void mergeSpilles(vector<spill*>* v);
-	void merge(vector<spill*>* v,int fIndex,int lIndex);
+void mergeReduceSpilles	(vector<spill*>* v);
+void merge(vector<spill*>* v,int fIndex,int lIndex);
+void mergeReduce(vector<spill*>* v,int fIndex,int lIndex);
+
+
 	int getNumCombinedRecordes(int groups, int recordes);
 Combiner(JobInfo* job,string dataNode,string taskName) ;
 

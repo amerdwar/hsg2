@@ -207,6 +207,8 @@ simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/messages/Message.h
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
+Combiner.h
+/home/alpha/tuturial/hsg/mapreduce/Combiner.h
 queue
 -
 

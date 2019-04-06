@@ -11,6 +11,7 @@ Reducer::Reducer(string thisName, string appMas, string NameNode,
 		string dataNodeName, allocateRes * res) {
 	coName = "";
 	inputs = new vector<spill*>();
+	inputsMem = new vector<spill*>();
 	this->rid = reduceIds++;
 	this->dataNodeName = dataNodeName;
 	this->thisName = thisName;
@@ -41,15 +42,11 @@ void Reducer::operator()() {
 	int copiers = job->mapReduceParallelCopies;
 	coName = thisName + "_co";
 	ActorPtr copier = Actor::create(coName, this_actor::get_host(),
-			Copier(coName, thisName, copiers, job,dataNodeName));
+			Copier(coName, thisName, copiers, job, dataNodeName));
 
-	copyOutPut();//here we copy output using copier <the out put is in inputs vector
-
-	copier->join();//wait until copier finish its job
+	copyOutPut(); //here we copy output using copier <the out put is in inputs vector
 
 	XBT_INFO(printMapOut(inputs).c_str());
-
-
 
 	HddMediator *hdtem = new HddMediator(dataNodeName, thisName, thisName);
 	XBT_INFO("berfore write output to hdfs");
@@ -81,7 +78,7 @@ void Reducer::copyOutPut() {
 		vector<spill*>* payload = static_cast<vector<spill*>*>(m->payload);
 		XBT_INFO("get payload");
 
-		if (sendMapToCopier(payload)){
+		if (sendMapToCopier(payload)) {
 
 			break;
 		}
@@ -89,8 +86,24 @@ void Reducer::copyOutPut() {
 	}
 	Message *finishMsg = new Message(msg_type::finish_copier, this->thisName,
 			coName, 0, nullptr);
+
 	Mailbox::by_name(coName)->put(finishMsg, 0);
 
+	Message* outMsg = static_cast<Message*>(thismb->get());
+	if (outMsg->type != msg_type::finish_copier) {
+		XBT_INFO("error return type no finish copier");
+		exit(0);
+	}
+
+	inputsMem = static_cast<vector<spill*>*>(outMsg->payload);
+	Message* outMsg2 = static_cast<Message*>(thismb->get());
+	if (outMsg2->type != msg_type::finish_copier) {
+		XBT_INFO("m is   %s",outMsg2->toString().c_str());
+		XBT_INFO("error return type no finish copier2 %i",outMsg2->type );
+		exit(0);
+	}
+
+	inputs = static_cast<vector<spill*>*>(outMsg2->payload);
 
 
 }
@@ -98,48 +111,53 @@ void Reducer::copyOutPut() {
 bool Reducer::sendMapToCopier(vector<spill*>* payload) {
 	XBT_INFO("in send map to co%i", payload->size());
 	bool isLast = false;
+	vector<spill*>* payV=new vector<spill*>();
 	for (int j = 0; j < payload->size(); j++) {
 		if (!payload->at(j)->isLast) {
 			inputs->push_back(payload->at(j));
-			Message *chReadReq = new Message(msg_type::cl_dn_re_ch,
-					this->thisName, coName, hdd_Access::hdd_read,
-					payload->at(j));
-			Mailbox::by_name(coName)->put(chReadReq, 0);
-			XBT_INFO("after read chunk size %i",payload->at(j)->ch->size);
+			payV->push_back(payload->at(j));
 		} else {
 			isLast = true;
 			XBT_INFO("this is the last spill");
 		}
-	}
 
+	}
+	Message *chReadReq = new Message(msg_type::cl_dn_re_ch,
+						this->thisName, coName, hdd_Access::hdd_read,
+						payV);
+				Mailbox::by_name(coName)->put(chReadReq, 0);
+//here we send vector of spill
 	return isLast;
 }
 
 string Reducer::printSpill(spill* sp) {
 	string s = "";
-	if(!sp->isLast){
-	s += "spill size is " + to_string(sp->ch->size);
-	s += "num rec  is " + to_string(sp->records);
-	s += "is last  one  " + to_string(sp->isLast);
-	}
-	else
-		s+="this finish spill ";
+	if (!sp->isLast) {
+		s += "spill size is " + to_string(sp->ch->size);
+		s += "num rec  is " + to_string(sp->records);
+		s += "is last  one  " + to_string(sp->isLast);
+	} else
+		s += "this finish spill ";
 	return s;
 }
 
-string Reducer::printMapOut( vector<spill*>* a) {
+string Reducer::printMapOut(vector<spill*>* a) {
 
 	string s = "this is the output of job  \n";
 
-for(int i=0;i<a->size();i++){
+	for (int i = 0; i < a->size(); i++) {
 
-
-
-		s+=printSpill(a->at(i))+"\n";
+		s += printSpill(a->at(i)) + "\n";
 
 	}
 
-
-	s+="\n";
+	s += "\n";
 	return s;
+}
+
+void Reducer::exeReduce() {
+//TODO merge all files to single file then
+
+
+
 }

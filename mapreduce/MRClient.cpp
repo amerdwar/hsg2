@@ -112,12 +112,12 @@ void MRClient::initJob(JobInfo* job) {
 
 	job->combineOutAvRecordSize_add = 0;
 	job->reduceCost = 80;
-	job->reduceRecords = 0;
+	job->reduceRecords = 0.1;
 	job->reduceOutAvRecordSize = 9;
 	//data
 
 	job->recordsNumPerChunk = 2500;
-	job->numOfFiles = 1;
+	job->numOfFiles = 5;
 	job->maxFileSize = 196 * 1024 * 1024;
 	job->minFileSize = 196 * 1024 * 1024;
 
@@ -133,7 +133,7 @@ void MRClient::initJob(JobInfo* job) {
 	job->mapredJobShuffleInputBufferPercent = 0.7;//the percent of heap used for copy map output
 	job->mapredJobShuffleMergePercent = 0.66;//the threshold to spill
 	job->mapReduceParallelCopies = 5;
-	job->memoryLimit = 1024*1024*1024//1 GB of memory for reducer
+	job->memoryLimit = 1024*1024*1024;//1 GB of memory for reducer
 
 	job->numberOfMappers = 1;
 	job->numberOfReducers = 2;

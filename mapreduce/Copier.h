@@ -16,17 +16,23 @@ using namespace simgrid::s4u;
 class Copier {
 public:
 	Combiner* merger;
-	queue<Message*>* q;
+	queue<vector<spill*>*>* q;
 	int nCopiers, nFreeCopiers;
 	string thisName, parent,dataNode;
 	MailboxPtr thismb, parentMb;
 	JobInfo* job;
+	HddMediator *hddmed;
 	int64_t memBytes;
+	vector<spill*>* outDiskV,*outMemV;
+	map<string,int> readVAck;
     std::vector<simgrid::s4u::ExecPtr> pending_comms;
 	explicit Copier(string thisName, string parent, int nCopiers, JobInfo *job,string dataNode);
-	void sendReadReg(Message *m);//send read request and start exec on this chunk to merge
-	spill* exe(Message* m);
-	void writeSpill(spill* sp);
+	void sendReadReg(vector<spill*> *v );//send read request and start exec on this chunk to merge
+	spill* exe(vector<spill*>*v);
+	vector<vector<spill*>*> *  getMapsVecors(vector<spill*>* v);
+	void spillAndCompine(spill* sp) ;
+
+	void toDisk();
 	void operator()();
 
 	virtual ~Copier();

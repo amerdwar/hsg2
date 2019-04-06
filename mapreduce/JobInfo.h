@@ -37,7 +37,7 @@ public:
 	int64_t combineOutAvRecordSize = 12;
 	int64_t combineOutAvRecordSize_add = 0;
 	int64_t reduceCost = 80;
-	int64_t reduceRecords = 0;
+	double reduceRecords = 0;
 	int64_t reduceOutAvRecordSize = 9;
 //data
 	DirFiles* dir = nullptr;
