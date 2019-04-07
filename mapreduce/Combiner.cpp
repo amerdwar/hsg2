@@ -64,7 +64,7 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 	for (int i = fIndex; i <= lIndex; i++) {
 		hddM->readCh(v->at(i)->ch);
 		hddM->deleteCh(v->at(i)->ch);
-		v->erase(v->begin() + i);
+
 		recNum += v->at(i)->records;
 	}
 	for (int i = fIndex; i <= lIndex; i++) {

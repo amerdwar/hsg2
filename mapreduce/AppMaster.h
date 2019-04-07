@@ -15,7 +15,7 @@ class AppMaster {
 public:
 	bool reduceReqIsSent=false;
 	JobInfo* job;
-
+int64_t numbytes=0;
 int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	string parent,self,nameNode,rManager,nodeManager;
 	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb,nodeManagerMb;

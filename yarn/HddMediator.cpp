@@ -12,6 +12,7 @@ HddMediator::HddMediator(string dataNodeName, string sender, string task) {
 	this->task = task;
 	this->sender = sender;
 	this->thismb = Mailbox::by_name(sender);
+
 	this->dataNodeName = dataNodeName;
 	this->dataNode = Mailbox::by_name(dataNodeName);
 	freeCopiers = parallelCopiers;
@@ -38,7 +39,7 @@ Chunk* HddMediator::writeCh(int64_t size) {
 	Message* ackm = static_cast<Message*>(thismb->get());
 
 	if (ackm->type != msg_type::dn_ack_wr_ch) {
-		XBT_INFO("error write chunk return tag ,hddmediator");
+		XBT_INFO("error write chunk return tag ,hddmediator \n %s",ackm->toString().c_str());
 		exit(1);
 	}
 	XBT_INFO("after si=%i,re=%s,chid=%i", ch->size,

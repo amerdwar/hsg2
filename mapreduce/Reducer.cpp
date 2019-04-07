@@ -47,6 +47,7 @@ void Reducer::operator()() {
 	copyOutPut(); //here we copy output using copier <the out put is in inputs vector
 
 	XBT_INFO(printMapOut(inputs).c_str());
+	XBT_INFO(printMapOut(inputsMem).c_str());
 
 	HddMediator *hdtem = new HddMediator(dataNodeName, thisName, thisName);
 	XBT_INFO("berfore write output to hdfs");

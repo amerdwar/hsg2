@@ -99,7 +99,7 @@ void MRClient::initJob(JobInfo* job) {
 	job->mapCost = job->mapRecord*10;//10 is num keys per record so the cost is num record * num keys ber record
 	job->mapSize = job->chunkSize;
 
-	job->mapOutAvRecordSize = 12;
+	job->mapOutAvRecordSize = 126;
 	job->mapOutRecord=10; //there is out record per input record
 
 
@@ -117,12 +117,12 @@ void MRClient::initJob(JobInfo* job) {
 	//data
 
 	job->recordsNumPerChunk = 2500;
-	job->numOfFiles = 5;
-	job->maxFileSize = 196 * 1024 * 1024;
-	job->minFileSize = 196 * 1024 * 1024;
+	job->numOfFiles = 200;
+	job->maxFileSize = 200 * 1024 * 1024;
+	job->minFileSize = 200 * 1024 * 1024;
 
 	//other
-	job->ioSortFactor = 10;
+	job->ioSortFactor = 4;
 	job->ioSortMb = 100;
 	job->ioSortRecordPercent = 0.05;
 	job->ioSortSpillPercent = 0.8;

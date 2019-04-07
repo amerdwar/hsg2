@@ -64,7 +64,7 @@ public:
 	int numberOfMappers = 60;
 	int numberOfReducers = 1;
 
-	bool useCombiner = false;
+	bool useCombiner = true;
 	bool useCompression = false;
 
 	JobInfo();

@@ -84,6 +84,7 @@ void AppMaster::operator ()() {
 		}
 	} while (m->type != msg_type::end_of_simulation);
 	end: XBT_INFO("all reducers finished");
+	XBT_INFO("size is %i",numbytes);
 }
 
 AppMaster::~AppMaster() {
@@ -184,6 +185,8 @@ void AppMaster::mapFinished(Message * m) {
 		//XBT_INFO("map out v size before %i  %i", mapOutV->at(i)->size(), i);
 		for (int j = 0; j < res->at(i)->size(); j++) {
 			mapOutV->at(i)->push_back(res->at(i)->at(j)); //here we push the partitions for each reducer
+
+			numbytes+=res->at(0)->at(j)->ch->size;
 		}
 
 		if (this->numFinishedMappers == job->numberOfMappers) {
