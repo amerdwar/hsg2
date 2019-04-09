@@ -21,7 +21,7 @@ public:
 	string sender;
 	string receiver;
 	string generator;
-
+string mapperName="";//this for mapper only
 	int returnTag;
 	void* payload;
 	int64_t id;

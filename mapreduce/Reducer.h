@@ -16,7 +16,7 @@
 
 class Reducer {
 public:
-	int64_t rid;
+	int64_t rid,reqNum=0;
 	allocateRes* res;
 	vector<Chunk*>* spilles = new vector<Chunk*>();
 	string appMasterName, coName;

@@ -6,7 +6,7 @@
  */
 
 #include "Combiner.h"
-
+XBT_LOG_NEW_DEFAULT_CATEGORY(combiner, "Messages specific for this example");
 void Combiner::mergeSpilles(vector<spill*>* v) {
 
 	vector<spill*>* resV = new vector<spill*>();
@@ -21,7 +21,7 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 		int l = n - ioSortFactor;
 		if (l <= 0) {
 			//TODO merge from 0 to factor; and return one spill in resV
-			merge(v, 0, l - 1);
+			merge(v, 0, n - 1);
 			return;
 		} else if (l < ioSortFactor) {
 			int t = n - l;
@@ -62,13 +62,23 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 	int recNum = 0;
 
 	for (int i = fIndex; i <= lIndex; i++) {
+		XBT_INFO("before read  ch %i",v->at(i)->isInMem);
+		int a,b,c;
+		a=v->at(i)->ch->chGenId;
 		hddM->readCh(v->at(i)->ch);
+		b=v->at(i)->ch->chGenId;
+		XBT_INFO("after read ch ");
 		hddM->deleteCh(v->at(i)->ch);
+
+		c=v->at(i)->ch->chGenId;
+
+				XBT_INFO("mmmmmmmmmm %i   %i    %i",a,b,c);
 
 		recNum += v->at(i)->records;
 	}
 	for (int i = fIndex; i <= lIndex; i++) {
-		v->erase(v->begin() + i);
+		v->erase(v->begin());
+
 	}
 	int64_t recSize = 0;
 
@@ -80,8 +90,9 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 
 
 	int64_t lastSize = recNum * recSize;
+	XBT_INFO("before write ch ");
 	Chunk* lastCh = hddM->writeCh(lastSize);
-
+XBT_INFO("after write ch ");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
 	lastSpill->records = recNum;
@@ -145,13 +156,19 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 	int recNum = 0;
 
 	for (int i = fIndex; i <= lIndex; i++) {
+		int a,b,c,d;
+		a=v->at(i)->ch->chGenId;
 		hddM->readCh(v->at(i)->ch);
+		b=v->at(i)->ch->chGenId;
 		hddM->deleteCh(v->at(i)->ch);
-		v->erase(v->begin() + i);
+		c=v->at(i)->ch->chGenId;
+
+				XBT_INFO("mmmmmmmmmm %i   %i    %i",a,b,c);
+		//v->erase(v->begin() + i);
 		recNum += v->at(i)->records;
 	}
 	for (int i = fIndex; i <= lIndex; i++) {
-		v->erase(v->begin() + i);
+		v->erase(v->begin());
 	}
 	int64_t recSize = 0;
 

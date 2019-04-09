@@ -33,7 +33,7 @@ public:
 	spill* exe(vector<spill*>*v);
 	vector<vector<spill*>*> *  getMapsVecors(vector<spill*>* v);
 	void spillAndCompine(spill* sp) ;
-
+	string printMap(map<string,int> rm);
 	void toDisk();
 	void operator()();
 

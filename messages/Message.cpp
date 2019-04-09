@@ -60,5 +60,7 @@ Message* Message::copy() {
 	ms->generator = this->generator;
 ms->cop_num=this->cop_num;
 ms->ack_num=this->ack_num;
+ms->mapperName=this->mapperName;
+
 	return ms;
 }

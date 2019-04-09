@@ -45,6 +45,8 @@ void Copier::operator()() {
 		case msg_type::finish_copier: {
 			XBT_INFO("copier  finish ");
 			isFinish = true;
+			XBT_INFO("this is %i %i",reqNum,ackNum);
+			XBT_INFO(printMap(readVAck).c_str());
 			//send finish to parent
 			break;
 		}
@@ -61,7 +63,9 @@ void Copier::operator()() {
 						//allV->at(i)->at(0)->ch->nodes->size());
 
 				string mapDnName =
-						allV->at(i)->at(0)->ch->nodes->at(0)->get_name();
+						allV->at(i)->at(0)->ch->dirName;
+				//XBT_INFO("th is the name %s",mapDnName.c_str());
+				//exit(0);
 			//	XBT_INFO("datanode is %s",	allV->at(i)->at(0)->ch->nodes->at(0)->get_name().c_str());
 				int mapSpillNum = allV->at(i)->size();
 				readVAck.insert(std::pair<string, int>(mapDnName, mapSpillNum));
@@ -77,12 +81,13 @@ void Copier::operator()() {
 			break;
 		}
 		case msg_type::dn_cl_re_ack_ch: {
-			ackNum++;
-			readVAck.at(m->sender)--;
-XBT_INFO("sender is %s",m->sender.c_str());
-			if
-(			readVAck.at(m->sender)==0) {
 
+			XBT_INFO("sender is %s",m->mapperName.c_str());
+			readVAck.at(m->mapperName)--;
+
+			if
+(			readVAck.at(m->mapperName)==0) {
+				ackNum++;
 				if (q->size() > 0) {
 
 					sendReadReg(q->front());
@@ -99,8 +104,8 @@ XBT_INFO("sender is %s",m->sender.c_str());
 
 		if (isFinish && ackNum == reqNum) {
 			XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,q->size());
-			XBT_INFO("the all size is %i",numBytes);
-			exit(0);
+			XBT_INFO("the all size is %s",to_string(numBytes).c_str());
+
 			break;
 
 		}
@@ -126,11 +131,15 @@ void Copier::sendReadReg(vector<spill*> *v) {
 
 	MailboxPtr dnmb = v->at(0)->ch->nodes->at(0);
 	string dn = dnmb->get_name();
-
+reqNum++;
 	for (int i = 0; i < v->size(); i++) {
-		reqNum++;
+
 		Message *chReq = new Message(msg_type::cl_dn_re_ch, this->thisName, dn,
 				hdd_Access::hdd_read, v->at(i)->ch);
+
+		string mapDnName = v->at(0)->ch->dirName;
+
+		chReq->mapperName=mapDnName;
 		//send the request of chunk to data node
 		dnmb->put(chReq, 1522);
 //XBT_INFO("message %s",chReq->traceStr.c_str());
@@ -147,7 +156,11 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 		lastsp->ch->size += v->at(i)->ch->size;
 
 	}
+	int64_t sss=numBytes;
 	numBytes+=lastsp->ch->size;
+	if(numBytes<0){
+		XBT_INFO("error %i , %i %i ",numBytes,sss,lastsp->ch->size);
+	}
 //exe for merge
 	double exeFlops = (double) lastsp->records;
 	auto a = this_actor::exec_async(exeFlops);
@@ -199,7 +212,7 @@ void Copier::spillAndCompine(spill* sp) {
 		outMemV->push_back(sp);
 
 	} else {
-		int recSize = chSize / sp->records;
+		int64_t recSize = chSize / sp->records;
 
 		int64_t memChSize = memBytes; //write in to memory
 		chSize -= memChSize; //the remender
@@ -263,7 +276,16 @@ XBT_INFO("size %i, %i",comSize,lastsp->ch->size);
 		sp->ch = ch;
 		sp->records = lastsp->records;
 		outMemV->clear();
+
+
 		outDiskV->push_back(sp);
 	}
 
+}
+string Copier::printMap(map<string,int> rm){
+string s="";
+for(auto a: rm){
+	s+="\n"+a.first+"    "+to_string(a.second)+"\n";
+}
+return s;
 }

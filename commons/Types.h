@@ -37,7 +37,8 @@ enum msg_type {
 	reducer_finish,
 	app_master_finish,
 	finish_copier,
-	ack_out_copy
+	ack_out_copy,
+	cl_dn_del_ch_ack
 };
 
 enum hdd_Access {
@@ -77,4 +78,5 @@ Chunk* ch;
 bool isInMem=false;
 bool isLast=false;
 int records;
+string taskName="";
 };

@@ -180,7 +180,7 @@ void AppMaster::mapFinished(Message * m) {
 	requestReducers();
 	map<int, vector<spill*>*>* res =
 			static_cast<map<int, vector<spill*>*>*>(m->payload);
-	XBT_INFO(printMapOut(mapOutV).c_str());
+//	XBT_INFO(printMapOut(mapOutV).c_str());
 	for (int i = 0; i < job->numberOfReducers; i++) {
 		//XBT_INFO("map out v size before %i  %i", mapOutV->at(i)->size(), i);
 		for (int j = 0; j < res->at(i)->size(); j++) {
@@ -192,7 +192,9 @@ void AppMaster::mapFinished(Message * m) {
 		if (this->numFinishedMappers == job->numberOfMappers) {
 			spill *lastOne = new spill();
 			lastOne->isLast = true;
+			lastOne->taskName=m->sender;
 			mapOutV->at(i)->push_back(lastOne);
+
 		}
 	//	XBT_INFO("map out v size after %i  %i", mapOutV->at(i)->size(), i);
 	}
@@ -209,14 +211,16 @@ void AppMaster::mapFinished(Message * m) {
 		if (this->numFinishedMappers == job->numberOfMappers) {
 			spill *lastOne = new spill();
 			lastOne->isLast = true;
+			lastOne->taskName=m->sender;
 			res->at(i)->push_back(lastOne);
+
 		}
 		Message* outResMsg = new Message(msg_type::map_output_res, self,
 				reducers.at(i), 0, res->at(i));
 		Mailbox::by_name(reducers.at(i))->put(outResMsg, 1522);
 
 	}
-XBT_INFO(printMapOut(mapOutV).c_str());
+//XBT_INFO(printMapOut(mapOutV).c_str());
 }
 
 bool AppMaster::reduceFinished(Message *m) {

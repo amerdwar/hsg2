@@ -45,6 +45,7 @@ void Reducer::operator()() {
 			Copier(coName, thisName, copiers, job, dataNodeName));
 
 	copyOutPut(); //here we copy output using copier <the out put is in inputs vector
+	exeReduce();
 
 	XBT_INFO(printMapOut(inputs).c_str());
 	XBT_INFO(printMapOut(inputsMem).c_str());
@@ -81,6 +82,7 @@ void Reducer::copyOutPut() {
 
 		if (sendMapToCopier(payload)) {
 
+
 			break;
 		}
 
@@ -115,8 +117,9 @@ bool Reducer::sendMapToCopier(vector<spill*>* payload) {
 	vector<spill*>* payV=new vector<spill*>();
 	for (int j = 0; j < payload->size(); j++) {
 		if (!payload->at(j)->isLast) {
-			inputs->push_back(payload->at(j));
+			//inputs->push_back(payload->at(j));
 			payV->push_back(payload->at(j));
+			reqNum++;
 		} else {
 			isLast = true;
 			XBT_INFO("this is the last spill");

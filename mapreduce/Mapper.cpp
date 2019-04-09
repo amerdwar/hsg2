@@ -62,7 +62,7 @@ void Mapper::operator ()() {
 		merger->mergeSpilles(allspilles->at(i));
 	}
 
-	XBT_INFO(printMapOut(allspilles).c_str());
+//	XBT_INFO(printMapOut(allspilles).c_str());
 
 
 
@@ -209,7 +209,7 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 
 	spill* tem = new spill();
 	tem->ch = temC;
-
+tem->taskName=thisName;
 	tem->records = combinedRecs;
 
 	return tem;

@@ -99,7 +99,7 @@ void MRClient::initJob(JobInfo* job) {
 	job->mapCost = job->mapRecord*10;//10 is num keys per record so the cost is num record * num keys ber record
 	job->mapSize = job->chunkSize;
 
-	job->mapOutAvRecordSize = 126;
+	job->mapOutAvRecordSize = 12;
 	job->mapOutRecord=10; //there is out record per input record
 
 
@@ -136,9 +136,9 @@ void MRClient::initJob(JobInfo* job) {
 	job->memoryLimit = 1024*1024*1024;//1 GB of memory for reducer
 
 	job->numberOfMappers = 1;
-	job->numberOfReducers = 2;
+	job->numberOfReducers = 10;
 
-	job->useCombiner = false;
+	job->useCombiner = true;
 	job->useCompression = false;
 }
 void MRClient::writeDate(JobInfo *job) {

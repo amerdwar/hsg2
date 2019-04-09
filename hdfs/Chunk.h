@@ -27,6 +27,7 @@ int chRepNum=0;//this number will increment whene send the chunk from one data n
 	simgrid::s4u::MailboxPtr clinetMB=nullptr;
 	vector<simgrid::s4u::MailboxPtr> *nodes;
 	Chunk(string dirName,string fileName,int64_t fileId,int64_t fileSize);
+	bool isWritten=false;
 	Chunk* copy();
 	virtual ~Chunk();
 private:

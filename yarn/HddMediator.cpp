@@ -44,6 +44,7 @@ Chunk* HddMediator::writeCh(int64_t size) {
 	}
 	XBT_INFO("after si=%i,re=%s,chid=%i", ch->size,
 			ch->clinetMB->get_name().c_str(), ch->chGenId);
+	ch->isWritten=true;
 	return ch;
 }
 void HddMediator::readCh(Chunk* ch) {
@@ -67,9 +68,15 @@ void HddMediator::readCh(Chunk* ch) {
 void HddMediator::deleteCh(Chunk* ch) {
 	Message *chReq = new Message(msg_type::cl_dn_del_ch, thismb->get_name(),
 			dataNodeName, 0, ch);
-
 	//send the request of chunk to data node
 	dataNode->put(chReq, 1522);
+	chReq=static_cast<Message*>(thismb->get());
+	if (chReq->type != msg_type::cl_dn_del_ch_ack) {
+			XBT_INFO("error delete return type");
+			exit(1);
+		}
+
+
 
 }
 
