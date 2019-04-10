@@ -882,6 +882,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/DirFiles.h
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Combiner.h
@@ -1111,6 +1112,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/DirFiles.h
+CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/AppMaster.h

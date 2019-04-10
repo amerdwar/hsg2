@@ -28,6 +28,7 @@ Reducer::Reducer(string thisName, string appMas, string NameNode,
 	thismb = Mailbox::by_name(thisName);
 	outputf = new HdfsFile(thisName, thisName, 0);
 
+	merger=new Combiner(job,dataNodeName,thisName);
 	XBT_INFO("create reduce task");
 
 }
@@ -45,14 +46,12 @@ void Reducer::operator()() {
 			Copier(coName, thisName, copiers, job, dataNodeName));
 
 	copyOutPut(); //here we copy output using copier <the out put is in inputs vector
-	exeReduce();
+
 
 	XBT_INFO(printMapOut(inputs).c_str());
 	XBT_INFO(printMapOut(inputsMem).c_str());
+	exeReduce();//merge exe and write to hdfs
 
-	HddMediator *hdtem = new HddMediator(dataNodeName, thisName, thisName);
-	XBT_INFO("berfore write output to hdfs");
-	hdtem->writeCh(200 * 1024);
 
 	XBT_INFO("after write output to hdfs");
 
@@ -161,6 +160,29 @@ string Reducer::printMapOut(vector<spill*>* a) {
 
 void Reducer::exeReduce() {
 //TODO merge all files to single file then
+for(int i=0;i<inputsMem->size();i++){
+	inputs->push_back(inputsMem->at(i));
+
+}
+
+XBT_INFO("before aaa %i",inputs->size());
+merger->mergeReduceSpilles(inputs);
+XBT_INFO("after %i %s",inputs->size(),to_string(inputs->at(0)->ch->size).c_str());
+
+spill * sp=inputs->at(0);
+Chunk * ch=sp->ch;
+double cost=job->reduceCost*(double)sp->records;
+int64_t reduceRec=(int64_t)job->reduceRecords*sp->records;
+int64_t reduceSize=reduceRec*job->reduceOutAvRecordSize;
+auto ptr=this_actor::exec_async(cost);
+
+HdfsClient* hd = new HdfsClient(nnmb, thismb);
+
+HdfsFile * f = new HdfsFile(job->jobName,thisName,
+					reduceSize);
+
+hd->writeFile(f);
+ptr->wait();
 
 
 

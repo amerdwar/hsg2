@@ -136,9 +136,9 @@ void MRClient::initJob(JobInfo* job) {
 	job->memoryLimit = 1024*1024*1024;//1 GB of memory for reducer
 
 	job->numberOfMappers = 1;
-	job->numberOfReducers = 10;
+	job->numberOfReducers = 3;
 
-	job->useCombiner = true;
+	job->useCombiner = false;
 	job->useCompression = false;
 }
 void MRClient::writeDate(JobInfo *job) {

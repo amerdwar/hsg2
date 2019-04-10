@@ -172,6 +172,7 @@ void DataNode::operator()() {
 		case msg_type::hdd_write_ack: {
 
 			Chunk * ch = static_cast<Chunk*>(m->payload);
+
 			//XBT_INFO("this ****** is the chunk size  from achnol %i", ch->size);
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
 
@@ -196,6 +197,7 @@ void DataNode::operator()() {
 					m->receiver = ch->clinetMB->get_name();
 					//xbt_info("in else 1%i ", m->genId);
 					ch->clinetMB->put(m, 1522);
+
 					//xbt_info("in else 2 %i ", m->genId);
 				}
 
@@ -218,10 +220,12 @@ void DataNode::operator()() {
 		case msg_type::cl_dn_del_ch: {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 
-			XBT_INFO("dddddddddddddddddddd, %i",ch->chGenId);
+
 			chunks.erase(ch->chGenId);
+
 			m->type=msg_type::cl_dn_del_ch_ack;
 			ch->clinetMB->put(m, 1522);
+
 			break;
 		}
 		}

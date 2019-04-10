@@ -13,7 +13,8 @@
 #include "../distributions/RandClass.h"
 #include "../yarn/HddMediator.h"
 #include "Copier.h"
-
+#include "Combiner.h"
+#include "../hdfs/HdfsClient.h"
 class Reducer {
 public:
 	int64_t rid,reqNum=0;
@@ -29,6 +30,8 @@ public:
 	vector<spill*>* inputs;
 	vector<spill*>* inputsMem;
 	HdfsFile* outputf;
+	Combiner* merger;
+
 	explicit Reducer(string thisName, string appMas, string NameNode,
 			string dataNodeName, allocateRes * res);
 

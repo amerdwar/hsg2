@@ -21,7 +21,7 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 			job->memoryLimit * job->mapredJobShuffleMergePercent);
 	merger = new Combiner(job, dataNode, thisName);
 	thismb = Mailbox::by_name(thisName);
-	string mbForDn=thisName+"dn";
+	string mbForDn=thisName+"_dn";
 	thismbForDataNode=Mailbox::by_name(mbForDn);
 	parentMb = Mailbox::by_name(parent);
 	hddmed = new HddMediator(dataNode, mbForDn, thisName);

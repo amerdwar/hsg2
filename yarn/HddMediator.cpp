@@ -33,17 +33,17 @@ Chunk* HddMediator::writeCh(int64_t size) {
 
 	Message *writemsg = new Message(msg_type::cl_dn_wr_ch, sender, dataNodeName,
 			hdd_Access::hdd_write, ch);
-	XBT_INFO("before si=%i,re=%s chid=%i", ch->size,
-			ch->clinetMB->get_name().c_str(), ch->chGenId);
+
+
 	dataNode->put(writemsg, size);
+
 	Message* ackm = static_cast<Message*>(thismb->get());
 
 	if (ackm->type != msg_type::dn_ack_wr_ch) {
 		XBT_INFO("error write chunk return tag ,hddmediator \n %s",ackm->toString().c_str());
 		exit(1);
 	}
-	XBT_INFO("after si=%i,re=%s,chid=%i", ch->size,
-			ch->clinetMB->get_name().c_str(), ch->chGenId);
+
 	ch->isWritten=true;
 	return ch;
 }
@@ -70,7 +70,9 @@ void HddMediator::deleteCh(Chunk* ch) {
 			dataNodeName, 0, ch);
 	//send the request of chunk to data node
 	dataNode->put(chReq, 1522);
+	XBT_INFO("sssssssssssssssssss, %s",thismb->get_name().c_str());
 	chReq=static_cast<Message*>(thismb->get());
+	XBT_INFO("dddddkkkkkddddddddddddddd, %i",ch->chGenId);
 	if (chReq->type != msg_type::cl_dn_del_ch_ack) {
 			XBT_INFO("error delete return type");
 			exit(1);

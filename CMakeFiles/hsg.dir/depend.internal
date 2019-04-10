@@ -883,6 +883,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
+ /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
@@ -1112,6 +1113,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
+ /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h

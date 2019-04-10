@@ -273,6 +273,10 @@ JobInfo.h
 /home/alpha/tuturial/hsg/yarn/HddMediator.h
 Copier.h
 /home/alpha/tuturial/hsg/mapreduce/Copier.h
+Combiner.h
+/home/alpha/tuturial/hsg/mapreduce/Combiner.h
+../hdfs/HdfsClient.h
+/home/alpha/tuturial/hsg/hdfs/HdfsClient.h
 
 /home/alpha/tuturial/hsg/messages/HddMsg.h
 ../hdfs/NameNode.h
