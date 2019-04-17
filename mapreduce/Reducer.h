@@ -39,7 +39,7 @@ public:
 	void copyOutPut();
 	string printSpill(spill* sp);
 	string printMapOut(vector<spill*>* a);
-	void exeReduce();
+	HdfsFile* exeReduce();
 	bool sendMapToCopier(vector<spill*>* payload);
 
 	virtual ~Reducer();

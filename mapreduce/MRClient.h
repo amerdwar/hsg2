@@ -9,15 +9,20 @@
 #define MAPREDUCE_MRCLIENT_H_
 #include "JobInfo.h"
 #include "simgrid/s4u.hpp"
+#include <boost/filesystem.hpp>
+
+#include <gtest/gtest.h>
 #include "../hdfs/HdfsClient.h"
 #include "../hdfs/HdfsFile.h"
 #include "../distributions/RandClass.h"
 #include "../messages/Message.h"
 #include "../yarn/HddMediator.h"
-
+#include "JsonJob.h"
 
 
 using namespace simgrid::s4u;
+using namespace std;
+using namespace boost::filesystem;
 class MRClient {
 public:
 	string rMangerName;
@@ -26,10 +31,12 @@ public:
 	MailboxPtr nnmb;
 	MailboxPtr thismb;
 
+JsonJob* jsonJob;
 	MailboxPtr rManager; //resource manager mailbox
 vector<int64_t> jobs;
 	explicit MRClient(std::vector<std::string> args);
-	explicit MRClient(string arg);
+	//explicit MRClient(string arg);
+
 	void initJob(JobInfo* job);
 	void sendJob(JobInfo* j);
 	void writeDate(JobInfo* j);

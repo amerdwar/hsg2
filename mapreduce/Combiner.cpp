@@ -21,6 +21,7 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 		int l = n - ioSortFactor;
 		if (l <= 0) {
 			//TODO merge from 0 to factor; and return one spill in resV
+
 			merge(v, 0, n - 1);
 			return;
 		} else if (l < ioSortFactor) {

@@ -21,12 +21,10 @@ MRClient::MRClient(std::vector<std::string> args) {
 
 	thismb = simgrid::s4u::Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
-
+jsonJob=new  JsonJob();
 }
-MRClient::MRClient(string argv) {
 
 
-}
 
 void MRClient::sendJob(JobInfo* job) {
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
@@ -36,12 +34,27 @@ void MRClient::sendJob(JobInfo* job) {
 	//XBT_INFO("send job mssage");
 }
 void MRClient::operator()() {
+	// path p("../resources/jobs");
+vector<string> jNames;
+jNames.push_back("../resources/jobs/job.json");
+	/* for (auto i = directory_iterator(p); i != directory_iterator(); i++)
+	    {
+	        if (!is_directory(i->path())) //we eliminate directories
+	        {
+jNames.push_back(i->path().string());
+	        	//cout << i->path().filename().string() << endl;
+	        }
+	        else
+	            continue;
+	    }
+*/
 
-	int jobsNum=1;
+	int jobsNum=jNames.size();
 	vector<JobInfo*> jVector;
+
 	for (int i = 0; i < jobsNum; i++) {
-		JobInfo*job = new JobInfo();
-		initJob(job);
+		JobInfo*job = jsonJob->getJobFromJson(jNames.at(i));
+		//initJob(job);
 		this->writeDate(job);
 		jobs.push_back(job->jid);
 		jVector.push_back(job);
@@ -67,16 +80,6 @@ void MRClient::operator()() {
 			thismb->get_name(), rMangerName, 1, nullptr);
 	rManager->put(endm2, 1522);
 
-//TODO receive ack from client that the job is complete
-
-//Message *ends = new Message(msg_type::end_of_simulation,
-//	simgrid::s4u::this_actor::get_name(),
-	//	rManager->get_name(),0,nullptr);
-//	rManager->put(ends, 1522);
-
-
-
-
 }
 void MRClient::initJob(JobInfo* job) {
 	string s;
@@ -92,25 +95,25 @@ void MRClient::initJob(JobInfo* job) {
 	job->compressionSize = 1.0;
 
 	//map cost for tera sort equal to number of record in chunk
-	job->chunkSize=NameNode::chunkSize;
+	//job->chunkSize=NameNode::chunkSize;
 	job->recordSize=100;
-	job->mapRecord = job->chunkSize/job->recordSize;
+	//job->mapRecords = 0;the records number is the size/record size > we calculate this in mapper
 
-	job->mapCost = job->mapRecord*10;//10 is num keys per record so the cost is num record * num keys ber record
-	job->mapSize = job->chunkSize;
+	job->mapCost = 10;//10 is num keys per record so the cost is num record * num keys ber record
+//	job->mapSize = job->chunkSize;
 
 	job->mapOutAvRecordSize = 12;
-	job->mapOutRecord=10; //there is out record per input record
+	job->mapOutRecords=10; //there is out record per input record
 
 
 	job->combineCost = 1;
 	job->combineSize = 1;
-	job->combineRecords = 1;
+	//job->combineRecords = 1;
 	job->combineGroups = 28;
 	job->combineOutAvRecordSize = 1000;
 
 
-	job->combineOutAvRecordSize_add = 0;
+	//job->combineOutAvRecordSize_add = 0;
 	job->reduceCost = 80;
 	job->reduceRecords = 0.1;
 	job->reduceOutAvRecordSize = 9;
@@ -124,13 +127,13 @@ void MRClient::initJob(JobInfo* job) {
 	//other
 	job->ioSortFactor = 4;
 	job->ioSortMb = 100;
-	job->ioSortRecordPercent = 0.05;
+	//job->ioSortRecordPercent = 0.05;
 	job->ioSortSpillPercent = 0.8;
 
-	job->mapredChildJavaOpts = 200;
-	job->mapredInmemMergeThreshold = 1000;//amount of memory to spill after <not used
-	job->mapredJobReduceInputBufferPercent = 0.0;
-	job->mapredJobShuffleInputBufferPercent = 0.7;//the percent of heap used for copy map output
+//	job->mapredChildJavaOpts = 200;
+	//job->mapredInmemMergeThreshold = 1000;//amount of memory to spill after <not used
+	//job->mapredJobReduceInputBufferPercent = 0.0;
+	//job->mapredJobShuffleInputBufferPercent = 0.7;//the percent of heap used for copy map output
 	job->mapredJobShuffleMergePercent = 0.66;//the threshold to spill
 	job->mapReduceParallelCopies = 5;
 	job->memoryLimit = 1024*1024*1024;//1 GB of memory for reducer
@@ -168,3 +171,7 @@ MRClient::~MRClient() {
 	// TODO Auto-generated destructor stub
 }
 
+TEST(mrclient,true){
+
+//ASSERT_EQ(36.0, 36.0);
+}

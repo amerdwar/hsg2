@@ -50,13 +50,13 @@ void Reducer::operator()() {
 
 	XBT_INFO(printMapOut(inputs).c_str());
 	XBT_INFO(printMapOut(inputsMem).c_str());
-	exeReduce();//merge exe and write to hdfs
+	HdfsFile* f=exeReduce();//merge exe and write to hdfs
 
 
 	XBT_INFO("after write output to hdfs");
 
 	Message* finishMsg = new Message(msg_type::reducer_finish, thisName,
-			appMasterName, 0, nullptr);
+			appMasterName, 0, f);
 
 	XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
@@ -158,11 +158,10 @@ string Reducer::printMapOut(vector<spill*>* a) {
 	return s;
 }
 
-void Reducer::exeReduce() {
+HdfsFile* Reducer::exeReduce() {
 //TODO merge all files to single file then
 for(int i=0;i<inputsMem->size();i++){
 	inputs->push_back(inputsMem->at(i));
-
 }
 
 XBT_INFO("before aaa %i",inputs->size());
@@ -184,6 +183,6 @@ HdfsFile * f = new HdfsFile(job->jobName,thisName,
 hd->writeFile(f);
 ptr->wait();
 
-
+return f;
 
 }

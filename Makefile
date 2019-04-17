@@ -393,6 +393,33 @@ hdfs/NameNode.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/hdfs/NameNode.cpp.s
 .PHONY : hdfs/NameNode.cpp.s
 
+json/jsoncpp.o: json/jsoncpp.cpp.o
+
+.PHONY : json/jsoncpp.o
+
+# target to build an object file
+json/jsoncpp.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/json/jsoncpp.cpp.o
+.PHONY : json/jsoncpp.cpp.o
+
+json/jsoncpp.i: json/jsoncpp.cpp.i
+
+.PHONY : json/jsoncpp.i
+
+# target to preprocess a source file
+json/jsoncpp.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/json/jsoncpp.cpp.i
+.PHONY : json/jsoncpp.cpp.i
+
+json/jsoncpp.s: json/jsoncpp.cpp.s
+
+.PHONY : json/jsoncpp.s
+
+# target to generate assembly for a file
+json/jsoncpp.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/json/jsoncpp.cpp.s
+.PHONY : json/jsoncpp.cpp.s
+
 mapreduce/AppMaster.o: mapreduce/AppMaster.cpp.o
 
 .PHONY : mapreduce/AppMaster.o
@@ -500,6 +527,33 @@ mapreduce/JobInfo.s: mapreduce/JobInfo.cpp.s
 mapreduce/JobInfo.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.s
 .PHONY : mapreduce/JobInfo.cpp.s
+
+mapreduce/JsonJob.o: mapreduce/JsonJob.cpp.o
+
+.PHONY : mapreduce/JsonJob.o
+
+# target to build an object file
+mapreduce/JsonJob.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o
+.PHONY : mapreduce/JsonJob.cpp.o
+
+mapreduce/JsonJob.i: mapreduce/JsonJob.cpp.i
+
+.PHONY : mapreduce/JsonJob.i
+
+# target to preprocess a source file
+mapreduce/JsonJob.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.i
+.PHONY : mapreduce/JsonJob.cpp.i
+
+mapreduce/JsonJob.s: mapreduce/JsonJob.cpp.s
+
+.PHONY : mapreduce/JsonJob.s
+
+# target to generate assembly for a file
+mapreduce/JsonJob.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.s
+.PHONY : mapreduce/JsonJob.cpp.s
 
 mapreduce/MRClient.o: mapreduce/MRClient.cpp.o
 
@@ -783,6 +837,9 @@ help:
 	@echo "... hdfs/NameNode.o"
 	@echo "... hdfs/NameNode.i"
 	@echo "... hdfs/NameNode.s"
+	@echo "... json/jsoncpp.o"
+	@echo "... json/jsoncpp.i"
+	@echo "... json/jsoncpp.s"
 	@echo "... mapreduce/AppMaster.o"
 	@echo "... mapreduce/AppMaster.i"
 	@echo "... mapreduce/AppMaster.s"
@@ -795,6 +852,9 @@ help:
 	@echo "... mapreduce/JobInfo.o"
 	@echo "... mapreduce/JobInfo.i"
 	@echo "... mapreduce/JobInfo.s"
+	@echo "... mapreduce/JsonJob.o"
+	@echo "... mapreduce/JsonJob.i"
+	@echo "... mapreduce/JsonJob.s"
 	@echo "... mapreduce/MRClient.o"
 	@echo "... mapreduce/MRClient.i"
 	@echo "... mapreduce/MRClient.s"

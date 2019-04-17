@@ -49,8 +49,8 @@ void Mapper::operator ()() {
 
 	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
 	int64_t taskSize = ch->size;
-
-	auto exePtr = this_actor::exec_async(job->mapCost); //here we exe the map
+	job->mapRecords=taskSize/job->recordSize;
+	auto exePtr = this_actor::exec_async(job->mapCost*job->mapRecords); //here we exe the map
 
 	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
 			spillSize); //here we use partitioner and combiner and write spilles to localhdd
@@ -61,11 +61,7 @@ void Mapper::operator ()() {
 	for (int i = 0; i < allspilles->size(); i++) {
 		merger->mergeSpilles(allspilles->at(i));
 	}
-
 //	XBT_INFO(printMapOut(allspilles).c_str());
-
-
-
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, allspilles);
 
@@ -130,7 +126,7 @@ string Mapper::selectInputDataNode() {
 map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
 		int64_t spillSize) {
 	map<int, vector<spill*>*>* spilles = new map<int, vector<spill*>*>();
-int64_t tt=(taskSize/job->recordSize)*job->mapOutRecord*job->mapOutAvRecordSize;
+int64_t tt=(taskSize/job->recordSize)*job->mapOutRecords*job->mapOutAvRecordSize;
 	int64_t spillNum = tt / spillSize;
 	//XBT_INFO("spill size %i spill num %i task size %i", spillSize, spillNum,
 		//	taskSize);

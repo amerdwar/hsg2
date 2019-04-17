@@ -34,6 +34,8 @@ void doSim(int argc, char* argv[]) {
 	e.load_platform(argv[1]);
 	e.load_deployment(argv[2]);
 
+
+
 	//simgrid::s4u::Actor::create("client", simgrid::s4u::Host::by_name("host1"), Client("host2_nameNode"));
 
 	/* Run the simulation */
@@ -45,7 +47,7 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-	doSim(argc, argv);
+	//doSim(argc, argv);
 	RUN_ALL_TESTS();
 
 	return 0;

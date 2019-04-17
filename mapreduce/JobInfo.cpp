@@ -14,9 +14,9 @@ JobInfo::JobInfo() {
 }
 JobInfo * JobInfo::copy(){
 	JobInfo *j=new JobInfo();
-	j->mapOutRecord=this->mapOutRecord;
+	j->mapOutRecords=this->mapOutRecords;
 	j->recordSize=this->recordSize;
-	j->chunkSize=this->chunkSize;
+	//j->chunkSize=this->chunkSize;
 	j->jid=this->jid;
 	j-> jobStatus=this->jobStatus;
 	j-> jobName = this->jobName;
@@ -26,15 +26,15 @@ j->user=this->user;
 	j-> uncompressionCost = this->uncompressionCost;
 	j-> compressionSize = this->compressionSize;
 	j-> mapCost = this-> mapCost ;
-	j-> mapSize = this->mapSize;
-	j-> mapRecord =this->mapRecord;
+	//j-> mapSize = this->mapSize;
+	j-> mapRecords =this->mapRecords;
 	j-> mapOutAvRecordSize = this->mapOutAvRecordSize;
 	j-> combineCost = this->combineCost;
 	j-> combineSize = this->combineSize;
-	j-> combineRecords = this->combineRecords;
+	//j-> combineRecords = this->combineRecords;
 	j-> combineGroups = this->combineGroups;
 	j-> combineOutAvRecordSize = this->combineOutAvRecordSize;
-	j-> combineOutAvRecordSize_add = this->combineOutAvRecordSize_add;
+	//j-> combineOutAvRecordSize_add = this->combineOutAvRecordSize_add;
 	j-> reduceCost = this->reduceCost;
 	j-> reduceRecords = this->reduceRecords;
 	j-> reduceOutAvRecordSize = this->reduceOutAvRecordSize;
@@ -48,13 +48,13 @@ j->user=this->user;
 //other
 	j-> ioSortFactor = this->ioSortFactor;
 	j-> ioSortMb = this->ioSortMb;
-	j-> ioSortRecordPercent = this->ioSortRecordPercent;
+	//j-> ioSortRecordPercent = this->ioSortRecordPercent;
 	j-> ioSortSpillPercent = this->ioSortSpillPercent;
 
-	j-> mapredChildJavaOpts = this->mapredChildJavaOpts;
-	j-> mapredInmemMergeThreshold = this->mapredInmemMergeThreshold;
-	j-> mapredJobReduceInputBufferPercent = this->mapredJobReduceInputBufferPercent;
-	j-> mapredJobShuffleInputBufferPercent = this->mapredJobShuffleInputBufferPercent;
+//	j-> mapredChildJavaOpts = this->mapredChildJavaOpts;
+	//j-> mapredInmemMergeThreshold = this->mapredInmemMergeThreshold;
+	//-> mapredJobReduceInputBufferPercent = this->mapredJobReduceInputBufferPercent;
+	//j-> mapredJobShuffleInputBufferPercent = this->mapredJobShuffleInputBufferPercent;
 	j-> mapredJobShuffleMergePercent = this->mapredJobShuffleMergePercent;
 	j-> mapReduceParallelCopies = this->mapReduceParallelCopies;
 	j-> memoryLimit = this->memoryLimit;

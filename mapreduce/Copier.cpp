@@ -228,7 +228,7 @@ void Copier::spillAndCompine(spill* sp) {
 		//TODO spill all so membytes will return		recall the this function
 		toDisk();
 
-		memBytes = int64_t(
+		memBytes = (int64_t)(
 				job->memoryLimit * job->mapredJobShuffleMergePercent);
 
 		sp->ch->size = chSize;
