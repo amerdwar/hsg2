@@ -44,13 +44,15 @@ void Mapper::operator ()() {
 
 
 	inputHDDM->readCh(ch);
-
+job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,ch->size);
 ////// untill now we read the chunk from data node
 
 	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
 	int64_t taskSize = ch->size;
-	job->mapRecords=taskSize/job->recordSize;
-	auto exePtr = this_actor::exec_async(job->mapCost*job->mapRecords); //here we exe the map
+	int64_t mapRecords=taskSize/job->recordSize;
+
+	job->ctr->addToCtr(ctr_t::MAP_INPUT_RECORDS,mapRecords);
+	auto exePtr = this_actor::exec_async((double)(job->mapCost*mapRecords)); //here we exe the map
 
 	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
 			spillSize); //here we use partitioner and combiner and write spilles to localhdd

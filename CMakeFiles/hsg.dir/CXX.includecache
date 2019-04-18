@@ -11,6 +11,8 @@ simgrid/s4u.hpp
 -
 gtest/gtest.h
 -
+mapreduce/Counter.h
+/home/alpha/tuturial/hsg/mapreduce/Counter.h
 hdfs/NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
 hdfs/DataNode.h
@@ -23,6 +25,8 @@ yarn/NodeManager.h
 /home/alpha/tuturial/hsg/yarn/NodeManager.h
 mapreduce/MRClient.h
 /home/alpha/tuturial/hsg/mapreduce/MRClient.h
+
+/home/alpha/tuturial/hsg/commons/CtrType.h
 
 /home/alpha/tuturial/hsg/commons/Types.h
 string.h
@@ -382,6 +386,18 @@ Combiner.h
 queue
 -
 
+/home/alpha/tuturial/hsg/mapreduce/Counter.cpp
+Counter.h
+/home/alpha/tuturial/hsg/mapreduce/Counter.h
+
+/home/alpha/tuturial/hsg/mapreduce/Counter.h
+atomic
+-
+../commons/CtrType.h
+/home/alpha/tuturial/hsg/commons/CtrType.h
+map
+-
+
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
@@ -413,7 +429,11 @@ JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 simgrid/s4u.hpp
 /home/alpha/tuturial/hsg/mapreduce/simgrid/s4u.hpp
-boost/filesystem.hpp
+stdio.h
+-
+stdlib.h
+-
+fstream
 -
 gtest/gtest.h
 -

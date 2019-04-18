@@ -35,25 +35,16 @@ void MRClient::sendJob(JobInfo* job) {
 }
 void MRClient::operator()() {
 	// path p("../resources/jobs");
-vector<string> jNames;
-jNames.push_back("../resources/jobs/job.json");
-	/* for (auto i = directory_iterator(p); i != directory_iterator(); i++)
-	    {
-	        if (!is_directory(i->path())) //we eliminate directories
-	        {
-jNames.push_back(i->path().string());
-	        	//cout << i->path().filename().string() << endl;
-	        }
-	        else
-	            continue;
-	    }
-*/
+vector<string> jNames= getAllJobs();
+
+
 
 	int jobsNum=jNames.size();
 	vector<JobInfo*> jVector;
 
 	for (int i = 0; i < jobsNum; i++) {
 		JobInfo*job = jsonJob->getJobFromJson(jNames.at(i));
+		job->user=thisName;
 		//initJob(job);
 		this->writeDate(job);
 		jobs.push_back(job->jid);
@@ -66,6 +57,7 @@ jNames.push_back(i->path().string());
 
 	for (int i = 0; i < jobsNum; i++) {
 		Message*m2 = static_cast<Message*>(thismb->get());
+		XBT_INFO("recive finish from lj;lkj;gfguhjlk;jhgfj");
 		if (m2->type != msg_type::finish_job) {
 			XBT_INFO("error client mapreduce finish job");
 			exit(1);
@@ -169,6 +161,25 @@ void MRClient::writeDate(JobInfo *job) {
 }
 MRClient::~MRClient() {
 	// TODO Auto-generated destructor stub
+}
+
+vector<string> MRClient::getAllJobs(){
+	vector<string> jNames;
+
+	system("ls resources/jobs > resources/jobs/ttem.txt");
+
+    std::ifstream file("resources/jobs/ttem.txt");
+    std::string str;
+    while (std::getline(file, str))
+    {
+        string nstr="resources/jobs/"+str;
+        if(nstr.find("json")!=string::npos)
+        jNames.push_back(nstr);
+    }
+file.close();
+system("rm resources/jobs/ttem.txt");
+
+	return jNames;
 }
 
 TEST(mrclient,true){

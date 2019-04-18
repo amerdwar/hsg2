@@ -6,7 +6,7 @@
  */
 
 #include "JsonJob.h"
-
+XBT_LOG_NEW_DEFAULT_CATEGORY(jsonjob, "Messages specific for this example");
 JsonJob::JsonJob() {
 	// TODO Auto-generated constructor stub
 
@@ -20,7 +20,7 @@ Json::Value jobV;
 
    	j-> jobStatus="waiting";
    	j-> jobName = jobV["jobName"].asString()+to_string(j->jid);
-    j->user=jobV["user"].asString();
+
    //algorithm
    	j-> compressionCost = jobV["compressionCost"].asDouble();
    	j-> uncompressionCost =jobV["uncompressionCost"].asDouble();
@@ -67,6 +67,10 @@ Json::Value jobV;
 
    	j-> useCombiner = jobV["useCombiner"].asBool();
    	j-> useCompression = jobV["useCompression"].asBool();
+
+XBT_INFO("%s",jobV.toStyledString().c_str());
+
+
 
 
 return j;

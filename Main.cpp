@@ -7,6 +7,7 @@
 
 #include <simgrid/s4u.hpp>
 #include <gtest/gtest.h>
+#include "mapreduce/Counter.h"
 #include "hdfs/NameNode.h"
 #include "hdfs/DataNode.h"
 #include "hdfs/Client.h"
@@ -47,14 +48,22 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-	//doSim(argc, argv);
-	RUN_ALL_TESTS();
+	doSim(argc, argv);
+	//RUN_ALL_TESTS();
 
 	return 0;
 }
 
 
-TEST(hddm,true){
+TEST(counter,true){
+	Counter* c=new Counter();
+c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
 
-//ASSERT_EQ(36.0, 36.0);
+ASSERT_EQ(10, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
+}
+TEST(counter2,false){
+	Counter* c=new Counter();
+c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
+
+ASSERT_EQ(9, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
 }

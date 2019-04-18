@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Combiner.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Copier.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
+  "/home/alpha/tuturial/hsg/mapreduce/Counter.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/JsonJob.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/MRClient.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"

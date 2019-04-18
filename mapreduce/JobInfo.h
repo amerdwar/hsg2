@@ -8,11 +8,13 @@
 #ifndef MAPREDUCE_JOBINFO_H_
 #define MAPREDUCE_JOBINFO_H_
 #include <string>
+#include "Counter.h"
 #include "../hdfs/DirFiles.h"
 using namespace std;
 class JobInfo {
 public:
 	string jobStatus = "waiting";
+	Counter* ctr;
 	string jobName = "job";
 	int64_t jid;
 	string user;

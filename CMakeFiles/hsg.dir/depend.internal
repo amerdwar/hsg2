@@ -3,6 +3,7 @@
 
 CMakeFiles/hsg.dir/Main.cpp.o
  /home/alpha/tuturial/hsg/Main.cpp
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -17,6 +18,7 @@ CMakeFiles/hsg.dir/Main.cpp.o
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/JsonJob.h
  /home/alpha/tuturial/hsg/mapreduce/MRClient.h
@@ -718,6 +720,10 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
  /opt/simgrid/include/xbt/sysdep.h
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.cpp
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h

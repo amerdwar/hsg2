@@ -10,10 +10,12 @@
 JobInfo::JobInfo() {
 	// TODO Auto-generated constructor stub
 	this->jid=jobIds++;
-
+ctr=new Counter();
 }
 JobInfo * JobInfo::copy(){
+
 	JobInfo *j=new JobInfo();
+	j->ctr=this->ctr;
 	j->mapOutRecords=this->mapOutRecords;
 	j->recordSize=this->recordSize;
 	//j->chunkSize=this->chunkSize;

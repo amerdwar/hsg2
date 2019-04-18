@@ -7,9 +7,12 @@
 
 #ifndef MAPREDUCE_COUNTER_H_
 #define MAPREDUCE_COUNTER_H_
-#include <map>
-#include "../commons/Types.h"
+
+
 #include <atomic>
+#include "../commons/CtrType.h"
+#include <map>
+using namespace std;
 class Counter {
 public:
 
@@ -19,7 +22,9 @@ public:
 	void setCtr(ctr_t t,int64_t);
 	virtual ~Counter();
 private:
-	map<ctr_t,std::atomic<int64_t>> ctrMap;
+
+	map<ctr_t,atomic<int64_t>> ctrMap;
+
 };
 
 #endif /* MAPREDUCE_COUNTER_H_ */

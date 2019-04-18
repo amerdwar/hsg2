@@ -9,8 +9,9 @@
 #define MAPREDUCE_MRCLIENT_H_
 #include "JobInfo.h"
 #include "simgrid/s4u.hpp"
-#include <boost/filesystem.hpp>
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
 #include <gtest/gtest.h>
 #include "../hdfs/HdfsClient.h"
 #include "../hdfs/HdfsFile.h"
@@ -22,7 +23,7 @@
 
 using namespace simgrid::s4u;
 using namespace std;
-using namespace boost::filesystem;
+
 class MRClient {
 public:
 	string rMangerName;
@@ -41,6 +42,7 @@ vector<int64_t> jobs;
 	void sendJob(JobInfo* j);
 	void writeDate(JobInfo* j);
 	void operator()();
+	vector<string> getAllJobs();
 	~MRClient();
 
 };
