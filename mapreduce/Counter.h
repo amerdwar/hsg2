@@ -9,21 +9,86 @@
 #define MAPREDUCE_COUNTER_H_
 
 
-#include <atomic>
+#include <fstream>
 #include "../commons/CtrType.h"
 #include <map>
+#include <simgrid/s4u.hpp>
+#include <mutex>          // std::mutex
+
 using namespace std;
 class Counter {
 public:
+string jName;
+	Counter(string jName);
 
-	Counter();
-	int64_t getCtr(ctr_t t);
-    void addToCtr(ctr_t t,int64_t);
-	void setCtr(ctr_t t,int64_t);
+	std::mutex mtx;
+	vector<string> ctr_t_str {
+
+		"MAP_INPUT_RECORDS",
+		"MAP_OUTPUT_RECORDS",
+		"MAP_SKIPPED_RECORDS",
+
+		"MAP_INPUT_SIZE",
+		"MAP_OUTPUT_SIZE",
+
+		"COMBINE_INPUT_RECORDS",
+		"COMBINE_OUTPUT_RECORDS",
+
+		"COMBINE_INPUT_SIZE",
+		"COMBINE_OUTPUT_SIZE",
+
+		"COMBINE_INPUT_GROUPS",
+		"COMBINE_OUTPUT_GROUPS",
+
+
+		"REDUCE_INPUT_GROUPS",
+	//	Reduce_shuffle_bytes,
+
+		"REDUCE_INPUT_RECORDS",
+		"REDUCE_OUTPUT_RECORDS",
+		"REDUCE_SKIPPED_GROUPS",
+		"REDUCE_SKIPPED_RECORDS",
+
+		"SPILLED_RECORDS",
+		"START_TIME",
+		"STOP_TIME",
+
+		"REDUCE_SHUFFLE_BYTES",
+		"FILE_BYTES_READ",
+		"FILE_BYTES_WRITTEN",
+	"HDFS_BYTES_READ",
+		"HDFS_BYTES_WRITTEN",
+		"HDD_READ",
+		" HDD_WRITE",
+		"CPU_WORK",
+		"NET_IN",
+		"NET_OUT",
+		"test",
+		"FILE_BYTES_READ_TEST",
+		"FILE_BYTES_WRITTEN_TEST",
+		"MAP_OUTPUT_BYTES",
+		"JOB_START_TIME",
+		"JOB_STOP_TIME",
+		"JOB_TOTAL_TIME",
+		"DURATION",
+		"SHUFFLE",
+		"process_time",
+		"avMappersTime",
+		"avReducersTime"
+	};
+
+
+
+
+	double getCtr(ctr_t t);
+    void addToCtr(ctr_t t,double);
+	void setCtr(ctr_t t,double);
+	void subCtr(ctr_t t,double c);
+	void printCtrs();
 	virtual ~Counter();
 private:
 
-	map<ctr_t,atomic<int64_t>> ctrMap;
+	map<ctr_t,double> ctrMap;
 
 };
 

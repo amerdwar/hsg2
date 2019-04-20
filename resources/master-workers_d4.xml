@@ -21,7 +21,7 @@
 	<!-- The worker processes (with no argument) -->
 	<actor host="host2" function="nameNode">
 		<argument value="host2_nameNode" />
-		<argument value="128" />
+		<argument value="6" />
 	</actor>
 
 	<actor host="host1" function="dataNode" />

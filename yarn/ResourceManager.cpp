@@ -100,7 +100,7 @@ XBT_INFO("job is finished");
 
 			JobInfo * jj = static_cast<JobInfo*>(m->payload);
 			Message * finishMsg3 = new Message(msg_type::finish_job, thisName,
-					jj->user, 0, nullptr);
+					jj->user, 0, jj);
 			Mailbox::by_name(jj->user)->put(finishMsg3, 1522);
 			//send message to client finish job
 

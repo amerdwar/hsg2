@@ -42,23 +42,21 @@ void Mapper::operator ()() {
 	Chunk* ch = res->dir->Files->at(to_string(res->fIndex))->chunks->at(
 			res->chIndex);
 
-
 	inputHDDM->readCh(ch);
-job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,ch->size);
+	job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,(double) ch->size);
 ////// untill now we read the chunk from data node
 
 	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
 	int64_t taskSize = ch->size;
-	int64_t mapRecords=taskSize/job->recordSize;
+	int64_t mapRecords = taskSize / job->recordSize;
 
-	job->ctr->addToCtr(ctr_t::MAP_INPUT_RECORDS,mapRecords);
-	auto exePtr = this_actor::exec_async((double)(job->mapCost*mapRecords)); //here we exe the map
+	job->ctr->addToCtr(ctr_t::MAP_INPUT_RECORDS, (double) mapRecords);
+	auto exePtr = this_actor::exec_async((double) (job->mapCost * mapRecords)); //here we exe the map
 
 	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
 			spillSize); //here we use partitioner and combiner and write spilles to localhdd
 
 	exePtr->wait();
-
 
 	for (int i = 0; i < allspilles->size(); i++) {
 		merger->mergeSpilles(allspilles->at(i));
@@ -128,10 +126,15 @@ string Mapper::selectInputDataNode() {
 map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
 		int64_t spillSize) {
 	map<int, vector<spill*>*>* spilles = new map<int, vector<spill*>*>();
-int64_t tt=(taskSize/job->recordSize)*job->mapOutRecords*job->mapOutAvRecordSize;
+	int64_t tt = (taskSize / job->recordSize) * job->mapOutRecords
+			* job->mapOutAvRecordSize;
+
 	int64_t spillNum = tt / spillSize;
+
+	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_SIZE,(double) tt);
+	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_RECORDS,(double)(tt/job->mapOutAvRecordSize));
 	//XBT_INFO("spill size %i spill num %i task size %i", spillSize, spillNum,
-		//	taskSize);
+	//	taskSize);
 	for (int i = 0; i < job->numberOfReducers; i++) {
 		vector<spill*>* vectorSpill = new vector<spill*>();
 		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
@@ -172,7 +175,7 @@ int64_t Mapper::combine(int64_t recNum) {
 
 	} else {
 		combinedRecs = recNum;
-	//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
+		//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
 	}
 	return combinedRecs;
 
@@ -184,11 +187,12 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
 
 	//XBT_INFO("part size %i, record size %i, num rec per part %i", partsize1,
-			//job->recordSize, partrecNum);
+	//job->recordSize, partrecNum);
 
 	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
-		//	job->recordSize, partrecNum,partrecNum);
+	//	job->recordSize, partrecNum,partrecNum);
 	int64_t combinedRecs = combine(partrecNum);
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)combinedRecs);
 	ExecPtr ptrE;
 	if (partrecNum == combinedRecs) {
 		ptrE = this_actor::exec_async(0);
@@ -201,13 +205,15 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 		//XBT_INFO("yes compiiner so size is %i", partsize);
 	}
 
+
+
 	Chunk* temC = this->hddm->writeCh(partsize);
 	ptrE->wait();
 	//untill now we write spill after partition it and execute it
 
 	spill* tem = new spill();
 	tem->ch = temC;
-tem->taskName=thisName;
+	tem->taskName = thisName;
 	tem->records = combinedRecs;
 
 	return tem;
@@ -222,14 +228,14 @@ string Mapper::printSpill(spill* sp) {
 }
 
 string Mapper::printMapOut(map<int, vector<spill*>*>*a) {
-	string s = "this is the output of mapper "+thisName+" \n";
-for(int i=0;i<a->size();i++){
-	s+="the spiller of reducer number "+to_string(i)+"\n";
-	for(int j=0;j<a->at(i)->size();j++){
-		s+=printSpill(a->at(i)->at(j))+"\n";
+	string s = "this is the output of mapper " + thisName + " \n";
+	for (int i = 0; i < a->size(); i++) {
+		s += "the spiller of reducer number " + to_string(i) + "\n";
+		for (int j = 0; j < a->at(i)->size(); j++) {
+			s += printSpill(a->at(i)->at(j)) + "\n";
+		}
 	}
-}
 
-	s+="\n";
+	s += "\n";
 	return s;
 }

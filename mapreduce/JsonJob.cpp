@@ -67,6 +67,7 @@ Json::Value jobV;
 
    	j-> useCombiner = jobV["useCombiner"].asBool();
    	j-> useCompression = jobV["useCompression"].asBool();
+j->ctr->jName=j->jobName;
 
 XBT_INFO("%s",jobV.toStyledString().c_str());
 

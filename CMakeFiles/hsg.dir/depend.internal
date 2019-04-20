@@ -151,6 +151,7 @@ CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -160,6 +161,7 @@ CMakeFiles/hsg.dir/hdfs/Client.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /opt/simgrid/include/simgrid/Exception.hpp
@@ -210,6 +212,7 @@ CMakeFiles/hsg.dir/hdfs/Client.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -219,6 +222,7 @@ CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o
  /home/alpha/tuturial/hsg/hdfs/Hdd.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/HddMsg.h
  /home/alpha/tuturial/hsg/messages/Message.h
@@ -319,6 +323,7 @@ CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -327,6 +332,7 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
  /home/alpha/tuturial/hsg/hdfs/Hdd.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/HddMsg.h
  /home/alpha/tuturial/hsg/messages/Message.h
@@ -378,6 +384,7 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -386,6 +393,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /opt/simgrid/include/simgrid/Exception.hpp
@@ -484,6 +492,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -491,6 +500,7 @@ CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.cpp
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /opt/simgrid/include/simgrid/Exception.hpp
@@ -549,12 +559,14 @@ CMakeFiles/hsg.dir/json/jsoncpp.cpp.o
  /usr/local/include/json/value.h
  /usr/local/include/json/writer.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /opt/simgrid/include/simgrid/Exception.hpp
@@ -602,6 +614,7 @@ CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -610,6 +623,7 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.cpp
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/HddMediator.h
@@ -661,6 +675,7 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -670,6 +685,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.cpp
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/HddMediator.h
@@ -724,10 +740,56 @@ CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o
  /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/mapreduce/Counter.cpp
  /home/alpha/tuturial/hsg/mapreduce/Counter.h
+ /opt/simgrid/include/simgrid/Exception.hpp
+ /opt/simgrid/include/simgrid/chrono.hpp
+ /opt/simgrid/include/simgrid/config.h
+ /opt/simgrid/include/simgrid/forward.h
+ /opt/simgrid/include/simgrid/host.h
+ /opt/simgrid/include/simgrid/kernel/resource/Action.hpp
+ /opt/simgrid/include/simgrid/link.h
+ /opt/simgrid/include/simgrid/s4u.hpp
+ /opt/simgrid/include/simgrid/s4u/Activity.hpp
+ /opt/simgrid/include/simgrid/s4u/Actor.hpp
+ /opt/simgrid/include/simgrid/s4u/Barrier.hpp
+ /opt/simgrid/include/simgrid/s4u/Comm.hpp
+ /opt/simgrid/include/simgrid/s4u/ConditionVariable.hpp
+ /opt/simgrid/include/simgrid/s4u/Engine.hpp
+ /opt/simgrid/include/simgrid/s4u/Exec.hpp
+ /opt/simgrid/include/simgrid/s4u/Host.hpp
+ /opt/simgrid/include/simgrid/s4u/Io.hpp
+ /opt/simgrid/include/simgrid/s4u/Link.hpp
+ /opt/simgrid/include/simgrid/s4u/Mailbox.hpp
+ /opt/simgrid/include/simgrid/s4u/Mutex.hpp
+ /opt/simgrid/include/simgrid/s4u/NetZone.hpp
+ /opt/simgrid/include/simgrid/s4u/Semaphore.hpp
+ /opt/simgrid/include/simgrid/s4u/Storage.hpp
+ /opt/simgrid/include/simgrid/simix.h
+ /opt/simgrid/include/simgrid/simix.hpp
+ /opt/simgrid/include/xbt/Extendable.hpp
+ /opt/simgrid/include/xbt/asserts.h
+ /opt/simgrid/include/xbt/backtrace.h
+ /opt/simgrid/include/xbt/backtrace.hpp
+ /opt/simgrid/include/xbt/base.h
+ /opt/simgrid/include/xbt/dict.h
+ /opt/simgrid/include/xbt/dynar.h
+ /opt/simgrid/include/xbt/ex.h
+ /opt/simgrid/include/xbt/function_types.h
+ /opt/simgrid/include/xbt/functional.hpp
+ /opt/simgrid/include/xbt/future.hpp
+ /opt/simgrid/include/xbt/log.h
+ /opt/simgrid/include/xbt/misc.h
+ /opt/simgrid/include/xbt/parmap.h
+ /opt/simgrid/include/xbt/signal.hpp
+ /opt/simgrid/include/xbt/string.hpp
+ /opt/simgrid/include/xbt/sysdep.h
+ /opt/simgrid/include/xbt/utility.hpp
+ /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /opt/simgrid/include/simgrid/Exception.hpp
@@ -775,10 +837,12 @@ CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/json/json/json.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/JsonJob.cpp
  /home/alpha/tuturial/hsg/mapreduce/JsonJob.h
@@ -827,6 +891,7 @@ CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -835,6 +900,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/json/json/json.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/JsonJob.h
  /home/alpha/tuturial/hsg/mapreduce/MRClient.cpp
@@ -911,6 +977,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
  /usr/local/include/gtest/internal/gtest-tuple.h
  /usr/local/include/gtest/internal/gtest-type-util.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -918,6 +985,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/Mapper.cpp
  /home/alpha/tuturial/hsg/mapreduce/Mapper.h
@@ -971,6 +1039,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -980,6 +1049,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/Reducer.cpp
  /home/alpha/tuturial/hsg/mapreduce/Reducer.h
@@ -1033,10 +1103,12 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.cpp
  /home/alpha/tuturial/hsg/messages/Message.h
@@ -1085,12 +1157,14 @@ CMakeFiles/hsg.dir/messages/Message.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/HddMediator.cpp
@@ -1143,12 +1217,14 @@ CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/HeartBeater.cpp
@@ -1201,6 +1277,7 @@ CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
@@ -1211,6 +1288,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/mapreduce/Mapper.h
  /home/alpha/tuturial/hsg/mapreduce/Reducer.h
@@ -1267,12 +1345,14 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/HeartBeater.h
@@ -1327,12 +1407,14 @@ CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
  /opt/simgrid/include/xbt/utility.hpp
  /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
+ /home/alpha/tuturial/hsg/commons/CtrType.h
  /home/alpha/tuturial/hsg/commons/Types.h
  /home/alpha/tuturial/hsg/distributions/RandClass.h
  /home/alpha/tuturial/hsg/hdfs/Chunk.h
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/yarn/YarnScheduler.cpp

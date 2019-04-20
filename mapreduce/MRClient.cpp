@@ -29,12 +29,14 @@ jsonJob=new  JsonJob();
 void MRClient::sendJob(JobInfo* job) {
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
 			rMangerName, 1, job);
+	job->ctr->addToCtr(ctr_t::JOB_START_TIME,Engine::get_clock());
 	//XBT_INFO("send job mssage %s", rManager->get_name().c_str());
 	rManager->put(m, 1522);
 	//XBT_INFO("send job mssage");
 }
 void MRClient::operator()() {
 	// path p("../resources/jobs");
+
 vector<string> jNames= getAllJobs();
 
 
@@ -62,6 +64,16 @@ vector<string> jNames= getAllJobs();
 			XBT_INFO("error client mapreduce finish job");
 			exit(1);
 		}
+		JobInfo * jj = static_cast<JobInfo*>(m2->payload);
+		double startT,stopT;
+		stopT=Engine::get_clock();
+		jj->ctr->addToCtr(ctr_t::JOB_STOP_TIME,stopT);
+
+		startT=jj->ctr->getCtr(JOB_START_TIME);
+
+		jj->ctr->setCtr(ctr_t::JOB_TOTAL_TIME,stopT-startT);
+
+		jj->ctr->printCtrs();
 	}
 	XBT_INFO("finish job message send end of simul mssage");
 	Message *endm = new Message(msg_type::end_of_simulation, thismb->get_name(),

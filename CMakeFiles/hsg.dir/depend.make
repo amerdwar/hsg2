@@ -150,6 +150,7 @@ CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/Chunk.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/hdfs/Client.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: hdfs/Chunk.h
@@ -159,6 +160,7 @@ CMakeFiles/hsg.dir/hdfs/Client.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/hdfs/Client.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
@@ -209,6 +211,7 @@ CMakeFiles/hsg.dir/hdfs/Client.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/Client.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/Chunk.h
@@ -218,6 +221,7 @@ CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/Hdd.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: messages/HddMsg.h
 CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o: messages/Message.h
@@ -318,6 +322,7 @@ CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/DirFiles.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: hdfs/Chunk.h
@@ -326,6 +331,7 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: hdfs/Hdd.cpp
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: hdfs/Hdd.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: messages/HddMsg.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: messages/Message.h
@@ -377,6 +383,7 @@ CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/Chunk.h
@@ -385,6 +392,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsClient.cpp
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/hdfs/HdfsClient.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
@@ -483,6 +491,7 @@ CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: hdfs/Chunk.h
@@ -490,6 +499,7 @@ CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: hdfs/NameNode.cpp
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
@@ -548,12 +558,14 @@ CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: /usr/local/include/json/reader.h
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: /usr/local/include/json/value.h
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: /usr/local/include/json/writer.h
 
+CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/AppMaster.cpp
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/AppMaster.h
+CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
@@ -601,6 +613,7 @@ CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: hdfs/Chunk.h
@@ -609,6 +622,7 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: mapreduce/Combiner.cpp
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: mapreduce/Combiner.h
+CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: yarn/HddMediator.h
@@ -660,6 +674,7 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/Chunk.h
@@ -669,6 +684,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.cpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: yarn/HddMediator.h
@@ -723,10 +739,56 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: /opt/simgrid/include/xbt/virtu.h
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: mapreduce/Counter.cpp
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: mapreduce/Counter.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/chrono.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/config.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/forward.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/host.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/kernel/resource/Action.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/link.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Activity.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Actor.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Barrier.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Comm.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/ConditionVariable.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Engine.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Exec.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Host.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Io.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Link.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Mailbox.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Mutex.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/NetZone.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Semaphore.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/s4u/Storage.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/simix.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/simgrid/simix.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/Extendable.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/asserts.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/backtrace.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/backtrace.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/base.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/dict.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/dynar.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/ex.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/function_types.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/functional.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/future.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/log.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/misc.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/parmap.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/signal.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/string.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/sysdep.h
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/utility.hpp
+CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: hdfs/HdfsFile.h
+CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: mapreduce/JobInfo.cpp
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
@@ -774,10 +836,12 @@ CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: json/json/json.h
+CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: mapreduce/JsonJob.cpp
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: mapreduce/JsonJob.h
@@ -826,6 +890,7 @@ CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: hdfs/Chunk.h
@@ -834,6 +899,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: json/json/json.h
+CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/JsonJob.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/MRClient.cpp
@@ -910,6 +976,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: /usr/local/include/gtest/internal/g
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: /usr/local/include/gtest/internal/gtest-tuple.h
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: /usr/local/include/gtest/internal/gtest-type-util.h
 
+CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: hdfs/Chunk.h
@@ -917,6 +984,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Combiner.h
+CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Mapper.cpp
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Mapper.h
@@ -970,6 +1038,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/Chunk.h
@@ -979,6 +1048,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Copier.h
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.cpp
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.h
@@ -1032,10 +1102,12 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/messages/Message.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: hdfs/HdfsFile.h
+CMakeFiles/hsg.dir/messages/Message.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: messages/Message.cpp
 CMakeFiles/hsg.dir/messages/Message.cpp.o: messages/Message.h
@@ -1084,12 +1156,14 @@ CMakeFiles/hsg.dir/messages/Message.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/messages/Message.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/messages/Message.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: yarn/HddMediator.cpp
@@ -1142,12 +1216,14 @@ CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: yarn/HeartBeater.cpp
@@ -1200,6 +1276,7 @@ CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/Chunk.h
@@ -1210,6 +1287,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/AppMaster.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Copier.h
+CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Mapper.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Reducer.h
@@ -1266,12 +1344,14 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: yarn/HeartBeater.h
@@ -1326,12 +1406,14 @@ CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: /opt/simgrid/include/xbt/sysdep.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: /opt/simgrid/include/xbt/utility.hpp
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: /opt/simgrid/include/xbt/virtu.h
 
+CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: distributions/RandClass.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: yarn/YarnScheduler.cpp

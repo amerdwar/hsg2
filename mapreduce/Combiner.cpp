@@ -77,6 +77,9 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 
 		recNum += v->at(i)->records;
 	}
+
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)recNum);
+
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
 
@@ -163,6 +166,8 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 
 		recNum += v->at(i)->records;
 	}
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,recNum);
+
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
 	}
@@ -172,6 +177,8 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 		recSize = job->combineOutAvRecordSize;
 	else
 		recSize = job->mapOutAvRecordSize;
+
+
 
 	int64_t lastSize = recNum * recSize;
 	XBT_INFO("beforrrrrrr write ch");

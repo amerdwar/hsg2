@@ -11,8 +11,6 @@ simgrid/s4u.hpp
 -
 gtest/gtest.h
 -
-mapreduce/Counter.h
-/home/alpha/tuturial/hsg/mapreduce/Counter.h
 hdfs/NameNode.h
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
 hdfs/DataNode.h
@@ -27,6 +25,10 @@ mapreduce/MRClient.h
 /home/alpha/tuturial/hsg/mapreduce/MRClient.h
 
 /home/alpha/tuturial/hsg/commons/CtrType.h
+vector
+-
+string
+-
 
 /home/alpha/tuturial/hsg/commons/Types.h
 string.h
@@ -391,11 +393,15 @@ Counter.h
 /home/alpha/tuturial/hsg/mapreduce/Counter.h
 
 /home/alpha/tuturial/hsg/mapreduce/Counter.h
-atomic
+fstream
 -
 ../commons/CtrType.h
 /home/alpha/tuturial/hsg/commons/CtrType.h
 map
+-
+simgrid/s4u.hpp
+-
+mutex
 -
 
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp
@@ -405,6 +411,8 @@ JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 string
 -
+Counter.h
+/home/alpha/tuturial/hsg/mapreduce/Counter.h
 ../hdfs/DirFiles.h
 /home/alpha/tuturial/hsg/hdfs/DirFiles.h
 

@@ -264,7 +264,7 @@ XBT_INFO("size %i, %i",comSize,lastsp->ch->size);
 		sp->records = combineRec;
 		outMemV->clear();
 		outDiskV->push_back(sp);
-
+		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,sp->records);
 	} else {
 
 		double exeFlops = (double) lastsp->records;
@@ -279,6 +279,8 @@ XBT_INFO("size %i, %i",comSize,lastsp->ch->size);
 
 
 		outDiskV->push_back(sp);
+
+		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,sp->records);
 	}
 
 }

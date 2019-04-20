@@ -1,21 +1,21 @@
 {
 	"jobName":"job",
-	"numberOfReducers":2,
+	"numberOfReducers":1,
 	"useCombiner":false,
 	"useCompression":false,
 
-         	"numOfFiles":10,
-                "maxFileSize":1000000000,
-                "minFileSize":100000000,
+         	"numOfFiles":1,
+                "maxFileSize":319084750,
+                "minFileSize":319084750,
 		
-		"mapCost":100,	
-		"recordSize":100,
-                "mapOutRecords":10,
-		"mapOutAvRecordSize":88,
+		"mapCost":33,	
+		"recordSize":295,
+                "mapOutRecords":50,
+		"mapOutAvRecordSize":12,
 
-		"reduceCost":1000,
-		"reduceRecords":0.01,
-		"reduceOutAvRecordSize":91,
+		"reduceCost":12,
+		"reduceRecords":0.001235,
+		"reduceOutAvRecordSize":10,
 		
 		
 		"compressionCost":1.0,
