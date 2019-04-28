@@ -79,8 +79,6 @@ void DataNode::operator()() {
 
 			Mailbox::by_name(ch->storage)->put(m, 0);
 
-
-
 			chForSend->writeIndex += 1;
 			if (chForSend->writeIndex < chForSend->nodes->size()) {
 				ms->type = msg_type::cl_dn_wr_ch;
@@ -120,13 +118,13 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->generator = m->sender;
 			m->sender = m->receiver;
-			XBT_INFO("beeeee %i",ch->chGenId);
+			XBT_INFO("beeeee %i", ch->chGenId);
 
 			m->receiver = chunks.at(ch->chGenId)->storage;
 			XBT_INFO("afffffffffff");
 			m->type = msg_type::hdd;
-			Chunk* cc=chunks.at(ch->chGenId)->copy();
-			cc->clinetMB=Mailbox::by_name(m->generator);
+			Chunk* cc = chunks.at(ch->chGenId)->copy();
+			cc->clinetMB = Mailbox::by_name(m->generator);
 			m->payload = cc;
 
 			Mailbox::by_name(chunks.at(ch->chGenId)->storage)->put(m, 0);
@@ -211,7 +209,7 @@ void DataNode::operator()() {
 			m->sender = mailbox->get_name();
 
 			m->receiver = ch->clinetMB->get_name();
-			m->payload=chunks.at(ch->chGenId);
+			m->payload = chunks.at(ch->chGenId);
 			ch->clinetMB->put(m, 1522);
 
 			XBT_INFO("hdd datanode read ack  ");
@@ -220,11 +218,21 @@ void DataNode::operator()() {
 		case msg_type::cl_dn_del_ch: {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 
-
 			chunks.erase(ch->chGenId);
 
-			m->type=msg_type::cl_dn_del_ch_ack;
+			m->type = msg_type::cl_dn_del_ch_ack;
 			ch->clinetMB->put(m, 1522);
+
+			break;
+		}
+		case msg_type::cl_dn_del_v_ch: {
+			vector<Chunk*> * vch = static_cast<vector<Chunk*> *>(m->payload);
+
+			for (int i=0;i<vch->size();i++) {
+				chunks.erase(vch->at(i)->chGenId);
+			}
+			m->type = msg_type::cl_dn_del_ch_ack;
+			vch->at(0)->clinetMB->put(m, 1522);
 
 			break;
 		}

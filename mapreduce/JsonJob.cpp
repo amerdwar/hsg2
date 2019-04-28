@@ -26,6 +26,7 @@ Json::Value jobV;
    	j-> uncompressionCost =jobV["uncompressionCost"].asDouble();
    	j-> compressionSize = jobV["compressionSize"].asDouble();
 
+   	j-> mergeCost = jobV["mergeCost"].asInt64();
    	j-> mapCost = jobV["mapCost"].asInt64();
 
    	j->recordSize=jobV["recordSize"].asInt64();
@@ -69,8 +70,9 @@ Json::Value jobV;
    	j-> useCompression = jobV["useCompression"].asBool();
 j->ctr->jName=j->jobName;
 
-XBT_INFO("%s",jobV.toStyledString().c_str());
+string ss=jobV.toStyledString();
 
+XBT_INFO("%s",ss.c_str());
 
 
 

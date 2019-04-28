@@ -61,43 +61,45 @@ int Combiner::getNumCombinedRecordes(int groups, int rec) {
 
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 	int recNum = 0;
-
+	//calculate total read, write, cpu costs
+	vector<Chunk*>* vch=new vector<Chunk*>();
 	for (int i = fIndex; i <= lIndex; i++) {
-		XBT_INFO("before read  ch %i", v->at(i)->isInMem);
-		int a, b, c;
-		a = v->at(i)->ch->chGenId;
-		hddM->readCh(v->at(i)->ch);
-		b = v->at(i)->ch->chGenId;
-		XBT_INFO("after read ch ");
-		hddM->deleteCh(v->at(i)->ch);
-
-		c = v->at(i)->ch->chGenId;
-
-		XBT_INFO("mmmmmmmmmm %i   %i    %i", a, b, c);
-
+		vch->push_back(v->at(i)->ch);
 		recNum += v->at(i)->records;
 	}
 
-	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)recNum);
+
+
 
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
-
 	}
+
+	int64_t lastRecNum=this->combine(recNum);
 	int64_t recSize = 0;
 
-	if (job->useCombiner)
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)lastRecNum);
+double exeF=0;
+	if (job->useCombiner){
 		recSize = job->combineOutAvRecordSize;
-	else
+		//the cost of combine and merge
+	exeF=(double)(recNum*job->combineCost+lastRecNum*job->mergeCost);
+	}
+	else{
+		exeF=(double)(recNum*job->mergeCost);
 		recSize = job->mapOutAvRecordSize;
+	}
 
-	int64_t lastSize = recNum * recSize;
+	int64_t lastSize = lastRecNum * recSize;
+
+
+
 	XBT_INFO("before write ch ");
-	Chunk* lastCh = hddM->writeCh(lastSize);
+	Chunk* lastCh = hddM->readChsWrExe(vch,lastSize,exeF);
 	XBT_INFO("after write ch ");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
-	lastSpill->records = recNum;
+	lastSpill->records = lastRecNum;
 
 	v->push_back(lastSpill);
 

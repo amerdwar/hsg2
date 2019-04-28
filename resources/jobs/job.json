@@ -8,6 +8,7 @@
                 "maxFileSize":319084750,
                 "minFileSize":319084750,
 		
+		"mergeCost":10,
 		"mapCost":33,	
 		"recordSize":295,
                 "mapOutRecords":50,

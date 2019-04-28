@@ -16,6 +16,7 @@ JobInfo * JobInfo::copy(){
 
 	JobInfo *j=new JobInfo();
 	j->ctr=this->ctr;
+	j->mergeCost=this->mergeCost;
 	j->mapOutRecords=this->mapOutRecords;
 	j->recordSize=this->recordSize;
 	//j->chunkSize=this->chunkSize;

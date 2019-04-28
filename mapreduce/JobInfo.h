@@ -30,7 +30,7 @@ public:
 //	int64_t mapSize = 5;//num record * record size the same as chunk size
 	int64_t mapRecords = 50;//num record per chunk
 	int64_t mapOutRecords = 500;//num map out record per input record
-
+int64_t mergeCost=10;//cost per record
 	int64_t mapOutAvRecordSize = 12;//the size of map output
 	int64_t combineCost = 1;
 	int64_t combineSize = 1;//to do delete this
