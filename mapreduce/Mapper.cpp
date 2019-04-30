@@ -61,7 +61,8 @@ void Mapper::operator ()() {
 	for (int i = 0; i < allspilles->size(); i++) {
 		merger->mergeSpilles(allspilles->at(i));
 	}
-//	XBT_INFO(printMapOut(allspilles).c_str());
+	XBT_INFO(printMapOut(allspilles).c_str());
+
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, allspilles);
 
@@ -93,6 +94,7 @@ string Mapper::selectInputDataNode() {
 		if (this->dataNodeName.compare(dnName) == 0) {
 			isLocality = true;
 			inputdataNode = dataNodeName;
+			XBT_INFO("is locality");
 			break;
 		}
 	}

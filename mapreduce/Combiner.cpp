@@ -62,40 +62,36 @@ int Combiner::getNumCombinedRecordes(int groups, int rec) {
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex) {
 	int recNum = 0;
 	//calculate total read, write, cpu costs
-	vector<Chunk*>* vch=new vector<Chunk*>();
+	vector<Chunk*>* vch = new vector<Chunk*>();
 	for (int i = fIndex; i <= lIndex; i++) {
 		vch->push_back(v->at(i)->ch);
 		recNum += v->at(i)->records;
 	}
 
-
-
-
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
 	}
 
-	int64_t lastRecNum=this->combine(recNum);
+	int64_t lastRecNum = this->combine(recNum);
 	int64_t recSize = 0;
 
-	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)lastRecNum);
-double exeF=0;
-	if (job->useCombiner){
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
+	double exeF = 0;
+	if (job->useCombiner) {
 		recSize = job->combineOutAvRecordSize;
 		//the cost of combine and merge
-	exeF=(double)(recNum*job->combineCost+lastRecNum*job->mergeCost);
-	}
-	else{
-		exeF=(double)(recNum*job->mergeCost);
+		exeF =
+				(double) (recNum * job->combineCost
+						+ lastRecNum * job->mergeCost);
+	} else {
+		exeF = (double) (recNum * job->mergeCost);
 		recSize = job->mapOutAvRecordSize;
 	}
 
 	int64_t lastSize = lastRecNum * recSize;
 
-
-
 	XBT_INFO("before write ch ");
-	Chunk* lastCh = hddM->readChsWrExe(vch,lastSize,exeF);
+	Chunk* lastCh = hddM->readChsWrExe(vch, lastSize, exeF);
 	XBT_INFO("after write ch ");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
@@ -154,38 +150,49 @@ void Combiner::mergeReduceSpilles(vector<spill*>* v) {
 void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 	int64_t recNum = 0;
 
+	vector<Chunk*>* vch = new vector<Chunk*>();
 	for (int i = fIndex; i <= lIndex; i++) {
 
-
-		if (!v->at(i)->isInMem) {//if in memory do not read it
-			v->at(i)->ch->clinetMB=Mailbox::by_name(taskName);
-			hddM->readCh(v->at(i)->ch);
-			hddM->deleteCh(v->at(i)->ch);
-
+		if (!v->at(i)->isInMem) { //if in memory do not read it
+			v->at(i)->ch->clinetMB = Mailbox::by_name(taskName);
+			//hddM->readCh(v->at(i)->ch);
+			//hddM->deleteCh(v->at(i)->ch);
+			vch->push_back(v->at(i)->ch);
 		}
 
 		//v->erase(v->begin() + i);
 
 		recNum += v->at(i)->records;
 	}
-	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,recNum);
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, recNum);
 
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
 	}
+
+
+	int64_t lastRecNum = this->combine(recNum);
 	int64_t recSize = 0;
 
-	if (job->useCombiner)
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
+	double exeF = 0;
+	if (job->useCombiner) {
 		recSize = job->combineOutAvRecordSize;
-	else
+		//the cost of combine and merge
+		exeF =
+				(double) (recNum * job->combineCost
+						+ lastRecNum * job->mergeCost);
+	} else {
+		exeF = (double) (recNum * job->mergeCost);
 		recSize = job->mapOutAvRecordSize;
+	}
+
+	int64_t lastSize = lastRecNum * recSize;
 
 
-
-	int64_t lastSize = recNum * recSize;
 	XBT_INFO("beforrrrrrr write ch");
-	Chunk* lastCh = hddM->writeCh(lastSize);
-XBT_INFO("after ****************write ch");
+	Chunk* lastCh = hddM->readChsWrExe(vch, lastSize, exeF);
+	XBT_INFO("after ****************write ch");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
 	lastSpill->records = recNum;

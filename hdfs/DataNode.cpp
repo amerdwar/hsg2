@@ -118,10 +118,10 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->generator = m->sender;
 			m->sender = m->receiver;
-			XBT_INFO("beeeee %i", ch->chGenId);
+			//XBT_INFO("beeeee %i", ch->chGenId);
 
 			m->receiver = chunks.at(ch->chGenId)->storage;
-			XBT_INFO("afffffffffff");
+			//XBT_INFO("afffffffffff");
 			m->type = msg_type::hdd;
 			Chunk* cc = chunks.at(ch->chGenId)->copy();
 			cc->clinetMB = Mailbox::by_name(m->generator);
@@ -212,7 +212,7 @@ void DataNode::operator()() {
 			m->payload = chunks.at(ch->chGenId);
 			ch->clinetMB->put(m, 1522);
 
-			XBT_INFO("hdd datanode read ack  ");
+			//XBT_INFO("hdd datanode read ack  ");
 			break;
 		}
 		case msg_type::cl_dn_del_ch: {

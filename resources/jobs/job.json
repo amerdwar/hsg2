@@ -5,8 +5,8 @@
 	"useCompression":false,
 
          	"numOfFiles":1,
-                "maxFileSize":319084750,
-                "minFileSize":319084750,
+                "maxFileSize":300000000,
+                "minFileSize":300000000,
 		
 		"mergeCost":10,
 		"mapCost":33,	
@@ -15,7 +15,7 @@
 		"mapOutAvRecordSize":12,
 
 		"reduceCost":12,
-		"reduceRecords":0.001235,
+		"reduceRecords":0.1,
 		"reduceOutAvRecordSize":10,
 		
 		
@@ -24,7 +24,7 @@
 		"compressionSize":1.0  ,
 
 		"combineCost":1,
-		"combineGroups":1,
+		"combineGroups":100000,
 		"combineOutAvRecordSize":1,
 
 
@@ -33,7 +33,7 @@
               	"ioSortSpillPercent":0.80,
          	"ioSortFactor":10,	
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":1000000000.0
+        	"memoryLimit":100000000.0
 
 
 }
