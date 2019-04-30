@@ -23,6 +23,8 @@ yarn/NodeManager.h
 /home/alpha/tuturial/hsg/yarn/NodeManager.h
 mapreduce/MRClient.h
 /home/alpha/tuturial/hsg/mapreduce/MRClient.h
+resources/JsonPlatform.h
+/home/alpha/tuturial/hsg/resources/JsonPlatform.h
 
 /home/alpha/tuturial/hsg/commons/CtrType.h
 vector
@@ -511,6 +513,24 @@ simgrid/s4u.hpp
 -
 ../commons/Types.h
 /home/alpha/tuturial/hsg/commons/Types.h
+
+/home/alpha/tuturial/hsg/resources/JsonPlatform.cpp
+JsonPlatform.h
+/home/alpha/tuturial/hsg/resources/JsonPlatform.h
+
+/home/alpha/tuturial/hsg/resources/JsonPlatform.h
+../json/json/json.h
+/home/alpha/tuturial/hsg/json/json/json.h
+fstream
+-
+string
+-
+boost/format.hpp
+-
+../hdfs/NameNode.h
+/home/alpha/tuturial/hsg/hdfs/NameNode.h
+../hdfs/Hdd.h
+/home/alpha/tuturial/hsg/hdfs/Hdd.h
 
 /home/alpha/tuturial/hsg/yarn/HddMediator.cpp
 HddMediator.h

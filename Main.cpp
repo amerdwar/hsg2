@@ -14,6 +14,7 @@
 #include "yarn/ResourceManager.h"
 #include "yarn/NodeManager.h"
 #include "mapreduce/MRClient.h"
+#include "resources/JsonPlatform.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
 
 void doSim(int argc, char* argv[]) {
@@ -48,9 +49,10 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-	doSim(argc, argv);
+//	doSim(argc, argv);
 //	RUN_ALL_TESTS();
-
+JsonPlatform* jp=new JsonPlatform();
+jp->creatPlatform("resources/cluster/cluster.json");
 	return 0;
 }
 

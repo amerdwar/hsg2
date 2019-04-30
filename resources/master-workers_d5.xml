@@ -9,6 +9,9 @@
 		<argument value="host3_ResourceManager" />
 	</actor>
 	 
+	
+	 
+
 
 	<actor host="host3" function="ResourceManager">
 		<argument value="host2_nameNode" />
@@ -22,7 +25,7 @@
 	</actor>
 
 	<actor host="host1" function="dataNode" />
-
+	<actor host="host3" function="dataNode" />
 	<actor host="host4" function="dataNode" />
 	<actor host="host5" function="dataNode" />
 	<actor host="host6" function="dataNode" />
@@ -36,7 +39,10 @@
 		<argument value="host3_ResourceManager" />
 	</actor>
 
-
+	<actor host="host3" function="nodeManager">
+		<argument value="host2_nameNode" />
+		<argument value="host3_ResourceManager" />
+	</actor>
 
 	<actor host="host4" function="nodeManager">
 		<argument value="host2_nameNode" />

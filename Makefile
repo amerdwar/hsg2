@@ -690,6 +690,33 @@ messages/Message.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/messages/Message.cpp.s
 .PHONY : messages/Message.cpp.s
 
+resources/JsonPlatform.o: resources/JsonPlatform.cpp.o
+
+.PHONY : resources/JsonPlatform.o
+
+# target to build an object file
+resources/JsonPlatform.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o
+.PHONY : resources/JsonPlatform.cpp.o
+
+resources/JsonPlatform.i: resources/JsonPlatform.cpp.i
+
+.PHONY : resources/JsonPlatform.i
+
+# target to preprocess a source file
+resources/JsonPlatform.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.i
+.PHONY : resources/JsonPlatform.cpp.i
+
+resources/JsonPlatform.s: resources/JsonPlatform.cpp.s
+
+.PHONY : resources/JsonPlatform.s
+
+# target to generate assembly for a file
+resources/JsonPlatform.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.s
+.PHONY : resources/JsonPlatform.cpp.s
+
 yarn/HddMediator.o: yarn/HddMediator.cpp.o
 
 .PHONY : yarn/HddMediator.o
@@ -897,6 +924,9 @@ help:
 	@echo "... messages/Message.o"
 	@echo "... messages/Message.i"
 	@echo "... messages/Message.s"
+	@echo "... resources/JsonPlatform.o"
+	@echo "... resources/JsonPlatform.i"
+	@echo "... resources/JsonPlatform.s"
 	@echo "... yarn/HddMediator.o"
 	@echo "... yarn/HddMediator.i"
 	@echo "... yarn/HddMediator.s"

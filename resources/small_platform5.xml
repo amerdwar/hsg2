@@ -1,16 +1,12 @@
 <?xml version='1.0'?>
 <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
 <platform version="4.1">
-	<!-- router1 - - - - - - link1-2 - - - - - - router2 __________________________ 
-		_________________________ | | | | | backbone1 | | backbone2 | |________________________| 
-		|________________________| / / | \ \ / / | \ \ l1_up / / l1_down | l3 l2_up\ 
-		\ l2_down l4_up / / l4_down | l6 l5_up\ \ l5_down / / | \ \ / / | \ \ host1 
-		host3 host2 host4 host6 host5 -->
+
 
 	<zone id="AS0" routing="Full">
-		<zone id="AS1" routing="Full">
-			<router id="router1" />
 
+		<zone id="my_cluster1" routing="Cluster">
+			<router id="router3" />
 			<storage_type id="single_HDD" size="1024GiB">
 				<model_prop id="Bwrite" value="130MBps" />
 				<model_prop id="Bread" value="130MBps" />
@@ -20,49 +16,41 @@
 				<model_prop id="Bwrite" value="160MBps" />
 				<model_prop id="Bread" value="200MBps" />
 			</storage_type>
+			
+			
+	    <storage id="host2_disk1" typeId="single_SSD" attach="host2" />
+		<storage id="host2_disk2" typeId="single_SSD" attach="host2" />
 
-
-			<storage id="host2_disk1" typeId="single_SSD" attach="host2" />
-			<storage id="host2_disk2" typeId="single_SSD" attach="host2" />
 			<storage id="host1_disk1" typeId="single_HDD" attach="host1" />
+		
+			
+			
 			<storage id="host3_disk1" typeId="single_HDD" attach="host3" />
 
 
-			<host id="host3" speed="2.67Gf" core="4">
-				<mount storageId="host3_disk1" name="/h3d1" />
-
-			</host>
-			<link id="l3" bandwidth="1GBps" latency="50us" />
-
-
-
-			<host id="host2" speed="2.0Gf" core="8">
-				<mount storageId="host2_disk1" name="/h2d1" />
-				<mount storageId="host2_disk2" name="/h2d2" />
-
-			</host>
-			<link id="zone_1_link" bandwidth="1GBps" latency="50us" />
-
-			<route src="host3" dst="router1">
-				<link_ctn id="l3" />
-			</route>
-			<route src="host2" dst="router1">
-				<link_ctn id="zone_1_link" />
-			</route>
-		</zone>
-
-		<zone id="my_cluster1" routing="Cluster">
-			<router id="router3" />
 
 
 			<host id="host1" speed="2.67Gf" core="4">
 				<mount storageId="host1_disk1" name="/h1d1" />
-
+		
 
 			</host>
 			<link id="l1_UP" bandwidth="1GBps" latency="50us" />
 			<link id="l1_DOWN" bandwidth="1GBps" latency="50us" />
 			<host_link id="host1" up="l1_UP" down="l1_DOWN" />
+
+	
+		
+
+			<host id="host3" speed="2.67Gf" core="4">
+				<mount storageId="host3_disk1" name="/h3d1" />
+			
+
+			</host>
+			<link id="l3" bandwidth="1GBps" latency="50us" />
+			<host_link id="host3" up="l3" down="l3" />
+
+
 
 
 			<storage id="host4_disk1" typeId="single_HDD" attach="host4" />
@@ -74,7 +62,7 @@
 
 			<host id="host4" speed="2.67Gf" core="4">
 				<mount storageId="host4_disk1" name="/h4d1" />
-
+		
 			</host>
 			<link id="l4_UP" bandwidth="1GBps" latency="50us" />
 			<link id="l4_DOWN" bandwidth="1GBps" latency="50us" />
@@ -82,7 +70,7 @@
 
 			<host id="host5" speed="2.67Gf" core="4">
 				<mount storageId="host5_disk1" name="/h5d1" />
-
+		
 			</host>
 			<link id="l5" bandwidth="1GBps" latency="50us"
 				sharing_policy="SPLITDUPLEX" />
@@ -90,7 +78,7 @@
 
 			<host id="host6" speed="2.67Gf" core="4">
 				<mount storageId="host6_disk1" name="/h6d1" />
-
+		
 			</host>
 			<link id="l6" bandwidth="1GBps" latency="50us" />
 			<host_link id="host6" up="l6" down="l6" />
@@ -105,7 +93,7 @@
 
 			<host id="host7" speed="2.67Gf" core="4">
 				<mount storageId="host7_disk1" name="/h7d1" />
-
+	
 			</host>
 			<link id="l41_UP" bandwidth="1GBps" latency="50us" />
 			<link id="l41_DOWN" bandwidth="1GBps" latency="50us" />
@@ -126,16 +114,26 @@
 			<link id="l61" bandwidth="1GBps" latency="50us" />
 			<host_link id="host9" up="l61" down="l61" />
 
-			<backbone id="backbone3" bandwidth="52GBps" latency="300us" />
+
+
+			<backbone id="backbone3" bandwidth="52GBps"
+				latency="300us" />
 		</zone>
 
 
 
+		<zone id="AS1" routing="None">
+			<host id="host2" speed="2.0Gf" core="8">
+				<mount storageId="host2_disk1" name="/h2d1" />
+				<mount storageId="host2_disk2" name="/h2d2" />
+
+			</host>
+		</zone>
 
 		<link id="link1" bandwidth="1GBps" latency="50us" />
 
 		<zoneRoute src="my_cluster1" dst="AS1" gw_src="router3"
-			gw_dst="router1">
+			gw_dst="host2">
 			<link_ctn id="link1" />
 		</zoneRoute>
 

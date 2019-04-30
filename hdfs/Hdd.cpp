@@ -7,6 +7,11 @@
 
 #include "Hdd.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(hdd, "Messages specific for this example");
+
+double Hdd::readAccess=0.014;
+double Hdd::writeAccess=0.014;
+double Hdd::hddSlice=0.087;
+
 Hdd::Hdd(std::vector<std::string> args) {
 
 	string actorName = this_actor::get_host()->get_name() + "_" + storageName;
@@ -34,7 +39,7 @@ Hdd::Hdd(std::string argv) {
 	Storage::by_name(argv)->write(oneMB);
 	double r2 = Engine::get_clock();
 	readSpeed = oneMB / (r2 - r1);
-	delta = 0.087 * writeSpeed;
+	delta = hddSlice * writeSpeed;
 	readAccessSize = readAccess * readSpeed; //the speed is in byte per second and the read access time in seconds
 	writeAccessSize = writeAccess * writeSpeed; //the speed is in byte per second and the read access time in seconds
 ////XBT_INFO(" r %f w %f",readAccessSize,writeAccessSize);

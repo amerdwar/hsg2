@@ -23,6 +23,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o"
+  "CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
   "CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
   "CMakeFiles/hsg.dir/Main.cpp.o"
   "hsg.pdb"

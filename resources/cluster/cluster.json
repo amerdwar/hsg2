@@ -1,0 +1,19 @@
+{"racksNum":3,
+	"hostsPerRack":20,
+	"cpuSpeed":"2.0Gf",
+	"coresNum":"4",
+	"hddNums":3,
+	"hddWriteSpeed":"130MBps",
+	"hddReadSpeed":"130MBps",
+	"hddreadAccess":20,
+	"hddwriteAccess":20,
+	"hddSlice":0.087,
+	
+	"accessLinkSpeed":"1GBps",
+	"accessLinkLatency":"50us",
+	"backBoneLinkSpeed":"5GBps",
+	"backBoneLinkLatency":"100us",
+	"coreLinkSpeed":"5GBps",
+	"coreLinkLatency":"100us",
+	"chunkSize":128
+}
