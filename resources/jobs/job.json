@@ -5,8 +5,8 @@
 	"useCompression":false,
 
          	"numOfFiles":1,
-                "maxFileSize":30000000000,
-                "minFileSize":30000000000,
+                "maxFileSize":300000000000,
+                "minFileSize":300000000000,
 		
 		"mergeCost":10,
 		"mapCost":33,	

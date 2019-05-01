@@ -25,7 +25,7 @@ using namespace simgrid::s4u;
 class NameNode {
 public:
 	//the NameNode data members
-int replicatinNum;
+static int replicatinNum;
 string nameNodeName;
 //16777216 16mb
 //134217728 128mb
@@ -38,7 +38,7 @@ explicit	NameNode(std::vector<std::string> args);
 	simgrid::s4u::Host* randomHostInRackExceptHost(simgrid::kernel::routing::ClusterZone* rack,string host);
 	bool hdfs_write(string dir,string file,int64_t file_size,simgrid::s4u::MailboxPtr sender);
 	std::vector<HdfsFile>* getDirFiles(string dir);
-	simgrid::s4u::Host* randHostExcept( 		simgrid::kernel::routing::ClusterZone* rack,std::vector<string>);
+	simgrid::s4u::Host* randHostExcept( simgrid::kernel::routing::ClusterZone* rack,std::vector<string>,int chindex);
 	void getFileChunks();
 	double hdfs_read();
 	void operator()();

@@ -6,7 +6,7 @@
  */
 
 #include "JsonPlatform.h"
-
+XBT_LOG_NEW_DEFAULT_CATEGORY(jsonPlatform, "Messages specific for this example");
 JsonPlatform::JsonPlatform() {
 	// TODO Auto-generated constructor stub
 
@@ -17,7 +17,12 @@ string str;
 	std::ifstream jsonFile(file);
 	jsonFile >> jobV;
 
-NameNode::chunkSize=jobV["chunkSize"].asInt64();
+	string ss=jobV.toStyledString();
+
+	XBT_INFO("%s",ss.c_str());
+
+NameNode::chunkSize=jobV["chunkSize"].asInt64()*1024*1024;
+NameNode::replicatinNum=jobV["replicatinNum"].asInt();
 Hdd::readAccess=jobV["readAccess"].asDouble();
 Hdd::writeAccess=jobV["writeAccess"].asDouble();
 Hdd::hddSlice=jobV["hddSlice"].asDouble();
@@ -28,14 +33,13 @@ Hdd::hddSlice=jobV["hddSlice"].asDouble();
 	hddtype="single_hdd";
 routers.push_back("router0");
 	string tem =
-			R"(
-<?xml version='1.0'?>
+			R"(<?xml version='1.0'?>
 <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
 <platform version="4.1">
 
-	<zone id="AS0" routing="Full">
+	<zone id="AS0" routing="Dijkstra">
 
-	<zone id="rack0" routing="Full">
+	<zone id="rack0" routing="Dijkstra">
     <router id="router0" />
 	 <storage_type id="%s" size="1024GiB">
 	  <model_prop id="Bwrite" value="%s" />
@@ -51,6 +55,8 @@ routers.push_back("router0");
 
 str+=get_nn_or_rm("router0",jobV,0);
 str+=get_nn_or_rm("router0",jobV,1);
+str+=get_route_nn_rm("router0",jobV,0);
+str+=get_route_nn_rm("router0",jobV,1);
 str+="</zone>";
 //Add zones then add hosts to them then connect zones
 	//the first rack(i=0) for the rack that contains NameNode and resourceManager
@@ -92,6 +98,15 @@ myfile.open("resources/hsgPlatform.xml");
 
 myfile<<str;
 myfile.close();
+
+
+
+ofstream deployf;
+deployf.open("resources/hsgDeploy.xml");
+
+deployf<<getDeployJson();
+deployf.close();
+
 }
 
 /*
@@ -193,18 +208,12 @@ string JsonPlatform::get_nn_or_rm(string router, Json::Value value,int h){
 				</host>				
 	<link id="%s" bandwidth="%s" latency="%s" />
 
-			<route src="%s" dst="%s">
-				<link_ctn id="%s" />
-			</route>
-
 	)";
 		string linkId=hostName+"link";
 		fmt = boost::format(str3) %linkId//link id
 								%value["accessLinkSpeed"].asString()
 								%value["accessLinkLatency"].asString()
-								%hostName
-								%router
-								%linkId
+
 								;
 				xmlStr += fmt.str();
 
@@ -212,6 +221,32 @@ string JsonPlatform::get_nn_or_rm(string router, Json::Value value,int h){
 		return xmlStr;
 
 }
+string JsonPlatform::get_route_nn_rm(string router, Json::Value value,int h){
+
+	string hostName = "host" + to_string(h);
+			string xmlStr = "";
+			boost::format fmt;
+	string str3 =
+			R"(
+		<route src="%s" dst="%s">
+			<link_ctn id="%s" />
+		</route>
+
+)";
+	string linkId=hostName+"link";
+	fmt = boost::format(str3)
+							%hostName
+							%router
+							%linkId
+							;
+			xmlStr += fmt.str();
+
+
+	return xmlStr;
+
+
+}
+
 
 string JsonPlatform::getZoneRoutes(vector<string> routers,Json::Value value){
 	string str="";
@@ -222,17 +257,36 @@ string JsonPlatform::getZoneRoutes(vector<string> routers,Json::Value value){
 //make route from i to j router
 			string tem=R"(
 			<link id="%s" bandwidth="%s" latency="%s" />
+					
+			)";
+			string lid="l_rack"+to_string(i)+"_rack"+to_string(j);
+			string srcZone="rack"+to_string(i);
+			string destZone2="rack"+to_string(j);
+			fmt = boost::format(tem) %lid
+									 % value["coreLinkSpeed"].asString()
+									 % value["coreLinkLatency"].asString()
+								;
+
+str+=fmt.str();
+		}
+	}
+
+
+	for(int i=0;i<routers.size()-1;i++){
+
+		for(int j=i+1;j<routers.size();j++){
+//make route from i to j router
+			string tem=R"(
+			
 					<zoneRoute src="%s" dst="%s" gw_src="%s"
 						gw_dst="%s">
 						<link_ctn id="%s" />
 					</zoneRoute>
 			)";
-			string lid="link_zone"+to_string(i)+"_zone"+to_string(j);
-			string srcZone="zone"+to_string(i);
-			string destZone2="zone"+to_string(j);
-			fmt = boost::format(tem) %lid
-									 % value["coreLinkSpeed"].asString()
-									 % value["coreLinkLatency"].asString()
+			string lid="l_rack"+to_string(i)+"_rack"+to_string(j);
+			string srcZone="rack"+to_string(i);
+			string destZone2="rack"+to_string(j);
+			fmt = boost::format(tem)
 									 %srcZone
 									 %destZone2
 									 %routers.at(i)
@@ -243,14 +297,56 @@ str+=fmt.str();
 		}
 	}
 
+
+
 	return str;
 }
 
 string JsonPlatform::getDeployJson(){
 	string str="";
 	boost::format fmt;
+string stem=R"(<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<platform version="4.1">
+
+	<actor host="host1" function="ResourceManager">
+		<argument value="host0_nameNode" />
+	</actor>
+
+	<actor host="host0" function="mrclient">
+		<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+	 
+
+	<actor host="host0" function="nameNode">
+		<argument value="host0_nameNode" />
+	</actor>
+
+)";
+
+str+=stem;
+int jj=2;//because 0  for NN and 1 for RM
+for(int i=0;i<hosts.size();i++){
+	stem=R"(
+	<actor host="%s" function="dataNode" />
+	<actor host="%s" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+)";
+	string hn="host"+to_string(jj++);
+	fmt = boost::format(stem) %hn%hn;
+	str+=fmt.str();
+}
 
 
+stem=R"(
+</platform>
+)";
+
+str+=stem;
 	return str;
 }
 

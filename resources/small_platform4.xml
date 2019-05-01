@@ -7,8 +7,8 @@
 		\ l2_down l4_up / / l4_down | l6 l5_up\ \ l5_down / / | \ \ / / | \ \ host1 
 		host3 host2 host4 host6 host5 -->
 
-	<zone id="AS0" routing="Full">
-		<zone id="AS1" routing="Full">
+	<zone id="AS0" routing="Dijkstra">
+		<zone id="AS1" routing="Dijkstra">
 			<router id="router1" />
 
 			<storage_type id="single_HDD" size="1024GiB">
@@ -43,12 +43,18 @@
 			</host>
 			<link id="zone_1_link" bandwidth="1GBps" latency="50us" />
 
-			<route src="host3" dst="router1">
+			<route src="host3" dst="router1" >
 				<link_ctn id="l3" />
 			</route>
+			
+			
+		
+			
 			<route src="host2" dst="router1">
 				<link_ctn id="zone_1_link" />
 			</route>
+			
+		
 		</zone>
 
 		<zone id="my_cluster1" routing="Cluster">

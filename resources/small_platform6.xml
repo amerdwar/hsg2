@@ -3,7 +3,7 @@
 <platform version="4.1">
 
 
-	<zone id="AS0" routing="Dijkstra">
+	<zone id="AS0" routing="Full">
 
 		<zone id="my_cluster1" routing="Cluster">
 			<router id="router3" />
@@ -42,7 +42,15 @@
 	
 		
 
-		
+			<host id="host3" speed="2.67Gf" core="4">
+				<mount storageId="host3_disk1" name="/h3d1" />
+			
+
+			</host>
+			<link id="l3" bandwidth="1GBps" latency="50us" />
+			<host_link id="host3" up="l3" down="l3" />
+
+
 
 
 			<storage id="host4_disk1" typeId="single_HDD" attach="host4" />
@@ -114,35 +122,18 @@
 
 
 
-		<zone id="AS1" routing="Full">
+		<zone id="AS1" routing="None">
 			<host id="host2" speed="2.0Gf" core="8">
 				<mount storageId="host2_disk1" name="/h2d1" />
 				<mount storageId="host2_disk2" name="/h2d2" />
 
 			</host>
-				<host id="host3" speed="2.67Gf" core="4">
-				<mount storageId="host3_disk1" name="/h3d1" />
-			
-
-			</host>
-				<router id="router1" />
-				
-				
-				<link id="h2l" bandwidth="1GBps" latency="50us" />
-				<link id="h3l" bandwidth="1GBps" latency="50us" />
-
-			<route src="host2" dst="router1">
-				<link_ctn id="h2l" />
-			</route>
-					<route src="host3" dst="router1">
-				<link_ctn id="h2l" />
-			</route>
 		</zone>
 
 		<link id="link1" bandwidth="1GBps" latency="50us" />
 
 		<zoneRoute src="my_cluster1" dst="AS1" gw_src="router3"
-			gw_dst="router1">
+			gw_dst="host2">
 			<link_ctn id="link1" />
 		</zoneRoute>
 

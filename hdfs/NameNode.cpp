@@ -12,24 +12,34 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(hsg2, "Messages specific for this example");
 //67108864
 //100663296
 int64_t NameNode::chunkSize = 134217728;
-
+int NameNode::replicatinNum = 3;
 NameNode::NameNode(std::vector<std::string> args) {
 
 
 	nameNodeName = args[1];
 //mailbox=Mailbox::by_name(this_actor::get_host()->get_name()+nameNodeName);
-	if (args.size() > 1)
-		NameNode::chunkSize = std::stoi(args[2]) * 1024 * 1024;
+//	if (args.size() > 1)
+	//	NameNode::chunkSize = std::stoi(args[2]) * 1024 * 1024;
 	Engine* e = simgrid::s4u::Engine::get_instance();
 
 	mailbox = Mailbox::by_name(nameNodeName);
 	mailbox->set_receiver(Actor::self());
 
 	racks = e->get_filtered_netzones<simgrid::kernel::routing::ClusterZone>();
-
-	replicatinNum = 3;
 	allDires = new map<string, DirFiles *>();
 	dataNodes = new map<MailboxPtr, vector<Chunk*>>;
+
+	for(int i=0;i<racks.size();i++){
+		for(int j=0;j<racks.at(i)->get_all_hosts().size();j++){
+			simgrid::s4u::MailboxPtr h1 = simgrid::s4u::Mailbox::by_name(
+					racks.at(i)->get_all_hosts().at(j)->get_name() + "_dataNode");
+
+			vector<Chunk*> vv;
+			dataNodes->insert(
+							std::pair<MailboxPtr, vector<Chunk*>>(
+		h1, vv));
+		}
+	}
 
 }
 
@@ -179,7 +189,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 				s.push_back(h1->get_name());
 				s.push_back(h2->get_name());
 				h3 = simgrid::s4u::Mailbox::by_name(
-						this->randHostExcept(selectedRack, s)->get_name()
+						this->randHostExcept(selectedRack, s,chindex)->get_name()
 								+ "_dataNode");
 			} else {
 
@@ -222,8 +232,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 			if (dataNodes->find(hosts_to_write->at(i)) == dataNodes->end()) {
 				vector<Chunk*> dnChunks;
 				dnChunks.push_back(ch);
-				dataNodes->insert(
-						std::pair<MailboxPtr, vector<Chunk*>>(
+				dataNodes->insert(std::pair<MailboxPtr, vector<Chunk*>>(
 								hosts_to_write->at(i), dnChunks));
 			} else {
 				dataNodes->at(hosts_to_write->at(i)).push_back(ch);
@@ -277,10 +286,11 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 	}
 }
 simgrid::s4u::Host* NameNode::randHostExcept(
-		simgrid::kernel::routing::ClusterZone* rack, std::vector<string> exc) {
+		simgrid::kernel::routing::ClusterZone* rack, std::vector<string> exc,int chindex) {
 	auto hosts = rack->get_all_hosts();
+
 	simgrid::s4u::Host* h;
-	if (hosts.size() > 1) {	//if we have more than one host return any random host in the rack except the host whose name is param host
+	if (hosts.size() > exc.size()) {	//if we have more than one host return any random host in the rack except the host whose name is param host
 		bool reScan = false;
 		do {
 			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
@@ -288,14 +298,15 @@ simgrid::s4u::Host* NameNode::randHostExcept(
 			for (auto ex : exc) {
 				if (ex.compare(h->get_name() + "_dataNode") == 0) {
 					reScan = true;
-					XBT_INFO(" equal %s ,%s", ex.c_str(),
-							h->get_name().c_str());
+					XBT_INFO(" equal %s ,%s %i", ex.c_str(),
+							h->get_name().c_str(),chindex);
 				} else {
-					XBT_INFO(" not equal %s ,%s", ex.c_str(),
-							h->get_name().c_str());
+					XBT_INFO(" not equal %s ,%s %i", ex.c_str(),
+							h->get_name().c_str(),chindex);
 
 				}
 			}
+
 
 		} while (reScan);
 

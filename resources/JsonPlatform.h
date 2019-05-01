@@ -24,6 +24,7 @@ public:
 	string getHostInfo(string router,Json::Value value);
 	string getZoneRoutes(vector<string> routers,Json::Value value);
 	string get_nn_or_rm(string router, Json::Value value,int h);
+	string get_route_nn_rm(string router, Json::Value value,int h);
 	string getDeployJson();
 	virtual ~JsonPlatform();
 };

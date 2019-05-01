@@ -20,7 +20,7 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
 void doSim(int argc, char* argv[]) {
 
 	simgrid::s4u::Engine e(&argc, argv);
-	xbt_assert(argc > 2, "Usage: %s platform_file deployment_file\n", argv[0]);
+//	xbt_assert(argc > 2, "Usage: %s platform_file deployment_file\n", argv[0]);
 
 	/* Register the classes representing the actors */
 
@@ -33,9 +33,11 @@ void doSim(int argc, char* argv[]) {
 	e.register_actor<NodeManager>("nodeManager");
 
 	/* Load the platform description and then deploy the application */
-	e.load_platform(argv[1]);
-	e.load_deployment(argv[2]);
+	//e.load_platform(argv[1]);
+	//e.load_deployment(argv[2]);
 
+	e.load_platform("resources/hsgPlatform.xml");
+	e.load_deployment("resources/hsgDeploy.xml");
 
 
 	//simgrid::s4u::Actor::create("client", simgrid::s4u::Host::by_name("host1"), Client("host2_nameNode"));
@@ -49,10 +51,12 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-//	doSim(argc, argv);
+	JsonPlatform* jp=new JsonPlatform();
+	jp->creatPlatform("resources/cluster/cluster.json");
+	doSim(argc, argv);
 //	RUN_ALL_TESTS();
-JsonPlatform* jp=new JsonPlatform();
-jp->creatPlatform("resources/cluster/cluster.json");
+
+
 	return 0;
 }
 

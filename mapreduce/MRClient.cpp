@@ -12,16 +12,21 @@ MRClient::MRClient(std::vector<std::string> args) {
 	thisName = simgrid::s4u::this_actor::get_host()->get_name() + "_"
 			+ simgrid::s4u::this_actor::get_name();
 
+	XBT_INFO("in mr client");
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
 	this->rMangerName = args[2];
-	rManager = Mailbox::by_name(rMangerName);
+	XBT_INFO("in mr client %s",this->rMangerName.c_str());
 
+
+	rManager = Mailbox::by_name(rMangerName);
+	XBT_INFO("in mr client");
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
 
 	thismb = simgrid::s4u::Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
 jsonJob=new  JsonJob();
+XBT_INFO("in mr client");
 }
 
 
@@ -37,6 +42,7 @@ void MRClient::sendJob(JobInfo* job) {
 void MRClient::operator()() {
 	// path p("../resources/jobs");
 
+	XBT_INFO("in mr client");
 vector<string> jNames= getAllJobs();
 
 
@@ -46,6 +52,8 @@ vector<string> jNames= getAllJobs();
 
 	for (int i = 0; i < jobsNum; i++) {
 		JobInfo*job = jsonJob->getJobFromJson(jNames.at(i));
+
+
 		job->user=thisName;
 		//initJob(job);
 		this->writeDate(job);
