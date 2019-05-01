@@ -1,12 +1,12 @@
 {
 	"jobName":"job",
-	"numberOfReducers":1,
+	"numberOfReducers":3,
 	"useCombiner":false,
-	"useCompression":false,
+	"useCompression":true,
 
          	"numOfFiles":1,
-                "maxFileSize":300000000000,
-                "minFileSize":300000000000,
+                "maxFileSize":3000000000,
+                "minFileSize":3000000000,
 		
 		"mergeCost":10,
 		"mapCost":33,	
@@ -21,15 +21,14 @@
 		
 		"compressionCost":1.0,
 		"uncompressionCost":1.0,
-		"compressionSize":1.0  ,
+		"compressionSize":0.5  ,
 
 		"combineCost":1,
 		"combineGroups":100000,
 		"combineOutAvRecordSize":1,
 
-
                "mapReduceParallelCopies":5,     		
-                "ioSortMb":100.0,
+                "ioSortMb":20.0,
               	"ioSortSpillPercent":0.80,
          	"ioSortFactor":10,	
          	"mapredJobShuffleMergePercent":0.66,

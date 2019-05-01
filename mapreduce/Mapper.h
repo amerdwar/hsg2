@@ -20,7 +20,7 @@ public:
 int64_t mid;
 Combiner* merger;
 	allocateRes* res;
-
+bool minFilesToCombine=false;//false the number of spilles is less than the minimum
 	string appMasterName;
 	string nameNodeName;
 	string thisName;
@@ -43,6 +43,7 @@ Combiner* merger;
 	spill* exeAndWrPart(int64_t partsize1);
 	string printSpill(spill* sp);
 	string printMapOut(map<int,vector<spill*>*>*a);
+	double copress(double s);
 	virtual ~Mapper();
 private:
 	static int64_t mapIds;

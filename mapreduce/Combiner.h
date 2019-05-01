@@ -38,7 +38,7 @@ public:
 
 void mergeSpilles(vector<spill*>* v);
 void mergeReduceSpilles	(vector<spill*>* v);
-void merge(vector<spill*>* v,int fIndex,int lIndex);
+void merge(vector<spill*>* v,int fIndex,int lIndex,bool isLast);
 void mergeReduce(vector<spill*>* v,int fIndex,int lIndex);
 
 

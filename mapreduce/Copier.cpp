@@ -162,7 +162,19 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 		XBT_INFO("error %i , %i %i ",numBytes,sss,lastsp->ch->size);
 	}
 //exe for merge
-	double exeFlops = (double) lastsp->records;
+	double comp_cost=0;
+	if(job->useCompression)
+		comp_cost=(double)lastsp->records*job->uncompressionCost;
+
+	double exeFlops = (double) lastsp->records+comp_cost;
+
+	if(job->useCompression){
+XBT_INFO("size before uncompres %s",to_string(lastsp->ch->size).c_str());
+
+	lastsp->ch->size=(int64_t)lastsp->ch->size /job->compressionSize;
+
+	XBT_INFO("size after uncompres %s",to_string(lastsp->ch->size).c_str());
+	}
 	auto a = this_actor::exec_async(exeFlops);
 	pending_comms.push_back(a); //tell now we execute one out
 

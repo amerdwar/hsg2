@@ -137,6 +137,16 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
 	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_RECORDS,(double)(tt/job->mapOutAvRecordSize));
 	//XBT_INFO("spill size %i spill num %i task size %i", spillSize, spillNum,
 	//	taskSize);
+int64_t allS=spillNum;
+	if (tt % spillSize != 0)
+allS++;
+
+
+	if(allS<job->mapCombineMinspills)//this for compression perfore write to desk
+minFilesToCombine=true;
+	else
+	minFilesToCombine=false;
+
 	for (int i = 0; i < job->numberOfReducers; i++) {
 		vector<spill*>* vectorSpill = new vector<spill*>();
 		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
@@ -196,17 +206,27 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 	int64_t combinedRecs = combine(partrecNum);
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)combinedRecs);
 	ExecPtr ptrE;
+
+	double comp_cost;
+	if(minFilesToCombine&&job->useCompression)//so compress here
+		comp_cost=(double)partrecNum*job->compressionCost;
+	else
+		comp_cost=0;
+
+
 	if (partrecNum == combinedRecs) {
-		ptrE = this_actor::exec_async(0);
+		ptrE = this_actor::exec_async(comp_cost);
 		partsize = partsize1;
 		//XBT_INFO("no compiiner so size is %i", partsize);
 
 	} else {
 		partsize = combinedRecs * job->combineOutAvRecordSize;
-		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost); //the cost of combination = combine rec cost * map recs
+		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost+comp_cost); //the cost of combination = combine rec cost * map recs
 		//XBT_INFO("yes compiiner so size is %i", partsize);
 	}
 
+	if(!minFilesToCombine&&job->useCompression)//for size
+		partsize*=job->compressionSize;//compress
 
 
 	Chunk* temC = this->hddm->writeCh(partsize);
@@ -240,4 +260,11 @@ string Mapper::printMapOut(map<int, vector<spill*>*>*a) {
 
 	s += "\n";
 	return s;
+}
+
+double Mapper::copress(double s){
+	double res;
+res=s*this->job->compressionSize;
+
+	return res;
 }

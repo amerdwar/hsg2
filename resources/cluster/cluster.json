@@ -1,5 +1,5 @@
-{"racksNum":10,
-	"hostsPerRack":1000,
+{"racksNum":3,
+	"hostsPerRack":10,
 	"cpuSpeed":"2.0Gf",
 	"coresNum":"4",
 	"hddNums":3,
@@ -15,6 +15,6 @@
 	"backBoneLinkLatency":"100us",
 	"coreLinkSpeed":"5GBps",
 	"coreLinkLatency":"100us",
-	"chunkSize":64,
+	"chunkSize":128,
 	"replicatinNum":3
 }
