@@ -20,7 +20,7 @@ public:
 	string heartBeater;
 	MailboxPtr nnmb;
 	MailboxPtr thismb;
-	int numCorePerContainer = 1; //to specify the containers number on each host
+	static int numCorePerContainer ; //to specify the containers number on each host
 	int numAllContainers = 0;
 	int numFreeContainers = 0;
 	std::map<string, int> containers;

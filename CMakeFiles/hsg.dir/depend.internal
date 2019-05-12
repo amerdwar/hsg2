@@ -1167,12 +1167,16 @@ CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/json/json/json.h
+ /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
  /home/alpha/tuturial/hsg/mapreduce/Counter.h
  /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
  /home/alpha/tuturial/hsg/messages/HddMsg.h
  /home/alpha/tuturial/hsg/messages/Message.h
  /home/alpha/tuturial/hsg/resources/JsonPlatform.cpp
  /home/alpha/tuturial/hsg/resources/JsonPlatform.h
+ /home/alpha/tuturial/hsg/yarn/HeartBeater.h
+ /home/alpha/tuturial/hsg/yarn/ResourceManager.h
+ /home/alpha/tuturial/hsg/yarn/YarnScheduler.h
  /opt/simgrid/include/simgrid/Exception.hpp
  /opt/simgrid/include/simgrid/chrono.hpp
  /opt/simgrid/include/simgrid/config.h

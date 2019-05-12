@@ -14,6 +14,7 @@ using namespace simgrid::s4u;
 class AppMaster {
 public:
 	bool reduceReqIsSent=false;
+	static	double slowStartNumFinishedMappers;
 	JobInfo* job;
 int64_t numbytes=0;
 int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;

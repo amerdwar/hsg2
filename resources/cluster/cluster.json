@@ -1,4 +1,7 @@
-{"racksNum":3,
+
+{  "generatePlatformAndDeploy":true,
+	
+	"racksNum":3,
 	"hostsPerRack":10,
 	"cpuSpeed":"2.0Gf",
 	"coresNum":"4",
@@ -15,6 +18,11 @@
 	"backBoneLinkLatency":"100us",
 	"coreLinkSpeed":"5GBps",
 	"coreLinkLatency":"100us",
+	
+	
 	"chunkSize":128,
-	"replicatinNum":3
+	"replicatinNum":3,
+	"slowStartNumFinishedMappers":5.0,
+	"numCorePerContainer":1
+	
 }

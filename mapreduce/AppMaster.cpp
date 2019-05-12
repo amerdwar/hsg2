@@ -8,6 +8,7 @@
 #include "AppMaster.h"
 
 XBT_LOG_NEW_DEFAULT_CATEGORY(AppMaster, "Messages specific for this example");
+double AppMaster::slowStartNumFinishedMappers=5;
 AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 		string rManager) {
 
@@ -140,7 +141,7 @@ void AppMaster::requestReducers() {
 	if (!reduceReqIsSent) {
 		double d = ((double) numFinishedMappers / (double) numAllMappers)
 				* 100.0;
-		if (d > 5.0) {
+		if (d > slowStartNumFinishedMappers) {
 			sendReduceRequest();
 			reduceReqIsSent = true;
 		}

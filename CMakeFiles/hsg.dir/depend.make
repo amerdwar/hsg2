@@ -1166,12 +1166,16 @@ CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: hdfs/Hdd.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: json/json/json.h
+CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: mapreduce/AppMaster.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: messages/HddMsg.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: resources/JsonPlatform.cpp
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: resources/JsonPlatform.h
+CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: yarn/HeartBeater.h
+CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: yarn/ResourceManager.h
+CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: yarn/YarnScheduler.h
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: /opt/simgrid/include/simgrid/Exception.hpp
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: /opt/simgrid/include/simgrid/chrono.hpp
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: /opt/simgrid/include/simgrid/config.h

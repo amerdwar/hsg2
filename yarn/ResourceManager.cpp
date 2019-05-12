@@ -9,6 +9,7 @@
 
 XBT_LOG_NEW_DEFAULT_CATEGORY(ResourceManager,
 		"Messages specific for this example");
+ int ResourceManager::numCorePerContainer=1 ; //to specify the containers number on each host
 ResourceManager::ResourceManager(std::vector<std::string> args) {
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];

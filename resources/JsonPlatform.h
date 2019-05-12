@@ -13,6 +13,8 @@
 #include <boost/format.hpp>
 #include "../hdfs/NameNode.h"
 #include "../hdfs/Hdd.h"
+#include "../mapreduce/AppMaster.h"
+#include "../yarn/ResourceManager.h"
 using namespace std;
 class JsonPlatform {
 public:

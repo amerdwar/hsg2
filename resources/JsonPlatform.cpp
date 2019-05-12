@@ -26,6 +26,16 @@ NameNode::replicatinNum=jobV["replicatinNum"].asInt();
 Hdd::readAccess=jobV["readAccess"].asDouble();
 Hdd::writeAccess=jobV["writeAccess"].asDouble();
 Hdd::hddSlice=jobV["hddSlice"].asDouble();
+AppMaster::slowStartNumFinishedMappers=jobV["slowStartNumFinishedMappers"].asDouble();
+ResourceManager::numCorePerContainer=jobV["numCorePerContainer"].asInt();
+
+
+bool gen=jobV["generatePlatformAndDeploy"].asBool();
+if(!gen){//do not generate new platform nor deploy
+	XBT_INFO("no generate");
+
+	return;
+}
 
 
 	vector<string> routers;

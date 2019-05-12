@@ -531,6 +531,10 @@ boost/format.hpp
 /home/alpha/tuturial/hsg/hdfs/NameNode.h
 ../hdfs/Hdd.h
 /home/alpha/tuturial/hsg/hdfs/Hdd.h
+../mapreduce/AppMaster.h
+/home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+../yarn/ResourceManager.h
+/home/alpha/tuturial/hsg/yarn/ResourceManager.h
 
 /home/alpha/tuturial/hsg/yarn/HddMediator.cpp
 HddMediator.h
