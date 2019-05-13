@@ -35,8 +35,8 @@ void AsyncWriter::operator ()(){
 			XBT_INFO("error write chunk return tag ,AsyncWriter \n %s",ackm->toString().c_str());
 			exit(1);
 		}
-		XBT_INFO("after if ,in async writer");
-		exit(0);
+
+
 
 		ch->isWritten=true;
 

@@ -12,10 +12,13 @@
 #include "JobInfo.h"
 #include "Combiner.h"
 #include <queue>
+#include "AsyncWriter.h"
 using namespace simgrid::s4u;
 class Copier {
 public:
+	vector<ActorPtr> actorPtrV;
 	int64_t ackNum=0,reqNum=0;
+	int64_t asyncWrId=0;
 	Combiner* merger;
 	int64_t numBytes=0;
 	queue<vector<spill*>*>* q;
@@ -33,6 +36,7 @@ public:
 	spill* exe(vector<spill*>*v);
 	vector<vector<spill*>*> *  getMapsVecors(vector<spill*>* v);
 	void spillAndCompine(spill* sp) ;
+	void AsyncDirectSpill(spill* sp);
 	string printMap(map<string,int> rm);
 	void toDisk();
 	void directSpill(spill* sp);

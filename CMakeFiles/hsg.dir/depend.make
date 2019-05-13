@@ -15,6 +15,7 @@ CMakeFiles/hsg.dir/Main.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/Main.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/Main.cpp.o: json/json/json.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/AppMaster.h
+CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/AsyncWriter.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Counter.h
@@ -737,6 +738,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/Chunk.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/AsyncWriter.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.cpp
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.h
@@ -1102,6 +1104,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/DirFiles.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/AsyncWriter.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Counter.h
@@ -1408,6 +1411,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/HdfsClient.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/HdfsFile.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: hdfs/NameNode.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/AppMaster.h
+CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/AsyncWriter.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Counter.h

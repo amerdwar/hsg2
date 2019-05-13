@@ -405,6 +405,8 @@ Combiner.h
 /home/alpha/tuturial/hsg/mapreduce/Combiner.h
 queue
 -
+AsyncWriter.h
+/home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
 
 /home/alpha/tuturial/hsg/mapreduce/Counter.cpp
 Counter.h
@@ -420,6 +422,10 @@ map
 simgrid/s4u.hpp
 -
 mutex
+-
+chrono
+-
+ctime
 -
 
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.cpp

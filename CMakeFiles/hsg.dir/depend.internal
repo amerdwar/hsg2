@@ -16,6 +16,7 @@ CMakeFiles/hsg.dir/Main.cpp.o
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/json/json/json.h
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+ /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
  /home/alpha/tuturial/hsg/mapreduce/Counter.h
@@ -738,6 +739,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
  /home/alpha/tuturial/hsg/hdfs/DirFiles.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.cpp
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
@@ -1103,6 +1105,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsClient.h
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
+ /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
  /home/alpha/tuturial/hsg/mapreduce/Counter.h
@@ -1409,6 +1412,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /home/alpha/tuturial/hsg/hdfs/HdfsFile.h
  /home/alpha/tuturial/hsg/hdfs/NameNode.h
  /home/alpha/tuturial/hsg/mapreduce/AppMaster.h
+ /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
  /home/alpha/tuturial/hsg/mapreduce/Combiner.h
  /home/alpha/tuturial/hsg/mapreduce/Copier.h
  /home/alpha/tuturial/hsg/mapreduce/Counter.h

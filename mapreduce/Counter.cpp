@@ -65,7 +65,10 @@ mtx.unlock();
 
 void Counter::printCtrs(){
 	ofstream myfile;
-myfile.open("resources/results/"+jName);
+	 auto jTime = std::chrono::system_clock::now();
+	  std::time_t jjt = std::chrono::system_clock::to_time_t(jTime);
+
+myfile.open("resources/results/"+jName+" "+std::ctime(&jjt));
 string s="\n";
 s+="job name:"+jName+"\n";
 for (auto const&t : ctrMap){

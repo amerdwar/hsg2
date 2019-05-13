@@ -14,6 +14,8 @@
 #include <map>
 #include <simgrid/s4u.hpp>
 #include <mutex>          // std::mutex
+#include <chrono>
+#include <ctime>
 
 using namespace std;
 class Counter {

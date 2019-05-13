@@ -1,6 +1,6 @@
 {
 	"jobName":"job",
-	"numberOfReducers":3,
+	"numberOfReducers":1,
 	"useCombiner":false,
 	"useCompression":true,
 
