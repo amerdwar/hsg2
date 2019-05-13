@@ -633,9 +633,33 @@ CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o.provides: CMakeFiles/hsg.dir/mapreduc
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o.provides.build: CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o
 
 
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o: mapreduce/AsyncWriter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o -c /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.cpp
+
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.cpp > CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.i
+
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/alpha/tuturial/hsg/mapreduce/AsyncWriter.cpp -o CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.s
+
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.requires:
+
+.PHONY : CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.requires
+
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.provides: CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.requires
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.provides.build
+.PHONY : CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.provides
+
+CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.provides.build: CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o
+
+
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: resources/JsonPlatform.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o -c /home/alpha/tuturial/hsg/resources/JsonPlatform.cpp
 
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.i: cmake_force
@@ -659,7 +683,7 @@ CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o.provides.build: CMakeFiles/hsg.d
 
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: json/jsoncpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/json/jsoncpp.cpp.o -c /home/alpha/tuturial/hsg/json/jsoncpp.cpp
 
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.i: cmake_force
@@ -683,7 +707,7 @@ CMakeFiles/hsg.dir/json/jsoncpp.cpp.o.provides.build: CMakeFiles/hsg.dir/json/js
 
 CMakeFiles/hsg.dir/Main.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/Main.cpp.o: Main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/Main.cpp.o -c /home/alpha/tuturial/hsg/Main.cpp
 
 CMakeFiles/hsg.dir/Main.cpp.i: cmake_force
@@ -731,6 +755,7 @@ hsg_OBJECTS = \
 "CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o" \
+"CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o" \
 "CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o" \
 "CMakeFiles/hsg.dir/json/jsoncpp.cpp.o" \
 "CMakeFiles/hsg.dir/Main.cpp.o"
@@ -762,6 +787,7 @@ hsg: CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o
+hsg: CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o
 hsg: CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o
 hsg: CMakeFiles/hsg.dir/json/jsoncpp.cpp.o
 hsg: CMakeFiles/hsg.dir/Main.cpp.o
@@ -769,7 +795,7 @@ hsg: CMakeFiles/hsg.dir/build.make
 hsg: /opt/simgrid/lib/libsimgrid.so
 hsg: /usr/local/lib/libgtest.a
 hsg: CMakeFiles/hsg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Linking CXX executable hsg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alpha/tuturial/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking CXX executable hsg"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hsg.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -801,6 +827,7 @@ CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o.require
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o.requires
+CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/json/jsoncpp.cpp.o.requires
 CMakeFiles/hsg.dir/requires: CMakeFiles/hsg.dir/Main.cpp.o.requires

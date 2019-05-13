@@ -24,6 +24,7 @@ public:
 	int numReadReq=0;
 	HddMediator(string dataNodeName,string sender,string task);
 	Chunk*  writeCh(int64_t size);
+	Chunk* writeCh_async(int64_t size) ;
 	Chunk* readChsWrExe(vector<Chunk*>* vch,double size ,double exeF) ;
 	void readCh(Chunk* ch);
 	void deleteCh(Chunk*ch);

@@ -59,14 +59,8 @@ int64_t mergeCost=10;//cost per record
 	//double mapredChildJavaOpts = 200;//to do delete
 	//int mapredInmemMergeThreshold = 1000;//to do delete
 
-//	double mapredJobReduceInputBufferPercent = 0.0;//to do delte this
+	double mapredJobReduceInputBufferPercent = 0.7;//if spill > so write to disk
 	//we always use as much as possible of memory so this is 0
-
-
-//	double mapredJobShuffleInputBufferPercent = 0.7;//to do delete this ,do not use
-	//its to specify the amount of memory for the shuffle <but mapredJobShuffleMergePercent
-	//is the threshold so we can ignore this variable
-
 	double mapredJobShuffleMergePercent = 0.66;//threshold to spills in memory on reducer
 	int mapReduceParallelCopies = 5;//the number of copiers
 	double memoryLimit = 1.4138736E8;//the memory for shuffle

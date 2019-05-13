@@ -31,6 +31,7 @@
                 "ioSortMb":20.0,
               	"ioSortSpillPercent":0.80,
          	"ioSortFactor":10,	
+         	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
         	"memoryLimit":100000000.0
 

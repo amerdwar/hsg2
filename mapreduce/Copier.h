@@ -24,7 +24,7 @@ public:
 	MailboxPtr thismb, parentMb,thismbForDataNode;
 	JobInfo* job;
 	HddMediator *hddmed;
-	int64_t memBytes;
+	int64_t memBytes,bufferMemBytes;
 	vector<spill*>* outDiskV,*outMemV;
 	map<string,int> readVAck;
     std::vector<simgrid::s4u::ExecPtr> pending_comms;
@@ -35,6 +35,7 @@ public:
 	void spillAndCompine(spill* sp) ;
 	string printMap(map<string,int> rm);
 	void toDisk();
+	void directSpill(spill* sp);
 	void operator()();
 
 	virtual ~Copier();

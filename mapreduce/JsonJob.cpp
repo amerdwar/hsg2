@@ -53,11 +53,7 @@ Json::Value jobV;
    	j-> ioSortMb = jobV["ioSortMb"].asDouble();
 
    	j-> ioSortSpillPercent = jobV["ioSortSpillPercent"].asDouble();
-
-   	//j-> mapredChildJavaOpts =jobV[""]; not used
-   	//j-> mapredInmemMergeThreshold = jobV["mapredInmemMergeThreshold"];
-   	//j-> mapredJobReduceInputBufferPercent = jobV[""];
-   	//j-> mapredJobShuffleInputBufferPercent = jobV[""];
+j->mapredJobReduceInputBufferPercent=jobV["mapredJobReduceInputBufferPercent"].asDouble();
    	j-> mapredJobShuffleMergePercent = jobV["mapredJobShuffleMergePercent"].asDouble();
 
    	j-> mapReduceParallelCopies = jobV["mapReduceParallelCopies"].asInt();

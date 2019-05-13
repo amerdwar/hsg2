@@ -47,6 +47,34 @@ Chunk* HddMediator::writeCh(int64_t size) {
 	ch->isWritten=true;
 	return ch;
 }
+
+
+Chunk* HddMediator::writeCh_async(int64_t size) {
+	Chunk *ch = new Chunk(task, task, 0, size);
+	ch->clinetMB = thismb;
+	vector<simgrid::s4u::MailboxPtr>* hosts_to_write = new vector<
+			simgrid::s4u::MailboxPtr>();
+	hosts_to_write->push_back(dataNode);
+	ch->nodes = hosts_to_write;
+
+	Message *writemsg = new Message(msg_type::cl_dn_wr_ch, sender, dataNodeName,
+			hdd_Access::hdd_write, ch);
+
+
+	dataNode->put(writemsg, size);
+
+	Message* ackm = static_cast<Message*>(thismb->get());
+
+	if (ackm->type != msg_type::dn_ack_wr_ch) {
+		XBT_INFO("error write chunk return tag ,hddmediator \n %s",ackm->toString().c_str());
+		exit(1);
+	}
+
+	ch->isWritten=true;
+	return ch;
+}
+
+
 void HddMediator::readCh(Chunk* ch) {
 	Message *chReq = new Message(msg_type::cl_dn_re_ch, thismb->get_name(),
 			dataNodeName, hdd_Access::hdd_read, ch);

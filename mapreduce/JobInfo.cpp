@@ -67,7 +67,7 @@ j->user=this->user;
 
 	j-> useCombiner = this->useCombiner;
 	j-> useCompression = this->useCompression;
-
+j->mapredJobReduceInputBufferPercent=this->mapredJobReduceInputBufferPercent;
 
 return j;
 }

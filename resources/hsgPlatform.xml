@@ -7,7 +7,7 @@
 	<zone id="rack0" routing="Dijkstra">
     <router id="router0" />
 	 <storage_type id="single_hdd" size="1024GiB">
-	  <model_prop id="Bwrite" value="140MBps" />
+	  <model_prop id="Bwrite" value="130MBps" />
 	  <model_prop id="Bread" value="130MBps" />
 	 </storage_type>
 

@@ -19,6 +19,11 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 	this->dataNode = datNodeName;
 	this->memBytes = int64_t(
 			job->memoryLimit * job->mapredJobShuffleMergePercent);
+
+
+	this->bufferMemBytes = int64_t(
+			job->memoryLimit * job->mapredJobReduceInputBufferPercent);
+
 	merger = new Combiner(job, dataNode, thisName);
 	thismb = Mailbox::by_name(thisName);
 	string mbForDn=thisName+"_dn";
@@ -217,6 +222,12 @@ vector<vector<spill*>*> * Copier::getMapsVecors(vector<spill*>* v) {
 
 void Copier::spillAndCompine(spill* sp) {
 	int64_t chSize = sp->ch->size;
+//TODO if spill size > buffer percent write to disk directly
+	if(chSize>bufferMemBytes){
+directSpill(sp);
+		return;
+	}
+
 
 	if (memBytes > chSize) {
 		memBytes -= chSize;
@@ -250,6 +261,25 @@ void Copier::spillAndCompine(spill* sp) {
 
 }
 
+
+void Copier::directSpill(spill* sp){
+
+
+	double exeFlops = (double) sp->records;
+	auto a = this_actor::exec_async(exeFlops);
+	pending_comms.push_back(a);
+
+	Chunk* ch = hddmed->writeCh(sp->ch->size);
+	spill* direct = new spill();
+	direct->ch = ch;
+	direct->records = sp->records;
+	outDiskV->push_back(direct);
+
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,direct->records);
+
+
+}
+
 void Copier::toDisk() {
 	spill* lastsp = outMemV->at(0);
 	XBT_INFO("size is %i   ",lastsp->ch->size);
@@ -265,6 +295,8 @@ void Copier::toDisk() {
 		int64_t comSize = combineRec * job->combineOutAvRecordSize;
 
 		auto ptr = this_actor::exec_async(
+
+
 				(double) lastsp->records * job->combineCost);
 		pending_comms.push_back(ptr);
 

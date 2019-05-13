@@ -16,6 +16,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/alpha/tuturial/hsg/hdfs/NameNode.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/hdfs/NameNode.cpp.o"
   "/home/alpha/tuturial/hsg/json/jsoncpp.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/AppMaster.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
+  "/home/alpha/tuturial/hsg/mapreduce/AsyncWriter.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Combiner.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Copier.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
   "/home/alpha/tuturial/hsg/mapreduce/Counter.cpp" "/home/alpha/tuturial/hsg/CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o"

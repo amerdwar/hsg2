@@ -447,6 +447,33 @@ mapreduce/AppMaster.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.s
 .PHONY : mapreduce/AppMaster.cpp.s
 
+mapreduce/AsyncWriter.o: mapreduce/AsyncWriter.cpp.o
+
+.PHONY : mapreduce/AsyncWriter.o
+
+# target to build an object file
+mapreduce/AsyncWriter.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o
+.PHONY : mapreduce/AsyncWriter.cpp.o
+
+mapreduce/AsyncWriter.i: mapreduce/AsyncWriter.cpp.i
+
+.PHONY : mapreduce/AsyncWriter.i
+
+# target to preprocess a source file
+mapreduce/AsyncWriter.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.i
+.PHONY : mapreduce/AsyncWriter.cpp.i
+
+mapreduce/AsyncWriter.s: mapreduce/AsyncWriter.cpp.s
+
+.PHONY : mapreduce/AsyncWriter.s
+
+# target to generate assembly for a file
+mapreduce/AsyncWriter.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.s
+.PHONY : mapreduce/AsyncWriter.cpp.s
+
 mapreduce/Combiner.o: mapreduce/Combiner.cpp.o
 
 .PHONY : mapreduce/Combiner.o
@@ -897,6 +924,9 @@ help:
 	@echo "... mapreduce/AppMaster.o"
 	@echo "... mapreduce/AppMaster.i"
 	@echo "... mapreduce/AppMaster.s"
+	@echo "... mapreduce/AsyncWriter.o"
+	@echo "... mapreduce/AsyncWriter.i"
+	@echo "... mapreduce/AsyncWriter.s"
 	@echo "... mapreduce/Combiner.o"
 	@echo "... mapreduce/Combiner.i"
 	@echo "... mapreduce/Combiner.s"

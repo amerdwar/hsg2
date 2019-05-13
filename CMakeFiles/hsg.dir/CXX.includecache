@@ -362,6 +362,22 @@ simgrid/s4u.hpp
 JobInfo.h
 /home/alpha/tuturial/hsg/mapreduce/JobInfo.h
 
+/home/alpha/tuturial/hsg/mapreduce/AsyncWriter.cpp
+AsyncWriter.h
+/home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
+
+/home/alpha/tuturial/hsg/mapreduce/AsyncWriter.h
+simgrid/s4u.hpp
+-
+string.h
+-
+../hdfs/Chunk.h
+/home/alpha/tuturial/hsg/hdfs/Chunk.h
+vector
+-
+../messages/Message.h
+/home/alpha/tuturial/hsg/messages/Message.h
+
 /home/alpha/tuturial/hsg/mapreduce/Combiner.cpp
 Combiner.h
 /home/alpha/tuturial/hsg/mapreduce/Combiner.h
