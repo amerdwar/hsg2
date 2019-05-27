@@ -26,6 +26,8 @@ NameNode::replicatinNum=jobV["replicatinNum"].asInt();
 Hdd::readAccess=jobV["readAccess"].asDouble();
 Hdd::writeAccess=jobV["writeAccess"].asDouble();
 Hdd::hddSlice=jobV["hddSlice"].asDouble();
+
+Hdd::hddCpuUseage=jobV["hddCpuUseage"].asDouble();
 AppMaster::slowStartNumFinishedMappers=jobV["slowStartNumFinishedMappers"].asDouble();
 ResourceManager::numCorePerContainer=jobV["numCorePerContainer"].asInt();
 

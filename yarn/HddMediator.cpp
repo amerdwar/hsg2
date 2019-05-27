@@ -76,6 +76,8 @@ Chunk* HddMediator::writeCh_async(int64_t size) {
 
 
 void HddMediator::readCh(Chunk* ch) {
+
+
 	Message *chReq = new Message(msg_type::cl_dn_re_ch, thismb->get_name(),
 			dataNodeName, hdd_Access::hdd_read, ch);
 

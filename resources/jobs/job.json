@@ -1,39 +1,39 @@
 {
 	"jobName":"job",
 	"numberOfReducers":1,
-	"useCombiner":false,
-	"useCompression":true,
+	"useCombiner":true,
+	"useCompression":false,
 
          	"numOfFiles":1,
-                "maxFileSize":3000000000,
-                "minFileSize":3000000000,
+                "maxFileSize":1073741824,
+                "minFileSize":1073741824,
 		
-		"mergeCost":10,
+		"mergeCost":2,
 		"mapCost":33,	
-		"recordSize":295,
-                "mapOutRecords":50,
-		"mapOutAvRecordSize":12,
+		"recordSize":100,
+                "mapOutRecords":33,
+		"mapOutAvRecordSize":6,
 
 		"reduceCost":12,
-		"reduceRecords":0.1,
-		"reduceOutAvRecordSize":10,
+		"reduceRecords":0.587,
+		"reduceOutAvRecordSize":9,
 		
 		
 		"compressionCost":1.0,
 		"uncompressionCost":1.0,
 		"compressionSize":0.5  ,
 
-		"combineCost":1,
-		"combineGroups":100000,
-		"combineOutAvRecordSize":1,
+		"combineCost":2,
+		"combineGroups":50010744,
+		"combineOutAvRecordSize":7,
 
-               "mapReduceParallelCopies":5,     		
-                "ioSortMb":20.0,
+               "mapReduceParallelCopies":3,     		
+                "ioSortMb":50.0,
               	"ioSortSpillPercent":0.80,
-         	"ioSortFactor":10,	
+         	"ioSortFactor":4,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":100000000.0
+        	"memoryLimit":268435456.0
 
 
 }

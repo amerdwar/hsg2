@@ -12,6 +12,7 @@
 #include <vector>
 #include <simgrid/s4u.hpp>
 using namespace std;
+using namespace simgrid::s4u;
 class Chunk {
 public:
 
@@ -24,6 +25,7 @@ int chRepNum=0;//this number will increment whene send the chunk from one data n
 	string fileName;
 	string dirName;
 	string storage;
+	ExecPtr exePtr=nullptr;
 	simgrid::s4u::MailboxPtr clinetMB=nullptr;
 	vector<simgrid::s4u::MailboxPtr> *nodes;
 	Chunk(string dirName,string fileName,int64_t fileId,int64_t fileSize);

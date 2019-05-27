@@ -11,7 +11,7 @@ XBT_LOG_NEW_DEFAULT_CATEGORY(hdd, "Messages specific for this example");
 double Hdd::readAccess=0.014;
 double Hdd::writeAccess=0.014;
 double Hdd::hddSlice=0.087;
-
+double Hdd::hddCpuUseage=10;
 Hdd::Hdd(std::vector<std::string> args) {
 
 	string actorName = this_actor::get_host()->get_name() + "_" + storageName;
@@ -79,6 +79,19 @@ ty=m->type;
 		case msg_type::hdd_added: {
 			//XBT_INFO("in added");
 			Chunk * ch = static_cast<Chunk*>(m->payload);
+//exe on cpu for op
+			double cpuusage=0;
+			if (m->returnTag == hdd_Access::hdd_read) {
+				cpuusage= ((ch->size/readSpeed)*hddCpuUseage)/100;
+			}
+			else{
+				cpuusage= ((ch->size/writeSpeed)*hddCpuUseage)/100;
+			}
+
+ch->exePtr=this_actor::exec_async(cpuusage);
+			//end  exe cpu
+
+
 			if (isIdle) {
 				//XBT_INFO("is idle %i",ch->size);
 				isIdle = false;
@@ -122,6 +135,7 @@ ty=m->type;
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			if (ch->size == 0) { //the job is complete
 				numcompleteWrite++;
+				ch->exePtr->wait();
 				//XBT_INFO(
 					//	"the job complete send it pack ,all req is %i, complete is %i",
 						//numWrite, numcompleteWrite);

@@ -27,6 +27,7 @@ public:
 	static double readAccess;
 static	double writeAccess;
 static double hddSlice;
+static double hddCpuUseage;
 	double readAccessSize=0;
 	double writeAccessSize=0;
 int64_t numcompleteWrite=0,numWrite=0;
