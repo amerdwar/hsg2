@@ -168,8 +168,8 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 						"num of host is 0");
 				if (racks.at(0)->get_all_hosts().size() > 1) {
 					h2 = simgrid::s4u::Mailbox::by_name(
-							this->randomHostInRackExceptHost(racks.at(0),
-									h1->get_name())->get_name() + "_dataNode");
+							this->randomHostInRackExceptHost(
+									racks.at(0),h1->get_name())->get_name() + "_dataNode");
 				} else {
 
 					h2 = simgrid::s4u::Mailbox::by_name(
@@ -275,10 +275,12 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 	auto hosts = rack->get_all_hosts();
 	simgrid::s4u::Host* h;
 	if (hosts.size() > 1) {	//if we have more than one host return any random host in the rack except the host whose name is param host
+		string hn;
 		do {
 			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
-
-		} while (h->get_name().compare(host) == 0);
+          hn=h->get_name()+"_dataNode";
+XBT_INFO("hn   %s ,h  %s",hn.c_str(),host.c_str());
+		} while (hn.compare(host) == 0);
 		return h;
 	} else {	//there is one host in the rack
 

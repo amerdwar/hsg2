@@ -17,6 +17,43 @@
 #include "resources/JsonPlatform.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
 
+
+int factory(int a){
+	int t=1;
+	for (int i=1;i<=a;i++)
+		t*=i;
+	return t;
+}
+
+int orders(int n,int q){
+	int res=1;
+	int t=n;
+	for (int i=1;i<=q;i++){
+	res*=t;
+	t--;
+	}
+	return res;
+}
+
+double combination(int n,int q){
+	int res;
+	res=orders(n,q)/factory(q);
+
+	return res;
+}
+
+
+double combinedRec(double n,double q){
+	double res=0;
+	for(double i=1;i<=q;i++){
+
+		res+=combination(q,i)*pow(i,n);
+
+	}
+
+	return res;
+}
+
 void doSim(int argc, char* argv[]) {
 
 	simgrid::s4u::Engine e(&argc, argv);
@@ -51,26 +88,21 @@ void doSim(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
-	JsonPlatform* jp=new JsonPlatform();
-	jp->creatPlatform("resources/cluster/cluster.json");
-	doSim(argc, argv);
+	//JsonPlatform* jp=new JsonPlatform();
+	//jp->creatPlatform("resources/cluster/cluster.json");
+//	doSim(argc, argv);
 //	RUN_ALL_TESTS();
-
+double d=combinedRec(10,3);
+int d2=combination(11,3)*3;
+//int d3=combination(6,3)*3;
+//XBT_INFO("this is the ddd: %s",d);
+XBT_INFO("this is the ddd: %s",to_string(d).c_str());
+//XBT_INFO("this is the ddd: %s",to_string(d3).c_str());
 
 	return 0;
 }
 
 
-TEST(counter,true){
-	Counter* c=new Counter("def");
-c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
 
-ASSERT_EQ(10, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
-}
-TEST(counter2,false){
-	Counter* c=new Counter("defa");
-c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
 
-//std::cout <<"mmmmmmmmmmmmmmm  "<< ctr_t_str[0];
-ASSERT_EQ(9, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
-}
+

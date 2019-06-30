@@ -136,8 +136,15 @@ void Copier::sendReadReg(vector<spill*> *v) {
 
 	MailboxPtr dnmb = v->at(0)->ch->nodes->at(0);
 	string dn = dnmb->get_name();
+
+
+
 	reqNum++;
 	for (int i = 0; i < v->size(); i++) {
+
+		//add shuffled bytes
+		if (this->dataNode.compare(dn)!=0)
+		job->ctr->addToCtr(ctr_t::REDUCE_SHUFFLE_BYTES,v->at(i)->ch->size);
 
 		Message *chReq = new Message(msg_type::cl_dn_re_ch, this->thisName, dn,
 				hdd_Access::hdd_read, v->at(i)->ch);
@@ -324,25 +331,7 @@ void Copier::toDisk() {
 	XBT_INFO("size is %i   %i", lastsp->ch->size, outMemV->size());
 
 	int64_t recSize = lastsp->ch->size / lastsp->records;
-	if (job->useCombiner) {
-		int64_t combineRec = merger->combine(lastsp->records);
-		int64_t comSize = combineRec * job->combineOutAvRecordSize;
 
-		auto ptr = this_actor::exec_async(
-
-		(double) lastsp->records * job->combineCost);
-		pending_comms.push_back(ptr);
-
-		Chunk* ch = hddmed->writeCh(comSize);
-		XBT_INFO("size %i, %i", comSize, lastsp->ch->size);
-
-		spill* sp = new spill();
-		sp->ch = ch;
-		sp->records = combineRec;
-		outMemV->clear();
-		outDiskV->push_back(sp);
-		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, sp->records);
-	} else {
 
 		double exeFlops = (double) lastsp->records;
 		auto a = this_actor::exec_async(exeFlops);
@@ -357,7 +346,7 @@ void Copier::toDisk() {
 		outDiskV->push_back(sp);
 
 		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, sp->records);
-	}
+
 
 }
 string Copier::printMap(map<string, int> rm) {

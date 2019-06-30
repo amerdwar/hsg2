@@ -3,26 +3,26 @@
 	
 	"racksNum":1,
 	"hostsPerRack":2,
-	"cpuSpeed":"2.5Gf",
+	"cpuSpeed":"1Gf",
 	"coresNum":"2",
 	"hddNums":1,
-	"hddWriteSpeed":"90MBps",
-	"hddReadSpeed":"90MBps",
-	"hddreadAccess":12,
-	"hddwriteAccess":12,
+	"hddWriteSpeed":"70MBps",
+	"hddReadSpeed":"70MBps",
+	"hddreadAccess":14,
+	"hddwriteAccess":14,
 	"hddSlice":0.087,
 	"hddCpuUseage":10,
-	"accessLinkSpeed":"100MBps",
+	"accessLinkSpeed":"12.5MBps",
 	"accessLinkLatency":"120us",
-	"backBoneLinkSpeed":"100MBps",
+	"backBoneLinkSpeed":"12.5MBps",
 	"backBoneLinkLatency":"120us",
-	"coreLinkSpeed":"100MBps",
+	"coreLinkSpeed":"12.5MBps",
 	"coreLinkLatency":"120us",
 	
 	
 	"chunkSize":64,
 	"replicatinNum":2,
-	"slowStartNumFinishedMappers":5.0,
+	"slowStartNumFinishedMappers":50.0,
 	"numCorePerContainer":1
 	
 }

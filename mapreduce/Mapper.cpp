@@ -29,6 +29,7 @@ Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 }
 
 void Mapper::operator ()() {
+double startt=	Engine::get_clock();
 	thismb->set_receiver(Actor::self());
 	if (res->type == allocate_type::reduce_all) {
 		XBT_INFO("error allocate type error %i   ,%s", res->type,
@@ -46,7 +47,7 @@ void Mapper::operator ()() {
 	job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,(double) ch->size);
 ////// untill now we read the chunk from data node
 
-	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
+	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024*job->ioSortSpillPercent);
 	int64_t taskSize = ch->size;
 	int64_t mapRecords = taskSize / job->recordSize;
 
@@ -57,8 +58,12 @@ void Mapper::operator ()() {
 			spillSize); //here we use partitioner and combiner and write spilles to localhdd
 
 	exePtr->wait();
+	printMapOut(allspilles);
+//	exit(0);
 
 	for (int i = 0; i < allspilles->size(); i++) {
+
+
 		merger->mergeSpilles(allspilles->at(i));
 	}
 	XBT_INFO(printMapOut(allspilles).c_str());
@@ -73,6 +78,9 @@ void Mapper::operator ()() {
 	nodeManagerMb->put(finishMsg2, 1522);
 	//XBT_INFO("after send finish");
 
+
+	double stopt=	Engine::get_clock();
+	job->ctr->addToCtr(ctr_t::avMappersTime,stopt-startt);
 }
 Mapper::~Mapper() {
 	// TODO Auto-generated destructor stub
@@ -94,6 +102,7 @@ string Mapper::selectInputDataNode() {
 		if (this->dataNodeName.compare(dnName) == 0) {
 			isLocality = true;
 			inputdataNode = dataNodeName;
+			job->ctr->addToCtr(ctr_t::Data_local_map_tasks,1);
 			XBT_INFO("is locality");
 			break;
 		}
@@ -147,16 +156,24 @@ minFilesToCombine=true;
 	else
 	minFilesToCombine=false;
 
+bool inMemSpill=true;
 	for (int i = 0; i < job->numberOfReducers; i++) {
+
 		vector<spill*>* vectorSpill = new vector<spill*>();
 		spilles->insert(std::pair<int, vector<spill*>*>(i, vectorSpill));
+
 		for (int j = 0; j < spillNum; j++) {
 
 			int64_t partsize = spillSize / job->numberOfReducers;
-			spill* tem = exeAndWrPart(partsize);
+			spill* tem ;
+			if(inMemSpill)
+			tem= exePart(partsize);
+			else
+				 tem = exeAndWrPart(partsize);
 			spilles->at(i)->push_back(tem);
 			//XBT_INFO("push spill so size is %i ", spilles->size());
 		}
+		inMemSpill=false;
 
 	}
 
@@ -177,7 +194,7 @@ minFilesToCombine=true;
 
 	return spilles;
 }
-int64_t Mapper::combine(int64_t recNum) {
+/*int64_t Mapper::combine(int64_t recNum) {
 	int64_t combinedRecs = 0;
 	if (job->useCombiner) {
 
@@ -191,7 +208,7 @@ int64_t Mapper::combine(int64_t recNum) {
 	}
 	return combinedRecs;
 
-}
+}*/
 
 spill* Mapper::exeAndWrPart(int64_t partsize1) {
 
@@ -203,8 +220,9 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 
 	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
 	//	job->recordSize, partrecNum,partrecNum);
-	int64_t combinedRecs = combine(partrecNum);
+	int64_t combinedRecs = merger->combine(partrecNum);
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)combinedRecs);
+	job->ctr->addToCtr(ctr_t::map_spilled_recordes,(double)combinedRecs);
 	ExecPtr ptrE;
 
 	double comp_cost;
@@ -240,6 +258,67 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 
 	return tem;
 }
+
+spill* Mapper::exePart(int64_t partsize1) {
+
+	int64_t partsize = 0;
+	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
+
+	//XBT_INFO("part size %i, record size %i, num rec per part %i", partsize1,
+	//job->recordSize, partrecNum);
+
+	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
+	//	job->recordSize, partrecNum,partrecNum);
+	int64_t combinedRecs = merger->combine(partrecNum);
+
+
+	ExecPtr ptrE;
+
+	double comp_cost;
+	if(minFilesToCombine&&job->useCompression)//so compress here
+		comp_cost=(double)partrecNum*job->compressionCost;
+	else
+		comp_cost=0;
+
+
+	if (partrecNum == combinedRecs) {
+		ptrE = this_actor::exec_async(comp_cost);
+		partsize = partsize1;
+		//XBT_INFO("no compiiner so size is %i", partsize);
+
+	} else {
+		partsize = combinedRecs * job->combineOutAvRecordSize;
+		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost+comp_cost); //the cost of combination = combine rec cost * map recs
+		//XBT_INFO("yes compiiner so size is %i", partsize);
+	}
+
+	if(!minFilesToCombine&&job->useCompression)//for size
+		partsize*=job->compressionSize;//compress
+	Chunk* temC;
+
+	//write if num of spilles less than merge factor
+	if(minFilesToCombine){
+	temC = this->hddm->writeCh(partsize);
+}else{
+	temC = new Chunk(thisName, thisName, 0, partsize);
+	temC->clinetMB = thismb;
+}
+
+
+	ptrE->wait();
+	//untill now we write spill after partition it and execute it
+
+	spill* tem = new spill();
+	tem->ch = temC;
+	tem->taskName = thisName;
+	tem->records = combinedRecs;
+	tem->isInMem=true;
+
+	return tem;
+}
+
+
+
 
 string Mapper::printSpill(spill* sp) {
 	string s = "";

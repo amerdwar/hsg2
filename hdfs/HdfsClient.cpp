@@ -56,6 +56,7 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 				f->chunks->at(i)->size);
 
 	}
+
 	/*
 	 for (int i = 0; i < f->chunks->size(); i++) {
 

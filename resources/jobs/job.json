@@ -1,19 +1,17 @@
 {
-	"jobName":"job",
+	"jobName":"wordCount",
 	"numberOfReducers":1,
 	"useCombiner":true,
 	"useCompression":false,
-
          	"numOfFiles":1,
-                "maxFileSize":1073741824,
-                "minFileSize":1073741824,
-		
+                "maxFileSize":1073741800  ,
+                "minFileSize":1073741800 ,
 		"mergeCost":2,
 		"mapCost":33,	
 		"recordSize":100,
-                "mapOutRecords":33,
+                "mapOutRecords":23,
 		"mapOutAvRecordSize":6,
-
+	 
 		"reduceCost":12,
 		"reduceRecords":0.587,
 		"reduceOutAvRecordSize":9,

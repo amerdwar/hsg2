@@ -12,11 +12,16 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 	vector<spill*>* resV = new vector<spill*>();
 
 	int num = v->size();
+
+
 	if (num < mapCombineMinspills)
 		return;
 
+
 	int n = 0;
 	while (true) {
+		XBT_INFO("in while");
+		exit(0);
 		n = v->size();
 		int l = n - ioSortFactor;
 		if (l <= 0) {
@@ -60,11 +65,15 @@ int Combiner::getNumCombinedRecordes(int groups, int rec) {
 }
 
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
+
 	int recNum = 0;
 	//calculate total read, write, cpu costs
 	vector<Chunk*>* vch = new vector<Chunk*>();
+	int64_t numRecInMem=0;
 	for (int i = fIndex; i <= lIndex; i++) {
-		vch->push_back(v->at(i)->ch);
+
+		if(!v->at(i)->isInMem)
+			vch->push_back(v->at(i)->ch);
 		recNum += v->at(i)->records;
 	}
 
@@ -72,10 +81,15 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 		v->erase(v->begin());
 	}
 
+
 	int64_t lastRecNum = this->combine(recNum);
+	//int64_t lastRecNum = recNum;
+
+
 	int64_t recSize = 0;
 
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
+	job->ctr->addToCtr(ctr_t::map_spilled_recordes, (double) lastRecNum);
 	double exeF = 0;
 
 	double comp_cost=0;
@@ -125,11 +139,17 @@ int64_t Combiner::combine(int64_t recNum) {
 	if (job->useCombiner) {
 
 		combinedRecs = getNumCombinedRecordes(job->combineGroups, recNum);
-		//XBT_INFO("in compiner ,num rec is %i old is %i", combinedRecs,recNum);
+
+
+		job->ctr->addToCtr(ctr_t::COMBINE_INPUT_RECORDS, (double)recNum );
+		job->ctr->addToCtr(ctr_t::COMBINE_OUTPUT_RECORDS, (double)combinedRecs );
+		//XBT_INFO("in combiner ,num rec is %i old is %i", combinedRecs,recNum);
 
 	} else {
 		combinedRecs = recNum;
-		//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
+		job->ctr->addToCtr(ctr_t::COMBINE_INPUT_RECORDS, 0 );
+		job->ctr->addToCtr(ctr_t::COMBINE_OUTPUT_RECORDS, 0 );
+		//	XBT_INFO(" in combiner  no co ,num rec is %i", combinedRecs);
 	}
 	return combinedRecs;
 
@@ -187,7 +207,8 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 	}
 
 
-	int64_t lastRecNum = this->combine(recNum);
+	//int64_t lastRecNum = this->combine(recNum);
+	int64_t lastRecNum = recNum;
 	int64_t recSize = 0;
 
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);

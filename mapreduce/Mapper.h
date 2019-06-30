@@ -39,8 +39,10 @@ bool minFilesToCombine=false;//false the number of spilles is less than the mini
 	void init();
 	string selectInputDataNode();
 	map<int, vector<spill*>*>*    writeSpilles(int64_t taskSize,int64_t spillSize);
-	int64_t combine(int64_t recNum);
+	//int64_t combine(int64_t recNum);
+
 	spill* exeAndWrPart(int64_t partsize1);
+	spill* exePart(int64_t partsize1);
 	string printSpill(spill* sp);
 	string printMapOut(map<int,vector<spill*>*>*a);
 	double copress(double s);

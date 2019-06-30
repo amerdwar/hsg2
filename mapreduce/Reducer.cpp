@@ -33,6 +33,8 @@ Reducer::Reducer(string thisName, string appMas, string NameNode,
 
 }
 void Reducer::operator()() {
+double startt,stopt;
+startt=Engine::get_clock();
 	thismb->set_receiver(Actor::self());
 
 	Message *mapOutReqMsg = new Message(msg_type::map_output_req, thisName,
@@ -65,7 +67,8 @@ void Reducer::operator()() {
 			nodeManagerName, 0, nullptr);
 	nodeManagerMb->put(finishMsg2, 1522);
 	XBT_INFO("after send finish");
-
+	stopt=Engine::get_clock();
+	job->ctr->addToCtr(ctr_t::avReducersTime,stopt-startt);
 }
 Reducer::~Reducer() {
 	// TODO Auto-generated destructor stub

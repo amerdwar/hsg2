@@ -60,6 +60,10 @@ using namespace std;
 	SHUFFLE,
 	process_time,
 	avMappersTime,
-	avReducersTime};
+	avReducersTime,
+	Data_local_map_tasks,
+	map_spilled_recordes,
+	reduce_spilled_recordes
+ };
 
 #endif /* COMMONS_CTRTYPE_H_ */

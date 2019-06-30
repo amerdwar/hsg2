@@ -76,11 +76,12 @@ string jName;
 		"SHUFFLE",
 		"process_time",
 		"avMappersTime",
-		"avReducersTime"
+		"avReducersTime",
+		"Data_local_map_tasks",
+		"map_spilled_recordes",
+			"reduce_spilled_recordes"
+
 	};
-
-
-
 
 	double getCtr(ctr_t t);
     void addToCtr(ctr_t t,double);
@@ -88,7 +89,7 @@ string jName;
 	void subCtr(ctr_t t,double c);
 	void printCtrs();
 	virtual ~Counter();
-private:
+    private:
 
 	map<ctr_t,double> ctrMap;
 
