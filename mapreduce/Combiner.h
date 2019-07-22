@@ -42,7 +42,14 @@ void merge(vector<spill*>* v,int fIndex,int lIndex,bool isLast);
 void mergeReduce(vector<spill*>* v,int fIndex,int lIndex);
 
 
-	int getNumCombinedRecordes(int groups, int recordes);
+
+int64_t factory(int64_t a);
+
+int64_t orders(int64_t n,int64_t q);
+
+double combination(int64_t n,int64_t q);
+
+int64_t getNumCombinedRecordes(int64_t groups, int64_t recordes);
 Combiner(JobInfo* job,string dataNode,string taskName) ;
 
 int64_t combine(int64_t recNum);

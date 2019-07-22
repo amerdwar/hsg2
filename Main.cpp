@@ -37,21 +37,47 @@ int orders(int n,int q){
 
 double combination(int n,int q){
 	int res;
+	if (q==0)
+		return 1;
 	res=orders(n,q)/factory(q);
 
 	return res;
 }
 
 
-double combinedRec(double n,double q){
-	double res=0;
-	for(double i=1;i<=q;i++){
 
-		res+=combination(q,i)*pow(i,n);
-
+double getSub(int64_t i, int64_t q,int64_t n){
+double s=0;
+if (i==0)
+	return 0;
+	else
+	{
+for (int j=i-1;j>0;j--){
+	//cout<<" -  c("<<i<<","<<j<<") * ( "<<j<<"^"<<n<<"-";
+	s+=combination(i,j)*(pow(j,n)-getSub(j,q,n));
+	//cout<<")";
+}
+	return s;
 	}
+}
 
-	return res;
+double combinedRec(double n,double q){
+
+double  sum=0;
+double test=q;
+if (q>n)
+	test=n;
+for(int i=1;i<=test;i++){
+//	cout<<"  c("<<q<<","<<i<<") * ( "<<i<<"^"<<n<<"";
+	double tem=combination(q,i)*(pow(i,n)-getSub(i,q,n));
+//cout<<")"<<endl;
+
+	sum+=tem;
+	cout <<tem<<endl;
+}
+cout<<sum<<endl;
+	return sum;
+
 }
 
 void doSim(int argc, char* argv[]) {
@@ -86,17 +112,41 @@ void doSim(int argc, char* argv[]) {
 
 }
 
+double secondForm(double n,double q){
+	double s=0;
+//C(n,k) * Sum_{j=0..k} (-1)^(k-j) * C(k,j) * j^n.
+
+double a=q;
+if(q>n)
+	a=n;
+	for (double i=1;i<=a;i++){
+		double innerSum=0;
+	for (double j=1;j<=i;j++){
+		innerSum+=pow (-1,i-j+1)*combination(i,j)*pow(j,n);
+	}
+
+		double tem =combination(q,i)*innerSum;
+		cout<<tem<<endl;
+		s+=tem;
+
+
+	}
+	cout<<endl<<s<<endl;
+	return s;
+
+}
 int main(int argc, char* argv[]) {
-	testing::InitGoogleTest(&argc, argv);
+//	testing::InitGoogleTest(&argc, argv);
 	//JsonPlatform* jp=new JsonPlatform();
 	//jp->creatPlatform("resources/cluster/cluster.json");
-//	doSim(argc, argv);
+	//doSim(argc, argv);
 //	RUN_ALL_TESTS();
-double d=combinedRec(10,3);
-int d2=combination(11,3)*3;
+secondForm(4,4);
+	//double d=combinedRec(5,6);
+//int d2=combination(11,3)*3;
 //int d3=combination(6,3)*3;
 //XBT_INFO("this is the ddd: %s",d);
-XBT_INFO("this is the ddd: %s",to_string(d).c_str());
+//XBT_INFO("this is the ddd: %s",to_string(d).c_str());
 //XBT_INFO("this is the ddd: %s",to_string(d3).c_str());
 
 	return 0;

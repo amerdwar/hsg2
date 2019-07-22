@@ -156,7 +156,9 @@ minFilesToCombine=true;
 	else
 	minFilesToCombine=false;
 
-bool inMemSpill=true;
+
+	bool inMemSpill=true;
+
 	for (int i = 0; i < job->numberOfReducers; i++) {
 
 		vector<spill*>* vectorSpill = new vector<spill*>();
@@ -269,8 +271,8 @@ spill* Mapper::exePart(int64_t partsize1) {
 
 	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
 	//	job->recordSize, partrecNum,partrecNum);
-	int64_t combinedRecs = merger->combine(partrecNum);
-
+	//int64_t combinedRecs = merger->combine(partrecNum);
+	int64_t combinedRecs = partrecNum;
 
 	ExecPtr ptrE;
 

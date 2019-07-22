@@ -20,8 +20,7 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 
 	int n = 0;
 	while (true) {
-		XBT_INFO("in while");
-		exit(0);
+
 		n = v->size();
 		int l = n - ioSortFactor;
 		if (l <= 0) {
@@ -52,15 +51,52 @@ Combiner::Combiner(JobInfo* job, string dataNode, string taskName) {
 	this->combineCost = job->combineCost;
 
 	this->taskName = taskName;
-
+/*
+ * f(n)(1+(g-1)/g)
+ * */
 	this->hddM = new HddMediator(dataNode, taskName, taskName);
 
 }
 
-int Combiner::getNumCombinedRecordes(int groups, int rec) {
-	double a = 1.0 - 1.0 / groups;
-	double n = (double) rec;
-	return (1 - pow(a, n)) / (1 - a);
+int64_t Combiner::getNumCombinedRecordes(int64_t qq, int64_t nn) {
+	long double a = 1.0 - 1.0 / qq;
+	long double n = (long double) nn;
+	return (1 - powl(a, n)) / (1 - a);
+/*
+	int64_t	n=(nn*5)/qq;
+int64_t q=5;
+
+
+
+double s=0;
+
+//C(n,k) * Sum_{j=0..k} (-1)^(k-j) * C(k,j) * j^n.
+
+double a=q;
+if(q>n)
+	a=n;
+	for (double i=1;i<=a;i++){
+		double innerSum=0;
+	for (double j=1;j<=i;j++){
+		innerSum+=pow (-1,i-j)*combination(i,j)*pow(j/q,n);
+	}
+
+		double tem =combination(q,i)*innerSum*i;
+
+		s+=tem;
+
+
+	}
+	s/=5;
+	s*=qq;
+	cout<<endl<<s<<endl;
+
+
+	return s;
+*/
+
+	//int64_t  res=groups*(1-exp(-rec/groups));
+//	return res;
 
 }
 
@@ -81,11 +117,8 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 		v->erase(v->begin());
 	}
 
-
 	int64_t lastRecNum = this->combine(recNum);
 	//int64_t lastRecNum = recNum;
-
-
 	int64_t recSize = 0;
 
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
@@ -200,7 +233,7 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 
 		recNum += v->at(i)->records;
 	}
-	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, recNum);
+
 
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
@@ -213,16 +246,16 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
 	double exeF = 0;
-	if (job->useCombiner) {
+	/*if (job->useCombiner) {
 		recSize = job->combineOutAvRecordSize;
 		//the cost of combine and merge
 		exeF =
 				(double) (recNum * job->combineCost
 						+ lastRecNum * job->mergeCost);
-	} else {
+	} else {*/
 		exeF = (double) (recNum * job->mergeCost);
 		recSize = job->mapOutAvRecordSize;
-	}
+	//}
 
 	int64_t lastSize = lastRecNum * recSize;
 
@@ -236,4 +269,30 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 
 	v->push_back(lastSpill);
 
+}
+
+int64_t Combiner::factory(int64_t a){
+	int64_t t=1;
+	for (int64_t i=1;i<=a;i++)
+		t*=i;
+	return t;
+}
+
+int64_t Combiner::orders(int64_t n,int64_t q){
+	int64_t res=1;
+	int64_t t=n;
+	for (int64_t i=1;i<=q;i++){
+	res*=t;
+	t--;
+	}
+	return res;
+}
+
+double Combiner::combination(int64_t n,int64_t q){
+	int res;
+	if (q==0)
+		return 1;
+	res=orders(n,q)/factory(q);
+
+	return res;
 }
