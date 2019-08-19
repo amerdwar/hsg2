@@ -14,8 +14,9 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 	int num = v->size();
 
 
-	if (num < mapCombineMinspills)
+	if (this->job->useCombiner &&num < mapCombineMinspills){
 		return;
+	}
 
 
 	int n = 0;
@@ -49,7 +50,7 @@ Combiner::Combiner(JobInfo* job, string dataNode, string taskName) {
 	this->ioSortSpillPercent = job->ioSortSpillPercent;
 	this->dataNode = dataNode;
 	this->combineCost = job->combineCost;
-
+this->mapCombineMinspills=job->mapCombineMinspills;
 	this->taskName = taskName;
 /*
  * f(n)(1+(g-1)/g)
@@ -58,10 +59,17 @@ Combiner::Combiner(JobInfo* job, string dataNode, string taskName) {
 
 }
 
-int64_t Combiner::getNumCombinedRecordes(int64_t qq, int64_t nn) {
-	long double a = 1.0 - 1.0 / qq;
+int64_t Combiner::getNumCombinedRecordes(int64_t q, int64_t n) {
+/*	long double a = 1.0 -( 1.0 / qq);
 	long double n = (long double) nn;
-	return (1 - powl(a, n)) / (1 - a);
+	return (1 - powl(a, n)) / (1 - a);*/
+
+	//long double a = 1.0 -( 1.0 / qq);
+	long double qq=(long double)q;
+	long double nn=(long double)n;
+	long double a = (qq-1)/qq;
+	return (int64_t)( qq-qq* pow(a,nn));
+
 /*
 	int64_t	n=(nn*5)/qq;
 int64_t q=5;
@@ -101,6 +109,9 @@ if(q>n)
 }
 
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
+
+
+
 
 	int recNum = 0;
 	//calculate total read, write, cpu costs

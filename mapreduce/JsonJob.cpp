@@ -29,25 +29,25 @@ Json::Value jobV;
    	j-> mergeCost = jobV["mergeCost"].asInt64();
    	j-> mapCost = jobV["mapCost"].asInt64();
 
-   	j->recordSize=jobV["recordSize"].asInt64();
+   	j->recordSize=jobV["recordSize"].asDouble();
 
-   	j->mapOutRecords=jobV["mapOutRecords"].asInt64();
-   	j-> mapOutAvRecordSize = jobV["mapOutAvRecordSize"].asInt64();
+   	j->mapOutRecords=jobV["mapOutRecords"].asDouble();
+   	j-> mapOutAvRecordSize = jobV["mapOutAvRecordSize"].asDouble();
 
 
    	j-> combineCost = jobV["combineCost"].asInt64();
 
    	j-> combineGroups = jobV["combineGroups"].asInt64();
-   	j-> combineOutAvRecordSize = jobV["combineOutAvRecordSize"].asInt64();
+   	j-> combineOutAvRecordSize = jobV["combineOutAvRecordSize"].asDouble();
 
    	j-> reduceCost = jobV["reduceCost"].asInt64();
    	j-> reduceRecords = jobV["reduceRecords"].asDouble();
-   	j-> reduceOutAvRecordSize =jobV["reduceOutAvRecordSize"].asInt64();
+   	j-> reduceOutAvRecordSize =jobV["reduceOutAvRecordSize"].asDouble();
    //data
    	j-> numOfFiles=jobV["numOfFiles"].asInt();
    	j-> maxFileSize=jobV["maxFileSize"].asInt64();
    	j-> minFileSize=jobV["minFileSize"].asInt64();
-
+j->mapCombineMinspills=jobV["mapCombineMinspills"].asInt();
    //other
    	j-> ioSortFactor = jobV["ioSortFactor"].asDouble();
    	j-> ioSortMb = jobV["ioSortMb"].asDouble();

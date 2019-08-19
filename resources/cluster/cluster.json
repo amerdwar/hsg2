@@ -4,7 +4,7 @@
 	"racksNum":1,
 	"hostsPerRack":2,
 	"cpuSpeed":"1Gf",
-	"coresNum":"2",
+	"coresNum":"1",
 	"hddNums":1,
 	"hddWriteSpeed":"70MBps",
 	"hddReadSpeed":"70MBps",

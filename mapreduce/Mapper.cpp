@@ -47,9 +47,10 @@ double startt=	Engine::get_clock();
 	job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,(double) ch->size);
 ////// untill now we read the chunk from data node
 
-	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024*job->ioSortSpillPercent);
-	int64_t taskSize = ch->size;
-	int64_t mapRecords = taskSize / job->recordSize;
+	//int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024*job->ioSortSpillPercent);
+	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
+	double taskSize = (double)ch->size;
+	double mapRecords = taskSize / job->recordSize;
 
 	job->ctr->addToCtr(ctr_t::MAP_INPUT_RECORDS, (double) mapRecords);
 	auto exePtr = this_actor::exec_async((double) (job->mapCost * mapRecords)); //here we exe the map
@@ -134,7 +135,7 @@ string Mapper::selectInputDataNode() {
 	}
 
 }
-map<int, vector<spill*>*>* Mapper::writeSpilles(int64_t taskSize,
+map<int, vector<spill*>*>* Mapper::writeSpilles(double taskSize,
 		int64_t spillSize) {
 	map<int, vector<spill*>*>* spilles = new map<int, vector<spill*>*>();
 	int64_t tt = (taskSize / job->recordSize) * job->mapOutRecords
@@ -151,13 +152,13 @@ int64_t allS=spillNum;
 allS++;
 
 
-	if(allS<job->mapCombineMinspills)//this for compression perfore write to desk
+	if(allS<job->mapCombineMinspills)//this for compression before write to desk
 minFilesToCombine=true;
 	else
 	minFilesToCombine=false;
 
 
-	bool inMemSpill=true;
+	bool inMemSpill=false;
 
 	for (int i = 0; i < job->numberOfReducers; i++) {
 

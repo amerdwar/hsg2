@@ -136,12 +136,12 @@ if(q>n)
 
 }
 int main(int argc, char* argv[]) {
-//	testing::InitGoogleTest(&argc, argv);
-	//JsonPlatform* jp=new JsonPlatform();
-	//jp->creatPlatform("resources/cluster/cluster.json");
-	//doSim(argc, argv);
+	testing::InitGoogleTest(&argc, argv);
+	JsonPlatform* jp=new JsonPlatform();
+	jp->creatPlatform("resources/cluster/cluster.json");
+	doSim(argc, argv);
 //	RUN_ALL_TESTS();
-secondForm(4,4);
+//secondForm(4,4);
 	//double d=combinedRec(5,6);
 //int d2=combination(11,3)*3;
 //int d3=combination(6,3)*3;

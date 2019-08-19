@@ -1,21 +1,20 @@
 {
-	"jobName":"wordCount",
+	"jobName":"wc10",
 	"numberOfReducers":1,
-	"useCombiner":true,
+	"useCombiner":false,
 	"useCompression":false,
     "numOfFiles":1,
-    "maxFileSize":1106821949  ,
-    "minFileSize":1106821949 ,
+    "maxFileSize":419430400,
+    "minFileSize":419430400,
 	"mergeCost":2,
 	"mapCost":33,	
-	"recordSize":103,
-    "mapOutRecords":23,
-	"mapOutAvRecordSize":8,
-	 
+	"recordSize":100,
+    "mapOutRecords":10,
+	"mapOutAvRecordSize":26,
 	"reduceCost":12,
 	"reduceRecords":0.587,
 	"reduceOutAvRecordSize":9,
-		
+
 		
 	"compressionCost":1.0,
 	"uncompressionCost":1.0,
@@ -24,11 +23,11 @@
 		"combineCost":2,
 		"combineGroups":49010744 ,
 		"combineOutAvRecordSize":7,
-
+"mapCombineMinspills":3,
                "mapReduceParallelCopies":3,     		
-                "ioSortMb":50.0,
+                "ioSortMb":25.0,
               	"ioSortSpillPercent":0.80,
-         	"ioSortFactor":4,	
+         	"ioSortFactor":3,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
         	"memoryLimit":268435456.0
