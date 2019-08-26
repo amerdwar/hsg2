@@ -141,13 +141,31 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(double taskSize,
 	int64_t tt = (taskSize / job->recordSize) * job->mapOutRecords
 			* job->mapOutAvRecordSize;
 
-	int64_t spillNum = tt / spillSize;
-
 	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_SIZE,(double) tt);
 	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_RECORDS,(double)(tt/job->mapOutAvRecordSize));
-	//XBT_INFO("spill size %i spill num %i task size %i", spillSize, spillNum,
-	//	taskSize);
-int64_t allS=spillNum;
+
+
+	int64_t memSpill=(int64_t)spillSize;
+if(tt>memSpill){
+tt-=memSpill;
+}
+else{
+	memSpill=tt;
+	tt=0;
+
+}
+
+
+	int64_t spillNum = tt / spillSize;
+
+
+
+int64_t allS=spillNum+1;//1 for mem spill
+
+
+
+
+
 	if (tt % spillSize != 0)
 allS++;
 
@@ -183,7 +201,7 @@ minFilesToCombine=true;
 	if (tt % spillSize != 0) {
 		int64_t reminderSize = tt - (spillSize * spillNum);
 
-		vector<spill*>* vectorSpill = new vector<spill*>();
+
 		for (int i = 0; i < job->numberOfReducers; i++) {
 
 			int64_t partsize = reminderSize / job->numberOfReducers;
@@ -194,6 +212,18 @@ minFilesToCombine=true;
 		}
 
 	}
+
+	//for mem spill
+	for (int i = 0; i < job->numberOfReducers; i++) {
+
+		int64_t partsize = memSpill / job->numberOfReducers;
+		XBT_INFO("remender size is %i part %i", memSpill, partsize);
+		spill* tem = exePart(partsize);
+		spilles->at(i)->push_back(tem);
+
+	}
+
+
 
 	return spilles;
 }
@@ -218,14 +248,11 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 	int64_t partsize = 0;
 	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
 
-	//XBT_INFO("part size %i, record size %i, num rec per part %i", partsize1,
-	//job->recordSize, partrecNum);
-
-	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
-	//	job->recordSize, partrecNum,partrecNum);
 	int64_t combinedRecs = merger->combine(partrecNum);
+
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)combinedRecs);
 	job->ctr->addToCtr(ctr_t::map_spilled_recordes,(double)combinedRecs);
+	job->ctr->addToCtr(ctr_t::map_file_bytes_write,(double)partsize1);
 	ExecPtr ptrE;
 
 	double comp_cost;
@@ -266,14 +293,7 @@ spill* Mapper::exePart(int64_t partsize1) {
 
 	int64_t partsize = 0;
 	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
-
-	//XBT_INFO("part size %i, record size %i, num rec per part %i", partsize1,
-	//job->recordSize, partrecNum);
-
-	//XBT_INFO("part size %i, record size %i, num rec per part %i , new rec num%i", partsize1,
-	//	job->recordSize, partrecNum,partrecNum);
-	//int64_t combinedRecs = merger->combine(partrecNum);
-	int64_t combinedRecs = partrecNum;
+	int64_t combinedRecs = merger->combine(partrecNum);
 
 	ExecPtr ptrE;
 
@@ -299,23 +319,27 @@ spill* Mapper::exePart(int64_t partsize1) {
 		partsize*=job->compressionSize;//compress
 	Chunk* temC;
 
-	//write if num of spilles less than merge factor
-	if(minFilesToCombine){
+	spill* tem = new spill();
+	if(job->useCombiner){
 	temC = this->hddm->writeCh(partsize);
+	tem->isInMem=false;
+	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS,(double)combinedRecs);
+	job->ctr->addToCtr(ctr_t::map_spilled_recordes,(double)combinedRecs);
 }else{
 	temC = new Chunk(thisName, thisName, 0, partsize);
 	temC->clinetMB = thismb;
+	tem->isInMem=true;
 }
 
 
 	ptrE->wait();
 	//untill now we write spill after partition it and execute it
 
-	spill* tem = new spill();
+
 	tem->ch = temC;
 	tem->taskName = thisName;
 	tem->records = combinedRecs;
-	tem->isInMem=true;
+
 
 	return tem;
 }

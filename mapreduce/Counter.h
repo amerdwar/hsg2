@@ -79,7 +79,11 @@ string jName;
 		"avReducersTime",
 		"Data_local_map_tasks",
 		"map_spilled_recordes",
-			"reduce_spilled_recordes"
+			"reduce_spilled_recordes",
+			"map_file_bytes_read",
+			"map_file_bytes_write",
+			"reduce_file_bytes_read",
+			"reduce_file_bytes_write"
 
 	};
 

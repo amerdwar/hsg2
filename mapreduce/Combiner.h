@@ -10,6 +10,7 @@
 //#include  "../commons/Types.h"
 #include <simgrid/s4u.hpp>
 #include <math.h>
+#include <fstream>
 #include "../yarn/HddMediator.h"
 
 using namespace simgrid::s4u;
@@ -40,6 +41,11 @@ void mergeSpilles(vector<spill*>* v);
 void mergeReduceSpilles	(vector<spill*>* v);
 void merge(vector<spill*>* v,int fIndex,int lIndex,bool isLast);
 void mergeReduce(vector<spill*>* v,int fIndex,int lIndex);
+
+
+
+
+ofstream testf;
 
 
 

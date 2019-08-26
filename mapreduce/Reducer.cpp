@@ -170,6 +170,8 @@ for(int i=0;i<inputsMem->size();i++){
 XBT_INFO("before aaa %i",inputs->size());
 merger->mergeReduceSpilles(inputs);
 XBT_INFO("after %i %s",inputs->size(),to_string(inputs->at(0)->ch->size).c_str());
+hddm->readCh(inputs->at(0)->ch);
+job->ctr->addToCtr(ctr_t::reduce_file_bytes_read,inputs->at(0)->ch->size);
 
 spill * sp=inputs->at(0);
 Chunk * ch=sp->ch;

@@ -141,7 +141,12 @@ void AppMaster::requestReducers() {
 	if (!reduceReqIsSent) {
 		double d = ((double) numFinishedMappers / (double) numAllMappers)
 				* 100.0;
+
+
+
 		if (d > slowStartNumFinishedMappers) {
+			XBT_INFO("num fin %s mapper %s",to_string(numFinishedMappers).c_str(),to_string(numAllMappers).c_str());
+			exit(0);
 			sendReduceRequest();
 			reduceReqIsSent = true;
 		}

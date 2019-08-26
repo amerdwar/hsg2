@@ -20,9 +20,9 @@
 	"coreLinkLatency":"120us",
 	
 	
-	"chunkSize":64,
-	"replicatinNum":2,
-	"slowStartNumFinishedMappers":50.0,
+	"chunkSize":32,
+	"replicatinNum":1,
+	"slowStartNumFinishedMappers":50,
 	"numCorePerContainer":1
 	
 }

@@ -387,6 +387,8 @@ simgrid/s4u.hpp
 -
 math.h
 -
+fstream
+-
 ../yarn/HddMediator.h
 /home/alpha/tuturial/hsg/yarn/HddMediator.h
 

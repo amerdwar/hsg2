@@ -18,7 +18,7 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 	this->thisName = thisName;
 	this->dataNode = datNodeName;
 	this->memBytes = int64_t(
-			job->memoryLimit * job->mapredJobShuffleMergePercent);
+			job->memoryLimit );
 
 	this->bufferMemBytes = int64_t(
 			job->memoryLimit * job->mapredJobReduceInputBufferPercent);
@@ -143,9 +143,9 @@ void Copier::sendReadReg(vector<spill*> *v) {
 	for (int i = 0; i < v->size(); i++) {
 
 		//add shuffled bytes
-		if (this->dataNode.compare(dn)!=0)
+		//if (this->dataNode.compare(dn)!=0)
 		job->ctr->addToCtr(ctr_t::REDUCE_SHUFFLE_BYTES,v->at(i)->ch->size);
-
+		job->ctr->addToCtr(ctr_t::REDUCE_INPUT_RECORDS,v->at(i)->records);
 		Message *chReq = new Message(msg_type::cl_dn_re_ch, this->thisName, dn,
 				hdd_Access::hdd_read, v->at(i)->ch);
 
@@ -295,7 +295,9 @@ void Copier::AsyncDirectSpill(spill* sp) {
 
 	//add recordes to ctrs
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, direct->records);
+	job->ctr->addToCtr(ctr_t::reduce_spilled_recordes, direct->records);
 
+	job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, sp->ch->size);
 
 	//create asyncwriter actor
 	string asyncWrName = thisName + "a_wr_" + to_string(asyncWrId++);
@@ -338,6 +340,7 @@ void Copier::toDisk() {
 		pending_comms.push_back(a); //tell now we execute one out
 
 		Chunk* ch = hddmed->writeCh(lastsp->ch->size);
+		job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, lastsp->ch->size);
 		spill* sp = new spill();
 		sp->ch = ch;
 		sp->records = lastsp->records;
@@ -346,6 +349,7 @@ void Copier::toDisk() {
 		outDiskV->push_back(sp);
 
 		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, sp->records);
+		job->ctr->addToCtr(ctr_t::reduce_spilled_recordes, sp->records);
 
 
 }

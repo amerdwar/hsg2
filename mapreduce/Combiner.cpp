@@ -11,24 +11,32 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 
 	vector<spill*>* resV = new vector<spill*>();
 
+
 	int num = v->size();
+//	if(num<=1)
+	//	return;
 
-
-	if (this->job->useCombiner &&num < mapCombineMinspills){
-		return;
-	}
 
 
 	int n = 0;
 	while (true) {
 
+
+
 		n = v->size();
 		int l = n - ioSortFactor;
-		if (l <= 0) {
+
+		if(n==1){
+			merge(v, 0, n - 1,true);//true so this is the last merge task => compress spills
+				return;
+
+		}else
+			if (l <= 0) {
 			// merge from 0 to factor; and return one spill in resV
 
-			merge(v, 0, n - 1,true);//true so this is the last merge task => compress spills
-			return;
+			merge(v, 0, n - 1,false);//true so this is the last merge task => compress spills
+
+
 		} else if (l < ioSortFactor) {
 			int t = n - l;
 			l = n - t + 1;
@@ -60,80 +68,57 @@ this->mapCombineMinspills=job->mapCombineMinspills;
 }
 
 int64_t Combiner::getNumCombinedRecordes(int64_t q, int64_t n) {
-/*	long double a = 1.0 -( 1.0 / qq);
-	long double n = (long double) nn;
-	return (1 - powl(a, n)) / (1 - a);*/
 
-	//long double a = 1.0 -( 1.0 / qq);
 	long double qq=(long double)q;
 	long double nn=(long double)n;
 	long double a = (qq-1)/qq;
 	return (int64_t)( qq-qq* pow(a,nn));
 
-/*
-	int64_t	n=(nn*5)/qq;
-int64_t q=5;
 
-
-
-double s=0;
-
-//C(n,k) * Sum_{j=0..k} (-1)^(k-j) * C(k,j) * j^n.
-
-double a=q;
-if(q>n)
-	a=n;
-	for (double i=1;i<=a;i++){
-		double innerSum=0;
-	for (double j=1;j<=i;j++){
-		innerSum+=pow (-1,i-j)*combination(i,j)*pow(j/q,n);
-	}
-
-		double tem =combination(q,i)*innerSum*i;
-
-		s+=tem;
-
-
-	}
-	s/=5;
-	s*=qq;
-	cout<<endl<<s<<endl;
-
-
-	return s;
-*/
-
-	//int64_t  res=groups*(1-exp(-rec/groups));
-//	return res;
 
 }
 
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 
-
-
-
 	int recNum = 0;
 	//calculate total read, write, cpu costs
 	vector<Chunk*>* vch = new vector<Chunk*>();
 	int64_t numRecInMem=0;
+
+	int64_t readCtrBytes=0;
 	for (int i = fIndex; i <= lIndex; i++) {
 
-		if(!v->at(i)->isInMem)
+		if(!v->at(i)->isInMem){
 			vch->push_back(v->at(i)->ch);
+			readCtrBytes+=v->at(i)->ch->size;
+		}
+
 		recNum += v->at(i)->records;
 	}
+
+	job->ctr->addToCtr(ctr_t::map_file_bytes_read,(double)readCtrBytes);
 
 	for (int i = fIndex; i <= lIndex; i++) {
 		v->erase(v->begin());
 	}
 
-	int64_t lastRecNum = this->combine(recNum);
+	int64_t lastRecNum;
+
+	if(job->useCombiner&&(lIndex-fIndex+1)>=job->mapCombineMinspills){
+	lastRecNum= this->combine(recNum);
+
+
+	}
+	else{
+		lastRecNum=recNum;
+
+	}
 	//int64_t lastRecNum = recNum;
 	int64_t recSize = 0;
-
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
 	job->ctr->addToCtr(ctr_t::map_spilled_recordes, (double) lastRecNum);
+
+
 	double exeF = 0;
 
 	double comp_cost=0;
@@ -145,7 +130,7 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 
 	}
 
-	if (job->useCombiner) {
+	if(job->useCombiner&&(lIndex-fIndex+1)>=job->mapCombineMinspills){
 		recSize = job->combineOutAvRecordSize;
 		//the cost of combine and merge
 		exeF =
@@ -165,7 +150,14 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 
 
 	}
+
+
 	Chunk* lastCh = hddM->readChsWrExe(vch, lastSize, exeF);
+
+
+	job->ctr->addToCtr(ctr_t::map_file_bytes_write,(double)lastSize);
+
+
 	XBT_INFO("after write ch ");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
@@ -180,11 +172,18 @@ Combiner::~Combiner() {
 
 int64_t Combiner::combine(int64_t recNum) {
 	int64_t combinedRecs = 0;
+
+
+
+	 auto jTime = std::chrono::system_clock::now();
+	  std::time_t jjt = std::chrono::system_clock::to_time_t(jTime);
+
+
+
+
 	if (job->useCombiner) {
 
 		combinedRecs = getNumCombinedRecordes(job->combineGroups, recNum);
-
-
 		job->ctr->addToCtr(ctr_t::COMBINE_INPUT_RECORDS, (double)recNum );
 		job->ctr->addToCtr(ctr_t::COMBINE_OUTPUT_RECORDS, (double)combinedRecs );
 		//XBT_INFO("in combiner ,num rec is %i old is %i", combinedRecs,recNum);
@@ -229,7 +228,7 @@ void Combiner::mergeReduceSpilles(vector<spill*>* v) {
 
 void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 	int64_t recNum = 0;
-
+int64_t fileReduceBytes=0;
 	vector<Chunk*>* vch = new vector<Chunk*>();
 	for (int i = fIndex; i <= lIndex; i++) {
 
@@ -238,12 +237,15 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 			//hddM->readCh(v->at(i)->ch);
 			//hddM->deleteCh(v->at(i)->ch);
 			vch->push_back(v->at(i)->ch);
+			fileReduceBytes+=v->at(i)->ch->size;
 		}
 
 		//v->erase(v->begin() + i);
 
 		recNum += v->at(i)->records;
 	}
+
+	job->ctr->addToCtr(ctr_t::reduce_file_bytes_read, fileReduceBytes);
 
 
 	for (int i = fIndex; i <= lIndex; i++) {
@@ -256,6 +258,7 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 	int64_t recSize = 0;
 
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, (double) lastRecNum);
+	job->ctr->addToCtr(ctr_t::reduce_spilled_recordes, (double) lastRecNum);
 	double exeF = 0;
 	/*if (job->useCombiner) {
 		recSize = job->combineOutAvRecordSize;
@@ -273,6 +276,8 @@ void Combiner::mergeReduce(vector<spill*>* v, int fIndex, int lIndex) {
 
 	XBT_INFO("beforrrrrrr write ch");
 	Chunk* lastCh = hddM->readChsWrExe(vch, lastSize, exeF);
+
+	job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, lastSize);
 	XBT_INFO("after ****************write ch");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
