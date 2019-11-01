@@ -12,7 +12,7 @@ this->jName=jName;
 
 }
 double Counter::getCtr(ctr_t t){
-	//TODO test if t is exist in map
+
 	if(ctrMap.find(t)==ctrMap.end()){
 		XBT_INFO("error no such element");
 		exit(0);
@@ -64,19 +64,29 @@ mtx.unlock();
 
 
 void Counter::printCtrs(){
+	mtx.lock();
 	ofstream myfile;
 	 auto jTime = std::chrono::system_clock::now();
 	  std::time_t jjt = std::chrono::system_clock::to_time_t(jTime);
 
-myfile.open("resources/results/"+jName+" "+std::ctime(&jjt));
+myfile.open("resources/results/"+jName+" "+std::ctime(&jjt)+".html");
 string s="\n";
-s+="job name:"+jName+"\n";
+s+="<html><title>"+jName+"</title>";
+
+
+s+="<body><table border=1>";
+
+s+="<tr><td>job name</td><td>"+jName+"</td></tr>";
 for (auto const&t : ctrMap){
-s+=ctr_t_str[t.first]+": "+to_string(t.second)+"\n";
+
+	s+="<tr>";
+s+="<td>"+ctr_t_str[t.first]+"</td><td> "+to_string(t.second)+"</td>";
+s+="</tr>";
 }
+s+="</table></body></html>";
 myfile<<s;
 myfile.close();
-
+mtx.unlock();
 }
 
 Counter::~Counter() {

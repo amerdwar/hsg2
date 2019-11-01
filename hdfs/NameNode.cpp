@@ -52,12 +52,12 @@ void NameNode::operator()() { //the simulation loop
 		switch (m->type) {
 
 		case msg_type::end_of_simulation: {
-			XBT_INFO("end name node");
+			//XBT_INFO("end name node");
 			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
 				a->first->put(m, 1522);
-				XBT_INFO("end name node   send to node %s",a->first->get_name().c_str());
+				//XBT_INFO("end name node   send to node %s",a->first->get_name().c_str());
 			}
-			XBT_INFO("end name node");
+			//XBT_INFO("end name node");
 			break;
 		}
 		case msg_type::cl_nn_wr_file: {
@@ -69,13 +69,13 @@ void NameNode::operator()() { //the simulation loop
 		}
 
 		case msg_type::cl_nn_ack_ch: {
-			XBT_INFO("ack from client");
+			//XBT_INFO("ack from client");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			allDires->at(f->dir)->Files->at(f->name)->isAck = true;
 			break;
 		}
 		case msg_type::cl_nn_re_file: {
-			XBT_INFO("in read");
+			//XBT_INFO("in read");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			Message *msg = new Message(msg_type::nn_cl_re_file, nameNodeName,
 					m->sender, 0, allDires->at(f->dir)->Files->at(f->name));
@@ -85,7 +85,7 @@ void NameNode::operator()() { //the simulation loop
 			break;
 		}
 		case msg_type::cl_nn_re_dir: {
-					XBT_INFO("in read dir");
+					//XBT_INFO("in read dir");
 					string * dd = static_cast<string*>(m->payload);
 					Message *msg = new Message(msg_type::nn_cl_re_dir, nameNodeName,
 							m->sender, 0, allDires->at(*dd));
@@ -245,7 +245,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 	auto ret = allDires->at(dir)->Files->insert(
 			std::pair<string, HdfsFile *>(file, f));
 	if (ret.second == false) {
-		XBT_INFO("file exist");
+		//XBT_INFO("file exist");
 		return 0;
 
 	}
@@ -279,7 +279,7 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 		do {
 			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
           hn=h->get_name()+"_dataNode";
-XBT_INFO("hn   %s ,h  %s",hn.c_str(),host.c_str());
+//XBT_INFO("hn   %s ,h  %s",hn.c_str(),host.c_str());
 		} while (hn.compare(host) == 0);
 		return h;
 	} else {	//there is one host in the rack
@@ -300,11 +300,11 @@ simgrid::s4u::Host* NameNode::randHostExcept(
 			for (auto ex : exc) {
 				if (ex.compare(h->get_name() + "_dataNode") == 0) {
 					reScan = true;
-					XBT_INFO(" equal %s ,%s %i", ex.c_str(),
-							h->get_name().c_str(),chindex);
+					//XBT_INFO(" equal %s ,%s %i", ex.c_str(),
+							//h->get_name().c_str(),chindex);
 				} else {
-					XBT_INFO(" not equal %s ,%s %i", ex.c_str(),
-							h->get_name().c_str(),chindex);
+					//XBT_INFO(" not equal %s ,%s %i", ex.c_str(),
+							//h->get_name().c_str(),chindex);
 
 				}
 			}

@@ -23,8 +23,11 @@ string str;
 
 NameNode::chunkSize=jobV["chunkSize"].asInt64()*1024*1024;
 NameNode::replicatinNum=jobV["replicatinNum"].asInt();
-Hdd::readAccess=jobV["readAccess"].asDouble();
-Hdd::writeAccess=jobV["writeAccess"].asDouble();
+Hdd::readAccess=jobV["hddreadAccess"].asDouble();
+Hdd::writeAccess=jobV["hddwriteAccess"].asDouble();
+
+
+
 Hdd::hddSlice=jobV["hddSlice"].asDouble();
 
 Hdd::hddCpuUseage=jobV["hddCpuUseage"].asDouble();

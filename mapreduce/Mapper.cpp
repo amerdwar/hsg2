@@ -9,7 +9,7 @@
 XBT_LOG_NEW_DEFAULT_CATEGORY(Mapper, "Messages specific for this example");
 Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 		allocateRes * res) {
-
+this->merger=nullptr;
 	this->mid = mapIds++;
 	this->dataNodeName = DataNode;
 	this->thisName = thisName;
@@ -24,16 +24,19 @@ Mapper::Mapper(string thisName, string appMas, string nameNode, string DataNode,
 	dataNodeMb = Mailbox::by_name(dataNodeName);
 	appMasterMb = Mailbox::by_name(appMasterName);
 	thismb = Mailbox::by_name(thisName);
-	XBT_INFO("create map task");
-	merger = new Combiner(job, dataNodeName, thisName);
+	//XBT_INFO("create map task");
+
 }
 
 void Mapper::operator ()() {
+
 double startt=	Engine::get_clock();
+this_actor::sleep_for(this->job->taskStartTime);
+
 	thismb->set_receiver(Actor::self());
 	if (res->type == allocate_type::reduce_all) {
-		XBT_INFO("error allocate type error %i   ,%s", res->type,
-				this_actor::get_name().c_str());
+		//XBT_INFO("error allocate type error %i   ,%s", res->type,
+		//		this_actor::get_name().c_str());
 		exit(1);
 	}
 
@@ -44,15 +47,19 @@ double startt=	Engine::get_clock();
 			res->chIndex);
 
 	inputHDDM->readCh(ch);
+
+
 	job->ctr->addToCtr(ctr_t::MAP_INPUT_SIZE,(double) ch->size);
 ////// untill now we read the chunk from data node
 
-	//int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024*job->ioSortSpillPercent);
-	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
+	int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024*job->ioSortSpillPercent);
+	//int64_t spillSize = int64_t(job->ioSortMb * 1024 * 1024);
 	double taskSize = (double)ch->size;
 	double mapRecords = taskSize / job->recordSize;
-
+this->mapRecCount=mapRecords;
 	job->ctr->addToCtr(ctr_t::MAP_INPUT_RECORDS, (double) mapRecords);
+
+	merger = new Combiner(job, dataNodeName, thisName,mapRecords);
 	auto exePtr = this_actor::exec_async((double) (job->mapCost * mapRecords)); //here we exe the map
 
 	map<int, vector<spill*>*>* allspilles = this->writeSpilles(taskSize,
@@ -67,18 +74,18 @@ double startt=	Engine::get_clock();
 
 		merger->mergeSpilles(allspilles->at(i));
 	}
-	XBT_INFO(printMapOut(allspilles).c_str());
+	//XBT_INFO(printMapOut(allspilles).c_str());
 
 	Message* finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, allspilles);
 
-//	XBT_INFO("before send finish");
+//	//XBT_INFO("before send finish");
 	appMasterMb->put(finishMsg, 1522);
 	Message * finishMsg2 = new Message(msg_type::map_finish, thisName,
 			nodeManagerName, 0, nullptr);
 	nodeManagerMb->put(finishMsg2, 1522);
-	//XBT_INFO("after send finish");
-
+	//////XBT_INFO("after send finish");
+delete ch;
 
 	double stopt=	Engine::get_clock();
 	job->ctr->addToCtr(ctr_t::avMappersTime,stopt-startt);
@@ -104,7 +111,7 @@ string Mapper::selectInputDataNode() {
 			isLocality = true;
 			inputdataNode = dataNodeName;
 			job->ctr->addToCtr(ctr_t::Data_local_map_tasks,1);
-			XBT_INFO("is locality");
+			//XBT_INFO("is locality");
 			break;
 		}
 	}
@@ -144,6 +151,7 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(double taskSize,
 	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_SIZE,(double) tt);
 	job->ctr->addToCtr(ctr_t::MAP_OUTPUT_RECORDS,(double)(tt/job->mapOutAvRecordSize));
 
+	merger->mapRecNum = (double) (tt/job->mapOutAvRecordSize);
 
 	int64_t memSpill=(int64_t)spillSize;
 if(tt>memSpill){
@@ -192,7 +200,7 @@ minFilesToCombine=true;
 			else
 				 tem = exeAndWrPart(partsize);
 			spilles->at(i)->push_back(tem);
-			//XBT_INFO("push spill so size is %i ", spilles->size());
+			////XBT_INFO("push spill so size is %i ", spilles->size());
 		}
 		inMemSpill=false;
 
@@ -205,7 +213,7 @@ minFilesToCombine=true;
 		for (int i = 0; i < job->numberOfReducers; i++) {
 
 			int64_t partsize = reminderSize / job->numberOfReducers;
-			XBT_INFO("remender size is %i part %i", reminderSize, partsize);
+			//XBT_INFO("remender size is %i part %i", reminderSize, partsize);
 			spill* tem = exeAndWrPart(partsize);
 			spilles->at(i)->push_back(tem);
 
@@ -217,7 +225,7 @@ minFilesToCombine=true;
 	for (int i = 0; i < job->numberOfReducers; i++) {
 
 		int64_t partsize = memSpill / job->numberOfReducers;
-		XBT_INFO("remender size is %i part %i", memSpill, partsize);
+		//XBT_INFO("remender size is %i part %i", memSpill, partsize);
 		spill* tem = exePart(partsize);
 		spilles->at(i)->push_back(tem);
 
@@ -233,11 +241,11 @@ minFilesToCombine=true;
 
 		combinedRecs = merger->getNumCombinedRecordes(job->combineGroups,
 				recNum);
-		//XBT_INFO("in compiner ,num rec is %i old is %i", combinedRecs,recNum);
+		////XBT_INFO("in compiner ,num rec is %i old is %i", combinedRecs,recNum);
 
 	} else {
 		combinedRecs = recNum;
-		//	XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
+		//	//XBT_INFO(" in compiner  no co ,num rec is %i", combinedRecs);
 	}
 	return combinedRecs;
 
@@ -265,12 +273,12 @@ spill* Mapper::exeAndWrPart(int64_t partsize1) {
 	if (partrecNum == combinedRecs) {
 		ptrE = this_actor::exec_async(comp_cost);
 		partsize = partsize1;
-		//XBT_INFO("no compiiner so size is %i", partsize);
+		////XBT_INFO("no compiiner so size is %i", partsize);
 
 	} else {
 		partsize = combinedRecs * job->combineOutAvRecordSize;
 		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost+comp_cost); //the cost of combination = combine rec cost * map recs
-		//XBT_INFO("yes compiiner so size is %i", partsize);
+		////XBT_INFO("yes compiiner so size is %i", partsize);
 	}
 
 	if(!minFilesToCombine&&job->useCompression)//for size
@@ -293,7 +301,7 @@ spill* Mapper::exePart(int64_t partsize1) {
 
 	int64_t partsize = 0;
 	int64_t partrecNum = partsize1 / job->mapOutAvRecordSize;
-	int64_t combinedRecs = merger->combine(partrecNum);
+	int64_t combinedRecs = partrecNum;
 
 	ExecPtr ptrE;
 
@@ -307,12 +315,12 @@ spill* Mapper::exePart(int64_t partsize1) {
 	if (partrecNum == combinedRecs) {
 		ptrE = this_actor::exec_async(comp_cost);
 		partsize = partsize1;
-		//XBT_INFO("no compiiner so size is %i", partsize);
+		////XBT_INFO("no compiiner so size is %i", partsize);
 
 	} else {
 		partsize = combinedRecs * job->combineOutAvRecordSize;
 		ptrE = this_actor::exec_async((double) partrecNum * job->combineCost+comp_cost); //the cost of combination = combine rec cost * map recs
-		//XBT_INFO("yes compiiner so size is %i", partsize);
+		////XBT_INFO("yes compiiner so size is %i", partsize);
 	}
 
 	if(!minFilesToCombine&&job->useCompression)//for size

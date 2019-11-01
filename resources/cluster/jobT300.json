@@ -1,11 +1,11 @@
 {
-	"jobName":"wc600",
-	"numberOfReducers":1,
+	"jobName":"wc1T  ",
+	"numberOfReducers":82,
 	"useCombiner":false,
 	"useCompression":false,
-    "numOfFiles":1,
-    "maxFileSize":629145600,
-    "minFileSize":629145600,
+    "numOfFiles":300,
+    "maxFileSize":1073741824,
+    "minFileSize":1073741824,
 	"mergeCost":2,
 	"mapCost":33,	
 	"recordSize":100,
@@ -21,17 +21,17 @@
 	"compressionSize":0.5  ,
 
 		"combineCost":2,
-		"combineGroups":49010744 ,
+		"combineGroups": 10485719  ,
 		"combineOutAvRecordSize":16,
 "mapCombineMinspills":3,
-               "mapReduceParallelCopies":3,     		
-                "ioSortMb":25.0,
+               "mapReduceParallelCopies":20,     		
+                "ioSortMb":100.0,
               	"ioSortSpillPercent":0.80,
-         	"ioSortFactor":3,	
+         	"ioSortFactor":10,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":268435456.0,
+        	"memoryLimit":1073741824.0,
 
-	"jobStartTime":10,
-        	"taskStartTime":24
+	"jobStartTime":35,
+        	"taskStartTime":15
 }

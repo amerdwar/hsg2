@@ -12,7 +12,7 @@
     "mapOutRecords":10,
 	"mapOutAvRecordSize":16,
 	"reduceCost":12,
-	"reduceRecords":1,
+	"reduceRecords":0.99,
 	"reduceOutAvRecordSize":16,
 
 		
@@ -21,7 +21,7 @@
 	"compressionSize":0.5  ,
 
 		"combineCost":2,
-		"combineGroups":49010744 ,
+		"combineGroups":41942539  ,
 		"combineOutAvRecordSize":7,
 "mapCombineMinspills":3,
                "mapReduceParallelCopies":3,     		
@@ -30,7 +30,9 @@
          	"ioSortFactor":3,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":268435456.0
+        	"memoryLimit":268435456.0,
 
+	"jobStartTime":10,
+        	"taskStartTime":24
 
 }

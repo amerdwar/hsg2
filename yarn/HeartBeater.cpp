@@ -18,7 +18,7 @@ HeartBeater::HeartBeater(string args,string hb) {
 
 void HeartBeater::operator ()() {
 	thismb->set_receiver(Actor::self());
-	XBT_INFO(" heart is : %s", thismb->get_name().c_str());
+	//XBT_INFO(" heart is : %s", thismb->get_name().c_str());
 
 	Message *ms = new Message(msg_type::heart_beat, thismb->get_name(),
 			parentMb->get_name(), 0, nullptr);
@@ -31,7 +31,7 @@ void HeartBeater::operator ()() {
 		ms = static_cast<Message*>(thismb->get());
 		switch (ms->type) {
 		case msg_type::end_of_simulation: {
-			XBT_INFO("heart beater end simulation ");
+			//XBT_INFO("heart beater end simulation ");
 			break;
 		}
 		case msg_type::heart_beat: {

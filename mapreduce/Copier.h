@@ -39,6 +39,7 @@ public:
 	void AsyncDirectSpill(spill* sp);
 	string printMap(map<string,int> rm);
 	void toDisk();
+
 	void directSpill(spill* sp);
 	void operator()();
 

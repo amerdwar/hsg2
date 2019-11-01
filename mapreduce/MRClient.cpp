@@ -73,7 +73,7 @@ vector<string> jNames= getAllJobs();
 			exit(1);
 		}
 		JobInfo * jj = static_cast<JobInfo*>(m2->payload);
-		double startT,stopT,avgMap,avgReduce;
+		double startT,stopT,avgMap,avgReduce,avgSh;
 		stopT=Engine::get_clock();
 
 		//calc job time
@@ -85,8 +85,14 @@ vector<string> jNames= getAllJobs();
 		jj->ctr->setCtr(ctr_t::avMappersTime,avgMap/jj->numberOfMappers);
 		//calc reducers avg time
 		jj->ctr->setCtr(ctr_t::JOB_TOTAL_TIME,stopT-startT);
+
+
 		avgReduce=jj->ctr->getCtr(avReducersTime);
 		jj->ctr->setCtr(ctr_t::avReducersTime,avgReduce/jj->numberOfReducers);
+
+
+		avgSh=jj->ctr->getCtr(SHUFFLE);
+		jj->ctr->setCtr(ctr_t::SHUFFLE,avgSh/jj->numberOfReducers);
 
 		jj->ctr->printCtrs();
 	}

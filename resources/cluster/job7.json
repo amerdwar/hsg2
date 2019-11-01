@@ -1,4 +1,5 @@
 {
+	
 	"jobName":"wc 1000 ",
 	"numberOfReducers":1,
 	"useCombiner":false,
@@ -30,7 +31,7 @@
          	"ioSortFactor":3,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":268435456.0
-
-
+        	"memoryLimit":268435456.0,
+        	"jobStartTime":10,
+        	"taskStartTime":24
 }

@@ -7,25 +7,25 @@
 	<zone id="rack0" routing="Dijkstra">
     <router id="router0" />
 	 <storage_type id="single_hdd" size="1024GiB">
-	  <model_prop id="Bwrite" value="70MBps" />
-	  <model_prop id="Bread" value="70MBps" />
+	  <model_prop id="Bwrite" value="120MBps" />
+	  <model_prop id="Bread" value="120MBps" />
 	 </storage_type>
 
 
 	<storage id="hddhost00" typeId="single_hdd" attach="host0" />
 	
-	<host id="host0" speed="1Gf" core="1"> 		<mount storageId="hddhost00" name="/mount/host00" />
+	<host id="host0" speed="2Gf" core="2"> 		<mount storageId="hddhost00" name="/mount/host00" />
 	
 				</host>				
-	<link id="host0link" bandwidth="12.5MBps" latency="120us" />
+	<link id="host0link" bandwidth="12.5MBps" latency="100us" />
 
 	
 	<storage id="hddhost10" typeId="single_hdd" attach="host1" />
 	
-	<host id="host1" speed="1Gf" core="1"> 		<mount storageId="hddhost10" name="/mount/host10" />
+	<host id="host1" speed="2Gf" core="2"> 		<mount storageId="hddhost10" name="/mount/host10" />
 	
 				</host>				
-	<link id="host1link" bandwidth="12.5MBps" latency="120us" />
+	<link id="host1link" bandwidth="12.5MBps" latency="100us" />
 
 	
 		<route src="host0" dst="router0">
@@ -41,24 +41,24 @@
 			<router id="router1" />
 <storage id="hddhost20" typeId="single_hdd" attach="host2" />
 
-<host id="host2" speed="1Gf" core="1"> 		<mount storageId="hddhost20" name="/mount/host20" />
+<host id="host2" speed="2Gf" core="2"> 		<mount storageId="hddhost20" name="/mount/host20" />
 
 			</host>
-			<link id="host2link" bandwidth="12.5MBps" latency="120us" />
+			<link id="host2link" bandwidth="12.5MBps" latency="100us" />
 			<host_link id="host2" up="host2link" down="host2link" />
 
 
 <storage id="hddhost30" typeId="single_hdd" attach="host3" />
 
-<host id="host3" speed="1Gf" core="1"> 		<mount storageId="hddhost30" name="/mount/host30" />
+<host id="host3" speed="2Gf" core="2"> 		<mount storageId="hddhost30" name="/mount/host30" />
 
 			</host>
-			<link id="host3link" bandwidth="12.5MBps" latency="120us" />
+			<link id="host3link" bandwidth="12.5MBps" latency="100us" />
 			<host_link id="host3" up="host3link" down="host3link" />
 
-<backbone id="backbone1" bandwidth="12.5MBps" latency="120us" />
+<backbone id="backbone1" bandwidth="100MBps" latency="100us" />
 		</zone>
-			<link id="l_rack0_rack1" bandwidth="12.5MBps" latency="120us" />
+			<link id="l_rack0_rack1" bandwidth="100MBps" latency="100us" />
 					
 			
 			

@@ -26,6 +26,7 @@ bool minFilesToCombine=false;//false the number of spilles is less than the mini
 	string thisName;
 	string dataNodeName,nodeManagerName;
 	JobInfo *job;
+	double mapRecCount=0;
 	//mapper variables
 
 	//end mapper variables

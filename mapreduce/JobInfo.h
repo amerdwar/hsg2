@@ -18,6 +18,11 @@ public:
 	string jobName = "job";
 	int64_t jid;
 	string user;
+
+
+	double jobStartTime=35;
+    double taskStartTime=15;
+
 //algorithm
 	double compressionCost = 1.0;
 	double uncompressionCost = 1.0;
@@ -64,6 +69,13 @@ public:
 	double mapredJobShuffleMergePercent = 0.66;//threshold to spills in memory on reducer
 	int mapReduceParallelCopies = 5;//the number of copiers
 	double memoryLimit = 1.4138736E8;//the memory for shuffle
+
+
+
+	double combineRecordesPercent=0.1;
+	string combinerType="eq";//the combiner type is eq or percent
+	//eq so the combined records are calculated using the equation q-q(((q-1)/(q))^n)
+	//percent so combined records = combineRecordesPercent* map output records
 
 	int numberOfMappers = 60;
 	int numberOfReducers = 1;

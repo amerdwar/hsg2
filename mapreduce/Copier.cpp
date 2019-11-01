@@ -42,19 +42,19 @@ void Copier::operator()() {
 	do {
 
 		m = static_cast<Message*>(thismb->get());
-		//XBT_INFO("in copier");
+		////XBT_INFO("in copier");
 		switch (m->type) {
 
 		case msg_type::finish_copier: {
-			XBT_INFO("copier  finish ");
+			//XBT_INFO("copier  finish ");
 			isFinish = true;
-			XBT_INFO("this is %i %i", reqNum, ackNum);
-			XBT_INFO(printMap(readVAck).c_str());
+			//XBT_INFO("this is %i %i", reqNum, ackNum);
+			//XBT_INFO(printMap(readVAck).c_str());
 			//send finish to parent
 			break;
 		}
 		case msg_type::cl_dn_re_ch: {
-			//	XBT_INFO("in copier");
+			//	//XBT_INFO("in copier");
 
 			vector<spill*>* vt = static_cast<vector<spill*>*>(m->payload);
 
@@ -62,13 +62,13 @@ void Copier::operator()() {
 
 			for (int i = 0; i < allV->size(); i++) {
 
-				//	XBT_INFO("in read vector spill %i",
+				//	//XBT_INFO("in read vector spill %i",
 				//allV->at(i)->at(0)->ch->nodes->size());
 
 				string mapDnName = allV->at(i)->at(0)->ch->dirName;
-				//XBT_INFO("th is the name %s",mapDnName.c_str());
+				////XBT_INFO("th is the name %s",mapDnName.c_str());
 				//exit(0);
-				//	XBT_INFO("datanode is %s",	allV->at(i)->at(0)->ch->nodes->at(0)->get_name().c_str());
+				//	//XBT_INFO("datanode is %s",	allV->at(i)->at(0)->ch->nodes->at(0)->get_name().c_str());
 				int mapSpillNum = allV->at(i)->size();
 				readVAck.insert(std::pair<string, int>(mapDnName, mapSpillNum));
 
@@ -84,7 +84,7 @@ void Copier::operator()() {
 		}
 		case msg_type::dn_cl_re_ack_ch: {
 
-			XBT_INFO("sender is %s", m->mapperName.c_str());
+			//XBT_INFO("sender is %s", m->mapperName.c_str());
 			readVAck.at(m->mapperName)--;
 
 			if
@@ -105,9 +105,9 @@ void Copier::operator()() {
 		}
 
 		if (isFinish && ackNum == reqNum) {
-			XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,
-					q->size());
-			XBT_INFO("the all size is %s", to_string(numBytes).c_str());
+			//XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,
+				//	q->size());
+			//XBT_INFO("the all size is %s", to_string(numBytes).c_str());
 
 			break;
 
@@ -153,8 +153,18 @@ void Copier::sendReadReg(vector<spill*> *v) {
 
 		chReq->mapperName = mapDnName;
 		//send the request of chunk to data node
-		dnmb->put(chReq, 1522);
-//XBT_INFO("message %s",chReq->traceStr.c_str());
+
+		if(dnmb->get_name()==this->dataNode){
+
+		dnmb->put(chReq, 0);
+		}else{
+
+			dnmb->put(chReq, 1522);
+		}
+
+
+
+////XBT_INFO("message %s",chReq->traceStr.c_str());
 		//ExecPtr exep=this_actor::exec_async(ch->size);
 	}
 
@@ -171,7 +181,7 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 	int64_t sss = numBytes;
 	numBytes += lastsp->ch->size;
 	if (numBytes < 0) {
-		XBT_INFO("error %i , %i %i ", numBytes, sss, lastsp->ch->size);
+		//XBT_INFO("error %i , %i %i ", numBytes, sss, lastsp->ch->size);
 	}
 //exe for merge
 	double comp_cost = 0;
@@ -181,13 +191,13 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 	double exeFlops = (double) lastsp->records + comp_cost;
 
 	if (job->useCompression) {
-		XBT_INFO("size before uncompres %s",
-				to_string(lastsp->ch->size).c_str());
+		//XBT_INFO("size before uncompres %s",
+		//		to_string(lastsp->ch->size).c_str());
 
 		lastsp->ch->size = (int64_t) lastsp->ch->size / job->compressionSize;
 
-		XBT_INFO("size after uncompres %s",
-				to_string(lastsp->ch->size).c_str());
+		//XBT_INFO("size after uncompres %s",
+		//		to_string(lastsp->ch->size).c_str());
 	}
 	auto a = this_actor::exec_async(exeFlops);
 	pending_comms.push_back(a); //tell now we execute one out
@@ -213,7 +223,7 @@ vector<vector<spill*>*> * Copier::getMapsVecors(vector<spill*>* v) {
 			if (s.compare(v->at(i)->ch->dirName) == 0) {
 
 				allv->at(c)->push_back(v->at(i));
-				//	XBT_INFO("add to if  %s", s.c_str());
+				//	//XBT_INFO("add to if  %s", s.c_str());
 			} else {		//new out
 
 				vector<spill*>* tem = new vector<spill*>();
@@ -221,11 +231,11 @@ vector<vector<spill*>*> * Copier::getMapsVecors(vector<spill*>* v) {
 				allv->push_back(tem);
 				s = v->at(i)->ch->dirName;
 				allv->at(c)->push_back(v->at(i));
-				//XBT_INFO("add to else  %s", s.c_str());
+				////XBT_INFO("add to else  %s", s.c_str());
 			}
 		}
 	}
-	//XBT_INFO("size is   %i", allv->size());
+	////XBT_INFO("size is   %i", allv->size());
 	return allv;
 }
 
@@ -234,7 +244,7 @@ void Copier::spillAndCompine(spill* sp) {
 //TODO if spill size > buffer percent write to disk directly
 	if (chSize > bufferMemBytes) {
 		AsyncDirectSpill(sp);
-//XBT_INFO("after write direct");
+////XBT_INFO("after write direct");
 
 		return;
 	}
@@ -325,12 +335,12 @@ void Copier::directSpill(spill* sp) {
 
 void Copier::toDisk() {
 	spill* lastsp = outMemV->at(0);
-	XBT_INFO("size is %i   ", lastsp->ch->size);
+	//XBT_INFO("size is %i   ", lastsp->ch->size);
 	for (int i = 1; i < outMemV->size(); i++) {
 		lastsp->records += outMemV->at(i)->records;
 		lastsp->ch->size += outMemV->at(i)->ch->size;
 	}
-	XBT_INFO("size is %i   %i", lastsp->ch->size, outMemV->size());
+	//XBT_INFO("size is %i   %i", lastsp->ch->size, outMemV->size());
 
 	int64_t recSize = lastsp->ch->size / lastsp->records;
 

@@ -13,11 +13,6 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 
 
 	int num = v->size();
-//	if(num<=1)
-	//	return;
-
-
-
 	int n = 0;
 	while (true) {
 
@@ -27,7 +22,13 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 		int l = n - ioSortFactor;
 
 		if(n==1){
+			if(!job->useCombiner)
 			merge(v, 0, n - 1,true);//true so this is the last merge task => compress spills
+			else
+			{
+
+			}
+
 				return;
 
 		}else
@@ -50,6 +51,25 @@ void Combiner::mergeSpilles(vector<spill*>* v) {
 	}
 
 }
+
+Combiner::Combiner(JobInfo* job,string dataNode,string taskName,double mapRecNum) {
+	this->mapRecNum=mapRecNum;
+	this->job = job;
+	this->groups = job->combineGroups;
+	this->ioSortFactor = job->ioSortFactor;
+	this->ioSortMb = job->ioSortMb;
+	this->ioSortSpillPercent = job->ioSortSpillPercent;
+	this->dataNode = dataNode;
+	this->combineCost = job->combineCost;
+this->mapCombineMinspills=job->mapCombineMinspills;
+	this->taskName = taskName;
+/*
+ * f(n)(1+(g-1)/g)
+ * */
+	this->hddM = new HddMediator(dataNode, taskName, taskName);
+
+}
+
 Combiner::Combiner(JobInfo* job, string dataNode, string taskName) {
 	this->job = job;
 	this->groups = job->combineGroups;
@@ -69,13 +89,38 @@ this->mapCombineMinspills=job->mapCombineMinspills;
 
 int64_t Combiner::getNumCombinedRecordes(int64_t q, int64_t n) {
 
-	long double qq=(long double)q;
+/*calculate the uniq for the map
+	long double keys;
+
+		keys=(long double)q;
+	XBT_INFO("keys %s ", to_string(keys).c_str());
+
+	long double recN=(long double)n;
+	XBT_INFO("keys %s ", to_string(recN).c_str());
+
+	long double all = (keys-1)/keys;
+	XBT_INFO("keys %s ", to_string(all).c_str());
+
+	long double qq= (long double)( keys-keys* pow(all,recN));
+	XBT_INFO("keys %s ", to_string(qq).c_str());
+
+*/
+	//long double qq=(long double)(long double)n;
+	int64_t lastRec;
+	if(job->combinerType.compare("eq")==0){
+
+	long double qq=(long double)q/job->numberOfMappers;
 	long double nn=(long double)n;
 	long double a = (qq-1)/qq;
-	return (int64_t)( qq-qq* pow(a,nn));
+   lastRec= (int64_t)( qq-qq* pow(a,nn));
+	XBT_INFO("from combiner %s , %s , %s",this->taskName.c_str(),to_string(n).c_str(),to_string(lastRec).c_str());
 
+	}else{
+lastRec=(int64_t)n*job->combineRecordesPercent;
 
+	}
 
+	return lastRec;
 }
 
 void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
@@ -144,9 +189,9 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 	int64_t lastSize = lastRecNum * recSize;
 
 	if(isLast&&job->useCompression){
-		XBT_INFO("before compress ch %s ",to_string(lastSize).c_str());
+		//XBT_INFO("before compress ch %s ",to_string(lastSize).c_str());
 		lastSize=(int64_t)(lastSize*job->compressionSize);//compress
-	XBT_INFO("after compress ch %s ",to_string(lastSize).c_str());
+	//XBT_INFO("after compress ch %s ",to_string(lastSize).c_str());
 
 
 	}
@@ -158,7 +203,7 @@ void Combiner::merge(vector<spill*>* v, int fIndex, int lIndex,bool isLast) {
 	job->ctr->addToCtr(ctr_t::map_file_bytes_write,(double)lastSize);
 
 
-	XBT_INFO("after write ch ");
+	//XBT_INFO("after write ch ");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
 	lastSpill->records = lastRecNum;
@@ -186,13 +231,13 @@ int64_t Combiner::combine(int64_t recNum) {
 		combinedRecs = getNumCombinedRecordes(job->combineGroups, recNum);
 		job->ctr->addToCtr(ctr_t::COMBINE_INPUT_RECORDS, (double)recNum );
 		job->ctr->addToCtr(ctr_t::COMBINE_OUTPUT_RECORDS, (double)combinedRecs );
-		//XBT_INFO("in combiner ,num rec is %i old is %i", combinedRecs,recNum);
+		////XBT_INFO("in combiner ,num rec is %i old is %i", combinedRecs,recNum);
 
 	} else {
 		combinedRecs = recNum;
 		job->ctr->addToCtr(ctr_t::COMBINE_INPUT_RECORDS, 0 );
 		job->ctr->addToCtr(ctr_t::COMBINE_OUTPUT_RECORDS, 0 );
-		//	XBT_INFO(" in combiner  no co ,num rec is %i", combinedRecs);
+		//	//XBT_INFO(" in combiner  no co ,num rec is %i", combinedRecs);
 	}
 	return combinedRecs;
 
@@ -207,6 +252,10 @@ void Combiner::mergeReduceSpilles(vector<spill*>* v) {
 	int n = 0;
 	while (true) {
 		n = v->size();
+		if(n==1){
+
+			return;
+		}
 		int l = n - ioSortFactor;
 		if (l <= 0) {
 			//TODO merge from 0 to n; and return one spill in resV
@@ -276,13 +325,13 @@ int64_t fileReduceBytes=0;
 
 	XBT_INFO("beforrrrrrr write ch");
 	Chunk* lastCh = hddM->readChsWrExe(vch, lastSize, exeF);
-
+	XBT_INFO("after write ch");
 	job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, lastSize);
-	XBT_INFO("after ****************write ch");
+	//XBT_INFO("after ****************write ch");
 	spill* lastSpill = new spill();
 	lastSpill->ch = lastCh;
 	lastSpill->records = recNum;
-
+lastSpill->isInMem=false;
 	v->push_back(lastSpill);
 
 }

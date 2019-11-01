@@ -29,7 +29,7 @@ public:
     double combineGroups=1.0;
     double combineOutAvRecordSize=1.0;
     double combineOutAvRecordSize_add=0.0;
-
+double mapRecNum=0;
 
 	string dataNode;
 
@@ -57,7 +57,7 @@ double combination(int64_t n,int64_t q);
 
 int64_t getNumCombinedRecordes(int64_t groups, int64_t recordes);
 Combiner(JobInfo* job,string dataNode,string taskName) ;
-
+Combiner(JobInfo* job,string dataNode,string taskName,double mapRecNum) ;
 int64_t combine(int64_t recNum);
 virtual ~Combiner();
 };

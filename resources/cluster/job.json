@@ -4,8 +4,8 @@
 	"useCombiner":false,
 	"useCompression":false,
     "numOfFiles":1,
-    "maxFileSize": 	1048570,
-    "minFileSize":1048570,
+    "maxFileSize": 	10485760,
+    "minFileSize":10485760,
 	"mergeCost":2,
 	"mapCost":33,	
 	"recordSize":100,
@@ -30,7 +30,8 @@
          	"ioSortFactor":3,	
          	"mapredJobReduceInputBufferPercent":0.7,
          	"mapredJobShuffleMergePercent":0.66,
-        	"memoryLimit":268435456.0
+        	"memoryLimit":268435456.0,
 
-
+	"jobStartTime":10,
+        	"taskStartTime":24
 }
