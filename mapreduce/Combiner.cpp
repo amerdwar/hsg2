@@ -107,9 +107,9 @@ int64_t Combiner::getNumCombinedRecordes(int64_t q, int64_t n) {
 */
 	//long double qq=(long double)(long double)n;
 	int64_t lastRec;
-	if(job->combinerType.compare("eq")==0){
+	if(job->combinerType.compare("eq")!=0){
 
-	long double qq=(long double)q/job->numberOfMappers;
+	long double qq=(long double)q;
 	long double nn=(long double)n;
 	long double a = (qq-1)/qq;
    lastRec= (int64_t)( qq-qq* pow(a,nn));

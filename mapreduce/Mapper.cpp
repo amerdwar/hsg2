@@ -153,7 +153,7 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(double taskSize,
 
 	merger->mapRecNum = (double) (tt/job->mapOutAvRecordSize);
 
-	int64_t memSpill=(int64_t)spillSize;
+	int64_t memSpill=1;
 if(tt>memSpill){
 tt-=memSpill;
 }
