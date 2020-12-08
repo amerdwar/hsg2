@@ -24,7 +24,7 @@ public:
 	queue<vector<spill*>*>* q;
 	int nCopiers, nFreeCopiers;
 	string thisName, parent,dataNode;
-	MailboxPtr thismb, parentMb,thismbForDataNode;
+	Mailbox* thismb, *parentMb,*thismbForDataNode;
 	JobInfo* job;
 	HddMediator *hddmed;
 	int64_t memBytes,bufferMemBytes;
@@ -39,6 +39,7 @@ public:
 	void AsyncDirectSpill(spill* sp);
 	string printMap(map<string,int> rm);
 	void toDisk();
+
 	void directSpill(spill* sp);
 	void operator()();
 

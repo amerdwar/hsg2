@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
   /* Run the simulation */
   e.run();
 
-  XBT_INFO("Simulation is over");
+  //XBT_INFO("Simulation is over");
 
   return 0;
 }

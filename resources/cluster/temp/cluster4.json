@@ -1,0 +1,28 @@
+
+{  "generatePlatformAndDeploy":true,
+	
+	"racksNum":10,
+	"hostsPerRack":50,
+	"cpuSpeed":"3Gf",
+	"coresNum":"4",
+	"hddNums":2,
+	"hddWriteSpeed":"150MBps",
+	"hddReadSpeed":"150MBps",
+	"hddreadAccess":0.014,
+	"hddwriteAccess":0.014,
+	"hddSlice":0.087,
+	"hddCpuUseage":10,
+	"accessLinkSpeed":"1024MBps",
+	"accessLinkLatency":"50us",
+	"backBoneLinkSpeed":"2048MBps",
+	"backBoneLinkLatency":"75us",
+	"coreLinkSpeed":"10240MBps",
+	"coreLinkLatency":"100us",
+	
+	
+	"chunkSize":128,
+	"replicatinNum":1,
+	"slowStartNumFinishedMappers":5,
+	"numCorePerContainer":1
+	 
+}

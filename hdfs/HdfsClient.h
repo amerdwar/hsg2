@@ -16,10 +16,10 @@ using namespace simgrid::s4u;
 class HdfsClient {
 public:
 
-	simgrid::s4u::MailboxPtr nnmb;
-	simgrid::s4u::MailboxPtr thismb;
+	simgrid::s4u::Mailbox* nnmb;
+	simgrid::s4u::Mailbox* thismb;
 	string nameNode;
-	HdfsClient(simgrid::s4u::MailboxPtr nnmb,simgrid::s4u::MailboxPtr thismb);
+	HdfsClient(simgrid::s4u::Mailbox* nnmb,simgrid::s4u::Mailbox* thismb);
 	bool writeFile(HdfsFile *h);
 	bool read(HdfsFile* hr);
 	virtual ~HdfsClient();

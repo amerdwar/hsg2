@@ -13,6 +13,13 @@
 #include <stdlib.h>
 #include <fstream>
 #include <gtest/gtest.h>
+#include <ctime>
+#include <unistd.h>
+#include <ios>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "../hdfs/HdfsClient.h"
 #include "../hdfs/HdfsFile.h"
 #include "../distributions/RandClass.h"
@@ -29,16 +36,17 @@ public:
 	string rMangerName;
 	string nameNodeName;
 	string thisName;
-	MailboxPtr nnmb;
-	MailboxPtr thismb;
-
+	Mailbox* nnmb;
+	Mailbox* thismb;
+	 time_t tstart, tend;
 JsonJob* jsonJob;
-	MailboxPtr rManager; //resource manager mailbox
+	Mailbox* rManager; //resource manager mailbox
 vector<int64_t> jobs;
 	explicit MRClient(std::vector<std::string> args);
 	//explicit MRClient(string arg);
 
 	void initJob(JobInfo* job);
+	void process_mem_usage(double& vm_usage, double& resident_set);
 	void sendJob(JobInfo* j);
 	void writeDate(JobInfo* j);
 	void operator()();

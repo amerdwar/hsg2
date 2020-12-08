@@ -8,8 +8,8 @@
 #include "HdfsClient.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(hdfsClient, "Messages specific for this example");
 
-HdfsClient::HdfsClient(simgrid::s4u::MailboxPtr nnmb,
-		simgrid::s4u::MailboxPtr thismb) {
+HdfsClient::HdfsClient(simgrid::s4u::Mailbox* nnmb,
+		simgrid::s4u::Mailbox* thismb) {
 
 	this->nnmb = nnmb;
 	this->nameNode = nnmb->get_name();
@@ -30,14 +30,14 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 
 	for (int i = 0; i < f->chunks->size(); i++) {
 
-		for (int j = 0; j < f->chunks->at(i)->nodes->size(); j++) {
-			Chunk *ccc = f->chunks->at(i);
-			XBT_INFO("dir %s  ,file %s chid  %i node %s size %i",
-					ccc->dirName.c_str(), ccc->fileName.c_str(), ccc->chId,
-					f->chunks->at(i)->nodes->at(j)->get_name().c_str(),
-					ccc->size);
+		//for (int j = 0; j < f->chunks->at(i)->nodes->size(); j++) {
+			//Chunk *ccc = f->chunks->at(i);
+			//XBT_INFO("dir %s  ,file %s chid  %i node %s size %i",
+				//	ccc->dirName.c_str(), ccc->fileName.c_str(), ccc->chId,
+				//	f->chunks->at(i)->nodes->at(j)->get_name().c_str(),
+				//	ccc->size);
 
-		}
+		//}
 
 		double a = Engine::get_clock();
 		Message *writemsg = new Message(msg_type::cl_dn_wr_ch,
@@ -52,10 +52,11 @@ bool HdfsClient::writeFile(HdfsFile *h) {
 
 		double c = b - a;
 
-		XBT_INFO("the time %f to send chunk size %i", c,
-				f->chunks->at(i)->size);
+		//XBT_INFO("the time %f to send chunk size %i", c,
+			//	f->chunks->at(i)->size);
 
 	}
+
 	/*
 	 for (int i = 0; i < f->chunks->size(); i++) {
 
@@ -81,7 +82,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 	HdfsFile * fr = static_cast<HdfsFile*>(mr2->payload);
 	if (fr->isAck) {
 		for (int i = 0; i < fr->chunks->size(); i++) {
-			XBT_INFO("the chunk size is %i ", fr->chunks->at(i)->size);
+			//XBT_INFO("the chunk size is %i ", fr->chunks->at(i)->size);
 			Message *chReq = new Message(msg_type::cl_dn_re_ch,
 					thismb->get_name(),
 					fr->chunks->at(i)->nodes->at(0)->get_name(), 1,
@@ -95,7 +96,7 @@ bool HdfsClient::read(HdfsFile* hr) {
 
 		}
 	} else {
-		XBT_INFO("not ready i will sleep and return");
+		//XBT_INFO("not ready i will sleep and return");
 		//this_actor::sleep_for(1);
 		//read();
 

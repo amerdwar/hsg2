@@ -32,11 +32,11 @@ string nameNodeName;
 static int64_t chunkSize;//the size in byte and this value equal to 128 mb
 map<string,DirFiles *>* allDires ;
 vector<simgrid::kernel::routing::ClusterZone*> racks;//this variable must be initialized in main and we can get the hosts like this     std::vector<simgrid::s4u::Host*> hosts = c->get_all_hosts();
-map<MailboxPtr,vector<Chunk *>>* dataNodes;//data nodes with their chunks
+map<Mailbox*,vector<Chunk *>>* dataNodes;//data nodes with their chunks
 explicit	NameNode(std::vector<std::string> args);
 	simgrid::s4u::Host* randomHostInRack(simgrid::kernel::routing::ClusterZone*);
 	simgrid::s4u::Host* randomHostInRackExceptHost(simgrid::kernel::routing::ClusterZone* rack,string host);
-	bool hdfs_write(string dir,string file,int64_t file_size,simgrid::s4u::MailboxPtr sender);
+	bool hdfs_write(string dir,string file,int64_t file_size,simgrid::s4u::Mailbox* sender);
 	std::vector<HdfsFile>* getDirFiles(string dir);
 	simgrid::s4u::Host* randHostExcept( simgrid::kernel::routing::ClusterZone* rack,std::vector<string>,int chindex);
 	void getFileChunks();
@@ -45,7 +45,7 @@ explicit	NameNode(std::vector<std::string> args);
 
 	virtual ~NameNode();
 private:
-	simgrid::s4u::MailboxPtr mailbox;
+	simgrid::s4u::Mailbox* mailbox;
 };
 
 #endif /* HDFS_NAMENODE_H_ */

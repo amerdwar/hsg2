@@ -22,12 +22,12 @@ public:
 	string rMangerName;
 	string nameNodeName;
 	string thisName;
-	MailboxPtr nnmb, dataNodemb;
+	Mailbox* nnmb, *dataNodemb;
 	vector<string> apps;
 	vector<string> mappers;
 	vector<string> reducers;
-	MailboxPtr thismb;
-	MailboxPtr rManager; //resource manager mailbox
+	Mailbox* thismb;
+	Mailbox* rManager; //resource manager mailbox
 
 	explicit NodeManager(std::vector<std::string> args);
 	void operator()();

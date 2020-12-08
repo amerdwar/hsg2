@@ -21,7 +21,7 @@ using namespace simgrid::s4u;
 
 class Hdd {
 public:
-	MailboxPtr mailbox;
+	Mailbox* mailbox;
 	double readSpeed=0;
 	double writeSpeed=0;
 	static double readAccess;

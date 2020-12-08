@@ -22,7 +22,7 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 
 		}
 	}
-	//XBT_INFO("num all mappers %i", numAllMappers);
+	////////XBT_INFO("num all mappers %i", numAllMappers);
 	numFinishedMappers = numFinishedReducers = 0;
 	this->job->numberOfMappers = numAllMappers;
 	this->self = self;
@@ -34,7 +34,7 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 	nameNodeMb = Mailbox::by_name(namenode);
 	rManagerMb = Mailbox::by_name(rManager);
 	thisMb = Mailbox::by_name(self);
-	XBT_INFO("create app master for job name:%s", job->jobName.c_str());
+	//////XBT_INFO("create app master for job name:%s", job->jobName.c_str());
 	mapOutV = new map<int, vector<spill*>*>();
 	for (int i = 0; i < job->numberOfReducers; i++) {
 		vector<spill*>* t = new vector<spill*>();
@@ -46,20 +46,25 @@ AppMaster::AppMaster(JobInfo* j, string parent, string self, string namenode,
 void AppMaster::operator ()() {
 
 	thisMb->set_receiver(Actor::self());
-	XBT_INFO("in operator app master");
+	//////XBT_INFO("in operator app master");
+	this_actor::sleep_for(this->job->jobStartTime);
+
 	sendMapRequest();
 
+try{
 	Message* m = nullptr;
 	do {
 		m = static_cast<Message*>(thisMb->get());
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
-			XBT_INFO("resource manager end of simulation end simulation ");
+			////XBT_INFO("resource manager end of simulation end simulation ");
 			break;
 		}
 		case msg_type::allocate_res: {
+			//XBT_INFO("allocate res");
 			allocateRes* res = static_cast<allocateRes*>(m->payload);
 			sendAllocationFromAppMasterToNodeManager(res); //send allocation res to node manager to create maper or reducers
+			//XBT_INFO(" after allocate res");
 			break;
 		}
 		case msg_type::heart_beat: {
@@ -67,25 +72,35 @@ void AppMaster::operator ()() {
 			break;
 		}
 		case msg_type::map_finish: {
+		XBT_INFO("%s mapper has just finished",m->sender.c_str());
 			mapFinished(m);
 
+			//XBT_INFO("after map finish");
 			break;
 		}
 		case msg_type::reducer_finish: {
+			XBT_INFO("%s reducer has just finished",m->sender.c_str());
 			bool res = reduceFinished(m);
+			//XBT_INFO("reduce finish");
 			if (res)
 				goto end;
 			break;
 		}
 		case msg_type::map_output_req: {
+			//XBT_INFO("map out req");
 			sendOutTellNow(m->sender);
+			//XBT_INFO("end map out req");
 			break;
 		}
 
 		}
 	} while (m->type != msg_type::end_of_simulation);
 	end: XBT_INFO("all reducers finished");
-	XBT_INFO("size is %i",numbytes);
+	////XBT_INFO("size is %i",numbytes);
+}catch(exception &e){
+		XBT_INFO("****",e.what());
+		exit(1);
+	}
 }
 
 AppMaster::~AppMaster() {
@@ -102,9 +117,9 @@ void AppMaster::sendMapRequest() {
 
 	Message* mapReqMsg = new Message(msg_type::allocate_req, self, rManager, 0,
 			mapReq);
-	XBT_INFO("before send map req");
+	//////XBT_INFO("before send map req");
 	rManagerMb->put(mapReqMsg, 1522);
-	XBT_INFO("after send map req");
+	//////XBT_INFO("after send map req");
 }
 void AppMaster::sendReduceRequest() {
 
@@ -116,15 +131,15 @@ void AppMaster::sendReduceRequest() {
 	reduceReq->requester = self;
 	Message* mapReqMsg = new Message(msg_type::allocate_req, self, rManager, 0,
 			reduceReq);
-	XBT_INFO("before send reduce req mas");
+	//////XBT_INFO("before send reduce req mas");
 	rManagerMb->put(mapReqMsg, 1522);
-	XBT_INFO("after send reduce req mas");
+	//////XBT_INFO("after send reduce req mas");
 }
 void AppMaster::sendAllocationFromAppMasterToNodeManager(allocateRes* res) {
 	res->requester = self;
 	Message* mapResMsg = new Message(msg_type::allocate_res, self,
 			res->nodeManager, 0, res);
-	MailboxPtr nMan = Mailbox::by_name(res->nodeManager);
+	Mailbox* nMan = Mailbox::by_name(res->nodeManager);
 	nMan->put(mapResMsg, 1522);
 
 	//the map name is m_jobid_fileindex_chunkIndex
@@ -141,7 +156,11 @@ void AppMaster::requestReducers() {
 	if (!reduceReqIsSent) {
 		double d = ((double) numFinishedMappers / (double) numAllMappers)
 				* 100.0;
+
+
+
 		if (d > slowStartNumFinishedMappers) {
+
 			sendReduceRequest();
 			reduceReqIsSent = true;
 		}
@@ -161,7 +180,7 @@ void AppMaster::sendOutTellNow(string reducer) {
 
 	vector<spill*>* outRes = new vector<spill*>();
 	if (mapOutV->size() > 0) {
-		XBT_INFO("the is red id %i", redId);
+		//////XBT_INFO("the is red id %i", redId);
 		for (int a = 0; a < mapOutV->at(redId)->size(); a++) {
 			outRes->push_back(mapOutV->at(redId)->at(a));
 		}
@@ -176,20 +195,26 @@ void AppMaster::sendOutTellNow(string reducer) {
 	}
 }
 void AppMaster::mapFinished(Message * m) {
-
+numOfFinishedMappers++;
+	XBT_INFO("finished %i of %i", numOfFinishedMappers,this->job->numberOfMappers);
 	this->numFinishedMappers++;
-	requestReducers();
+
+		requestReducers();
+
+
 	map<int, vector<spill*>*>* res =
 			static_cast<map<int, vector<spill*>*>*>(m->payload);
-//	XBT_INFO(printMapOut(mapOutV).c_str());
+
 	for (int i = 0; i < job->numberOfReducers; i++) {
 		//XBT_INFO("map out v size before %i  %i", mapOutV->at(i)->size(), i);
+
 		for (int j = 0; j < res->at(i)->size(); j++) {
 			mapOutV->at(i)->push_back(res->at(i)->at(j)); //here we push the partitions for each reducer
 
 			numbytes+=res->at(0)->at(j)->ch->size;
 		}
 
+		//XBT_INFO("after map out v");
 		if (this->numFinishedMappers == job->numberOfMappers) {
 			spill *lastOne = new spill();
 			lastOne->isLast = true;
@@ -197,7 +222,7 @@ void AppMaster::mapFinished(Message * m) {
 			mapOutV->at(i)->push_back(lastOne);
 
 		}
-	//	XBT_INFO("map out v size after %i  %i", mapOutV->at(i)->size(), i);
+       //XBT_INFO("map out v size after %i  %i", mapOutV->at(i)->size(), i);
 	}
 
 	//free map container
@@ -205,10 +230,12 @@ void AppMaster::mapFinished(Message * m) {
 
 	string* mm = new string;
 	*mm = s;
+	//XBT_INFO("before free container");
 	freeContainer(mm);
 
 	//send output to all available reducers
 	for (int i = 0; i < reducers.size(); i++) {
+		//XBT_INFO("after free container %i  %i",i,reducers.size());
 		if (this->numFinishedMappers == job->numberOfMappers) {
 			spill *lastOne = new spill();
 			lastOne->isLast = true;
@@ -221,35 +248,37 @@ void AppMaster::mapFinished(Message * m) {
 		Mailbox::by_name(reducers.at(i))->put(outResMsg, 1522);
 
 	}
-//XBT_INFO(printMapOut(mapOutV).c_str());
+////////XBT_INFO(printMapOut(mapOutV).c_str());
 }
 
 bool AppMaster::reduceFinished(Message *m) {
+	//XBT_INFO("Reducer %s finished", m->sender.c_str());
 	bool isFinished = false;
 	this->numFinishedReducers++;
+
 	//free reducer container
 	string s = m->sender.substr(0, m->sender.find('_'));
 	string* mm = new string;
 	*mm = s;
 	freeContainer(mm);
 	if (numFinishedReducers == numAllReducers) {
-		XBT_INFO("this is the last reducer send finish back");
+		//////XBT_INFO("this is the last reducer send finish back");
 		string st = m->sender.substr(0, self.find('_'));
 		string* mmm = new string;
 		*mmm = s;
 		freeContainer(mmm);
 		//to do send finish to node manager
-		XBT_INFO("after send free con reducer");
+		//////XBT_INFO("after send free con reducer");
 		Message * finishMsg2 = new Message(msg_type::app_master_finish, self,
 				nodeManager, 0, nullptr);
 		nodeManagerMb->put(finishMsg2, 1522);
-		XBT_INFO("after send free con reducer after node manager");
+		//////XBT_INFO("after send free con reducer after node manager");
 
 		Message * finishMsg3 = new Message(msg_type::finish_job, self, rManager,
 				0, job);
 		rManagerMb->put(finishMsg3, 1522);
 
-		XBT_INFO("after send reduce finish");
+		//////XBT_INFO("after send reduce finish");
 
 		isFinished = true;
 	}

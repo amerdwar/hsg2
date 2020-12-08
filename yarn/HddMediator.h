@@ -18,7 +18,7 @@ public:
 	string dataNodeName;
 
 	string task,sender;
-	MailboxPtr dataNode,thismb;
+	Mailbox* dataNode,*thismb;
 	int parallelCopiers=5;
 	int freeCopiers;
 	int numReadReq=0;

@@ -18,7 +18,7 @@ using namespace simgrid::s4u;
 class AsyncWriter {
 public:
 	string thisName,dataNode,parent;
-	MailboxPtr thismb,dataNodeMb;
+	Mailbox* thismb,*dataNodeMb;
 Chunk* ch;
 
 	explicit AsyncWriter(string name,string dataNode,string parent,Chunk* ch);

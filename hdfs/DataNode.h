@@ -12,7 +12,7 @@
 #include "Hdd.h"
 class DataNode {
 public:
-	MailboxPtr mailbox;
+	Mailbox* mailbox;
     map<int64_t,Chunk*> chunks;
     map<int64_t, std::map<int,int>> acksMap;
 

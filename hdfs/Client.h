@@ -15,7 +15,7 @@ class Client {
 
 public:
 string nameNode ;
-simgrid::s4u::MailboxPtr nnmb,thismb;
+simgrid::s4u::Mailbox* nnmb,*thismb;
 string f1,f2;
 	explicit Client(std::vector<std::string> args);
 	explicit Client(string arg);

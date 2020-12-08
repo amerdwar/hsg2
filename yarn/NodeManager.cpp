@@ -36,7 +36,7 @@ void NodeManager::operator ()() {
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
 			//send this message to heart beater
-			XBT_INFO("node manager end of sim ");
+			//////XBT_INFO("node manager end of sim ");
 			//TODO send this message to all containers if exists
 			break;
 		}
@@ -50,29 +50,29 @@ void NodeManager::operator ()() {
 		}
 		case msg_type::map_finish: {
 			auto it = std::find(mappers.begin(), mappers.end(), m->sender);
-			//XBT_INFO("size before erase mapper %s %i", m->sender.c_str(),
+			////////XBT_INFO("size before erase mapper %s %i", m->sender.c_str(),
 				//	mappers.size());
 			mappers.erase(it);
-			XBT_INFO("size after erase mapper %s %i", m->sender.c_str(),
-					mappers.size());
+			//////XBT_INFO("size after erase mapper %s %i", m->sender.c_str(),
+					//mappers.size());
 			break;
 		}
 		case msg_type::reducer_finish: {
 			auto it = std::find(reducers.begin(), reducers.end(), m->sender);
-			//XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
+			////////XBT_INFO("size before erase reducer %s %i", m->sender.c_str(),
 				//	reducers.size());
 			reducers.erase(it);
-			XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
-					reducers.size());
+			//////XBT_INFO("size after erase reducer %s %i", m->sender.c_str(),
+					//reducers.size());
 			break;
 		}
 		case msg_type::app_master_finish: {
 			auto it = std::find(apps.begin(), apps.end(), m->sender);
-		//	XBT_INFO("size before erase app %s %i", m->sender.c_str(),
+		//	//////XBT_INFO("size before erase app %s %i", m->sender.c_str(),
 			//		apps.size());
 			apps.erase(it);
-			XBT_INFO("size after erase app %s %i", m->sender.c_str(),
-					apps.size());
+			//////XBT_INFO("size after erase app %s %i", m->sender.c_str(),
+					//apps.size());
 			break;
 		}
 
@@ -86,33 +86,39 @@ NodeManager::~NodeManager() {
 }
 
 void NodeManager::doAllocate(Message* m) {
-
+try{
 	allocateRes * res = static_cast<allocateRes*>(m->payload);
-	//XBT_INFO("in do allocate  %i", res->type);
+//XBT_INFO("in do allocate  %i", res->type);
 	switch (res->type) {
 	case allocate_type::app_master_all: {
+		//XBT_INFO("Allocate app master");
 		allocateAppMaster(res);
 		break;
 	}
 	case allocate_type::map_all: {
+		//XBT_INFO("Allocate mapper");
 		allocateMapper(res);
 		break;
 	}
 	case allocate_type::reduce_all: {
-		//XBT_INFO("in switch reduce");
+		////////XBT_INFO("in switch reduce");
+		//XBT_INFO("Allocate reducer");
 		allocateReducer1(res);
 		break;
 	}
+	}}
+	catch(exception &e){
+		//XBT_INFO (e.what());
 	}
 }
 void NodeManager::allocateAppMaster(allocateRes* res) {
-	//XBT_INFO("in do app master job name is %s", res->job->jobName.c_str());
+	////////XBT_INFO("in do app master job name is %s", res->job->jobName.c_str());
 	string appm = thisName+"_" + to_string(res->job->jid)+"_AppMaster";
 
-//	XBT_INFO("the name of app master is %s", appm.c_str());
+//	//////XBT_INFO("the name of app master is %s", appm.c_str());
 	ActorPtr appMaster = Actor::create(appm, this_actor::get_host(),
 			AppMaster(res->job, thisName, appm, nameNodeName, rMangerName));
-	XBT_INFO("created app mas");
+	//////XBT_INFO("created app mas");
 	apps.push_back(appm);
 }
 
@@ -120,24 +126,24 @@ void NodeManager::allocateMapper(allocateRes* res) {
 	//the map name is hostname_nodemanager_m_jobid_fileindex_chunkIndex
 	string mapName = res->nodeManager + "_m_" + to_string(res->job->jid) + "_"
 			+ to_string(res->fIndex) + "_" + to_string(res->chIndex);
-	ActorPtr beater = Actor::create(mapName, this_actor::get_host(),
+	ActorPtr mapper = Actor::create(mapName, this_actor::get_host(),
 			Mapper(mapName, res->requester, nameNodeName, dataNode, res));
-	XBT_INFO("allocate   map %s", mapName.c_str());
+	//////XBT_INFO("allocate   map %s", mapName.c_str());
 	mappers.push_back(mapName);
 }
 
 void NodeManager::allocateReducer1(allocateRes* res) {
 	//the map name is hostname_nodemanager_r_jobid_fileindex_chunkIndex
-	//XBT_INFO("   ****allocate reduceeeeeeeeeeeeeeeeee");
+	////////XBT_INFO("   ****allocate reduceeeeeeeeeeeeeeeeee");
 
 
 	string reduceName = res->nodeManager + "_r_" + to_string(res->job->jid)
 			+ "_" + to_string(res->reducerId);
 	ActorPtr rer = Actor::create(reduceName, this_actor::get_host(),
 			Reducer(reduceName, res->requester, nameNodeName, dataNode, res));
-	XBT_INFO("allocate   reduceName %s", reduceName.c_str());
+	//////XBT_INFO("allocate   reduceName %s", reduceName.c_str());
 	reducers.push_back(reduceName);
-	//XBT_INFO("allocate reduceeeeeeeeeeeeeeeeee");
+	////////XBT_INFO("allocate reduceeeeeeeeeeeeeeeeee");
 }
 
 

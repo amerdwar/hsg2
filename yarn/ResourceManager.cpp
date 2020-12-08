@@ -39,7 +39,7 @@ void ResourceManager::operator()() {
 
 		switch (m->type) {
 		case msg_type::end_of_simulation: {
-			XBT_INFO("resource manager end of simulation end simulation ");
+			////XBT_INFO("resource manager end of simulation end simulation ");
 			//send this message to heart beater
 			Mailbox::by_name(heartBeater)->put(m, 0);
 			for (auto a : containers) {
@@ -52,7 +52,7 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::cl_rm_send_job: {
-			XBT_INFO("receive job name  ");
+			////XBT_INFO("receive job name  ");
 			JobInfo * j = static_cast<JobInfo*>(m->payload);
 
 			scheduler->waitingJobs.push_back(j);
@@ -69,15 +69,15 @@ void ResourceManager::operator()() {
 				endCounter = 0;
 
 				if (resp->type == allocate_type::app_master_all) {
-					MailboxPtr nodeManmb = Mailbox::by_name(resp->nodeManager);
+					Mailbox* nodeManmb = Mailbox::by_name(resp->nodeManager);
 					Message* resMSg = new Message(msg_type::allocate_res,
 							thismb->get_name(), nodeManmb->get_name(), 0, resp);
-				//	XBT_INFO("allocate on node  %s",
+				//	////XBT_INFO("allocate on node  %s",
 							//nodeManmb->get_name().c_str());
 					nodeManmb->put(resMSg, 1522);
 
 				} else {
-					MailboxPtr reMb = Mailbox::by_name(resp->requester);
+					Mailbox* reMb = Mailbox::by_name(resp->requester);
 					Message* resMSg = new Message(msg_type::allocate_res,
 							thismb->get_name(), resp->requester, 0, resp);
 					reMb->put(resMSg, 1522);
@@ -97,7 +97,7 @@ void ResourceManager::operator()() {
 			break;
 		}
 		case msg_type::finish_job: {
-XBT_INFO("job is finished");
+////XBT_INFO("job is finished");
 
 			JobInfo * jj = static_cast<JobInfo*>(m->payload);
 			Message * finishMsg3 = new Message(msg_type::finish_job, thisName,
@@ -128,7 +128,7 @@ void ResourceManager::initNodeManagers() {
 	for (auto rack : racks) {
 		for (auto host : rack->get_all_hosts()) {
 			host->set_property("rack", rack->get_name());
-		//	XBT_INFO("pro  %s", host->get_property("rack"));
+		//	////XBT_INFO("pro  %s", host->get_property("rack"));
 			int numCon = host->get_core_count() / this->numCorePerContainer; //num containers = num cores per host/num core per container
 			numAllContainers += numCon;
 			containers.insert(std::pair<string, int>(host->get_name(), numCon));

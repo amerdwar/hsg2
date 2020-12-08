@@ -17,10 +17,11 @@ enum sch_type{
 };
 class YarnScheduler {
 public:
-	sch_type type = sch_type::fair;
+	static sch_type type;
 	int numAllCon;
 	int fairIndex;
 	std::vector<allocateReq*> allReq;
+	std::vector<allocateReq*> allReduceReq;
 	std::vector<allocateRes*> allRes;
 
 	std::vector<JobInfo *> waitingJobs;

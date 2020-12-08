@@ -26,11 +26,12 @@ bool minFilesToCombine=false;//false the number of spilles is less than the mini
 	string thisName;
 	string dataNodeName,nodeManagerName;
 	JobInfo *job;
+	double mapRecCount=0;
 	//mapper variables
 
 	//end mapper variables
 
-	MailboxPtr nnmb, thismb, appMasterMb,dataNodeMb,nodeManagerMb;
+	Mailbox* nnmb, *thismb, *appMasterMb,*dataNodeMb,*nodeManagerMb,*thismbForDataNode;
 	HddMediator *hddm;
 	explicit Mapper(string thisName, string appMas, string NameNode,string dataNodeName,
 			allocateRes * res);
@@ -38,9 +39,11 @@ bool minFilesToCombine=false;//false the number of spilles is less than the mini
 	void operator()();
 	void init();
 	string selectInputDataNode();
-	map<int, vector<spill*>*>*    writeSpilles(int64_t taskSize,int64_t spillSize);
-	int64_t combine(int64_t recNum);
+	map<int, vector<spill*>*>*    writeSpilles(double taskSize,int64_t spillSize);
+	//int64_t combine(int64_t recNum);
+
 	spill* exeAndWrPart(int64_t partsize1);
+	spill* exePart(int64_t partsize1);
 	string printSpill(spill* sp);
 	string printMapOut(map<int,vector<spill*>*>*a);
 	double copress(double s);

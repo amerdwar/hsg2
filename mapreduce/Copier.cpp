@@ -18,12 +18,12 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 	this->thisName = thisName;
 	this->dataNode = datNodeName;
 	this->memBytes = int64_t(
-			job->memoryLimit * job->mapredJobShuffleMergePercent);
+			job->memoryLimit );
 
 	this->bufferMemBytes = int64_t(
 			job->memoryLimit * job->mapredJobReduceInputBufferPercent);
 
-	merger = new Combiner(job, dataNode, thisName);
+	merger = new Combiner(job, dataNode, thisName,thisName);
 	thismb = Mailbox::by_name(thisName);
 	string mbForDn = thisName + "_dn";
 	thismbForDataNode = Mailbox::by_name(mbForDn);
@@ -34,7 +34,7 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 }
 
 void Copier::operator()() {
-
+	try{
 	thismb->set_receiver(Actor::self());
 	thismbForDataNode->set_receiver(Actor::self());
 	Message* m = nullptr;
@@ -42,19 +42,19 @@ void Copier::operator()() {
 	do {
 
 		m = static_cast<Message*>(thismb->get());
-		//XBT_INFO("in copier");
+		//////XBT_INFO("in copier");
 		switch (m->type) {
 
 		case msg_type::finish_copier: {
 			XBT_INFO("copier  finish ");
 			isFinish = true;
-			XBT_INFO("this is %i %i", reqNum, ackNum);
-			XBT_INFO(printMap(readVAck).c_str());
+			////XBT_INFO("this is %i %i", reqNum, ackNum);
+			////XBT_INFO(printMap(readVAck).c_str());
 			//send finish to parent
 			break;
 		}
 		case msg_type::cl_dn_re_ch: {
-			//	XBT_INFO("in copier");
+			//	////XBT_INFO("in copier");
 
 			vector<spill*>* vt = static_cast<vector<spill*>*>(m->payload);
 
@@ -62,13 +62,11 @@ void Copier::operator()() {
 
 			for (int i = 0; i < allV->size(); i++) {
 
-				//	XBT_INFO("in read vector spill %i",
-				//allV->at(i)->at(0)->ch->nodes->size());
 
 				string mapDnName = allV->at(i)->at(0)->ch->dirName;
-				//XBT_INFO("th is the name %s",mapDnName.c_str());
+			//	XBT_INFO("th is the name %s",mapDnName.c_str());
 				//exit(0);
-				//	XBT_INFO("datanode is %s",	allV->at(i)->at(0)->ch->nodes->at(0)->get_name().c_str());
+				//	////XBT_INFO("datanode is %s",	allV->at(i)->at(0)->ch->nodes->at(0)->get_name().c_str());
 				int mapSpillNum = allV->at(i)->size();
 				readVAck.insert(std::pair<string, int>(mapDnName, mapSpillNum));
 
@@ -80,34 +78,41 @@ void Copier::operator()() {
 					q->push(allV->at(i));
 				}
 			}
+		//	XBT_INFO("after for");
 			break;
 		}
 		case msg_type::dn_cl_re_ack_ch: {
 
-			XBT_INFO("sender is %s", m->mapperName.c_str());
-			readVAck.at(m->mapperName)--;
+			//XBT_INFO("sender is is %s", m->mapperName.c_str());
 
-			if
-(			readVAck.at(m->mapperName)==0) {
+
+			//XBT_INFO("readVA %i  ",readVAck.size());
+
+			readVAck.at(m->mapperName)--;
+			//XBT_INFO("readVA ");
+			if (readVAck.at(m->mapperName)==0) {
 				ackNum++;
 				if (q->size() > 0) {
-
+				//	XBT_INFO("before spill");
 					sendReadReg(q->front());
+				//	XBT_INFO("after spill");
 					spillAndCompine(exe(q->front())); //here the sort combine and spill to mem and hdd
+
 					q->pop();
 				} else {
 					nFreeCopiers++;
 				}
 			}
+			//XBT_INFO("end sender is ");
 			break;
 		}
 
 		}
 
 		if (isFinish && ackNum == reqNum) {
-			XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,
-					q->size());
-			XBT_INFO("the all size is %s", to_string(numBytes).c_str());
+			////XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,
+				//	q->size());
+			////XBT_INFO("the all size is %s", to_string(numBytes).c_str());
 
 			break;
 
@@ -125,7 +130,10 @@ for (auto pp:actorPtrV)
 			0, outDiskV);
 	parentMb->put(cpF1, 0);
 	parentMb->put(cpF2, 0);
-
+	}catch(exception &e){
+		XBT_INFO("**** ",e.what());
+		exit(1);
+	}
 }
 
 Copier::~Copier() {
@@ -134,11 +142,18 @@ Copier::~Copier() {
 
 void Copier::sendReadReg(vector<spill*> *v) {
 
-	MailboxPtr dnmb = v->at(0)->ch->nodes->at(0);
+	Mailbox* dnmb = v->at(0)->ch->nodes->at(0);
 	string dn = dnmb->get_name();
+
+
+
 	reqNum++;
 	for (int i = 0; i < v->size(); i++) {
 
+		//add shuffled bytes
+		//if (this->dataNode.compare(dn)!=0)
+		job->ctr->addToCtr(ctr_t::REDUCE_SHUFFLE_BYTES,v->at(i)->ch->size);
+		job->ctr->addToCtr(ctr_t::REDUCE_INPUT_RECORDS,v->at(i)->records);
 		Message *chReq = new Message(msg_type::cl_dn_re_ch, this->thisName, dn,
 				hdd_Access::hdd_read, v->at(i)->ch);
 
@@ -146,8 +161,18 @@ void Copier::sendReadReg(vector<spill*> *v) {
 
 		chReq->mapperName = mapDnName;
 		//send the request of chunk to data node
-		dnmb->put(chReq, 1522);
-//XBT_INFO("message %s",chReq->traceStr.c_str());
+
+		if(dnmb->get_name()==this->dataNode){
+
+		dnmb->put(chReq, 0);
+		}else{
+
+			dnmb->put(chReq, 1522);
+		}
+
+
+
+//////XBT_INFO("message %s",chReq->traceStr.c_str());
 		//ExecPtr exep=this_actor::exec_async(ch->size);
 	}
 
@@ -164,7 +189,7 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 	int64_t sss = numBytes;
 	numBytes += lastsp->ch->size;
 	if (numBytes < 0) {
-		XBT_INFO("error %i , %i %i ", numBytes, sss, lastsp->ch->size);
+		////XBT_INFO("error %i , %i %i ", numBytes, sss, lastsp->ch->size);
 	}
 //exe for merge
 	double comp_cost = 0;
@@ -174,13 +199,13 @@ spill* Copier::exe(vector<spill*>* v) { //execute the
 	double exeFlops = (double) lastsp->records + comp_cost;
 
 	if (job->useCompression) {
-		XBT_INFO("size before uncompres %s",
-				to_string(lastsp->ch->size).c_str());
+		////XBT_INFO("size before uncompres %s",
+		//		to_string(lastsp->ch->size).c_str());
 
 		lastsp->ch->size = (int64_t) lastsp->ch->size / job->compressionSize;
 
-		XBT_INFO("size after uncompres %s",
-				to_string(lastsp->ch->size).c_str());
+		////XBT_INFO("size after uncompres %s",
+		//		to_string(lastsp->ch->size).c_str());
 	}
 	auto a = this_actor::exec_async(exeFlops);
 	pending_comms.push_back(a); //tell now we execute one out
@@ -206,7 +231,7 @@ vector<vector<spill*>*> * Copier::getMapsVecors(vector<spill*>* v) {
 			if (s.compare(v->at(i)->ch->dirName) == 0) {
 
 				allv->at(c)->push_back(v->at(i));
-				//	XBT_INFO("add to if  %s", s.c_str());
+				//	////XBT_INFO("add to if  %s", s.c_str());
 			} else {		//new out
 
 				vector<spill*>* tem = new vector<spill*>();
@@ -214,11 +239,11 @@ vector<vector<spill*>*> * Copier::getMapsVecors(vector<spill*>* v) {
 				allv->push_back(tem);
 				s = v->at(i)->ch->dirName;
 				allv->at(c)->push_back(v->at(i));
-				//XBT_INFO("add to else  %s", s.c_str());
+				//////XBT_INFO("add to else  %s", s.c_str());
 			}
 		}
 	}
-	//XBT_INFO("size is   %i", allv->size());
+	//////XBT_INFO("size is   %i", allv->size());
 	return allv;
 }
 
@@ -227,7 +252,7 @@ void Copier::spillAndCompine(spill* sp) {
 //TODO if spill size > buffer percent write to disk directly
 	if (chSize > bufferMemBytes) {
 		AsyncDirectSpill(sp);
-//XBT_INFO("after write direct");
+//////XBT_INFO("after write direct");
 
 		return;
 	}
@@ -273,8 +298,8 @@ void Copier::AsyncDirectSpill(spill* sp) {
 
 	//create chunk to write to disk asynck
 	Chunk *ch = new Chunk(thisName, thisName, 0, sp->ch->size);
-	vector<simgrid::s4u::MailboxPtr>* hosts_to_write = new vector<
-			simgrid::s4u::MailboxPtr>();
+	vector<simgrid::s4u::Mailbox*>* hosts_to_write = new vector<
+			simgrid::s4u::Mailbox*>();
 	hosts_to_write->push_back(Mailbox::by_name(dataNode));
 	ch->nodes = hosts_to_write;
 
@@ -288,7 +313,9 @@ void Copier::AsyncDirectSpill(spill* sp) {
 
 	//add recordes to ctrs
 	job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, direct->records);
+	job->ctr->addToCtr(ctr_t::reduce_spilled_recordes, direct->records);
 
+	job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, sp->ch->size);
 
 	//create asyncwriter actor
 	string asyncWrName = thisName + "a_wr_" + to_string(asyncWrId++);
@@ -316,39 +343,22 @@ void Copier::directSpill(spill* sp) {
 
 void Copier::toDisk() {
 	spill* lastsp = outMemV->at(0);
-	XBT_INFO("size is %i   ", lastsp->ch->size);
+	////XBT_INFO("size is %i   ", lastsp->ch->size);
 	for (int i = 1; i < outMemV->size(); i++) {
 		lastsp->records += outMemV->at(i)->records;
 		lastsp->ch->size += outMemV->at(i)->ch->size;
 	}
-	XBT_INFO("size is %i   %i", lastsp->ch->size, outMemV->size());
+	////XBT_INFO("size is %i   %i", lastsp->ch->size, outMemV->size());
 
 	int64_t recSize = lastsp->ch->size / lastsp->records;
-	if (job->useCombiner) {
-		int64_t combineRec = merger->combine(lastsp->records);
-		int64_t comSize = combineRec * job->combineOutAvRecordSize;
 
-		auto ptr = this_actor::exec_async(
-
-		(double) lastsp->records * job->combineCost);
-		pending_comms.push_back(ptr);
-
-		Chunk* ch = hddmed->writeCh(comSize);
-		XBT_INFO("size %i, %i", comSize, lastsp->ch->size);
-
-		spill* sp = new spill();
-		sp->ch = ch;
-		sp->records = combineRec;
-		outMemV->clear();
-		outDiskV->push_back(sp);
-		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, sp->records);
-	} else {
 
 		double exeFlops = (double) lastsp->records;
 		auto a = this_actor::exec_async(exeFlops);
 		pending_comms.push_back(a); //tell now we execute one out
 
 		Chunk* ch = hddmed->writeCh(lastsp->ch->size);
+		job->ctr->addToCtr(ctr_t::reduce_file_bytes_write, lastsp->ch->size);
 		spill* sp = new spill();
 		sp->ch = ch;
 		sp->records = lastsp->records;
@@ -357,7 +367,8 @@ void Copier::toDisk() {
 		outDiskV->push_back(sp);
 
 		job->ctr->addToCtr(ctr_t::SPILLED_RECORDS, sp->records);
-	}
+		job->ctr->addToCtr(ctr_t::reduce_spilled_recordes, sp->records);
+
 
 }
 string Copier::printMap(map<string, int> rm) {

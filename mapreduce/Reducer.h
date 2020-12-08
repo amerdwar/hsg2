@@ -25,7 +25,7 @@ public:
 	string thisName;
 	string dataNodeName, nodeManagerName;
 	JobInfo *job;
-	MailboxPtr nnmb, thismb, appMasterMb, dataNodeMb, nodeManagerMb;
+	Mailbox* nnmb,* thismb, *appMasterMb, *dataNodeMb, *nodeManagerMb;
 	HddMediator *hddm;
 	vector<spill*>* inputs;
 	vector<spill*>* inputsMem;

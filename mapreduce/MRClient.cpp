@@ -7,26 +7,75 @@
 
 #include "MRClient.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(mrclient, "Messages specific for this example");
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// process_mem_usage(double &, double &) - takes two doubles by reference,
+// attempts to read the system-dependent data for a process' virtual memory
+// size and resident set size, and return the results in KB.
+//
+// On failure, returns 0.0, 0.0
+
+void MRClient::process_mem_usage(double& vm_usage, double& resident_set)
+{
+   using std::ios_base;
+   using std::ifstream;
+   using std::string;
+
+   vm_usage     = 0.0;
+   resident_set = 0.0;
+
+   // 'file' stat seems to give the most reliable results
+   //
+   ifstream stat_stream("/proc/self/stat",ios_base::in);
+
+   // dummy vars for leading entries in stat that we don't care about
+   //
+   string pid, comm, state, ppid, pgrp, session, tty_nr;
+   string tpgid, flags, minflt, cminflt, majflt, cmajflt;
+   string utime, stime, cutime, cstime, priority, nice;
+   string O, itrealvalue, starttime;
+
+   // the two fields we want
+   //
+   unsigned long vsize;
+   long rss;
+
+   stat_stream >> pid >> comm >> state >> ppid >> pgrp >> session >> tty_nr
+               >> tpgid >> flags >> minflt >> cminflt >> majflt >> cmajflt
+               >> utime >> stime >> cutime >> cstime >> priority >> nice
+               >> O >> itrealvalue >> starttime >> vsize >> rss; // don't care about the rest
+
+   stat_stream.close();
+
+   long page_size_kb = sysconf(_SC_PAGE_SIZE) / 1024; // in case x86-64 is configured to use 2MB pages
+   vm_usage     = vsize / 1024.0;
+   resident_set = rss * page_size_kb;
+}
+
 MRClient::MRClient(std::vector<std::string> args) {
 
 	thisName = simgrid::s4u::this_actor::get_host()->get_name() + "_"
 			+ simgrid::s4u::this_actor::get_name();
 
-	XBT_INFO("in mr client");
+	//XBT_INFO("in mr client");
 	xbt_assert(args.size() > 0, "the arguments must be more than one");
 	this->nameNodeName = args[1];
 	this->rMangerName = args[2];
-	XBT_INFO("in mr client %s",this->rMangerName.c_str());
+	//XBT_INFO("in mr client %s",this->rMangerName.c_str());
 
 
 	rManager = Mailbox::by_name(rMangerName);
-	XBT_INFO("in mr client");
+	//XBT_INFO("in mr client");
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNodeName);
 
 	thismb = simgrid::s4u::Mailbox::by_name(thisName);
 	thismb->set_receiver(Actor::self());
 jsonJob=new  JsonJob();
-XBT_INFO("in mr client");
+//XBT_INFO("in mr client");
 }
 
 
@@ -34,15 +83,19 @@ XBT_INFO("in mr client");
 void MRClient::sendJob(JobInfo* job) {
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
 			rMangerName, 1, job);
+
+
+	job->ctr->setCtr(ctr_t::START_TIME,time(0));
 	job->ctr->addToCtr(ctr_t::JOB_START_TIME,Engine::get_clock());
-	//XBT_INFO("send job mssage %s", rManager->get_name().c_str());
+
+	XBT_INFO("send job mssage %s", rManager->get_name().c_str());
 	rManager->put(m, 1522);
-	//XBT_INFO("send job mssage");
+	////XBT_INFO("send job mssage");
 }
 void MRClient::operator()() {
 	// path p("../resources/jobs");
 
-	XBT_INFO("in mr client");
+	//XBT_INFO("in mr client");
 vector<string> jNames= getAllJobs();
 
 
@@ -57,6 +110,7 @@ vector<string> jNames= getAllJobs();
 		job->user=thisName;
 		//initJob(job);
 		this->writeDate(job);
+
 		jobs.push_back(job->jid);
 		jVector.push_back(job);
 	}
@@ -67,23 +121,48 @@ vector<string> jNames= getAllJobs();
 
 	for (int i = 0; i < jobsNum; i++) {
 		Message*m2 = static_cast<Message*>(thismb->get());
-		XBT_INFO("recive finish from lj;lkj;gfguhjlk;jhgfj");
+		//XBT_INFO("recive finish from lj;lkj;gfguhjlk;jhgfj");
 		if (m2->type != msg_type::finish_job) {
-			XBT_INFO("error client mapreduce finish job");
+			//XBT_INFO("error client mapreduce finish job");
 			exit(1);
 		}
 		JobInfo * jj = static_cast<JobInfo*>(m2->payload);
-		double startT,stopT;
+		double startT,stopT,avgMap,avgReduce,avgSh;
 		stopT=Engine::get_clock();
+
+		//calc job time
 		jj->ctr->addToCtr(ctr_t::JOB_STOP_TIME,stopT);
-
 		startT=jj->ctr->getCtr(JOB_START_TIME);
-
+		//calc mappers avg time
+		jj->ctr->setCtr(ctr_t::JOB_TOTAL_TIME,stopT-startT);
+		avgMap=jj->ctr->getCtr(avMappersTime);
+		jj->ctr->setCtr(ctr_t::avMappersTime,avgMap/jj->numberOfMappers);
+		//calc reducers avg time
 		jj->ctr->setCtr(ctr_t::JOB_TOTAL_TIME,stopT-startT);
 
+
+		avgReduce=jj->ctr->getCtr(avReducersTime);
+		jj->ctr->setCtr(ctr_t::avReducersTime,avgReduce/jj->numberOfReducers);
+
+
+		avgSh=jj->ctr->getCtr(SHUFFLE);
+		jj->ctr->setCtr(ctr_t::SHUFFLE,avgSh/jj->numberOfReducers);
+
+
+				   double vm, rss;
+				   process_mem_usage(vm, rss);
+		double realStop=time(0);
+		realStop-=jj->ctr->getCtr(ctr_t::START_TIME);
+					jj->ctr->setCtr(ctr_t::STOP_TIME,realStop);
+					jj->ctr->setCtr(ctr_t::memory,rss);
+
 		jj->ctr->printCtrs();
+
+
+
+
 	}
-	XBT_INFO("finish job message send end of simul mssage");
+	//XBT_INFO("finish job message send end of simul mssage");
 	Message *endm = new Message(msg_type::end_of_simulation, thismb->get_name(),
 			nameNodeName, 1, nullptr);
 
@@ -91,6 +170,8 @@ vector<string> jNames= getAllJobs();
 	Message *endm2 = new Message(msg_type::end_of_simulation,
 			thismb->get_name(), rMangerName, 1, nullptr);
 	rManager->put(endm2, 1522);
+
+
 
 }
 void MRClient::initJob(JobInfo* job) {
@@ -169,9 +250,9 @@ void MRClient::writeDate(JobInfo *job) {
 	Message *ms = new Message(msg_type::cl_nn_re_dir, thismb->get_name(),
 			nameNodeName, 0, payload);
 	nnmb->put(ms, 1522);
-	//XBT_INFO("before get dir");
+	////XBT_INFO("before get dir");
 	Message * res = static_cast<Message*>(thismb->get());
-	//XBT_INFO("after get dir");
+	////XBT_INFO("after get dir");
 	DirFiles *dirF = static_cast<DirFiles *>(res->payload);
 	job->dir = dirF;
 

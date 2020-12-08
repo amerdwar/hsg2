@@ -31,4 +31,340 @@
 	</actor>
 
 
+	<actor host="host4" function="dataNode" />
+	<actor host="host4" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host5" function="dataNode" />
+	<actor host="host5" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host6" function="dataNode" />
+	<actor host="host6" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host7" function="dataNode" />
+	<actor host="host7" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host8" function="dataNode" />
+	<actor host="host8" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host9" function="dataNode" />
+	<actor host="host9" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host10" function="dataNode" />
+	<actor host="host10" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host11" function="dataNode" />
+	<actor host="host11" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host12" function="dataNode" />
+	<actor host="host12" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host13" function="dataNode" />
+	<actor host="host13" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host14" function="dataNode" />
+	<actor host="host14" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host15" function="dataNode" />
+	<actor host="host15" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host16" function="dataNode" />
+	<actor host="host16" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host17" function="dataNode" />
+	<actor host="host17" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host18" function="dataNode" />
+	<actor host="host18" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host19" function="dataNode" />
+	<actor host="host19" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host20" function="dataNode" />
+	<actor host="host20" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host21" function="dataNode" />
+	<actor host="host21" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host22" function="dataNode" />
+	<actor host="host22" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host23" function="dataNode" />
+	<actor host="host23" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host24" function="dataNode" />
+	<actor host="host24" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host25" function="dataNode" />
+	<actor host="host25" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host26" function="dataNode" />
+	<actor host="host26" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host27" function="dataNode" />
+	<actor host="host27" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host28" function="dataNode" />
+	<actor host="host28" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host29" function="dataNode" />
+	<actor host="host29" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host30" function="dataNode" />
+	<actor host="host30" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host31" function="dataNode" />
+	<actor host="host31" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host32" function="dataNode" />
+	<actor host="host32" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host33" function="dataNode" />
+	<actor host="host33" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host34" function="dataNode" />
+	<actor host="host34" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host35" function="dataNode" />
+	<actor host="host35" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host36" function="dataNode" />
+	<actor host="host36" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host37" function="dataNode" />
+	<actor host="host37" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host38" function="dataNode" />
+	<actor host="host38" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host39" function="dataNode" />
+	<actor host="host39" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host40" function="dataNode" />
+	<actor host="host40" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host41" function="dataNode" />
+	<actor host="host41" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host42" function="dataNode" />
+	<actor host="host42" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host43" function="dataNode" />
+	<actor host="host43" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host44" function="dataNode" />
+	<actor host="host44" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host45" function="dataNode" />
+	<actor host="host45" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host46" function="dataNode" />
+	<actor host="host46" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host47" function="dataNode" />
+	<actor host="host47" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host48" function="dataNode" />
+	<actor host="host48" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host49" function="dataNode" />
+	<actor host="host49" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host50" function="dataNode" />
+	<actor host="host50" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
+	<actor host="host51" function="dataNode" />
+	<actor host="host51" function="nodeManager">
+<argument value="host0_nameNode" />
+		<argument value="host1_ResourceManager" />
+	</actor>
+
+
 </platform>

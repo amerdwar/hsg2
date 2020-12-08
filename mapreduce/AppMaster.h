@@ -10,6 +10,8 @@
 #include "simgrid/s4u.hpp"
 #include "../messages/Message.h"
 #include "JobInfo.h"
+
+#include "../yarn/YarnScheduler.h"
 using namespace simgrid::s4u;
 class AppMaster {
 public:
@@ -17,9 +19,10 @@ public:
 	static	double slowStartNumFinishedMappers;
 	JobInfo* job;
 int64_t numbytes=0;
+int64_t numOfFinishedMappers=0;
 int numAllMappers=0,numAllReducers=0,numFinishedMappers,numFinishedReducers;
 	string parent,self,nameNode,rManager,nodeManager;
-	MailboxPtr parentMb,thisMb,nameNodeMb,rManagerMb,nodeManagerMb;
+	Mailbox* parentMb,*thisMb,*nameNodeMb,*rManagerMb,*nodeManagerMb;
 	vector<string> mappers;
 	map<int,string> reducers;
 	map<int,vector<spill*>*>*  mapOutV ;

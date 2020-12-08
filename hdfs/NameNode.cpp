@@ -27,16 +27,16 @@ NameNode::NameNode(std::vector<std::string> args) {
 
 	racks = e->get_filtered_netzones<simgrid::kernel::routing::ClusterZone>();
 	allDires = new map<string, DirFiles *>();
-	dataNodes = new map<MailboxPtr, vector<Chunk*>>;
+	dataNodes = new map<Mailbox*, vector<Chunk*>>;
 
 	for(int i=0;i<racks.size();i++){
 		for(int j=0;j<racks.at(i)->get_all_hosts().size();j++){
-			simgrid::s4u::MailboxPtr h1 = simgrid::s4u::Mailbox::by_name(
+			simgrid::s4u::Mailbox* h1 = simgrid::s4u::Mailbox::by_name(
 					racks.at(i)->get_all_hosts().at(j)->get_name() + "_dataNode");
 
 			vector<Chunk*> vv;
 			dataNodes->insert(
-							std::pair<MailboxPtr, vector<Chunk*>>(
+							std::pair<Mailbox*, vector<Chunk*>>(
 		h1, vv));
 		}
 	}
@@ -52,12 +52,12 @@ void NameNode::operator()() { //the simulation loop
 		switch (m->type) {
 
 		case msg_type::end_of_simulation: {
-			XBT_INFO("end name node");
+			////XBT_INFO("end name node");
 			for (auto a = dataNodes->begin(); a != dataNodes->end(); a++) {
 				a->first->put(m, 1522);
-				XBT_INFO("end name node   send to node %s",a->first->get_name().c_str());
+				////XBT_INFO("end name node   send to node %s",a->first->get_name().c_str());
 			}
-			XBT_INFO("end name node");
+			////XBT_INFO("end name node");
 			break;
 		}
 		case msg_type::cl_nn_wr_file: {
@@ -69,13 +69,13 @@ void NameNode::operator()() { //the simulation loop
 		}
 
 		case msg_type::cl_nn_ack_ch: {
-			XBT_INFO("ack from client");
+			////XBT_INFO("ack from client");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			allDires->at(f->dir)->Files->at(f->name)->isAck = true;
 			break;
 		}
 		case msg_type::cl_nn_re_file: {
-			XBT_INFO("in read");
+			////XBT_INFO("in read");
 			HdfsFile * f = static_cast<HdfsFile*>(m->payload);
 			Message *msg = new Message(msg_type::nn_cl_re_file, nameNodeName,
 					m->sender, 0, allDires->at(f->dir)->Files->at(f->name));
@@ -85,7 +85,7 @@ void NameNode::operator()() { //the simulation loop
 			break;
 		}
 		case msg_type::cl_nn_re_dir: {
-					XBT_INFO("in read dir");
+					////XBT_INFO("in read dir");
 					string * dd = static_cast<string*>(m->payload);
 					Message *msg = new Message(msg_type::nn_cl_re_dir, nameNodeName,
 							m->sender, 0, allDires->at(*dd));
@@ -101,7 +101,7 @@ void NameNode::operator()() { //the simulation loop
 }
 
 bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
-		simgrid::s4u::MailboxPtr sender) {
+		simgrid::s4u::Mailbox* sender) {
 
 //choose the datanode for the chnuk
 	//send the chnk for the first no
@@ -127,8 +127,8 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 	for (int chindex = 0; chindex < numCh; chindex++) {
 
-		vector<simgrid::s4u::MailboxPtr>* hosts_to_write = new vector<
-				simgrid::s4u::MailboxPtr>();
+		vector<simgrid::s4u::Mailbox*>* hosts_to_write = new vector<
+				simgrid::s4u::Mailbox*>();
 
 		//select random rack
 		int64_t rackId = RandClass::getRand(0, rackNums - 1);
@@ -137,11 +137,11 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 		auto selectedRack = racks.at(rackId);
 		xbt_assert(selectedRack->get_all_hosts().size() > 0,
 				"num of host in rack %d is 0", rackId);
-		simgrid::s4u::MailboxPtr h1 = simgrid::s4u::Mailbox::by_name(
+		simgrid::s4u::Mailbox* h1 = simgrid::s4u::Mailbox::by_name(
 				this->randomHostInRack(selectedRack)->get_name() + "_dataNode");
 
 		hosts_to_write->push_back(h1);
-		simgrid::s4u::MailboxPtr h2 = nullptr;
+		simgrid::s4u::Mailbox* h2 = nullptr;
 		if (replicatinNum > 1) {//choose another host in another rack if exist
 			if (racks.size() > 1) {
 				//choose random rack !=rackid
@@ -168,8 +168,8 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 						"num of host is 0");
 				if (racks.at(0)->get_all_hosts().size() > 1) {
 					h2 = simgrid::s4u::Mailbox::by_name(
-							this->randomHostInRackExceptHost(racks.at(0),
-									h1->get_name())->get_name() + "_dataNode");
+							this->randomHostInRackExceptHost(
+									racks.at(0),h1->get_name())->get_name() + "_dataNode");
 				} else {
 
 					h2 = simgrid::s4u::Mailbox::by_name(
@@ -181,7 +181,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 
 			hosts_to_write->push_back(h2);
 		}
-		simgrid::s4u::MailboxPtr h3 = nullptr;
+		simgrid::s4u::Mailbox* h3 = nullptr;
 		if (replicatinNum > 2) {	//third replication is in the same rack
 
 			if (racks.at(rackId)->get_all_hosts().size() > 2) {
@@ -209,7 +209,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 				xbt_assert(selectedRack1->get_all_hosts().size() > 0,
 						"num host is 0 in rack num %i", rackId1);
 
-				simgrid::s4u::MailboxPtr tempHost =
+				simgrid::s4u::Mailbox* tempHost =
 						simgrid::s4u::Mailbox::by_name(
 								this->randomHostInRack(selectedRack1)->get_name()
 										+ "_dataNode");
@@ -232,7 +232,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 			if (dataNodes->find(hosts_to_write->at(i)) == dataNodes->end()) {
 				vector<Chunk*> dnChunks;
 				dnChunks.push_back(ch);
-				dataNodes->insert(std::pair<MailboxPtr, vector<Chunk*>>(
+				dataNodes->insert(std::pair<Mailbox*, vector<Chunk*>>(
 								hosts_to_write->at(i), dnChunks));
 			} else {
 				dataNodes->at(hosts_to_write->at(i)).push_back(ch);
@@ -245,7 +245,7 @@ bool NameNode::hdfs_write(string dir, string file, int64_t file_size,
 	auto ret = allDires->at(dir)->Files->insert(
 			std::pair<string, HdfsFile *>(file, f));
 	if (ret.second == false) {
-		XBT_INFO("file exist");
+		////XBT_INFO("file exist");
 		return 0;
 
 	}
@@ -275,10 +275,12 @@ simgrid::s4u::Host* NameNode::randomHostInRackExceptHost(
 	auto hosts = rack->get_all_hosts();
 	simgrid::s4u::Host* h;
 	if (hosts.size() > 1) {	//if we have more than one host return any random host in the rack except the host whose name is param host
+		string hn;
 		do {
 			h = hosts.at(RandClass::getRand(0, hosts.size() - 1));
-
-		} while (h->get_name().compare(host) == 0);
+          hn=h->get_name()+"_dataNode";
+////XBT_INFO("hn   %s ,h  %s",hn.c_str(),host.c_str());
+		} while (hn.compare(host) == 0);
 		return h;
 	} else {	//there is one host in the rack
 
@@ -298,11 +300,11 @@ simgrid::s4u::Host* NameNode::randHostExcept(
 			for (auto ex : exc) {
 				if (ex.compare(h->get_name() + "_dataNode") == 0) {
 					reScan = true;
-					XBT_INFO(" equal %s ,%s %i", ex.c_str(),
-							h->get_name().c_str(),chindex);
+					////XBT_INFO(" equal %s ,%s %i", ex.c_str(),
+							//h->get_name().c_str(),chindex);
 				} else {
-					XBT_INFO(" not equal %s ,%s %i", ex.c_str(),
-							h->get_name().c_str(),chindex);
+					////XBT_INFO(" not equal %s ,%s %i", ex.c_str(),
+							//h->get_name().c_str(),chindex);
 
 				}
 			}

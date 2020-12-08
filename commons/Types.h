@@ -78,7 +78,7 @@ struct spill{
 Chunk* ch;
 bool isInMem=false;
 bool isLast=false;
-int records;
+int64_t records;
 string taskName="";
 };
 

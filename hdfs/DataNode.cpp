@@ -45,7 +45,7 @@ void DataNode::operator()() {
 			for (auto ss : *storage_list) {
 				Mailbox::by_name(ss)->put(m, 1522);
 			}
-			XBT_INFO("end data node");
+			////XBT_INFO("end data node");
 			break;
 		}
 		case msg_type::cl_dn_wr_ch: {
@@ -63,7 +63,8 @@ void DataNode::operator()() {
 			m->generator = m->sender;
 			m->receiver = ch->storage;
 			m->returnTag = hdd_Access::hdd_write;
-			m->payload = ch->copy();
+			Chunk *chToDesk = ch->copy();
+			m->payload = chToDesk;
 
 			Chunk* chForSend = ch->copy();
 
@@ -87,7 +88,7 @@ void DataNode::operator()() {
 				ms->receiver =
 						chForSend->nodes->at(chForSend->writeIndex)->get_name();
 
-				//xbt_info(
+				//////XBT_INFO(
 				//		"send message to other and sizze pending is %i  next is %s",
 				//	ddPendings.size(),
 				//ch->nodes->at(ch->writeIndex)->get_name().c_str());
@@ -98,17 +99,17 @@ void DataNode::operator()() {
 			} else { //this is the last node in the pipline
 
 				//send ack message to this_actor
-				//xbt_info(" after send ack ");
+				//////XBT_INFO(" after send ack ");
 				chForSend->writeIndex -= 1; //the index of the last node
-				//XBT_INFO("the chunk index is last index %i ",
+				//////XBT_INFO("the chunk index is last index %i ",
 				//	chForSend->writeIndex);
 				ms->payload = chForSend;
 				ms->type = msg_type::dn_ack_wr_ch;
 				ms->receiver = ms->sender = mailbox->get_name();
 
 				mailbox->put(ms, 0);
-				//	XBT_INFO("send message ack dd %s ", ms->toString().c_str());
-				//xbt_info("send message to self and sizze pending is %i",
+				//	////XBT_INFO("send message ack dd %s ", ms->toString().c_str());
+				//////XBT_INFO("send message to self and sizze pending is %i",
 				//	ddPendings.size());
 			}
 
@@ -118,10 +119,10 @@ void DataNode::operator()() {
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 			m->generator = m->sender;
 			m->sender = m->receiver;
-			//XBT_INFO("beeeee %i", ch->chGenId);
+			//////XBT_INFO("beeeee %i", ch->chGenId);
 
 			m->receiver = chunks.at(ch->chGenId)->storage;
-			//XBT_INFO("afffffffffff");
+			//////XBT_INFO("afffffffffff");
 			m->type = msg_type::hdd;
 			Chunk* cc = chunks.at(ch->chGenId)->copy();
 			cc->clinetMB = Mailbox::by_name(m->generator);
@@ -139,28 +140,28 @@ void DataNode::operator()() {
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
 
 			if (acksMap.at(m->genId).at(ch->writeIndex) == 0) { //receive ack from hdd so send the ack to the previous node
-				//xbt_info(" yes it is  10");
+				//////XBT_INFO(" yes it is  10");
 
-				//xbt_info(" yes it is  11");
+				//////XBT_INFO(" yes it is  11");
 				ch->writeIndex -= 1; //the index of the  previous node
 
 				m->payload = ch;
 				//m->type=msg_type::dn_ack_wr_ch;
 				m->sender = mailbox->get_name();
-				//xbt_info(" yes it is");
+				//////XBT_INFO(" yes it is");
 				if (ch->writeIndex >= 0) {
-					//xbt_info(" yes it is 1");
+					//////XBT_INFO(" yes it is 1");
 					m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
-					//xbt_info(" yes it is 2");
+					//////XBT_INFO(" yes it is 2");
 					ch->nodes->at(ch->writeIndex)->put(m, 1522);
 
-					//xbt_info(" yes it is 3");
+					//////XBT_INFO(" yes it is 3");
 				} else { //send the ack to client
-					//xbt_info(" yes it is 4");
+					//////XBT_INFO(" yes it is 4");
 					m->receiver = ch->clinetMB->get_name();
-					//xbt_info(" yes it is 5");
+					//////XBT_INFO(" yes it is 5");
 					ch->clinetMB->put(m, 1522);
-					//xbt_info(" yes it is 6");
+					//////XBT_INFO(" yes it is 6");
 				}
 
 			}
@@ -171,7 +172,7 @@ void DataNode::operator()() {
 
 			Chunk * ch = static_cast<Chunk*>(m->payload);
 
-			//XBT_INFO("this ****** is the chunk size  from achnol %i", ch->size);
+			//XBT_INFO("this ****** is the chunk size  from achnol %s", m->generator.c_str());
 			acksMap.at(m->genId).at(ch->writeIndex) -= 1;
 
 			//	m->sender.c_str(), m->receiver.c_str());
@@ -184,19 +185,19 @@ void DataNode::operator()() {
 				m->sender = m->receiver;
 
 				if (ch->writeIndex >= 0) {
-					//xbt_info("in if nodes %i index %i ", ch->nodes->size(),
+				//	XBT_INFO("in if nodes %i index ");
 					//ch->writeIndex);
 					m->receiver = ch->nodes->at(ch->writeIndex)->get_name();
-					//xbt_info("in if  2 %i ", m->genId);
+					//////XBT_INFO("in if  2 %i ", m->genId);
 					ch->nodes->at(ch->writeIndex)->put(m, 1522);
 
 				} else { //send the ack to client
-					//xbt_info("in else %i ", m->genId);
+				//XBT_INFO("in else ");
 					m->receiver = ch->clinetMB->get_name();
-					//xbt_info("in else 1%i ", m->genId);
+				//	XBT_INFO("in else 1   %s ", ch->clinetMB->get_name().c_str());
 					ch->clinetMB->put(m, 1522);
 
-					//xbt_info("in else 2 %i ", m->genId);
+					//////XBT_INFO("in else 2 %i ", m->genId);
 				}
 
 			}
@@ -212,7 +213,7 @@ void DataNode::operator()() {
 			m->payload = chunks.at(ch->chGenId);
 			ch->clinetMB->put(m, 1522);
 
-			//XBT_INFO("hdd datanode read ack  ");
+			//////XBT_INFO("hdd datanode read ack  ");
 			break;
 		}
 		case msg_type::cl_dn_del_ch: {

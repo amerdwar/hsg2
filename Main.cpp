@@ -17,6 +17,8 @@
 #include "resources/JsonPlatform.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(Main, "Messages specific for this example");
 
+
+
 void doSim(int argc, char* argv[]) {
 
 	simgrid::s4u::Engine e(&argc, argv);
@@ -45,32 +47,22 @@ void doSim(int argc, char* argv[]) {
 	/* Run the simulation */
 	e.run();
 
-	XBT_INFO("**************END OF SIMULATION  ****************");
+	//XBT_INFO("**************END OF SIMULATION  ****************");
 
 }
+
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
 	JsonPlatform* jp=new JsonPlatform();
 	jp->creatPlatform("resources/cluster/cluster.json");
 	doSim(argc, argv);
-//	RUN_ALL_TESTS();
 
 
 	return 0;
 }
 
 
-TEST(counter,true){
-	Counter* c=new Counter("def");
-c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
 
-ASSERT_EQ(10, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
-}
-TEST(counter2,false){
-	Counter* c=new Counter("defa");
-c->addToCtr(ctr_t::MAP_INPUT_RECORDS,10);
 
-//std::cout <<"mmmmmmmmmmmmmmm  "<< ctr_t_str[0];
-ASSERT_EQ(9, c->getCtr(ctr_t::MAP_INPUT_RECORDS));
-}
+

@@ -24,7 +24,7 @@ Client::Client(std::vector<std::string> args) {
 Client::Client(string arg) {
 
 	this->nameNode = arg;
-	XBT_INFO("name node is %s", nameNode.c_str());
+	//XBT_INFO("name node is %s", nameNode.c_str());
 	nnmb = simgrid::s4u::Mailbox::by_name(nameNode);
 	thismb = simgrid::s4u::Mailbox::by_name(
 			simgrid::s4u::this_actor::get_host()->get_name() + "_"
@@ -81,7 +81,7 @@ void Client::operator ()() {
 
 	myfile.close();
 	double secondd = Engine::get_clock();
-	XBT_INFO("finish simulation in %f ", secondd - firstd);
+	//XBT_INFO("finish simulation in %f ", secondd - firstd);
 
 	this->read();
 
@@ -89,7 +89,7 @@ void Client::operator ()() {
 			simgrid::s4u::this_actor::get_name(),
 		nameNode,0,nullptr);
 	nnmb->put (ends,1522);
-	XBT_INFO("client end simulatoin");
+	//XBT_INFO("client end simulatoin");
 
 
 }
@@ -120,7 +120,7 @@ void Client::write() {
 		//comm->wait();
 		/*
 		 for(int j=0;j<f->chunks->at(i)->nodes->size();j++){
-		 XBT_INFO("worker name is %s ",f->chunks->at(i)->nodes->at(j)->get_cname());
+		 //XBT_INFO("worker name is %s ",f->chunks->at(i)->nodes->at(j)->get_cname());
 		 nnmb=simgrid::s4u::Mailbox::by_name(nameNode);}
 		 */
 
@@ -184,7 +184,7 @@ void Client::read() {
 
 		myfile.close();
 		double secondd = Engine::get_clock();
-		XBT_INFO("finish read simulation in %f ", secondd - firstd);
+		//XBT_INFO("finish read simulation in %f ", secondd - firstd);
 
 
 

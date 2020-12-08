@@ -19,12 +19,21 @@ string str;
 
 	string ss=jobV.toStyledString();
 
-	XBT_INFO("%s",ss.c_str());
+	//XBT_INFO("%s",ss.c_str());
 
 NameNode::chunkSize=jobV["chunkSize"].asInt64()*1024*1024;
 NameNode::replicatinNum=jobV["replicatinNum"].asInt();
-Hdd::readAccess=jobV["readAccess"].asDouble();
-Hdd::writeAccess=jobV["writeAccess"].asDouble();
+Hdd::readAccess=jobV["hddreadAccess"].asDouble();
+Hdd::writeAccess=jobV["hddwriteAccess"].asDouble();
+string scheduler=jobV["SchedulerType"].asString();
+if (scheduler.compare("fair")==0){
+	YarnScheduler::type=sch_type::fair;
+}else{
+	YarnScheduler::type=sch_type::fifo;
+}
+
+
+
 Hdd::hddSlice=jobV["hddSlice"].asDouble();
 
 Hdd::hddCpuUseage=jobV["hddCpuUseage"].asDouble();
@@ -34,7 +43,7 @@ ResourceManager::numCorePerContainer=jobV["numCorePerContainer"].asInt();
 
 bool gen=jobV["generatePlatformAndDeploy"].asBool();
 if(!gen){//do not generate new platform nor deploy
-	XBT_INFO("no generate");
+	//XBT_INFO("no generate");
 
 	return;
 }

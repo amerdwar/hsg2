@@ -26,8 +26,8 @@ int chRepNum=0;//this number will increment whene send the chunk from one data n
 	string dirName;
 	string storage;
 	ExecPtr exePtr=nullptr;
-	simgrid::s4u::MailboxPtr clinetMB=nullptr;
-	vector<simgrid::s4u::MailboxPtr> *nodes;
+	simgrid::s4u::Mailbox* clinetMB=nullptr;
+	vector<simgrid::s4u::Mailbox*> *nodes;
 	Chunk(string dirName,string fileName,int64_t fileId,int64_t fileSize);
 	bool isWritten=false;
 	Chunk* copy();
