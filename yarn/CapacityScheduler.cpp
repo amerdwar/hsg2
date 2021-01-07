@@ -12,10 +12,9 @@ CapacityScheduler::CapacityScheduler(int numAllCon, std::map<string, int> con) {
 	int qSize=this->queus->size();
 
 	for (int i = 0; i <qSize; i++) {
-		XBT_INFO("size is ");
 		Capacity *cItem = this->queus->at(i);
 
-		XBT_INFO("the q name is %s,the percent is %d",cItem->name.c_str(),cItem->percent);
+
 		int temSize = (int)(cItem->percent * conMapSize / 100);
 		if (temSize == 0) {
 			XBT_INFO("bad capacity scheduler file");
@@ -38,8 +37,6 @@ CapacityScheduler::CapacityScheduler(int numAllCon, std::map<string, int> con) {
 			conIT++;
 			conCount += conIT->second;
 		}
-		XBT_INFO("the size of containers %d",res.size());
-
 
 
 		FIFOScheduler *a = new FIFOScheduler(conCount, res);
@@ -47,19 +44,13 @@ CapacityScheduler::CapacityScheduler(int numAllCon, std::map<string, int> con) {
 		this->allQ.insert(std::pair<string, FIFOScheduler*>(cItem->name, a));
 
 
-
-
-
-
-		XBT_INFO("end for");
 	}
-	XBT_INFO("after if");
-//exit(1);
+
 	this->numAllCon = numAllCon;
 
 }
 void CapacityScheduler::addReq(allocateReq *allr) {
-	XBT_INFO("add req");
+;
 	//all req is vector so we push back and serve first then erase first
 
 	this->allQ.at(allr->job->queueName)->addReq(allr);
