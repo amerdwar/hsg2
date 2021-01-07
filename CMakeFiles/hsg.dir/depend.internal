@@ -28,11 +28,15 @@ CMakeFiles/hsg.dir/Main.cpp.o
  /home/amer/hsg/messages/HddMsg.h
  /home/amer/hsg/messages/Message.h
  /home/amer/hsg/resources/JsonPlatform.h
+ /home/amer/hsg/yarn/Capacity.h
+ /home/amer/hsg/yarn/CapacityScheduler.h
+ /home/amer/hsg/yarn/FIFOScheduler.h
+ /home/amer/hsg/yarn/FairScheduler.h
  /home/amer/hsg/yarn/HddMediator.h
  /home/amer/hsg/yarn/HeartBeater.h
  /home/amer/hsg/yarn/NodeManager.h
  /home/amer/hsg/yarn/ResourceManager.h
- /home/amer/hsg/yarn/YarnScheduler.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
 CMakeFiles/hsg.dir/distributions/RandClass.cpp.o
  /home/amer/hsg/distributions/RandClass.cpp
  /home/amer/hsg/distributions/RandClass.h
@@ -122,17 +126,14 @@ CMakeFiles/hsg.dir/json/jsoncpp.cpp.o
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
- /home/amer/hsg/distributions/RandClass.h
  /home/amer/hsg/hdfs/Chunk.h
  /home/amer/hsg/hdfs/DirFiles.h
  /home/amer/hsg/hdfs/HdfsFile.h
- /home/amer/hsg/hdfs/NameNode.h
  /home/amer/hsg/mapreduce/AppMaster.cpp
  /home/amer/hsg/mapreduce/AppMaster.h
  /home/amer/hsg/mapreduce/Counter.h
  /home/amer/hsg/mapreduce/JobInfo.h
  /home/amer/hsg/messages/Message.h
- /home/amer/hsg/yarn/YarnScheduler.h
 CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
@@ -273,9 +274,68 @@ CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o
  /home/amer/hsg/messages/Message.h
  /home/amer/hsg/resources/JsonPlatform.cpp
  /home/amer/hsg/resources/JsonPlatform.h
+ /home/amer/hsg/yarn/Capacity.h
+ /home/amer/hsg/yarn/CapacityScheduler.h
+ /home/amer/hsg/yarn/FIFOScheduler.h
+ /home/amer/hsg/yarn/FairScheduler.h
  /home/amer/hsg/yarn/HeartBeater.h
  /home/amer/hsg/yarn/ResourceManager.h
- /home/amer/hsg/yarn/YarnScheduler.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
+CMakeFiles/hsg.dir/yarn/Capacity.cpp.o
+ /home/amer/hsg/yarn/Capacity.cpp
+ /home/amer/hsg/yarn/Capacity.h
+CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o
+ /home/amer/hsg/commons/CtrType.h
+ /home/amer/hsg/commons/Types.h
+ /home/amer/hsg/distributions/RandClass.h
+ /home/amer/hsg/hdfs/Chunk.h
+ /home/amer/hsg/hdfs/DirFiles.h
+ /home/amer/hsg/hdfs/Hdd.h
+ /home/amer/hsg/hdfs/HdfsFile.h
+ /home/amer/hsg/hdfs/NameNode.h
+ /home/amer/hsg/json/json/json.h
+ /home/amer/hsg/mapreduce/AppMaster.h
+ /home/amer/hsg/mapreduce/Counter.h
+ /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/messages/HddMsg.h
+ /home/amer/hsg/messages/Message.h
+ /home/amer/hsg/resources/JsonPlatform.h
+ /home/amer/hsg/yarn/Capacity.h
+ /home/amer/hsg/yarn/CapacityScheduler.cpp
+ /home/amer/hsg/yarn/CapacityScheduler.h
+ /home/amer/hsg/yarn/FIFOScheduler.h
+ /home/amer/hsg/yarn/FairScheduler.h
+ /home/amer/hsg/yarn/HeartBeater.h
+ /home/amer/hsg/yarn/ResourceManager.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
+CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o
+ /home/amer/hsg/commons/CtrType.h
+ /home/amer/hsg/commons/Types.h
+ /home/amer/hsg/distributions/RandClass.h
+ /home/amer/hsg/hdfs/Chunk.h
+ /home/amer/hsg/hdfs/DirFiles.h
+ /home/amer/hsg/hdfs/HdfsFile.h
+ /home/amer/hsg/hdfs/NameNode.h
+ /home/amer/hsg/mapreduce/Counter.h
+ /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/messages/Message.h
+ /home/amer/hsg/yarn/FIFOScheduler.cpp
+ /home/amer/hsg/yarn/FIFOScheduler.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
+CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o
+ /home/amer/hsg/commons/CtrType.h
+ /home/amer/hsg/commons/Types.h
+ /home/amer/hsg/distributions/RandClass.h
+ /home/amer/hsg/hdfs/Chunk.h
+ /home/amer/hsg/hdfs/DirFiles.h
+ /home/amer/hsg/hdfs/HdfsFile.h
+ /home/amer/hsg/hdfs/NameNode.h
+ /home/amer/hsg/mapreduce/Counter.h
+ /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/messages/Message.h
+ /home/amer/hsg/yarn/FairScheduler.cpp
+ /home/amer/hsg/yarn/FairScheduler.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
@@ -324,23 +384,31 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /home/amer/hsg/yarn/HeartBeater.h
  /home/amer/hsg/yarn/NodeManager.cpp
  /home/amer/hsg/yarn/NodeManager.h
- /home/amer/hsg/yarn/YarnScheduler.h
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
  /home/amer/hsg/distributions/RandClass.h
  /home/amer/hsg/hdfs/Chunk.h
  /home/amer/hsg/hdfs/DirFiles.h
+ /home/amer/hsg/hdfs/Hdd.h
  /home/amer/hsg/hdfs/HdfsFile.h
  /home/amer/hsg/hdfs/NameNode.h
+ /home/amer/hsg/json/json/json.h
+ /home/amer/hsg/mapreduce/AppMaster.h
  /home/amer/hsg/mapreduce/Counter.h
  /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/messages/HddMsg.h
  /home/amer/hsg/messages/Message.h
+ /home/amer/hsg/resources/JsonPlatform.h
+ /home/amer/hsg/yarn/Capacity.h
+ /home/amer/hsg/yarn/CapacityScheduler.h
+ /home/amer/hsg/yarn/FIFOScheduler.h
+ /home/amer/hsg/yarn/FairScheduler.h
  /home/amer/hsg/yarn/HeartBeater.h
  /home/amer/hsg/yarn/ResourceManager.cpp
  /home/amer/hsg/yarn/ResourceManager.h
- /home/amer/hsg/yarn/YarnScheduler.h
-CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
+ /home/amer/hsg/yarn/YarnSchedulerBase.h
+CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
  /home/amer/hsg/distributions/RandClass.h
@@ -351,5 +419,5 @@ CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
  /home/amer/hsg/mapreduce/Counter.h
  /home/amer/hsg/mapreduce/JobInfo.h
  /home/amer/hsg/messages/Message.h
- /home/amer/hsg/yarn/YarnScheduler.cpp
- /home/amer/hsg/yarn/YarnScheduler.h
+ /home/amer/hsg/yarn/YarnSchedulerBase.cpp
+ /home/amer/hsg/yarn/YarnSchedulerBase.h

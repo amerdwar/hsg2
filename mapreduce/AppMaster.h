@@ -11,7 +11,6 @@
 #include "../messages/Message.h"
 #include "JobInfo.h"
 
-#include "../yarn/YarnScheduler.h"
 using namespace simgrid::s4u;
 class AppMaster {
 public:

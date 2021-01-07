@@ -72,6 +72,7 @@ JobInfo* JsonJob::getJobFromJson(string file) {
 	j->combinerType = jobV["combinerType"].asString();
 
 	j->ctr->jName = j->jobName;
+	j->queueName=jobV["queueName"].asString();
 
 	string ss = jobV.toStyledString();
 

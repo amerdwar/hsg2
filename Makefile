@@ -744,6 +744,114 @@ resources/JsonPlatform.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.s
 .PHONY : resources/JsonPlatform.cpp.s
 
+yarn/Capacity.o: yarn/Capacity.cpp.o
+
+.PHONY : yarn/Capacity.o
+
+# target to build an object file
+yarn/Capacity.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/Capacity.cpp.o
+.PHONY : yarn/Capacity.cpp.o
+
+yarn/Capacity.i: yarn/Capacity.cpp.i
+
+.PHONY : yarn/Capacity.i
+
+# target to preprocess a source file
+yarn/Capacity.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/Capacity.cpp.i
+.PHONY : yarn/Capacity.cpp.i
+
+yarn/Capacity.s: yarn/Capacity.cpp.s
+
+.PHONY : yarn/Capacity.s
+
+# target to generate assembly for a file
+yarn/Capacity.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/Capacity.cpp.s
+.PHONY : yarn/Capacity.cpp.s
+
+yarn/CapacityScheduler.o: yarn/CapacityScheduler.cpp.o
+
+.PHONY : yarn/CapacityScheduler.o
+
+# target to build an object file
+yarn/CapacityScheduler.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o
+.PHONY : yarn/CapacityScheduler.cpp.o
+
+yarn/CapacityScheduler.i: yarn/CapacityScheduler.cpp.i
+
+.PHONY : yarn/CapacityScheduler.i
+
+# target to preprocess a source file
+yarn/CapacityScheduler.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.i
+.PHONY : yarn/CapacityScheduler.cpp.i
+
+yarn/CapacityScheduler.s: yarn/CapacityScheduler.cpp.s
+
+.PHONY : yarn/CapacityScheduler.s
+
+# target to generate assembly for a file
+yarn/CapacityScheduler.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.s
+.PHONY : yarn/CapacityScheduler.cpp.s
+
+yarn/FIFOScheduler.o: yarn/FIFOScheduler.cpp.o
+
+.PHONY : yarn/FIFOScheduler.o
+
+# target to build an object file
+yarn/FIFOScheduler.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o
+.PHONY : yarn/FIFOScheduler.cpp.o
+
+yarn/FIFOScheduler.i: yarn/FIFOScheduler.cpp.i
+
+.PHONY : yarn/FIFOScheduler.i
+
+# target to preprocess a source file
+yarn/FIFOScheduler.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.i
+.PHONY : yarn/FIFOScheduler.cpp.i
+
+yarn/FIFOScheduler.s: yarn/FIFOScheduler.cpp.s
+
+.PHONY : yarn/FIFOScheduler.s
+
+# target to generate assembly for a file
+yarn/FIFOScheduler.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.s
+.PHONY : yarn/FIFOScheduler.cpp.s
+
+yarn/FairScheduler.o: yarn/FairScheduler.cpp.o
+
+.PHONY : yarn/FairScheduler.o
+
+# target to build an object file
+yarn/FairScheduler.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o
+.PHONY : yarn/FairScheduler.cpp.o
+
+yarn/FairScheduler.i: yarn/FairScheduler.cpp.i
+
+.PHONY : yarn/FairScheduler.i
+
+# target to preprocess a source file
+yarn/FairScheduler.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.i
+.PHONY : yarn/FairScheduler.cpp.i
+
+yarn/FairScheduler.s: yarn/FairScheduler.cpp.s
+
+.PHONY : yarn/FairScheduler.s
+
+# target to generate assembly for a file
+yarn/FairScheduler.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.s
+.PHONY : yarn/FairScheduler.cpp.s
+
 yarn/HddMediator.o: yarn/HddMediator.cpp.o
 
 .PHONY : yarn/HddMediator.o
@@ -852,32 +960,32 @@ yarn/ResourceManager.cpp.s:
 	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.s
 .PHONY : yarn/ResourceManager.cpp.s
 
-yarn/YarnScheduler.o: yarn/YarnScheduler.cpp.o
+yarn/YarnSchedulerBase.o: yarn/YarnSchedulerBase.cpp.o
 
-.PHONY : yarn/YarnScheduler.o
+.PHONY : yarn/YarnSchedulerBase.o
 
 # target to build an object file
-yarn/YarnScheduler.cpp.o:
-	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
-.PHONY : yarn/YarnScheduler.cpp.o
+yarn/YarnSchedulerBase.cpp.o:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o
+.PHONY : yarn/YarnSchedulerBase.cpp.o
 
-yarn/YarnScheduler.i: yarn/YarnScheduler.cpp.i
+yarn/YarnSchedulerBase.i: yarn/YarnSchedulerBase.cpp.i
 
-.PHONY : yarn/YarnScheduler.i
+.PHONY : yarn/YarnSchedulerBase.i
 
 # target to preprocess a source file
-yarn/YarnScheduler.cpp.i:
-	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.i
-.PHONY : yarn/YarnScheduler.cpp.i
+yarn/YarnSchedulerBase.cpp.i:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.i
+.PHONY : yarn/YarnSchedulerBase.cpp.i
 
-yarn/YarnScheduler.s: yarn/YarnScheduler.cpp.s
+yarn/YarnSchedulerBase.s: yarn/YarnSchedulerBase.cpp.s
 
-.PHONY : yarn/YarnScheduler.s
+.PHONY : yarn/YarnSchedulerBase.s
 
 # target to generate assembly for a file
-yarn/YarnScheduler.cpp.s:
-	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.s
-.PHONY : yarn/YarnScheduler.cpp.s
+yarn/YarnSchedulerBase.cpp.s:
+	$(MAKE) -f CMakeFiles/hsg.dir/build.make CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.s
+.PHONY : yarn/YarnSchedulerBase.cpp.s
 
 # Help Target
 help:
@@ -957,6 +1065,18 @@ help:
 	@echo "... resources/JsonPlatform.o"
 	@echo "... resources/JsonPlatform.i"
 	@echo "... resources/JsonPlatform.s"
+	@echo "... yarn/Capacity.o"
+	@echo "... yarn/Capacity.i"
+	@echo "... yarn/Capacity.s"
+	@echo "... yarn/CapacityScheduler.o"
+	@echo "... yarn/CapacityScheduler.i"
+	@echo "... yarn/CapacityScheduler.s"
+	@echo "... yarn/FIFOScheduler.o"
+	@echo "... yarn/FIFOScheduler.i"
+	@echo "... yarn/FIFOScheduler.s"
+	@echo "... yarn/FairScheduler.o"
+	@echo "... yarn/FairScheduler.i"
+	@echo "... yarn/FairScheduler.s"
 	@echo "... yarn/HddMediator.o"
 	@echo "... yarn/HddMediator.i"
 	@echo "... yarn/HddMediator.s"
@@ -969,9 +1089,9 @@ help:
 	@echo "... yarn/ResourceManager.o"
 	@echo "... yarn/ResourceManager.i"
 	@echo "... yarn/ResourceManager.s"
-	@echo "... yarn/YarnScheduler.o"
-	@echo "... yarn/YarnScheduler.i"
-	@echo "... yarn/YarnScheduler.s"
+	@echo "... yarn/YarnSchedulerBase.o"
+	@echo "... yarn/YarnSchedulerBase.i"
+	@echo "... yarn/YarnSchedulerBase.s"
 .PHONY : help
 
 

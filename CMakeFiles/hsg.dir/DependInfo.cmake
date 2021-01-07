@@ -27,11 +27,15 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/amer/hsg/mapreduce/Reducer.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
   "/home/amer/hsg/messages/Message.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/messages/Message.cpp.o"
   "/home/amer/hsg/resources/JsonPlatform.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
+  "/home/amer/hsg/yarn/Capacity.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/Capacity.cpp.o"
+  "/home/amer/hsg/yarn/CapacityScheduler.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o"
+  "/home/amer/hsg/yarn/FIFOScheduler.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o"
+  "/home/amer/hsg/yarn/FairScheduler.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o"
   "/home/amer/hsg/yarn/HddMediator.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
   "/home/amer/hsg/yarn/HeartBeater.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o"
   "/home/amer/hsg/yarn/NodeManager.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o"
   "/home/amer/hsg/yarn/ResourceManager.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o"
-  "/home/amer/hsg/yarn/YarnScheduler.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o"
+  "/home/amer/hsg/yarn/YarnSchedulerBase.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

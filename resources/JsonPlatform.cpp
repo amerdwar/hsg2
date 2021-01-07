@@ -11,7 +11,38 @@ JsonPlatform::JsonPlatform() {
 	// TODO Auto-generated constructor stub
 
 }
+vector<Capacity*>* JsonPlatform::readCapacityFile(){
+	string file="resources/cluster/capacity.json";
+	string str;
+	vector<Capacity *> *capacityEntrys=new vector<Capacity *> ();
+		Json::Value capacityArray;
+		std::ifstream jsonFile(file);
+		jsonFile >> capacityArray;
+		const Json::Value entrys = capacityArray["capacity"];
+		int allPercentVals=0;
+		for ( int index = 0; index < entrys.size(); ++index ){
+		string nameStr=entrys[index]["name"].asString();
+		int percentVal=entrys[index]["percent"].asInt();
+		allPercentVals+=percentVal;
+		if (allPercentVals>100){
+			XBT_INFO("capacity.json has bad data sum of percents is greater than 100");
+			exit(1);
+		}
+
+		Capacity *a=new Capacity(nameStr,percentVal);
+		capacityEntrys->push_back(a);
+		}
+		if (allPercentVals<100){
+				XBT_INFO("capacity.json has bad data sum of percents is less than 100");
+				exit(1);
+			}
+
+
+	return capacityEntrys;
+
+}
 void JsonPlatform::creatPlatform(string file) {
+
 string str;
 	Json::Value jobV;
 	std::ifstream jsonFile(file);
@@ -25,11 +56,14 @@ NameNode::chunkSize=jobV["chunkSize"].asInt64()*1024*1024;
 NameNode::replicatinNum=jobV["replicatinNum"].asInt();
 Hdd::readAccess=jobV["hddreadAccess"].asDouble();
 Hdd::writeAccess=jobV["hddwriteAccess"].asDouble();
-string scheduler=jobV["SchedulerType"].asString();
-if (scheduler.compare("fair")==0){
-	YarnScheduler::type=sch_type::fair;
+string schedulerStr=jobV["SchedulerType"].asString();
+if (schedulerStr.compare("fair")==0){
+	YarnSchedulerBase::type=sch_type::fair;
+}else if (schedulerStr.compare("capacity")==0){
+	YarnSchedulerBase::type=sch_type::capacity;
+
 }else{
-	YarnScheduler::type=sch_type::fifo;
+	YarnSchedulerBase::type=sch_type::fifo;
 }
 
 

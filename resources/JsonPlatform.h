@@ -15,6 +15,8 @@
 #include "../hdfs/Hdd.h"
 #include "../mapreduce/AppMaster.h"
 #include "../yarn/ResourceManager.h"
+#include "../yarn/Capacity.h"
+#include <vector>
 using namespace std;
 class JsonPlatform {
 public:
@@ -28,6 +30,7 @@ public:
 	string get_nn_or_rm(string router, Json::Value value,int h);
 	string get_route_nn_rm(string router, Json::Value value,int h);
 	string getDeployJson();
+	vector<Capacity*>* readCapacityFile();
 	virtual ~JsonPlatform();
 };
 

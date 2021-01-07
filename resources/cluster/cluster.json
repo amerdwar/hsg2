@@ -18,7 +18,7 @@
 	"backBoneLinkLatency":"100us",
 	"coreLinkSpeed":"10000MBps",
 	"coreLinkLatency":"100us",
-	"SchedulerType":"fair",
+	"SchedulerType":"fifo",
 	
 	"chunkSize":128,
 	"replicatinNum":2,

@@ -3,9 +3,9 @@
 	"numberOfReducers":1,
 	"useCombiner":true,
 	"useCompression":false,
-    "numOfFiles":2048,
-    "maxFileSize":1073741824,
-    "minFileSize":1073741824,
+    "numOfFiles":1,
+    "maxFileSize":100073741824,
+    "minFileSize":100073741824,
 	"mergeCost":2,
 	"mapCost":33,	
 	"recordSize":100,
@@ -31,5 +31,6 @@
          	"mapredJobShuffleMergePercent":0.66,
         	"memoryLimit":268435456.0,
 	"jobStartTime":10,
-        	"taskStartTime":24
+        	"taskStartTime":24,
+        	"queueName":"q2"
 }

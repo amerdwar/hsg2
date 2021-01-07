@@ -18,7 +18,7 @@ public:
 	string jobName = "job";
 	int64_t jid;
 	string user;
-
+string queueName="";
 
 	double jobStartTime=35;
     double taskStartTime=15;

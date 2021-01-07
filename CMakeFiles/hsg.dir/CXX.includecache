@@ -110,11 +110,19 @@ simgrid/s4u.hpp
 ../commons/Types.h
 /home/amer/hsg/commons/Types.h
 
-/home/amer/hsg/yarn/YarnScheduler.cpp
-YarnScheduler.h
-/home/amer/hsg/yarn/YarnScheduler.h
+/home/amer/hsg/yarn/FIFOScheduler.cpp
+FIFOScheduler.h
+/home/amer/hsg/yarn/FIFOScheduler.h
 
-/home/amer/hsg/yarn/YarnScheduler.h
+/home/amer/hsg/yarn/FIFOScheduler.h
+../hdfs/NameNode.h
+/home/amer/hsg/hdfs/NameNode.h
+../mapreduce/JobInfo.h
+/home/amer/hsg/mapreduce/JobInfo.h
+YarnSchedulerBase.h
+/home/amer/hsg/yarn/YarnSchedulerBase.h
+
+/home/amer/hsg/yarn/YarnSchedulerBase.h
 ../hdfs/NameNode.h
 /home/amer/hsg/hdfs/NameNode.h
 ../mapreduce/JobInfo.h

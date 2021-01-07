@@ -256,8 +256,6 @@ void MRClient::writeDate(JobInfo *job) {
 	DirFiles *dirF = static_cast<DirFiles *>(res->payload);
 	job->dir = dirF;
 
-
-
 	delete ms;
 }
 MRClient::~MRClient() {

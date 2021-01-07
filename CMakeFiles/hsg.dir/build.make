@@ -200,22 +200,9 @@ CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/HeartBeater.cpp -o CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.s
 
-CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: CMakeFiles/hsg.dir/flags.make
-CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o: yarn/YarnScheduler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o -c /home/amer/hsg/yarn/YarnScheduler.cpp
-
-CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/YarnScheduler.cpp > CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.i
-
-CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/YarnScheduler.cpp -o CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.s
-
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o: yarn/ResourceManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o -c /home/amer/hsg/yarn/ResourceManager.cpp
 
 CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.i: cmake_force
@@ -228,7 +215,7 @@ CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: yarn/NodeManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o -c /home/amer/hsg/yarn/NodeManager.cpp
 
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.i: cmake_force
@@ -241,7 +228,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o: yarn/HddMediator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o -c /home/amer/hsg/yarn/HddMediator.cpp
 
 CMakeFiles/hsg.dir/yarn/HddMediator.cpp.i: cmake_force
@@ -252,9 +239,74 @@ CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/HddMediator.cpp -o CMakeFiles/hsg.dir/yarn/HddMediator.cpp.s
 
+CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o: yarn/YarnSchedulerBase.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o -c /home/amer/hsg/yarn/YarnSchedulerBase.cpp
+
+CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/YarnSchedulerBase.cpp > CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.i
+
+CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/YarnSchedulerBase.cpp -o CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.s
+
+CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o: yarn/FIFOScheduler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o -c /home/amer/hsg/yarn/FIFOScheduler.cpp
+
+CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/FIFOScheduler.cpp > CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.i
+
+CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/FIFOScheduler.cpp -o CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.s
+
+CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o: yarn/FairScheduler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o -c /home/amer/hsg/yarn/FairScheduler.cpp
+
+CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/FairScheduler.cpp > CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.i
+
+CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/FairScheduler.cpp -o CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.s
+
+CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o: yarn/CapacityScheduler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o -c /home/amer/hsg/yarn/CapacityScheduler.cpp
+
+CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/CapacityScheduler.cpp > CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.i
+
+CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/CapacityScheduler.cpp -o CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.s
+
+CMakeFiles/hsg.dir/yarn/Capacity.cpp.o: CMakeFiles/hsg.dir/flags.make
+CMakeFiles/hsg.dir/yarn/Capacity.cpp.o: yarn/Capacity.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/hsg.dir/yarn/Capacity.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/yarn/Capacity.cpp.o -c /home/amer/hsg/yarn/Capacity.cpp
+
+CMakeFiles/hsg.dir/yarn/Capacity.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hsg.dir/yarn/Capacity.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amer/hsg/yarn/Capacity.cpp > CMakeFiles/hsg.dir/yarn/Capacity.cpp.i
+
+CMakeFiles/hsg.dir/yarn/Capacity.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hsg.dir/yarn/Capacity.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amer/hsg/yarn/Capacity.cpp -o CMakeFiles/hsg.dir/yarn/Capacity.cpp.s
+
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o: mapreduce/MRClient.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o -c /home/amer/hsg/mapreduce/MRClient.cpp
 
 CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.i: cmake_force
@@ -267,7 +319,7 @@ CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o: mapreduce/JobInfo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o -c /home/amer/hsg/mapreduce/JobInfo.cpp
 
 CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.i: cmake_force
@@ -280,7 +332,7 @@ CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o: mapreduce/AppMaster.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o -c /home/amer/hsg/mapreduce/AppMaster.cpp
 
 CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.i: cmake_force
@@ -293,7 +345,7 @@ CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Mapper.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o -c /home/amer/hsg/mapreduce/Mapper.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.i: cmake_force
@@ -306,7 +358,7 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o -c /home/amer/hsg/mapreduce/Reducer.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.i: cmake_force
@@ -319,7 +371,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o: mapreduce/Combiner.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.o -c /home/amer/hsg/mapreduce/Combiner.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.i: cmake_force
@@ -332,7 +384,7 @@ CMakeFiles/hsg.dir/mapreduce/Combiner.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o: mapreduce/Copier.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Copier.cpp.o -c /home/amer/hsg/mapreduce/Copier.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Copier.cpp.i: cmake_force
@@ -345,7 +397,7 @@ CMakeFiles/hsg.dir/mapreduce/Copier.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o: mapreduce/JsonJob.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o -c /home/amer/hsg/mapreduce/JsonJob.cpp
 
 CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.i: cmake_force
@@ -358,7 +410,7 @@ CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o: mapreduce/Counter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/Counter.cpp.o -c /home/amer/hsg/mapreduce/Counter.cpp
 
 CMakeFiles/hsg.dir/mapreduce/Counter.cpp.i: cmake_force
@@ -371,7 +423,7 @@ CMakeFiles/hsg.dir/mapreduce/Counter.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o: mapreduce/AsyncWriter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.o -c /home/amer/hsg/mapreduce/AsyncWriter.cpp
 
 CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.i: cmake_force
@@ -384,7 +436,7 @@ CMakeFiles/hsg.dir/mapreduce/AsyncWriter.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o: resources/JsonPlatform.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o -c /home/amer/hsg/resources/JsonPlatform.cpp
 
 CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.i: cmake_force
@@ -397,7 +449,7 @@ CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.o: json/jsoncpp.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/hsg.dir/json/jsoncpp.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/json/jsoncpp.cpp.o -c /home/amer/hsg/json/jsoncpp.cpp
 
 CMakeFiles/hsg.dir/json/jsoncpp.cpp.i: cmake_force
@@ -410,7 +462,7 @@ CMakeFiles/hsg.dir/json/jsoncpp.cpp.s: cmake_force
 
 CMakeFiles/hsg.dir/Main.cpp.o: CMakeFiles/hsg.dir/flags.make
 CMakeFiles/hsg.dir/Main.cpp.o: Main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/hsg.dir/Main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hsg.dir/Main.cpp.o -c /home/amer/hsg/Main.cpp
 
 CMakeFiles/hsg.dir/Main.cpp.i: cmake_force
@@ -434,10 +486,14 @@ hsg_OBJECTS = \
 "CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o" \
 "CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o" \
-"CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o" \
 "CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o" \
+"CMakeFiles/hsg.dir/yarn/Capacity.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o" \
 "CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o" \
@@ -466,10 +522,14 @@ hsg: CMakeFiles/hsg.dir/hdfs/HdfsFile.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/DataNode.cpp.o
 hsg: CMakeFiles/hsg.dir/hdfs/Hdd.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/HeartBeater.cpp.o
-hsg: CMakeFiles/hsg.dir/yarn/YarnScheduler.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/ResourceManager.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
 hsg: CMakeFiles/hsg.dir/yarn/HddMediator.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/YarnSchedulerBase.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/FIFOScheduler.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/FairScheduler.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/CapacityScheduler.cpp.o
+hsg: CMakeFiles/hsg.dir/yarn/Capacity.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/JobInfo.cpp.o
 hsg: CMakeFiles/hsg.dir/mapreduce/AppMaster.cpp.o
@@ -487,7 +547,7 @@ hsg: CMakeFiles/hsg.dir/build.make
 hsg: /usr/lib/libsimgrid.so
 hsg: /usr/lib/x86_64-linux-gnu/libgtest.a
 hsg: CMakeFiles/hsg.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking CXX executable hsg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/amer/hsg/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable hsg"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hsg.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

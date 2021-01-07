@@ -21,14 +21,37 @@ ResourceManager::ResourceManager(std::vector<std::string> args) {
 
 	initNodeManagers();
 	numFreeContainers = numAllContainers; //on create all the containers are free
-	scheduler = new YarnScheduler(numAllContainers, containers);
+	scheduler =  this-> getScheduler(numAllContainers, containers);
+	XBT_INFO("in resourse man");
 //run heart beater
 	heartBeater = this_actor::get_host()->get_name() + "_heartBeater";
 	ActorPtr beater = Actor::create(heartBeater, this_actor::get_host(),
 			HeartBeater(thismb->get_name(), heartBeater));
 
 }
+YarnSchedulerBase * ResourceManager::getScheduler(int numAllContainers , std::map<string, int> containers){
+	switch (YarnSchedulerBase::type) {
+		case sch_type::fifo: {
+			return new FIFOScheduler(numAllContainers,containers);
+			break;
+		}
+		case sch_type::fair: {
+			return new FairScheduler(numAllContainers,containers);
+			break;
+		}
+		case sch_type::capacity: {
+			return new CapacityScheduler(numAllContainers,containers);
+			break;
+		}
+		default: {
+			return new FIFOScheduler(numAllContainers,containers);
+			break;
+		}
 
+		}
+
+
+}
 void ResourceManager::operator()() {
 
 	Message* m = nullptr;
@@ -55,7 +78,7 @@ void ResourceManager::operator()() {
 			////XBT_INFO("receive job name  ");
 			JobInfo * j = static_cast<JobInfo*>(m->payload);
 
-			scheduler->waitingJobs.push_back(j);
+			scheduler->addJob(j);
 
 			break;
 		}

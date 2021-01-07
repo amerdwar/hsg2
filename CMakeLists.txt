@@ -30,10 +30,14 @@ hdfs/HdfsFile.cpp
 hdfs/DataNode.cpp
 hdfs/Hdd.cpp
 yarn/HeartBeater.cpp
-yarn/YarnScheduler.cpp
 yarn/ResourceManager.cpp
 yarn/NodeManager.cpp
 yarn/HddMediator.cpp
+yarn/YarnSchedulerBase.cpp
+yarn/FIFOScheduler.cpp
+yarn/FairScheduler.cpp
+yarn/CapacityScheduler.cpp
+yarn/Capacity.cpp
 mapreduce/MRClient.cpp
 mapreduce/JobInfo.cpp
 mapreduce/AppMaster.cpp

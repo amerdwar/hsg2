@@ -10,7 +10,10 @@
 #include "simgrid/s4u.hpp"
 #include "../hdfs/NameNode.h"
 #include "../mapreduce/JobInfo.h"
-#include "YarnScheduler.h"
+#include "YarnSchedulerBase.h"
+#include "FIFOScheduler.h"
+#include "FairScheduler.h"
+#include "CapacityScheduler.h"
 #include "HeartBeater.h"
 
 class ResourceManager {
@@ -27,7 +30,8 @@ public:
 	std::vector<JobInfo*> waitingJobs;
 	std::vector<JobInfo*> finishedJobs;
 	std::vector<JobInfo*> runningJobs;
-	YarnScheduler* scheduler;
+	YarnSchedulerBase * getScheduler(int numAllContainers , std::map<string, int> containers);
+	YarnSchedulerBase* scheduler;
 	explicit ResourceManager(std::vector<std::string> args);
 	ResourceManager();
 	void operator()();
