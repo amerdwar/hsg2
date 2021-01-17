@@ -36,7 +36,8 @@ public:
 	void addReq(allocateReq* allr);
 	std::vector<allocateRes*> allocate();
 
-
+	void finishJob(JobInfo *job);
+	void exportQstat();
 
 
 void insertFromMapToMap(std::map<string,int> containers

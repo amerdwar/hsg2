@@ -10,7 +10,7 @@
 JobInfo::JobInfo() {
 	// TODO Auto-generated constructor stub
 	this->jid = jobIds++;
-	ctr = new Counter("default");
+	ctr = new Counter("default","qNameDefault");
 }
 JobInfo * JobInfo::copy() {
 

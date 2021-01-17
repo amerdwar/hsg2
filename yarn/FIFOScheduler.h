@@ -27,6 +27,7 @@ public:
 	std::map<string,int> containers;
 	FIFOScheduler(int numAllCon,	std::map<string,int> containers);
 	void addJob(JobInfo* job);
+	void finishJob(JobInfo* job);
 	void addReq(allocateReq* allr);
 	std::vector<allocateRes*> allocate();
 

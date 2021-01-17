@@ -14,6 +14,7 @@ JsonJob::JsonJob() {
 
 JobInfo* JsonJob::getJobFromJson(string file) {
 	JobInfo* j = new JobInfo();
+
 	Json::Value jobV;
 	std::ifstream jsonFile(file);
 	jsonFile >> jobV;
@@ -72,8 +73,9 @@ JobInfo* JsonJob::getJobFromJson(string file) {
 	j->combinerType = jobV["combinerType"].asString();
 
 	j->ctr->jName = j->jobName;
-	j->queueName=jobV["queueName"].asString();
 
+	j->queueName=jobV["queueName"].asString();
+	j->ctr->Qname = j->queueName;
 	string ss = jobV.toStyledString();
 
 	//XBT_INFO("%s", ss.c_str());

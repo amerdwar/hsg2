@@ -42,6 +42,7 @@ public:
 	void printRes(allocateRes*);
 	void printReq(allocateReq*);
 	void freeCon(string host);
+	void finishJob(JobInfo* job);
 	virtual ~FairScheduler();
 };
 

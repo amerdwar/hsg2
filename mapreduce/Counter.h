@@ -20,8 +20,9 @@
 using namespace std;
 class Counter {
 public:
-string jName;
-	Counter(string jName);
+string jName,Qname;
+
+	Counter(string jName,string Qname);
 
 	std::mutex mtx;
 	vector<string> ctr_t_str {
@@ -77,6 +78,7 @@ string jName;
 			"reduce_file_bytes_read",
 			"reduce_file_bytes_write",
 			"memory"
+
 
 	};
 

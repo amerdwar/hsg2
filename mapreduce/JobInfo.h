@@ -83,6 +83,9 @@ string queueName="";
 	bool useCombiner = true;
 	bool useCompression = false;
 
+	double addToQtime=0;
+	double allocateTime=0;
+
 	JobInfo();
 	JobInfo *copy();
 	virtual ~JobInfo();

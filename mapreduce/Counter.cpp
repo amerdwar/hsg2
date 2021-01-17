@@ -7,8 +7,9 @@
 
 #include "Counter.h"
 XBT_LOG_NEW_DEFAULT_CATEGORY(Counter, "Messages specific for this example");
-Counter::Counter(string jName) {
+Counter::Counter(string jName,string Qname) {
 this->jName=jName;
+this->Qname=Qname;
 
 }
 double Counter::getCtr(ctr_t t){
@@ -83,6 +84,7 @@ for (auto const&t : ctrMap){
 s+="<td>"+ctr_t_str[t.first]+"</td><td> "+to_string(t.second)+"</td>";
 s+="</tr>";
 }
+s+="<tr><td>Qname</td><td>"+this->Qname+"</td></tr>";
 s+="</table></body></html>";
 myfile<<s;
 myfile.close();

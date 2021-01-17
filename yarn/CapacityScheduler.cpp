@@ -40,6 +40,7 @@ CapacityScheduler::CapacityScheduler(int numAllCon, std::map<string, int> con) {
 
 
 		FIFOScheduler *a = new FIFOScheduler(conCount, res);
+		a->qName=cItem->name;
 		XBT_INFO("the conCount %d",conCount);
 		this->allQ.insert(std::pair<string, FIFOScheduler*>(cItem->name, a));
 
@@ -50,7 +51,7 @@ CapacityScheduler::CapacityScheduler(int numAllCon, std::map<string, int> con) {
 
 }
 void CapacityScheduler::addReq(allocateReq *allr) {
-;
+
 	//all req is vector so we push back and serve first then erase first
 
 	this->allQ.at(allr->job->queueName)->addReq(allr);
@@ -109,6 +110,7 @@ void CapacityScheduler::insertFromMapToMap(std::map<string, int> con,
 
 	FIFOScheduler *a = new FIFOScheduler(conCount, res);
 
+
 	this->allQ.insert(std::pair<string, FIFOScheduler*>(jobName, a));
 }
 
@@ -121,4 +123,17 @@ void CapacityScheduler::printReq(allocateReq *res) {
 
 	////XBT_INFO(" fi=%i ch=%i ty=%i requester=%s", res->fIndex, res->chIndex,
 	//res->type, res->requester.c_str());
+}
+
+void CapacityScheduler::finishJob(JobInfo *job) {
+
+	this->allQ.at(job->queueName)->finishJob(job);
+}
+void CapacityScheduler::exportQstat(){
+
+	for (auto &kvp : this->allQ) {
+		kvp.second->exportStat();
+
+	}
+
 }

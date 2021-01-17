@@ -57,9 +57,13 @@ NameNode::replicatinNum=jobV["replicatinNum"].asInt();
 Hdd::readAccess=jobV["hddreadAccess"].asDouble();
 Hdd::writeAccess=jobV["hddwriteAccess"].asDouble();
 string schedulerStr=jobV["SchedulerType"].asString();
+//XBT_INFO("ss %s",schedulerStr.c_str());
+//exit(0);
 if (schedulerStr.compare("fair")==0){
 	YarnSchedulerBase::type=sch_type::fair;
+
 }else if (schedulerStr.compare("capacity")==0){
+
 	YarnSchedulerBase::type=sch_type::capacity;
 
 }else{
