@@ -24,6 +24,7 @@ CMakeFiles/hsg.dir/Main.cpp.o
  /home/amer/hsg/mapreduce/JsonJob.h
  /home/amer/hsg/mapreduce/MRClient.h
  /home/amer/hsg/mapreduce/Mapper.h
+ /home/amer/hsg/mapreduce/Merger.h
  /home/amer/hsg/mapreduce/Reducer.h
  /home/amer/hsg/messages/HddMsg.h
  /home/amer/hsg/messages/Message.h
@@ -229,6 +230,20 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o
  /home/amer/hsg/mapreduce/Mapper.h
  /home/amer/hsg/messages/Message.h
  /home/amer/hsg/yarn/HddMediator.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o
+ /home/amer/hsg/commons/CtrType.h
+ /home/amer/hsg/commons/Types.h
+ /home/amer/hsg/distributions/RandClass.h
+ /home/amer/hsg/hdfs/Chunk.h
+ /home/amer/hsg/hdfs/DirFiles.h
+ /home/amer/hsg/hdfs/HdfsFile.h
+ /home/amer/hsg/hdfs/NameNode.h
+ /home/amer/hsg/mapreduce/Counter.h
+ /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/mapreduce/Merger.cpp
+ /home/amer/hsg/mapreduce/Merger.h
+ /home/amer/hsg/messages/Message.h
+ /home/amer/hsg/yarn/HddMediator.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /home/amer/hsg/commons/CtrType.h
  /home/amer/hsg/commons/Types.h
@@ -243,6 +258,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o
  /home/amer/hsg/mapreduce/Copier.h
  /home/amer/hsg/mapreduce/Counter.h
  /home/amer/hsg/mapreduce/JobInfo.h
+ /home/amer/hsg/mapreduce/Merger.h
  /home/amer/hsg/mapreduce/Reducer.cpp
  /home/amer/hsg/mapreduce/Reducer.h
  /home/amer/hsg/messages/Message.h
@@ -378,6 +394,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o
  /home/amer/hsg/mapreduce/Counter.h
  /home/amer/hsg/mapreduce/JobInfo.h
  /home/amer/hsg/mapreduce/Mapper.h
+ /home/amer/hsg/mapreduce/Merger.h
  /home/amer/hsg/mapreduce/Reducer.h
  /home/amer/hsg/messages/Message.h
  /home/amer/hsg/yarn/HddMediator.h

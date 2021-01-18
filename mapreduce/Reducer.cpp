@@ -28,7 +28,7 @@ Reducer::Reducer(string thisName, string appMas, string NameNode,
 	thismb = Mailbox::by_name(thisName);
 	outputf = new HdfsFile(thisName, thisName, 0);
 
-	merger = new Combiner(job, dataNodeName, thisName,thisName);
+	merger = new Merger(job, dataNodeName, thisName,thisName);
 	//XBT_INFO("create reduce task");
 
 }

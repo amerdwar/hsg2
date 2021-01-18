@@ -48,6 +48,7 @@ mapreduce/Copier.cpp
 mapreduce/JsonJob.cpp
 mapreduce/Counter.cpp
 mapreduce/AsyncWriter.cpp
+mapreduce/Merger.cpp
 resources/JsonPlatform.cpp
 json/jsoncpp.cpp
 Main.cpp

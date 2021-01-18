@@ -24,6 +24,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/amer/hsg/mapreduce/JsonJob.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
   "/home/amer/hsg/mapreduce/MRClient.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
   "/home/amer/hsg/mapreduce/Mapper.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
+  "/home/amer/hsg/mapreduce/Merger.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o"
   "/home/amer/hsg/mapreduce/Reducer.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
   "/home/amer/hsg/messages/Message.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/messages/Message.cpp.o"
   "/home/amer/hsg/resources/JsonPlatform.cpp" "/home/amer/hsg/CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"

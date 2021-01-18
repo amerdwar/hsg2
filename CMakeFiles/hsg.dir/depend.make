@@ -23,6 +23,7 @@ CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/JsonJob.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/MRClient.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Mapper.h
+CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Merger.h
 CMakeFiles/hsg.dir/Main.cpp.o: mapreduce/Reducer.h
 CMakeFiles/hsg.dir/Main.cpp.o: messages/HddMsg.h
 CMakeFiles/hsg.dir/Main.cpp.o: messages/Message.h
@@ -229,6 +230,20 @@ CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: mapreduce/Mapper.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o: yarn/HddMediator.h
 
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: commons/CtrType.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: commons/Types.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: distributions/RandClass.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: hdfs/Chunk.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: hdfs/DirFiles.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: hdfs/HdfsFile.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: hdfs/NameNode.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: mapreduce/Counter.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: mapreduce/JobInfo.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: mapreduce/Merger.cpp
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: mapreduce/Merger.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: messages/Message.h
+CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o: yarn/HddMediator.h
+
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: commons/CtrType.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: commons/Types.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: distributions/RandClass.h
@@ -242,6 +257,7 @@ CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Combiner.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/JobInfo.h
+CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Merger.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.cpp
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: mapreduce/Reducer.h
 CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o: messages/Message.h
@@ -377,6 +393,7 @@ CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Copier.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Counter.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/JobInfo.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Mapper.h
+CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Merger.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: mapreduce/Reducer.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: messages/Message.h
 CMakeFiles/hsg.dir/yarn/NodeManager.cpp.o: yarn/HddMediator.h

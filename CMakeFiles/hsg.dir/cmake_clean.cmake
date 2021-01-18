@@ -19,6 +19,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/hsg.dir/mapreduce/JsonJob.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/MRClient.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/Mapper.cpp.o"
+  "CMakeFiles/hsg.dir/mapreduce/Merger.cpp.o"
   "CMakeFiles/hsg.dir/mapreduce/Reducer.cpp.o"
   "CMakeFiles/hsg.dir/messages/Message.cpp.o"
   "CMakeFiles/hsg.dir/resources/JsonPlatform.cpp.o"
