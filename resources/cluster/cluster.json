@@ -1,11 +1,11 @@
 
-{  "generatePlatformAndDeploy":true,
+{  "generatePlatformAndDeploy":false,
 	
 	"racksNum":1,
-	"hostsPerRack":4100,
-	"cpuSpeed":"3Gf",
+	"hostsPerRack":32,
+	"cpuSpeed":"2Gf",
 	"coresNum":"2",
-	"hddNums":3,
+	"hddNums":1,
 	"hddWriteSpeed":"120MBps",
 	"hddReadSpeed":"120MBps",
 	"hddreadAccess":0.014,
@@ -18,11 +18,11 @@
 	"backBoneLinkLatency":"100us",
 	"coreLinkSpeed":"10000MBps",
 	"coreLinkLatency":"100us",
-	"SchedulerType":"fair",
+	"SchedulerType":"fifo",
 	
-	"chunkSize":128,
-	"replicatinNum":2,
-	"slowStartNumFinishedMappers":5,
+	"chunkSize":64,
+	"replicatinNum":3,
+	"slowStartNumFinishedMappers":15,
 	"numCorePerContainer":1
 	 
 }

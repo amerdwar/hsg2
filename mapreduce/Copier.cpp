@@ -33,16 +33,20 @@ Copier::Copier(string thisName, string parent, int nCopiers, JobInfo* job,
 	outDiskV = new vector<spill*>();
 }
 
+
 void Copier::operator()() {
 	try{
+
 	thismb->set_receiver(Actor::self());
 	thismbForDataNode->set_receiver(Actor::self());
 	Message* m = nullptr;
 	bool isFinish = false;
+
 	do {
 
+
 		m = static_cast<Message*>(thismb->get());
-		//////XBT_INFO("in copier");
+
 		switch (m->type) {
 
 		case msg_type::finish_copier: {
@@ -59,6 +63,7 @@ void Copier::operator()() {
 			vector<spill*>* vt = static_cast<vector<spill*>*>(m->payload);
 
 			vector<vector<spill*>*>* allV = getMapsVecors(vt);
+
 
 			for (int i = 0; i < allV->size(); i++) {
 
@@ -86,9 +91,8 @@ void Copier::operator()() {
 			//XBT_INFO("sender is is %s", m->mapperName.c_str());
 
 
-			//XBT_INFO("readVA %i  ",readVAck.size());
-
 			readVAck.at(m->mapperName)--;
+
 			//XBT_INFO("readVA ");
 			if (readVAck.at(m->mapperName)==0) {
 				ackNum++;
@@ -109,6 +113,7 @@ void Copier::operator()() {
 
 		}
 
+
 		if (isFinish && ackNum == reqNum) {
 			////XBT_INFO("end copier %i ,%i  ,%i %i", isFinish, ackNum, reqNum,
 				//	q->size());
@@ -117,11 +122,16 @@ void Copier::operator()() {
 			break;
 
 		}
+
 	} while (true);
+
 	for (auto aa : pending_comms)
 		aa->wait();
+
+
 for (auto pp:actorPtrV)
 	pp->join();
+
 
 	Message *cpF1 = new Message(msg_type::finish_copier, this->thisName, parent,
 			0, outMemV);
@@ -130,6 +140,7 @@ for (auto pp:actorPtrV)
 			0, outDiskV);
 	parentMb->put(cpF1, 0);
 	parentMb->put(cpF2, 0);
+
 	}catch(exception &e){
 		XBT_INFO("**** ",e.what());
 		exit(1);

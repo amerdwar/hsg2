@@ -20,14 +20,6 @@ string.h
 ../mapreduce/JobInfo.h
 /home/amer/hsg/mapreduce/JobInfo.h
 
-/home/amer/hsg/distributions/RandClass.h
-random
--
-time.h
--
-../distributions/RandClass.h
-/home/amer/hsg/distributions/RandClass.h
-
 /home/amer/hsg/hdfs/Chunk.h
 iostream
 -
@@ -54,27 +46,17 @@ string
 vector
 -
 
-/home/amer/hsg/hdfs/NameNode.h
-iostream
--
-string
--
-vector
--
-map
--
-simgrid/kernel/routing/ClusterZone.hpp
-/home/amer/hsg/hdfs/simgrid/kernel/routing/ClusterZone.hpp
+/home/amer/hsg/mapreduce/AppMaster.cpp
+AppMaster.h
+/home/amer/hsg/mapreduce/AppMaster.h
+
+/home/amer/hsg/mapreduce/AppMaster.h
 simgrid/s4u.hpp
-/home/amer/hsg/hdfs/simgrid/s4u.hpp
-../distributions/RandClass.h
-/home/amer/hsg/distributions/RandClass.h
-DirFiles.h
-/home/amer/hsg/hdfs/DirFiles.h
+/home/amer/hsg/mapreduce/simgrid/s4u.hpp
 ../messages/Message.h
 /home/amer/hsg/messages/Message.h
-HdfsFile.h
-/home/amer/hsg/hdfs/HdfsFile.h
+JobInfo.h
+/home/amer/hsg/mapreduce/JobInfo.h
 
 /home/amer/hsg/mapreduce/Counter.h
 fstream
@@ -100,20 +82,6 @@ Counter.h
 ../hdfs/DirFiles.h
 /home/amer/hsg/hdfs/DirFiles.h
 
-/home/amer/hsg/mapreduce/Merger.cpp
-Merger.h
-/home/amer/hsg/mapreduce/Merger.h
-
-/home/amer/hsg/mapreduce/Merger.h
-simgrid/s4u.hpp
--
-math.h
--
-fstream
--
-../yarn/HddMediator.h
-/home/amer/hsg/yarn/HddMediator.h
-
 /home/amer/hsg/messages/Message.h
 string
 -
@@ -123,16 +91,4 @@ simgrid/s4u.hpp
 -
 ../commons/Types.h
 /home/amer/hsg/commons/Types.h
-
-/home/amer/hsg/yarn/HddMediator.h
-simgrid/s4u.hpp
-/home/amer/hsg/yarn/simgrid/s4u.hpp
-../hdfs/DirFiles.h
-/home/amer/hsg/hdfs/DirFiles.h
-../hdfs/HdfsFile.h
-/home/amer/hsg/hdfs/HdfsFile.h
-../hdfs/NameNode.h
-/home/amer/hsg/hdfs/NameNode.h
-../messages/Message.h
-/home/amer/hsg/messages/Message.h
 

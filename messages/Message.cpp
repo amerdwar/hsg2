@@ -18,10 +18,10 @@ Message::Message(msg_type type, string s, string r, int returnTag,
 	this->returnTag = returnTag;
 	this->id = ++allMid; //the message id
 	double d = simgrid::s4u::Engine::get_clock();
-	auto a = boost::format(
+	/*auto a = boost::format(
 			"time %5%  create Message (t=%1% ,s=%2% ,r=%3% , id=%4%) \n") % type
-			% sender % receiver % id % d;
-	traceStr = traceStr + a.str();
+			% sender % receiver % id % d;*/
+	//traceStr = traceStr + a.str();
 this->genId=this->id;
 this->cop_num=0;
 }

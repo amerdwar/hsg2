@@ -36,9 +36,11 @@ std::vector<allocateRes*> FIFOScheduler::allocate() {
 		std::vector<allocateRes*> tem = fifoServeReduce();
 		auto a = this_actor::exec_async(222);
 
+
 		for (auto item : tem) {
 			resV.push_back(item);
 		}
+
 
 	}
 
@@ -242,10 +244,11 @@ std::vector<allocateRes*> FIFOScheduler::fifoServeMap() {
 }
 std::vector<allocateRes*> FIFOScheduler::fifoServeReduce() {
 	std::vector<allocateRes*> resV;
-	allocateRes *re = new allocateRes();
+
 	int reducersNum = allReduceReq.at(0)->reducersNum;
 	for (int i = 0; i < reducersNum; i++) {
 		if (this->numAllCon > 0) {
+			allocateRes *re = new allocateRes();
 			re->chIndex = allReduceReq.at(0)->chIndex;
 			re->fIndex = allReduceReq.at(0)->fIndex;
 			re->dir = allReduceReq.at(0)->dir;
@@ -255,8 +258,12 @@ std::vector<allocateRes*> FIFOScheduler::fifoServeReduce() {
 			re->type = allReduceReq.at(0)->type;
 			re->job = allReduceReq.at(0)->job;
 			re->reducerId = allReduceReq.at(0)->redId++;
+
 			allReduceReq.at(0)->reducersNum -= 1;
+
 			resV.push_back(re);
+
+
 		} else {
 			break;
 		}

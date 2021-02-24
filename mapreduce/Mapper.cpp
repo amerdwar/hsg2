@@ -72,14 +72,15 @@ void Mapper::operator ()() {
 			spillSize); //here we use partitioner and combiner and write spilles to localhdd
 
 	exePtr->wait();
-	printMapOut(allspilles);
+
 //	exit(0);
 
 	for (int i = 0; i < allspilles->size(); i++) {
 
 		merger->mergeSpilles(allspilles->at(i));
 	}
-	////XBT_INFO(printMapOut(allspilles).c_str());
+
+
 
 	Message *finishMsg = new Message(msg_type::map_finish, thisName,
 			appMasterName, 0, allspilles);
@@ -181,7 +182,7 @@ map<int, vector<spill*>*>* Mapper::writeSpilles(double taskSize,
 		minFilesToCombine = false;
 
 	bool inMemSpill = false;
-
+    assert(spillNum!=0);
 	for (int i = 0; i < job->numberOfReducers; i++) {
 
 		vector<spill*> *vectorSpill = new vector<spill*>();

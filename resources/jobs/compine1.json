@@ -1,11 +1,11 @@
 {
 	"jobName":"test 100 G",
-	"numberOfReducers":1,
-	"useCombiner":true,
+	"numberOfReducers":12,
+	"useCombiner":false,
 	"useCompression":false,
-    "numOfFiles":100,
-    "maxFileSize":1073741824,
-    "minFileSize":1073741824,
+    "numOfFiles":1,
+    "maxFileSize":12884901888,
+    "minFileSize":12884901888,
 	"mergeCost":2,
 	"mapCost":33,	
 	"recordSize":100,
@@ -31,6 +31,6 @@
          	"mapredJobShuffleMergePercent":0.66,
         	"memoryLimit":268435456.0,
 	"jobStartTime":10,
-        	"taskStartTime":24,
+        	"taskStartTime":5,
         	"queueName":"q1"
 }

@@ -83,9 +83,10 @@ jsonJob=new  JsonJob();
 void MRClient::sendJob(JobInfo* job) {
 	Message *m = new Message(msg_type::cl_rm_send_job, thismb->get_name(),
 			rMangerName, 1, job);
-
-
-	job->ctr->setCtr(ctr_t::START_TIME,time(0));
+	using namespace std::chrono;
+						double realStart=(double)duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+realStart/=1000;
+	job->ctr->setCtr(ctr_t::START_TIME,realStart);
 	job->ctr->addToCtr(ctr_t::JOB_START_TIME,Engine::get_clock());
 
 	XBT_INFO("send job mssage %s", rManager->get_name().c_str());
@@ -151,7 +152,9 @@ vector<string> jNames= getAllJobs();
 
 				   double vm, rss;
 				   process_mem_usage(vm, rss);
-		double realStop=time(0);
+using namespace std::chrono;
+					double realStop=(double)duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+realStop/=1000;
 		realStop-=jj->ctr->getCtr(ctr_t::START_TIME);
 					jj->ctr->setCtr(ctr_t::STOP_TIME,realStop);
 					jj->ctr->setCtr(ctr_t::memory,rss);
